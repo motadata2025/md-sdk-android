@@ -2,9 +2,9 @@
 
 **Goal:** set up our Maven Central publishing account so we can publish the Android SDK under the namespace **`com.motadata`** (e.g. `com.motadata:motadata-rum-android`). This is **account setup only — no code work.**
 
-**Namespace (fixed):** `com.motadata` — verified by adding a DNS record to **motadata.com**. You will need someone with access to **motadata.com DNS** (our IT / domain admin) to add one TXT record. Arrange that before you start.
+**Namespace :** `com.motadata` — verified by adding a DNS record to **motadata.com**. You will need someone with access to **motadata.com DNS** (our IT / domain admin) to add one TXT record. Arrange that before you start.
 
-**What you deliver at the end:** the 4 secrets in §5. Hand them to engineering via our password manager.
+**What you deliver at the end:** the 4 secrets in §5. Hand them to engineering team.
 
 **Time:** ~30 min of work; allow up to a day total because DNS propagation and GPG key propagation involve waiting.
 
@@ -66,7 +66,7 @@ Maven Central requires every file to be GPG-signed. Run on your machine (install
 
 ---
 
-## 5. Hand these to engineering (via our password manager — not email, not git)
+## 5. Hand these to engineering team
 
 | # | Item | Where it came from |
 |---|---|---|
