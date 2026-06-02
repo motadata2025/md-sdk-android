@@ -1,137 +1,99 @@
-# Maven Central Account Setup — Step-by-Step
+# Maven Central Account Setup — `com.motadata`
 
-**Who this is for:** the person setting up our Maven Central publishing account.
-**Why:** we are publishing an Android SDK library (Maven coordinates like `com.motadata:motadata-rum-android`) so that other developers can install it with one Gradle line. Maven Central is the public registry Android/Java projects pull from by default. This guide gets the **account, namespace, signing key, and token** ready. You do **not** need to touch any code — this is account setup only.
+**Goal:** set up our Maven Central publishing account so we can publish the Android SDK under the namespace **`com.motadata`** (e.g. `com.motadata:motadata-rum-android`). This is **account setup only — no code work.**
 
-**What you produce at the end:** four secrets that you hand back to the engineering team (listed in §6). Keep them safe.
+**Namespace (fixed):** `com.motadata` — verified by adding a DNS record to **motadata.com**. You will need someone with access to **motadata.com DNS** (our IT / domain admin) to add one TXT record. Arrange that before you start.
 
-**Time:** ~30–45 min of work, but **start early** — two steps (namespace verification + key propagation) involve waiting (a few hours up to ~2 days).
+**What you deliver at the end:** the 4 secrets in §5. Hand them to engineering via our password manager.
 
----
-
-## 0. One decision to confirm with the team first: the namespace
-
-Maven Central artifacts are grouped under a **namespace** (the `groupId`, e.g. `com.motadata`). You must **prove you own it**. Two ways:
-
-| Namespace | How you prove ownership | When to use |
-|---|---|---|
-| **`com.motadata`** | Add a TXT record to **motadata.com DNS** | If we control motadata.com's DNS (preferred — most professional) |
-| **`io.github.motadata2025`** | Create a GitHub repo Sonatype names | Free & fast; if we don't have DNS access |
-
-👉 **Confirm with the team which one to register.** If unsure or you don't have DNS access, use **`io.github.motadata2025`** (instant, no domain needed). Everything below works the same for either.
+**Time:** ~30 min of work; allow up to a day total because DNS propagation and GPG key propagation involve waiting.
 
 ---
 
-## 1. Create a Sonatype Central account  (~5 min)
-
-1. Go to **https://central.sonatype.com**
-2. Click **Sign In** → register (you can log in with **GitHub** or **Google**, or email).
-3. Verify your email if prompted.
-
-> Note: the old "OSSRH / s01.oss.sonatype.org" system is deprecated. We use the **Central Portal** (central.sonatype.com). Ignore older guides that mention JIRA tickets.
+## 1. Create the Sonatype Central account
+1. Open **https://central.sonatype.com**
+2. Click **Sign In → Sign Up**. Register with our **company Google/GitHub account** (or a company email).
+3. Verify the email if asked.
 
 ---
 
-## 2. Register & verify the namespace  (⏱️ has waiting time — do this first)
-
-1. In the Central Portal, go to **View Namespaces** → **Add Namespace**.
-2. Enter the namespace from §0:
-   - `com.motadata`  **or**  `io.github.motadata2025`
-3. Sonatype shows a **verification method**:
-
-   **If `com.motadata` (DNS):**
-   - It gives you a **TXT record** value (a verification code).
-   - Add a DNS **TXT record** to `motadata.com` with that value (whoever manages our DNS does this — Cloudflare/GoDaddy/etc.).
-   - Back in the Portal, click **Verify**. (DNS can take minutes to a few hours to propagate.)
-
-   **If `io.github.motadata2025` (GitHub):**
-   - It tells you to create a **public GitHub repository** with a specific name (a temporary verification code) under the `motadata2025` account.
-   - Create that empty public repo. Click **Verify**. (Usually instant.)
-
-4. Wait until the namespace status shows **Verified**. ✅
+## 2. Register and verify the `com.motadata` namespace
+1. In the Portal, open **View Namespaces → Add Namespace**.
+2. Enter exactly: `com.motadata`
+3. The Portal shows a **TXT record value** (a verification code string).
+4. Add a **DNS TXT record to `motadata.com`** with that value:
+   - Host/Name: `motadata.com` (root domain)
+   - Type: `TXT`
+   - Value: the code from step 3
+   - (Do this in our DNS provider's console — Cloudflare/GoDaddy/Route53/etc. Ask IT/domain admin to add it if you don't have access.)
+5. Back in the Portal, click **Verify**. Wait until status = **Verified** (DNS can take minutes to a few hours). Re-click **Verify** until it turns green.
 
 ---
 
-## 3. Generate a GPG signing key  (⏱️ key propagation takes time)
+## 3. Generate the GPG signing key
+Maven Central requires every file to be GPG-signed. Run on your machine (install GnuPG first: `sudo apt install gnupg` on Linux, `brew install gnupg` on Mac).
 
-Maven Central **requires every uploaded file to be GPG-signed**. Create a key and publish its public half.
-
-> Do this on a trusted machine. Install GnuPG first if needed (`sudo apt install gnupg` on Linux, `brew install gnupg` on Mac).
-
-1. **Generate the key:**
+1. Generate the key:
    ```bash
    gpg --gen-key
    ```
-   - Enter a real name + email (use a team/company email if possible).
-   - Set a **passphrase** — **write it down**, you'll hand it over.
+   - Real name: `Motadata`
+   - Email: our company email
+   - **Passphrase:** set one and **write it down** — this is secret #2.
 
-2. **Find your key ID:**
+2. Get the KEY_ID:
    ```bash
    gpg --list-secret-keys --keyid-format=long
    ```
-   Look for a line like `sec   rsa3072/ABCDEF1234567890` — the part after the `/` is your **KEY_ID**.
+   Copy the value after `rsa3072/` (or similar) on the `sec` line — that is your **KEY_ID**.
 
-3. **Publish the public key to a keyserver** (so Maven Central can verify signatures):
+3. Publish the public key to the keyserver:
    ```bash
    gpg --keyserver keyserver.ubuntu.com --send-keys <KEY_ID>
    ```
-   (Propagation can take a few hours.)
 
-4. **Export the private key** (the engineering team needs this for automated signing in CI):
+4. Export the private key (secret #1):
    ```bash
    gpg --armor --export-secret-keys <KEY_ID> > private-key.asc
    ```
-   This `private-key.asc` file + the passphrase are two of the four secrets (see §6). **Treat them like a password.**
+   Keep `private-key.asc` secret — treat it like a password.
 
 ---
 
-## 4. Create a publishing token  (~2 min)
-
-1. In the Central Portal, click your **account name → View Account → Generate User Token**.
-2. It gives you a **username** and a **password** (a token pair) for the publishing API.
-3. **Copy both immediately** — the password is shown only once.
+## 4. Generate the publishing token
+1. In the Portal: **account name → View Account → Generate User Token**.
+2. Copy the **username** and **password** shown (the password is shown only once — secrets #3 and #4).
 
 ---
 
-## 5. (Optional) note the namespace you registered
-Write down the exact namespace string (`com.motadata` or `io.github.motadata2025`) — the engineering team needs it to set the library's `groupId`.
+## 5. Hand these to engineering (via our password manager — not email, not git)
 
----
-
-## 6. Hand these back to the engineering team (securely)
-
-Share via a password manager / secrets vault — **never** email or commit to git:
-
-| # | Item | From step |
+| # | Item | Where it came from |
 |---|---|---|
-| 1 | **GPG private key** (`private-key.asc` contents) | §3.4 |
-| 2 | **GPG key passphrase** | §3.1 |
-| 3 | **Central Portal token — username** | §4 |
-| 4 | **Central Portal token — password** | §4 |
-| 5 | The **namespace** string you registered (`com.motadata` / `io.github.motadata2025`) | §2 |
+| 1 | GPG private key — contents of `private-key.asc` | §3.4 |
+| 2 | GPG key passphrase | §3.1 |
+| 3 | Central Portal token — username | §4 |
+| 4 | Central Portal token — password | §4 |
 
-The engineering team plugs these into the CI pipeline (as `GPG_PRIVATE_KEY`, `GPG_PASSWORD`, `CENTRAL_PUBLISHER_USERNAME`, `CENTRAL_PUBLISHER_PASSWORD`) and the build publishes automatically.
+Namespace is fixed (`com.motadata`), so nothing else to report.
 
 ---
 
-## 7. Checklist
-
-- [ ] Decided namespace with the team (`com.motadata` or `io.github.motadata2025`)
+## 6. Done-checklist
+- [ ] Confirmed who can add a TXT record to motadata.com DNS
 - [ ] Sonatype Central account created (central.sonatype.com)
-- [ ] Namespace added **and Verified** (DNS TXT or GitHub repo)
-- [ ] GPG key generated; **public key sent to keyserver.ubuntu.com**
-- [ ] GPG private key exported (`private-key.asc`) + passphrase noted
+- [ ] `com.motadata` namespace added and status = **Verified**
+- [ ] GPG key generated; public key sent to `keyserver.ubuntu.com`
+- [ ] `private-key.asc` exported + passphrase written down
 - [ ] Central Portal user token generated (username + password copied)
-- [ ] All 5 items handed to engineering via a secure channel
+- [ ] All 4 secrets handed to engineering securely
 
 ---
 
-## 8. Common pitfalls
-- **"Namespace not verified" when publishing** → the DNS TXT / GitHub verify step (§2) didn't complete; re-check status in the Portal.
-- **"No public key" / signature errors** → the public key wasn't sent to the keyserver, or hasn't propagated yet (wait a few hours); re-run §3.3.
-- **Lost the token password** → just generate a new token (§4); the old one can be revoked.
-- **Don't use** the legacy `oss.sonatype.org` / JIRA flow — that's deprecated; use **central.sonatype.com**.
+## 7. If something fails
+- **Namespace won't verify** → the TXT record isn't live yet or the value is wrong. Confirm the record with `dig TXT motadata.com` (or `nslookup -type=TXT motadata.com`), wait for propagation, click **Verify** again.
+- **Signature/"no public key" error later** → the public key wasn't sent or hasn't propagated; re-run §3.3 and wait a few hours.
+- **Lost token password** → generate a new token (§4) and revoke the old one.
+- Use **only** central.sonatype.com. The old `oss.sonatype.org` / JIRA process is deprecated — ignore guides that mention it.
 
----
-
-*Reference: Sonatype Central Portal docs — https://central.sonatype.org/register/central-portal/*
+*Reference: https://central.sonatype.org/register/central-portal/*
