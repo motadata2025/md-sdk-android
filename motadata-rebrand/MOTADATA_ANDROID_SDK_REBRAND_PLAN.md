@@ -283,7 +283,11 @@ The repo already has the machinery (Sonatype Central via `nexus-publish`, GPG si
   - **Pilot now:** JitPack / GitHub Packages (zero setup) → end-to-end test immediately.
   - **On-prem GA:** **self-hosted Maven repo bundled in the appliance** — customers pull behind their firewall.
   - **SaaS GA:** **Maven Central** under `com.motadata` (`mavenCentral()` default, no extra config).
-- **Publish the full module closure** (`-core` transitive, `-rum`, `-okhttp`, + any internal `project(...)` deps) — else "could not find …-core" at the customer.
+- **Publish the full module closure** (each module = one Maven artifact = AAR + POM; AARs do **not** bundle deps — the POM lists them, Gradle resolves them at the customer's build). Verified closure:
+  - **Plain RUM** (`motadata-rum-android`) = **3 AARs**: `core`, `internal`, `rum`.
+  - **+ Resource events** (`motadata-rum-android-okhttp`) = **7 AARs**: add `trace`, `trace-api`, `trace-internal`, `okhttp` (the okhttp interceptor **`api`-depends on `trace`**, which pulls `trace-api` + `trace-internal`).
+  - Module→dep graph: `core→internal` · `rum→core,internal` · `trace→core,trace-api,trace-internal,internal` · `okhttp→internal,rum,trace`.
+  - Publish **every** module in the chosen set, or the customer gets "could not find …-core / …-trace".
 - **Central steps:** namespace → GPG (`GPG_PRIVATE_KEY`/`GPG_PASSWORD`, `MavenConfig.kt:94-95`) → token (`CENTRAL_PUBLISHER_USERNAME/_PASSWORD`, root `build.gradle.kts:62-63`) → apply Part 1D → `./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository`.
 
 > Browser shipped to npm `@motadata365` (`b2572c5`); Maven Central + self-hosted repo is the Android analog.

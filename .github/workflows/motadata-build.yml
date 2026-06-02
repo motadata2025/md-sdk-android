@@ -29,16 +29,20 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Build core + rum + okhttp (debug)
+      - name: Build full shipping closure (7 modules, debug)
         run: |
           ./gradlew \
             :dd-sdk-android-core:assembleDebug \
+            :dd-sdk-android-internal:assembleDebug \
             :features:dd-sdk-android-rum:assembleDebug \
+            :features:dd-sdk-android-trace:assembleDebug \
+            :features:dd-sdk-android-trace-api:assembleDebug \
+            :features:dd-sdk-android-trace-internal:assembleDebug \
             :integrations:dd-sdk-android-okhttp:assembleDebug \
             --no-daemon --stacktrace
 
       - name: List built AARs
         if: always()
         run: |
-          echo "=== produced AAR artifacts ==="
-          find . -path '*/build/outputs/aar/*.aar' -printf '%p\n' 2>/dev/null || true
+          echo "=== produced AAR artifacts (expect 7) ==="
+          find . -path '*/build/outputs/aar/*.aar' -printf '%p\n' 2>/dev/null | sort || true
