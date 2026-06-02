@@ -3,6 +3,13 @@
 Docs needed to rebrand this `dd-sdk-android` fork into the **Motadata Android RUM SDK**.
 Copied here so we don't go back and forth to the Motadata repo. **Start with the plan.**
 
+> ## ▶ RESUME POINT (read this first if you're a new session)
+> **Goal:** fork `dd-sdk-android` 3.10.0 → `com.motadata:motadata-rum-android` (+ closure), zero `datadog`/`dd`/`DD-` anywhere customer/server-facing (only the legal Apache source header stays). Feeds Motadata's custom RUM endpoint. Mirrors the `motadata2025/browser-sdk` fork.
+> **Plan (single source of truth):** `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md` here. **Loop:** `WORKFLOW.md` here.
+> **Branch model:** `motadata-dev` = ALL debranding/renames only (incl. `_dd`→`_md` via in-repo JSON schemas). `motadata-dev-with-functional-changes` (cut from it) = functional ADDITIONS only (`md-api-key` query, `is_view_completed`, `session.created`, `context._timing`, public `allowClearTextHttp()`, init log).
+> **Builds:** GitHub Actions only (`gh` authed as motadata2025; `gh ... -R motadata2025/md-sdk-android`). NEVER build locally (laptop hangs). Edit → push → CI builds 7-module closure → read logs.
+> **CURRENT STATUS:** ✅ baseline 3.10.0 on `motadata-dev` builds green on CI (all 7 AARs). Branch-1 rename **NOT started yet**. **NEXT STEP:** begin the `com.datadog.android` → `com.motadata.android` package rename (plan §1A) as edits → push → confirm CI green → continue down the scrub list.
+
 | File | What it is | Use it for |
 |---|---|---|
 | **`MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`** | ⭐ The rebrand plan — every change with exact `file:line` | **The checklist we execute.** Part 1 = scrub all `datadog` (imports, in-event strings, wire, Maven); Part 2 = custom use-cases (`md-api-key`, `is_view_completed`, http/https); Parts 3-6 = verify/publish/CI. |
