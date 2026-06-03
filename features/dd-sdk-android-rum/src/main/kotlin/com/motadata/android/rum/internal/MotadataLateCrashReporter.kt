@@ -330,7 +330,7 @@ internal class MotadataLateCrashReporter(
     }
 
     private val ViewEvent.sampleRate: Float
-        get() = dd.configuration?.sessionSampleRate?.toFloat() ?: 0f
+        get() = md.configuration?.sessionSampleRate?.toFloat() ?: 0f
 
     private val ViewEvent.isWithinSessionAvailability: Boolean
         get() {
