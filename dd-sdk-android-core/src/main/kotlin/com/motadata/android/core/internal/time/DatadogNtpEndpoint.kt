@@ -14,20 +14,20 @@ internal enum class DatadogNtpEndpoint(val host: String) {
     /**
      * Endpoint for the Network Time Protocol time syncing.
      */
-    NTP_0("0.datadog.pool.ntp.org"),
+    NTP_0("0.pool.ntp.org"),
 
     /**
      * Endpoint for the Network Time Protocol time syncing.
      */
-    NTP_1("1.datadog.pool.ntp.org"),
+    NTP_1("1.pool.ntp.org"),
 
     /**
      * Endpoint for the Network Time Protocol time syncing.
      */
-    NTP_2("2.datadog.pool.ntp.org"),
+    NTP_2("2.pool.ntp.org"),
 
     /**
      * Endpoint for the Network Time Protocol time syncing.
      */
-    NTP_3("3.datadog.pool.ntp.org")
+    NTP_3("3.pool.ntp.org")
 }

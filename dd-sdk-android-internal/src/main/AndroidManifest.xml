@@ -10,7 +10,7 @@
 
         <provider
             android:name="com.motadata.android.rum.DdRumContentProvider"
-            android:authorities="${applicationId}.provider.datadog.rum"
+            android:authorities="${applicationId}.provider.motadata.rum"
             android:exported="false" />
 
     </application>

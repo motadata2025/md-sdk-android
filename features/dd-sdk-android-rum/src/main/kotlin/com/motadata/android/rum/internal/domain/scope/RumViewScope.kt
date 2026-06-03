@@ -1628,7 +1628,7 @@ internal open class RumViewScope(
          * We use [android.util.Log] here instead of [InternalLogger] because we want to log regardless of the
          * verbosity level set using [com.motadata.android.Motadata.setVerbosity].
          */
-        Log.i("DatadogSynthetics", "$key=$value")
+        Log.i("MotadataSynthetics", "$key=$value")
     }
 
     // endregion

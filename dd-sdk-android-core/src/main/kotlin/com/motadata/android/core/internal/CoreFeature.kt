@@ -777,7 +777,7 @@ internal class CoreFeature(
 
         internal val NETWORK_TIMEOUT_MS = TimeUnit.SECONDS.toMillis(45)
         private const val CORE_DEFAULT_POOL_SIZE = 1 // Only one thread will be kept alive
-        internal const val DATADOG_STORAGE_DIR_NAME = "datadog-%s"
+        internal const val DATADOG_STORAGE_DIR_NAME = "motadata-%s"
 
         // this is a default source to be used when uploading RUM/Logs/Span data, however there is a
         // possibility to override it which is useful when SDK is used via bridge, say

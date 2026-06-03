@@ -147,7 +147,7 @@ internal class DatadogCore(
     /** @inheritDoc */
     @AnyThread
     override fun setTrackingConsent(consent: TrackingConsent) {
-        coreFeature.contextExecutorService.executeSafe("DatadogCore.setTrackingConsent", internalLogger) {
+        coreFeature.contextExecutorService.executeSafe("MotadataCore.setTrackingConsent", internalLogger) {
             coreFeature.trackingConsentProvider.setConsent(consent)
         }
     }
@@ -161,7 +161,7 @@ internal class DatadogCore(
         extraInfo: Map<String, Any?>
     ) {
         val extraInfoSnapshot = extraInfo.toMap()
-        coreFeature.contextExecutorService.executeSafe("DatadogCore.setUserInfo", internalLogger) {
+        coreFeature.contextExecutorService.executeSafe("MotadataCore.setUserInfo", internalLogger) {
             coreFeature.userInfoProvider.setUserInfo(id, name, email, extraInfoSnapshot)
         }
     }
@@ -170,7 +170,7 @@ internal class DatadogCore(
     @AnyThread
     override fun addUserProperties(extraInfo: Map<String, Any?>) {
         val extraInfoSnapshot = extraInfo.toMap()
-        coreFeature.contextExecutorService.executeSafe("DatadogCore.addUserProperties", internalLogger) {
+        coreFeature.contextExecutorService.executeSafe("MotadataCore.addUserProperties", internalLogger) {
             coreFeature.userInfoProvider.addUserProperties(extraInfoSnapshot)
         }
     }
@@ -178,7 +178,7 @@ internal class DatadogCore(
     /** @inheritDoc */
     @AnyThread
     override fun clearUserInfo() {
-        coreFeature.contextExecutorService.executeSafe("DatadogCore.clearUserInfo", internalLogger) {
+        coreFeature.contextExecutorService.executeSafe("MotadataCore.clearUserInfo", internalLogger) {
             coreFeature.userInfoProvider.clearUserInfo()
         }
     }
@@ -186,7 +186,7 @@ internal class DatadogCore(
     /** @inheritDoc */
     @AnyThread
     override fun clearAllData() {
-        coreFeature.contextExecutorService.executeSafe("DatadogCore.clearAllData", internalLogger) {
+        coreFeature.contextExecutorService.executeSafe("MotadataCore.clearAllData", internalLogger) {
             features.values.forEach {
                 it.clearAllData()
             }
@@ -203,7 +203,7 @@ internal class DatadogCore(
         extraInfo: Map<String, Any?>
     ) {
         val extraInfoSnapshot = extraInfo.toMap()
-        coreFeature.contextExecutorService.executeSafe("DatadogCore.setAccountInfo", internalLogger) {
+        coreFeature.contextExecutorService.executeSafe("MotadataCore.setAccountInfo", internalLogger) {
             coreFeature.accountInfoProvider.setAccountInfo(id, name, extraInfoSnapshot)
         }
     }
@@ -212,13 +212,13 @@ internal class DatadogCore(
         extraInfo: Map<String, Any?>
     ) {
         val extraInfoSnapshot = extraInfo.toMap()
-        coreFeature.contextExecutorService.executeSafe("DatadogCore.addAccountExtraInfo", internalLogger) {
+        coreFeature.contextExecutorService.executeSafe("MotadataCore.addAccountExtraInfo", internalLogger) {
             coreFeature.accountInfoProvider.addExtraInfo(extraInfoSnapshot)
         }
     }
 
     override fun clearAccountInfo() {
-        coreFeature.contextExecutorService.executeSafe("DatadogCore.clearAccountInfo", internalLogger) {
+        coreFeature.contextExecutorService.executeSafe("MotadataCore.clearAccountInfo", internalLogger) {
             coreFeature.accountInfoProvider.clearAccountInfo()
         }
     }
@@ -241,7 +241,7 @@ internal class DatadogCore(
         }
         if (useContextThread) {
             coreFeature.contextExecutorService.executeSafe(
-                "DatadogCore.updateFeatureContext-$featureName",
+                "MotadataCore.updateFeatureContext-$featureName",
                 internalLogger,
                 runnable
             )
@@ -266,11 +266,11 @@ internal class DatadogCore(
         return if (useContextThread) {
             coreFeature.contextExecutorService
                 .submitSafe(
-                    "DatadogCore.getFeatureContext-$featureName",
+                    "MotadataCore.getFeatureContext-$featureName",
                     internalLogger,
                     callable
                 )
-                .getSafe("DatadogCore.getFeatureContext-$featureName", internalLogger)
+                .getSafe("MotadataCore.getFeatureContext-$featureName", internalLogger)
                 .orEmpty()
         } else {
             @Suppress("UnsafeThirdPartyFunctionCall") // not 3rd party
@@ -343,7 +343,7 @@ internal class DatadogCore(
     }
 
     override fun setAnonymousId(anonymousId: UUID?) {
-        coreFeature.contextExecutorService.executeSafe("DatadogCore.setAnonymousId", internalLogger) {
+        coreFeature.contextExecutorService.executeSafe("MotadataCore.setAnonymousId", internalLogger) {
             coreFeature.userInfoProvider.setAnonymousId(anonymousId?.toString())
         }
     }

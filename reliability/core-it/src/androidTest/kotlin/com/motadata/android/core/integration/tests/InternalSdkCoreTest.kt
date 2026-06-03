@@ -616,6 +616,6 @@ class InternalSdkCoreTest : MockServerTest() {
         private const val ANDROID_SOURCE = "android"
         private const val BUILD_ID = "core_it_build_id"
         private const val PACKAGE_NAME = "com.motadata.android.core.integration"
-        internal const val DATADOG_STORAGE_DIR_NAME_FORMAT = "datadog-(.*)"
+        internal const val DATADOG_STORAGE_DIR_NAME_FORMAT = "motadata-(.*)"
     }
 }
