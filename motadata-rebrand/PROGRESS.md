@@ -17,7 +17,7 @@ step does = `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`. This file tracks *status onl
 | 1 | Package rename `com.datadog.android` → `com.motadata.android` (dotted + slash + JNI-underscore; 88 dirs) | ✅ | `7feb71787`, `615aa7835` | 26868076588 ✅ |
 | 2 | Class renames `Datadog`→`Motadata` (`DatadogInterceptor`, `DatadogEventListener`, `DatadogSite`, …) — plan §1A | ✅ | `a30d2fa17` | 26869349974 ✅ |
 | 3 | In-event strings — plan §1B (launch view url/id, `telemetry.service`, flags/meter → `motadata-rum-android`) | ✅ | `f66b053e2` | 26870147865 ✅ |
-| 4 | Thread names `datadog-*` → `motadata-*` — plan §1B.8 / §1E.2-4 | ⬜ | — | — |
+| 4 | Thread names `datadog-*` → `motadata-*` — plan §1B.8 / §1E.2-4 | ✅ | `f94c6fd55` | 26874612559 ✅ |
 | 5 | Wire names `DD-*`→`MD-*`, `ddsource`/`ddtags`→`mdsource`/`mdtags`, logcat tags — plan §1C | ⬜ | — | — |
 | 6 | Runtime leaks: NTP→`pool.ntp.org`, User-Agent, storage dir, logcat messages — plan §1E | ⬜ | — | — |
 | 7 | Body envelope `_dd`→`_md`, `ddtags`→`mdtags` via JSON-schema edit + codegen regen — plan §2.6 | ⬜ | — | — |
@@ -47,6 +47,11 @@ step does = `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`. This file tracks *status onl
   - `group = "datadog"` Gradle task-group labels in `buildSrc` (~10×) — cosmetic, internal-only, not shipped.
   - `MavenConfig.kt` `GROUP_ID = "com.datadoghq"` and AAR/artifact filenames `dd-sdk-android-*` → **step 8**.
 - **Telemetry stays ON** (server ignores it). Ship core + rum + okhttp closure (7 AARs); not session-replay.
+
+### Step-4 detail (for the record)
+- Thread names: `datadog-*-thread-*`→`motadata-*` (DatadogThreadFactory, guarded on `-thread-` so storage `datadog-%s` untouched); `datadog_shutdown`→`motadata_shutdown` (DatadogCore). WorkManager: `DatadogUploadWorker`→`MotadataUploadWorker`, `DatadogBackgroundUpload`→`MotadataBackgroundUpload`. Coupled `DatadogThreadFactoryTest` assertions updated.
+- **Folded in (was a step-3/§1B miss):** background-view in-event strings `com.datadog.background.view`→`com.motadata…` + view.url `com/datadog/background/view`→`com/motadata…` (RumViewManagerScope:456-457). All §1B in-event view seeds now scrubbed (launch + background).
+- **Deferred (logged):** trace `dd-agent-startup-datadog-tracer/-profiler` thread names (AgentThreadFactory, `com.datadog.trace` namespace = trace internals); storage dir `datadog-%s` + reliability regex `datadog-(.*)` → **step 6**; internal const *identifiers* (`TAG_DATADOG_UPLOAD`, `DATADOG_STORAGE_DIR_NAME`, `DATADOG_*_HEADER`) — not serialized, left.
 
 ### Step-2 detail (for the record)
 - Renamed the 7 §1A public types **and their whole families** (tests/factories/extensions/providers) repo-wide: `Datadog`→`Motadata` (object), `DatadogInterceptor`, `DatadogEventListener`, `DatadogSite`, `DatadogContext`(+`Provider`/`Storage`/`Wrapper`), `DatadogDatabaseErrorHandler`, `DatadogDataConstraints`. 26 files renamed.
