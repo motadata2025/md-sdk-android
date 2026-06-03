@@ -20,7 +20,7 @@ step does = `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`. This file tracks *status onl
 | 4 | Thread names `datadog-*` → `motadata-*` — plan §1B.8 / §1E.2-4 | ✅ | `f94c6fd55` | 26874612559 ✅ |
 | 5 | Wire names `DD-*`→`MD-*`, `ddsource`/`ddtags`→`mdsource`/`mdtags`, logcat tags — plan §1C | ✅ | `df3e9c0d9` | 26876753887 ✅ |
 | 6 | Runtime leaks: NTP→`pool.ntp.org`, User-Agent, storage dir, logcat messages — plan §1E | ✅ | `df269823f` | 26877583518 ✅ |
-| 6.5 | Internal class-name debrand (remaining `Datadog*`/`Dd*` internal classes → `Motadata*`/`Md*`) — pure rename, no behavior/API-shape change | ⬜ | — | — |
+| 6.5 | Internal class-name debrand (remaining `Datadog*`/`Dd*` internal classes → `Motadata*`/`Md*`) — pure rename, no behavior/API-shape change | ✅ | `61de63f52`,`236f36aeb` | 26879305308 ✅ |
 | 7 | Body envelope `_dd`→`_md`, `ddtags`→`mdtags` via JSON-schema edit + codegen regen — plan §2.6 | ⬜ | — | — |
 | 8 | Maven coords + POM: group `com.motadata`, version `1.0.0`, artifact ids — plan §1D | ⬜ | — | — |
 | 9 | `apiDumpAll` + `generateApiSurfaceAll` + fix broken tests → full green — plan Part 6 | ⬜ | — | — |
@@ -48,6 +48,12 @@ step does = `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`. This file tracks *status onl
   - `group = "datadog"` Gradle task-group labels in `buildSrc` (~10×) — cosmetic, internal-only, not shipped.
   - `MavenConfig.kt` `GROUP_ID = "com.datadoghq"` and AAR/artifact filenames `dd-sdk-android-*` → **step 8**.
 - **Telemetry stays ON** (server ignores it). Ship core + rum + okhttp closure (7 AARs); not session-replay.
+
+### Step-6.5 detail (for the record)
+- Renamed all 106 `Datadog*`/`Dd*` classes DEFINED in `com.motadata.*` → `Motadata*`/`Md*` (+ 4 extension files + manifest `MdRumContentProvider`). 110 files moved. No cross-namespace collisions.
+- **Gotcha (2nd commit):** word-boundary rename skipped identifiers where Datadog/Dd is embedded after a prefix. Build broke on `@NoOpImplementation` codegen: generator emits `NoOpMotadata*` from renamed interfaces, but hand-written refs still said `NoOpDatadog*`. Fixed: `NoOpDatadogPropagation`(hand-written)/`NoOpDatadogTracer`/`NoOpDatadogTracerBuilder` → `NoOpMotadata*`, `GlobalDatadogTracer`→`GlobalMotadataTracer`, `UnsupportedDatadogSpanContextImplementation`→`UnsupportedMotadata…`, test `NonDdTracer`→`NonMdTracer`.
+- **LEFT (deliberate, user-agreed — not customer/server-facing, outside scrub scope):** camelCase var/method names — `fakeDatadogContext`/`mockDatadogContext` (test-only, never shipped) and `getDatadogContext()` on `InternalSdkCore` (internal cross-module API, 544 refs, only visible in decompiled bytecode). Renaming = unnecessary churn.
+- **Still out of scope (separate namespaces):** `com.datadog.trace`/`tools`/`benchmark` vendored packages + their classes (`DatadogHttpCodec`, `DatadogBaseMeter`…); session-replay `androidx` accessor. Generated `Dd*` `_dd` models (`DdSession`/`DdAction`/`DdDevice`) → renamed by **step 7**.
 
 ### Step-5 detail (for the record)
 - RequestFactory.kt: `DD-API-KEY`/`DD-EVP-ORIGIN`/`DD-REQUEST-ID`/`DD-IDEMPOTENCY-KEY`→`MD-*`; query `ddsource`→`mdsource`, `ddtags`→`mdtags`. SdkInternalLogger `SDK_LOG_TAG` `DD_LOG`→`MD_LOG` (`DEV_LOG_TAG` already `Motadata` from step-2 bare-word pass). SKILL.md logcat tag updated to match.
