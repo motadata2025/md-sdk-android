@@ -18,7 +18,7 @@ import com.motadata.android.rum.Rum
 import com.motadata.android.rum.RumConfiguration
 import com.motadata.android.rum.tracking.ActivityViewTrackingStrategy
 import com.motadata.android.trace.MotadataTracing
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
 import com.motadata.android.trace.opentelemetry.MotadataOpenTelemetry
@@ -85,7 +85,7 @@ class WearApplication : Application() {
             email = null
         )
 
-        GlobalDatadogTracer.registerIfAbsent(
+        GlobalMotadataTracer.registerIfAbsent(
             MotadataTracing.newTracerBuilder(checkNotNull(sdkCore))
                 .withServiceName(BuildConfig.APPLICATION_ID)
                 .build()

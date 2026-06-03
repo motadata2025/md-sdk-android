@@ -8,7 +8,7 @@ package com.motadata.android.trace.sqlite
 
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.api.scope.MotadataScope
 import com.motadata.android.trace.api.span.MotadataSpan
 import com.motadata.android.trace.api.span.MotadataSpanBuilder
@@ -69,7 +69,7 @@ class SqliteDatabaseExtTest {
 
     @BeforeEach
     fun `set up`() {
-        GlobalDatadogTracer.registerIfAbsent(mockTracer)
+        GlobalMotadataTracer.registerIfAbsent(mockTracer)
         whenever(mockTracer.buildSpan(fakeOperationName)) doReturn mockSpanBuilder
         whenever(mockTracer.activateSpan(mockSpan)) doReturn mockScope
         whenever(mockSpanBuilder.start()) doReturn mockSpan
@@ -77,7 +77,7 @@ class SqliteDatabaseExtTest {
 
     @AfterEach
     fun `tear down`() {
-        GlobalDatadogTracer.clear()
+        GlobalMotadataTracer.clear()
     }
 
     @Test

@@ -12,7 +12,7 @@ import com.motadata.android.tests.ktx.getInt
 import com.motadata.android.tests.ktx.getLong
 import com.motadata.android.tests.ktx.getString
 import com.motadata.android.trace.MotadataTracing
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
 import com.motadata.android.trace.api.clear
@@ -61,7 +61,7 @@ class UtilitiesTest {
     @AfterEach
     fun `tear down`() {
         _TraceInternalProxy.clear()
-        GlobalDatadogTracer.clear()
+        GlobalMotadataTracer.clear()
     }
 
     @RepeatedTest(16)
@@ -279,7 +279,7 @@ class UtilitiesTest {
     ) {
         // Given
         val testedTracer = MotadataTracing.newTracerBuilder(stubSdkCore).build()
-        GlobalDatadogTracer.registerIfAbsent(testedTracer)
+        GlobalMotadataTracer.registerIfAbsent(testedTracer)
 
         // When
         var traceId = ""
@@ -321,7 +321,7 @@ class UtilitiesTest {
     ) {
         // Given
         val testedTracer = MotadataTracing.newTracerBuilder(stubSdkCore).build()
-        GlobalDatadogTracer.registerIfAbsent(testedTracer)
+        GlobalMotadataTracer.registerIfAbsent(testedTracer)
 
         // When
         var traceId0 = ""
@@ -380,7 +380,7 @@ class UtilitiesTest {
     ) {
         // Given
         val testedTracer = MotadataTracing.newTracerBuilder(stubSdkCore).build()
-        GlobalDatadogTracer.registerIfAbsent(testedTracer)
+        GlobalMotadataTracer.registerIfAbsent(testedTracer)
 
         // When
         var traceId = ""

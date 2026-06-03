@@ -11,7 +11,7 @@ import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.trace.api.tracer.MotadataTracerBuilder
-import com.motadata.android.trace.api.tracer.NoOpDatadogTracerBuilder
+import com.motadata.android.trace.api.tracer.NoOpMotadataTracerBuilder
 import com.motadata.android.trace.internal.MotadataSpanWriterWrapper
 import com.motadata.android.trace.internal.MotadataTracerBuilderAdapter
 import com.motadata.android.trace.internal._TraceInternalProxy
@@ -39,7 +39,7 @@ object MotadataTracing {
             _TraceInternalProxy.testBuilderProvider as MotadataTracerBuilder
         }
         sdkCore !is FeatureSdkCore -> {
-            NoOpDatadogTracerBuilder()
+            NoOpMotadataTracerBuilder()
         }
         else -> {
             val internalLogger = sdkCore.internalLogger

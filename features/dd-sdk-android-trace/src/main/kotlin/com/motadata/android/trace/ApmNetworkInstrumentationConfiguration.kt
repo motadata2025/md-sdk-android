@@ -47,7 +47,7 @@ class ApmNetworkInstrumentationConfiguration internal constructor(
     internal var traceContextInjection: TraceContextInjection = TraceContextInjection.SAMPLED,
     internal var tracedRequestListener: NetworkTracedRequestListener = NoOpNetworkTracedRequestListener(),
     internal var traceSampler: Sampler<MotadataSpan> = DeterministicTraceSampler(DEFAULT_TRACE_SAMPLE_RATE),
-    internal var globalTracerProvider: () -> MotadataTracer? = { GlobalDatadogTracer.getOrNull() },
+    internal var globalTracerProvider: () -> MotadataTracer? = { GlobalMotadataTracer.getOrNull() },
     internal var networkTracingScope: ApmNetworkTracingScope = ApmNetworkTracingScope.EXCLUDE_INTERNAL_REDIRECTS,
     internal var headerPropagationOnly: Boolean = false
 ) {

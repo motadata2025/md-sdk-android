@@ -10,7 +10,7 @@ import com.motadata.android.sample.data.db.LocalDataSource
 import com.motadata.android.sample.data.model.Log
 import com.motadata.android.sample.data.remote.RemoteDataSource
 import com.motadata.android.sample.datalist.DataSourceType
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.api.scope.MotadataScope
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
@@ -32,14 +32,14 @@ internal class DataRepository(
                     localDataSource.persistLogs(it)
                 }
                 .doOnSubscribe {
-                    val tracer = GlobalDatadogTracer.get()
+                    val tracer = GlobalMotadataTracer.get()
                     val span = tracer
                         .buildSpan("Fetch recent logs")
                         .start()
                     spanScope = tracer.activateSpan(span)
                 }
                 .doFinally {
-                    GlobalDatadogTracer.get().activeSpan()?.let {
+                    GlobalMotadataTracer.get().activeSpan()?.let {
                         it.finish()
                     }
                     spanScope?.close()

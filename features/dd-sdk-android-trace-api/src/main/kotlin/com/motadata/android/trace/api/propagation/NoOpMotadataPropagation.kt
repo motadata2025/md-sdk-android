@@ -13,7 +13,7 @@ import com.motadata.android.trace.api.span.MotadataSpanContext
  * This implementation is intended as a placeholder making possible to create other NoOp.* classes.
  */
 // TODO RUM-10573 - replace with @NoOpImplementation when method-level generics will be supported in noopfactory
-class NoOpDatadogPropagation : MotadataPropagation {
+class NoOpMotadataPropagation : MotadataPropagation {
 
     override fun <C> inject(
         context: MotadataSpanContext,

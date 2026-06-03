@@ -13,7 +13,7 @@ import com.motadata.android.log.Logger
 import com.motadata.android.rum.coroutines.sendErrorToDatadog
 import com.motadata.android.sample.BuildConfig
 import com.motadata.android.sample.data.Result
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.api.span.MotadataSpan
 import com.motadata.android.trace.coroutines.CoroutineScopeSpan
 import com.motadata.android.trace.coroutines.asyncTraced
@@ -215,7 +215,7 @@ internal class TracesViewModel(
         @Deprecated("Deprecated in Java")
         override fun onPreExecute() {
             super.onPreExecute()
-            currentActiveMainSpan = GlobalDatadogTracer.get().activeSpan()
+            currentActiveMainSpan = GlobalMotadataTracer.get().activeSpan()
         }
 
         @Deprecated("Deprecated in Java")
@@ -289,7 +289,7 @@ internal class TracesViewModel(
         @Deprecated("Deprecated in Java")
         override fun onPreExecute() {
             super.onPreExecute()
-            currentActiveMainSpan = GlobalDatadogTracer.get().activeSpan()
+            currentActiveMainSpan = GlobalMotadataTracer.get().activeSpan()
         }
 
         @Deprecated("Deprecated in Java")
@@ -358,7 +358,7 @@ internal class TracesViewModel(
         @Deprecated("Deprecated in Java")
         override fun onPreExecute() {
             super.onPreExecute()
-            activeSpanInMainThread = GlobalDatadogTracer.get().activeSpan()
+            activeSpanInMainThread = GlobalMotadataTracer.get().activeSpan()
         }
 
         @Suppress("MagicNumber")

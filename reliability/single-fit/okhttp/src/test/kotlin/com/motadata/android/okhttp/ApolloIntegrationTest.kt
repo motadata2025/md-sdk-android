@@ -28,7 +28,7 @@ import com.motadata.android.rum.RumMonitor
 import com.motadata.android.testgraphql.FakeMutation
 import com.motadata.android.testgraphql.FakeQuery
 import com.motadata.android.testgraphql.type.UserInput
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
 import com.datadog.tools.unit.annotations.TestConfigurationsProvider
@@ -152,7 +152,7 @@ class ApolloIntegrationTest {
 
     @AfterEach
     fun `tear down`() {
-        GlobalDatadogTracer.clear()
+        GlobalMotadataTracer.clear()
         unregisterGlobalRumMonitor(stubSdkCore)
         Motadata.stopInstance(stubSdkCore.name)
         mockServer.shutdown()

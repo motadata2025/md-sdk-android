@@ -6,7 +6,7 @@
 
 package com.motadata.android.sqldelight.internal
 
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.api.span.MotadataSpan
 
 @Suppress("ThrowingInternalException", "TooGenericExceptionCaught")
@@ -15,7 +15,7 @@ internal inline fun <T : Any?> withinSpan(
     parentSpan: MotadataSpan? = null,
     block: MotadataSpan.() -> T
 ): T {
-    val tracer = GlobalDatadogTracer.get()
+    val tracer = GlobalMotadataTracer.get()
 
     val span = tracer.buildSpan(operationName)
         .withParentSpan(parentSpan)

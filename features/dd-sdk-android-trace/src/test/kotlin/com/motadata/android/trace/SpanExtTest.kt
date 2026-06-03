@@ -61,7 +61,7 @@ class SpanExtTest {
 
     @BeforeEach
     fun `set up`() {
-        GlobalDatadogTracer.registerIfAbsent(mockTracer)
+        GlobalMotadataTracer.registerIfAbsent(mockTracer)
         whenever(mockTracer.buildSpan(fakeOperationName)) doReturn mockSpanBuilder
         whenever(mockTracer.activateSpan(mockSpan)) doReturn mockScope
         whenever(mockSpanBuilder.withParentSpan(mockParentSpan)) doReturn mockSpanBuilder
@@ -70,7 +70,7 @@ class SpanExtTest {
 
     @AfterEach
     fun `tear down`() {
-        GlobalDatadogTracer.clear()
+        GlobalMotadataTracer.clear()
     }
 
     @Test

@@ -360,7 +360,7 @@ open class MotadataInterceptor internal constructor(
     /**
      * A Builder for the [MotadataInterceptor].
      * @param tracedHostsWithHeaderType a list of all the hosts and header types that you want to
-     * be automatically tracked by this interceptor. If registering a [com.motadata.android.trace.GlobalDatadogTracer],
+     * be automatically tracked by this interceptor. If registering a [com.motadata.android.trace.GlobalMotadataTracer],
      * the tracer must be configured with [com.motadata.android.trace.api.tracer.MotadataTracerBuilder.withTracingHeadersTypes] containing all the necessary
      * header types configured for OkHttp tracking.
      * If no hosts are provided (via this argument or global configuration

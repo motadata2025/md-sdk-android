@@ -6,7 +6,7 @@
 
 package com.motadata.android.trace.coroutines
 
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.internal.coroutines.withinCoroutineSpan
 import com.motadata.android.trace.withinSpan
 import kotlinx.coroutines.CoroutineScope
@@ -37,7 +37,7 @@ fun CoroutineScope.launchTraced(
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScopeSpan.() -> Unit
 ): Job {
-    val parentSpan = GlobalDatadogTracer.get().activeSpan()
+    val parentSpan = GlobalMotadataTracer.get().activeSpan()
     return launch(context, start) {
         withinCoroutineSpan(operationName, parentSpan, context, block)
     }
@@ -63,7 +63,7 @@ fun <T> runBlockingTraced(
     context: CoroutineContext = EmptyCoroutineContext,
     block: suspend CoroutineScope.() -> T
 ): T {
-    val parentSpan = GlobalDatadogTracer.get().activeSpan()
+    val parentSpan = GlobalMotadataTracer.get().activeSpan()
     @Suppress("UnsafeThirdPartyFunctionCall") // handled by caller
     return runBlocking(context) {
         withinCoroutineSpan(operationName, parentSpan, context, block)
@@ -90,7 +90,7 @@ fun <T : Any?> CoroutineScope.asyncTraced(
     start: CoroutineStart = CoroutineStart.DEFAULT,
     block: suspend CoroutineScopeSpan.() -> T
 ): Deferred<T> {
-    val parentSpan = GlobalDatadogTracer.get().activeSpan()
+    val parentSpan = GlobalMotadataTracer.get().activeSpan()
     return async(context, start) {
         withinCoroutineSpan(operationName, parentSpan, context, block)
     }
@@ -108,7 +108,7 @@ fun <T : Any?> CoroutineScope.asyncTraced(
  * @param operationName the name of the [Span] created around the coroutine code.
  */
 suspend fun <T : Any?> Deferred<T>.awaitTraced(operationName: String): T {
-    val parentSpan = GlobalDatadogTracer.get().activeSpan()
+    val parentSpan = GlobalMotadataTracer.get().activeSpan()
     return withinSpan(operationName, parentSpan, false) {
         @Suppress("UnsafeThirdPartyFunctionCall") // handled by caller
         this@awaitTraced.await()
@@ -132,7 +132,7 @@ suspend fun <T : Any?> withContextTraced(
     context: CoroutineContext,
     block: suspend CoroutineScopeSpan.() -> T
 ): T {
-    val parentSpan = GlobalDatadogTracer.get().activeSpan()
+    val parentSpan = GlobalMotadataTracer.get().activeSpan()
     @Suppress("UnsafeThirdPartyFunctionCall") // handled by caller
     return withContext(context) {
         withinCoroutineSpan(operationName, parentSpan, context, block)

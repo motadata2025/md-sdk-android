@@ -55,14 +55,14 @@ internal class MotadataPropagationAdapterTest {
         val carrier = Any()
 
         // When
-        testedPropagation.inject(UnsupportedDatadogSpanContextImplementation(), carrier) { _, _, _ -> }
+        testedPropagation.inject(UnsupportedMotadataSpanContextImplementation(), carrier) { _, _, _ -> }
 
         // Then
         mockInternalLogger.verifyLog(
             InternalLogger.Level.ERROR,
             InternalLogger.Target.USER,
             "MotadataPropagationAdapter supports only MotadataSpanContextAdapter instances for injection " +
-                "but UnsupportedDatadogSpanContextImplementation is given"
+                "but UnsupportedMotadataSpanContextImplementation is given"
         )
     }
 
@@ -110,7 +110,7 @@ internal class MotadataPropagationAdapterTest {
         assertThat(actual.delegate).isEqualTo(expectedContext)
     }
 
-    private class UnsupportedDatadogSpanContextImplementation : MotadataSpanContext {
+    private class UnsupportedMotadataSpanContextImplementation : MotadataSpanContext {
         override val traceId: MotadataTraceId
             get() = TODO("Not yet implemented")
         override val spanId: Long

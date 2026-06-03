@@ -15,7 +15,7 @@ import com.motadata.android.tests.ktx.getInt
 import com.motadata.android.tests.ktx.getLong
 import com.motadata.android.tests.ktx.getString
 import com.motadata.android.trace.MotadataTracing
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
 import com.motadata.android.trace.event.SpanEventMapper
@@ -65,7 +65,7 @@ class TraceConfigurationTest {
 
     @AfterEach
     fun `tear down`() {
-        GlobalDatadogTracer.clear()
+        GlobalMotadataTracer.clear()
     }
 
     @RepeatedTest(16)

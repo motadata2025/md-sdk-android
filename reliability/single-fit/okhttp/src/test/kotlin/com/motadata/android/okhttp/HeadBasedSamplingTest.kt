@@ -21,7 +21,7 @@ import com.motadata.android.tests.ktx.getString
 import com.motadata.android.trace.ApmNetworkInstrumentationConfiguration
 import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.ExperimentalTraceApi
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
 import com.motadata.android.trace.TraceContextInjection
@@ -220,7 +220,7 @@ class HeadBasedSamplingTest {
             )
             .build()
 
-        val parentSpan = GlobalDatadogTracer.get()
+        val parentSpan = GlobalMotadataTracer.get()
             .buildSpan(fakeSpanName)
             .start()
 
@@ -314,7 +314,7 @@ class HeadBasedSamplingTest {
             )
             .build()
 
-        val parentSpan = GlobalDatadogTracer.get()
+        val parentSpan = GlobalMotadataTracer.get()
             .buildSpan(fakeSpanName)
             .start()
 
@@ -503,7 +503,7 @@ class HeadBasedSamplingTest {
             )
             .build()
 
-        val parentSpan = GlobalDatadogTracer.get()
+        val parentSpan = GlobalMotadataTracer.get()
             .buildSpan(fakeSpanName)
             .start()
 
@@ -512,7 +512,7 @@ class HeadBasedSamplingTest {
             Request.Builder()
                 .url(mockServer.url("/"))
                 .apply {
-                    GlobalDatadogTracer.get().propagate().inject(
+                    GlobalMotadataTracer.get().propagate().inject(
                         context = parentSpan.context(),
                         carrier = this
                     ) { carrier, key, value -> carrier.addHeader(key, value) }
@@ -553,7 +553,7 @@ class HeadBasedSamplingTest {
             )
             .build()
 
-        val parentSpan = GlobalDatadogTracer.get()
+        val parentSpan = GlobalMotadataTracer.get()
             .buildSpan(fakeSpanName)
             .start()
 
@@ -562,7 +562,7 @@ class HeadBasedSamplingTest {
             Request.Builder()
                 .url(mockServer.url("/"))
                 .apply {
-                    GlobalDatadogTracer.get()
+                    GlobalMotadataTracer.get()
                         .propagate()
                         .inject(parentSpan.context(), this) { _, key, value ->
                             addHeader(key, value)
@@ -641,7 +641,7 @@ class HeadBasedSamplingTest {
     }
 
     private fun registerGlobalTracer(sampleRate: Double) {
-        GlobalDatadogTracer.registerIfAbsent(
+        GlobalMotadataTracer.registerIfAbsent(
             MotadataTracing.newTracerBuilder(stubSdkCore)
                 .withTracingHeadersTypes(setOf(TracingHeaderType.DATADOG))
                 // this is on purpose, we want to make sure that it is not taken into account
@@ -651,7 +651,7 @@ class HeadBasedSamplingTest {
     }
 
     private fun unregisterGlobalTracer() {
-        GlobalDatadogTracer.clear()
+        GlobalMotadataTracer.clear()
     }
 
     // region new instrumentation API tests
@@ -761,7 +761,7 @@ class HeadBasedSamplingTest {
         mockServer.start()
         val okHttpClient = buildInstrumentedClient(sampleRate = 100f)
 
-        val parentSpan = GlobalDatadogTracer.get()
+        val parentSpan = GlobalMotadataTracer.get()
             .buildSpan(fakeSpanName)
             .start()
 
@@ -836,7 +836,7 @@ class HeadBasedSamplingTest {
         mockServer.start()
         val okHttpClient = buildInstrumentedClient(sampleRate = 0f)
 
-        val parentSpan = GlobalDatadogTracer.get()
+        val parentSpan = GlobalMotadataTracer.get()
             .buildSpan(fakeSpanName)
             .start()
 
@@ -1005,7 +1005,7 @@ class HeadBasedSamplingTest {
         mockServer.start()
         val okHttpClient = buildInstrumentedClient(sampleRate = 100f)
 
-        val parentSpan = GlobalDatadogTracer.get()
+        val parentSpan = GlobalMotadataTracer.get()
             .buildSpan(fakeSpanName)
             .start()
 
@@ -1014,7 +1014,7 @@ class HeadBasedSamplingTest {
             Request.Builder()
                 .url(mockServer.url("/"))
                 .apply {
-                    GlobalDatadogTracer.get().propagate().inject(
+                    GlobalMotadataTracer.get().propagate().inject(
                         context = parentSpan.context(),
                         carrier = this
                     ) { carrier, key, value -> carrier.addHeader(key, value) }
@@ -1045,7 +1045,7 @@ class HeadBasedSamplingTest {
         mockServer.start()
         val okHttpClient = buildInstrumentedClient(sampleRate = 100f)
 
-        val parentSpan = GlobalDatadogTracer.get()
+        val parentSpan = GlobalMotadataTracer.get()
             .buildSpan(fakeSpanName)
             .start()
 
@@ -1054,7 +1054,7 @@ class HeadBasedSamplingTest {
             Request.Builder()
                 .url(mockServer.url("/"))
                 .apply {
-                    GlobalDatadogTracer.get()
+                    GlobalMotadataTracer.get()
                         .propagate()
                         .inject(parentSpan.context(), this) { _, key, value ->
                             addHeader(key, value)

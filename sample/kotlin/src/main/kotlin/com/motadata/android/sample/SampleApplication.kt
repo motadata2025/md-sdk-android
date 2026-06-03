@@ -62,7 +62,7 @@ import com.motadata.android.timber.MotadataTree
 import com.motadata.android.trace.ApmNetworkInstrumentationConfiguration
 import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.ExperimentalTraceApi
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
 import com.motadata.android.trace.opentelemetry.MotadataOpenTelemetry
@@ -227,7 +227,7 @@ class SampleApplication : Application() {
         }.build()
         Trace.enable(tracesConfig)
 
-        GlobalDatadogTracer.registerIfAbsent(
+        GlobalMotadataTracer.registerIfAbsent(
             MotadataTracing.newTracerBuilder()
                 .withPartialFlushMinSpans(1)
                 .build()

@@ -21,7 +21,7 @@ import com.motadata.android.okhttp.tests.elmyr.OkHttpConfigurator
 import com.motadata.android.okhttp.tests.utils.unregisterGlobalRumMonitor
 import com.motadata.android.okhttp.trace.TracingInterceptor
 import com.motadata.android.trace.MotadataTracing
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
 import com.motadata.android.trace.TraceContextInjection
@@ -91,7 +91,7 @@ class RumContextPropagationTest {
         stubSdkCore = forge.prepareStubSdkCore(datadogContext)
         Trace.enable(TraceConfiguration.Builder().build(), stubSdkCore)
         testedClient = prepareClient(stubSdkCore)
-        GlobalDatadogTracer.replace(createTracer(stubSdkCore))
+        GlobalMotadataTracer.replace(createTracer(stubSdkCore))
 
         // When
         testedClient.makeNetworkCall()
@@ -118,7 +118,7 @@ class RumContextPropagationTest {
         stubSdkCore = forge.prepareStubSdkCore(datadogContext)
         Trace.enable(TraceConfiguration.Builder().build(), stubSdkCore)
         testedClient = prepareClient(stubSdkCore)
-        GlobalDatadogTracer.replace(createTracer(stubSdkCore))
+        GlobalMotadataTracer.replace(createTracer(stubSdkCore))
 
         // When
         testedClient.makeNetworkCall()
@@ -139,7 +139,7 @@ class RumContextPropagationTest {
         stubSdkCore = forge.prepareStubSdkCore(datadogContext)
         Trace.enable(TraceConfiguration.Builder().build(), stubSdkCore)
         testedClient = prepareClient(stubSdkCore)
-        GlobalDatadogTracer.replace(createTracer(stubSdkCore))
+        GlobalMotadataTracer.replace(createTracer(stubSdkCore))
 
         // When
         testedClient.makeNetworkCall()
@@ -161,7 +161,7 @@ class RumContextPropagationTest {
         stubSdkCore = forge.prepareStubSdkCore(datadogContext)
         Trace.enable(TraceConfiguration.Builder().build(), stubSdkCore)
         testedClient = prepareClient(stubSdkCore)
-        GlobalDatadogTracer.replace(createTracer(stubSdkCore).withTraceIdsFrom(DROPPED_IDS))
+        GlobalMotadataTracer.replace(createTracer(stubSdkCore).withTraceIdsFrom(DROPPED_IDS))
 
         // When
         testedClient.makeNetworkCall()
@@ -183,7 +183,7 @@ class RumContextPropagationTest {
         stubSdkCore = forge.prepareStubSdkCore(datadogContext)
         Trace.enable(TraceConfiguration.Builder().build(), stubSdkCore)
         testedClient = prepareClient(stubSdkCore)
-        GlobalDatadogTracer.replace(createTracer(stubSdkCore).withTraceIdsFrom(SAMPLED_IDS))
+        GlobalMotadataTracer.replace(createTracer(stubSdkCore).withTraceIdsFrom(SAMPLED_IDS))
 
         // When
         testedClient.makeNetworkCall()

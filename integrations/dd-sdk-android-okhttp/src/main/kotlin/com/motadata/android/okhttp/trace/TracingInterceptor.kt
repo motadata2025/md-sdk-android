@@ -26,7 +26,7 @@ import com.motadata.android.lint.InternalApi
 import com.motadata.android.okhttp.internal.trace.toTelemetryTracingHeaderType
 import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.DeterministicTraceSampler
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.TraceContextInjection
 import com.motadata.android.trace.TracingHeaderType
 import com.motadata.android.trace.api.MotadataTracingConstants.PrioritySampling
@@ -718,7 +718,7 @@ internal constructor(
     /**
      * A Builder class for the [TracingInterceptor].
      * @param tracedHostsWithHeaderType a list of all the hosts and header types that you want to
-     * be automatically tracked by this interceptor. If registering a [GlobalDatadogTracer], the tracer must be
+     * be automatically tracked by this interceptor. If registering a [GlobalMotadataTracer], the tracer must be
      * configured with [com.motadata.android.trace.api.tracer.MotadataTracerBuilder.withTracingHeadersTypes] containing all the necessary
      * header types configured for OkHttp tracking.
      * If no hosts are provided (via this argument or global configuration
@@ -776,7 +776,7 @@ internal constructor(
         internal var traceOrigin: String? = null
         internal var traceSampler: Sampler<MotadataSpan> = DeterministicTraceSampler(DEFAULT_TRACE_SAMPLE_RATE)
         internal var localTracerFactory = DEFAULT_LOCAL_TRACER_FACTORY
-        internal var globalTracerProvider: () -> MotadataTracer? = { GlobalDatadogTracer.getOrNull() }
+        internal var globalTracerProvider: () -> MotadataTracer? = { GlobalMotadataTracer.getOrNull() }
         internal var traceContextInjection = TraceContextInjection.SAMPLED
 
         internal var redacted404ResourceName = true

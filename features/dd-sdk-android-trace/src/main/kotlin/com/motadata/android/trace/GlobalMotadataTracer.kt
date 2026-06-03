@@ -6,7 +6,7 @@
 package com.motadata.android.trace
 
 import com.motadata.android.trace.api.tracer.MotadataTracer
-import com.motadata.android.trace.api.tracer.NoOpDatadogTracer
+import com.motadata.android.trace.api.tracer.NoOpMotadataTracer
 import java.util.concurrent.atomic.AtomicReference
 
 /**
@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicReference
  * This object is used to share same instance of [MotadataTracer] across different integrations such as
  * `OkHttp`, Kotlin's coroutines, ect.
  */
-object GlobalDatadogTracer {
+object GlobalMotadataTracer {
 
     private val instance = AtomicReference<MotadataTracer?>()
 
@@ -34,10 +34,10 @@ object GlobalDatadogTracer {
      * Retrieves the current active tracer for Motadata, or a no-operation tracer if none is active.
      *
      * @return The current instance of [MotadataTracer] if available. Otherwise, an instance of
-     * [NoOpDatadogTracer] that performs no operations.
+     * [NoOpMotadataTracer] that performs no operations.
      */
     @JvmStatic
-    fun get(): MotadataTracer = getOrNull() ?: NoOpDatadogTracer()
+    fun get(): MotadataTracer = getOrNull() ?: NoOpMotadataTracer()
 
     /**
      * Retrieves the current instance of the MotadataTracer, if available.

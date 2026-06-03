@@ -86,7 +86,7 @@ import java.util.concurrent.TimeUnit
 )
 @MockitoSettings(strictness = Strictness.LENIENT)
 @ForgeConfiguration(BaseConfigurator::class)
-internal open class TracingInterceptorNonDdTracerTest {
+internal open class TracingInterceptorNonMdTracerTest {
 
     private lateinit var testedInterceptor: TracingInterceptor
 

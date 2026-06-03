@@ -6,7 +6,7 @@
 package com.motadata.android.trace.api.tracer
 
 import com.motadata.android.trace.api.propagation.MotadataPropagation
-import com.motadata.android.trace.api.propagation.NoOpDatadogPropagation
+import com.motadata.android.trace.api.propagation.NoOpMotadataPropagation
 import com.motadata.android.trace.api.scope.MotadataScope
 import com.motadata.android.trace.api.scope.MotadataScopeListener
 import com.motadata.android.trace.api.span.MotadataSpan
@@ -30,7 +30,7 @@ interface MotadataTracer {
      *
      * @return An instance of [MotadataPropagation]
      */
-    fun propagate(): MotadataPropagation = NoOpDatadogPropagation()
+    fun propagate(): MotadataPropagation = NoOpMotadataPropagation()
 
     /**
      * Activates the provided span within the current context of the tracer.

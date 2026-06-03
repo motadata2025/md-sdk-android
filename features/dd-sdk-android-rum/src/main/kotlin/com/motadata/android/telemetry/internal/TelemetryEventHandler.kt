@@ -502,7 +502,7 @@ internal class TelemetryEventHandler(
         // for obfuscation enabled case.
         return try {
             val globalDatadogTracer =
-                Class.forName("com.motadata.android.trace.GlobalDatadogTracer")
+                Class.forName("com.motadata.android.trace.GlobalMotadataTracer")
             return try {
                 val holderInstance = globalDatadogTracer.getDeclaredField("INSTANCE").get(null)
                 globalDatadogTracer.getDeclaredMethod("getOrNull").invoke(holderInstance) != null
@@ -511,7 +511,7 @@ internal class TelemetryEventHandler(
                     InternalLogger.Level.ERROR,
                     InternalLogger.Target.TELEMETRY,
                     {
-                        "GlobalDatadogTracer class exists in the runtime classpath, " +
+                        "GlobalMotadataTracer class exists in the runtime classpath, " +
                             "but there is an error invoking getOrNull method"
                     },
                     t

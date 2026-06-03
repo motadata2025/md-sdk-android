@@ -31,7 +31,7 @@ import com.motadata.android.sdk.utils.isRumUrl
 import com.motadata.android.sdk.utils.isTracesUrl
 import com.motadata.android.sdk.utils.overrideProcessImportance
 import com.motadata.android.trace.MotadataTracing
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
 import com.motadata.android.trace.api.tracer.MotadataTracer
@@ -110,7 +110,7 @@ class CrossFeatureTest {
             .withPartialFlushMinSpans(1)
             .setBundleWithRumEnabled(true)
             .build()
-        GlobalDatadogTracer.registerIfAbsent(openTracingTracer)
+        GlobalMotadataTracer.registerIfAbsent(openTracingTracer)
         val logsConfiguration = LogsConfiguration.Builder()
             .useCustomEndpoint(mockWebServer.url("/logs").toString())
             .build()
@@ -130,7 +130,7 @@ class CrossFeatureTest {
             .getInstrumentation()
             .targetContext
             .cacheDir.deleteRecursively()
-        GlobalDatadogTracer.clear()
+        GlobalMotadataTracer.clear()
     }
 
     @Test

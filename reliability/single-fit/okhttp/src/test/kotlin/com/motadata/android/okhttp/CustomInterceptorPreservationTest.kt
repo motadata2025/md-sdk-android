@@ -25,7 +25,7 @@ import com.motadata.android.rum.configuration.RumNetworkInstrumentationConfigura
 import com.motadata.android.trace.ApmNetworkInstrumentationConfiguration
 import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.ExperimentalTraceApi
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
 import com.motadata.android.trace.TracingHeaderType
@@ -105,7 +105,7 @@ class CustomInterceptorPreservationTest {
 
         Trace.enable(TraceConfiguration.Builder().build(), stubSdkCore)
 
-        GlobalDatadogTracer.replace(
+        GlobalMotadataTracer.replace(
             MotadataTracing.newTracerBuilder(stubSdkCore)
                 .withPartialFlushMinSpans(1)
         )
@@ -115,7 +115,7 @@ class CustomInterceptorPreservationTest {
 
     @AfterEach
     fun `tear down`() {
-        GlobalDatadogTracer.clear()
+        GlobalMotadataTracer.clear()
         unregisterGlobalRumMonitor(stubSdkCore)
         Motadata.stopInstance(stubSdkCore.name)
         mockServer.shutdown()

@@ -25,7 +25,7 @@ inline fun <T : Any?> withinSpan(
     activate: Boolean = true,
     block: MotadataSpan.() -> T
 ): T {
-    val tracer = GlobalDatadogTracer.get()
+    val tracer = GlobalMotadataTracer.get()
 
     val span = tracer.buildSpan(operationName)
         .withParentSpan(parentSpan)

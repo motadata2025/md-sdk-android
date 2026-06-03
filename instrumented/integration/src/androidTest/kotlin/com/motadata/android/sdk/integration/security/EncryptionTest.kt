@@ -26,7 +26,7 @@ import com.motadata.android.security.Encryption
 import com.motadata.android.sessionreplay.SessionReplay
 import com.motadata.android.sessionreplay.SessionReplayConfiguration
 import com.motadata.android.trace.MotadataTracing
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
 import com.motadata.android.trace.api.tracer.MotadataTracer
@@ -80,7 +80,7 @@ internal class EncryptionTest {
         featureActivations.shuffled(Random(forge.seed)).forEach { it() }
 
         val tracer = MotadataTracing.newTracerBuilder(sdkCore).setBundleWithRumEnabled(true).build()
-        GlobalDatadogTracer.registerIfAbsent(tracer)
+        GlobalMotadataTracer.registerIfAbsent(tracer)
 
         val logger = Logger.Builder(sdkCore)
             .setBundleWithRumEnabled(true)
@@ -201,7 +201,7 @@ internal class EncryptionTest {
 
     private fun stopSdk() {
         Motadata.stopInstance()
-        GlobalDatadogTracer.clear()
+        GlobalMotadataTracer.clear()
     }
 
     private fun flushAndShutdownExecutors() {

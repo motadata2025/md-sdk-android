@@ -13,7 +13,7 @@ import com.motadata.android.core.stub.StubSDKCore
 import com.motadata.android.okhttp.tests.assertj.SpansPayloadAssert
 import com.motadata.android.okhttp.tests.elmyr.OkHttpConfigurator
 import com.motadata.android.trace.MotadataTracing
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
 import com.motadata.android.trace.api.replace
@@ -68,7 +68,7 @@ class SpanExtIntegrationTest {
         sampleRate: Double? = null,
         partialFlushMinSpans: Int? = null
     ): Boolean {
-        return GlobalDatadogTracer.replace(
+        return GlobalMotadataTracer.replace(
             MotadataTracing.newTracerBuilder(stubSdkCore)
                 .also {
                     if (sampleRate != null) it.withSampleRate(sampleRate)
@@ -94,7 +94,7 @@ class SpanExtIntegrationTest {
 
     @AfterEach
     fun `tear down`() {
-        GlobalDatadogTracer.clear()
+        GlobalMotadataTracer.clear()
         Motadata.stopInstance(stubSdkCore.name)
         mockServer.shutdown()
     }

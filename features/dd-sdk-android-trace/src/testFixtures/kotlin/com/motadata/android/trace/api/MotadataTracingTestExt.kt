@@ -6,7 +6,7 @@
 
 package com.motadata.android.trace.api
 
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.api.span.MotadataSpan
 import com.motadata.android.trace.api.span.MotadataSpanContext
 import com.motadata.android.trace.api.trace.MotadataTraceId
@@ -72,7 +72,7 @@ fun MotadataTracerBuilder.setTestIdGenerationStrategy(strategy: TestIdGeneration
     (this as? MotadataTracerBuilderAdapter)?.setCustomIdGenerationStrategy(strategy)
 }
 
-fun GlobalDatadogTracer.replace(
+fun GlobalMotadataTracer.replace(
     builder: MotadataTracerBuilder
 ): Boolean {
     clear()

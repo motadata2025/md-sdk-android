@@ -7,7 +7,7 @@
 package com.motadata.android.trace.sqlite
 
 import android.database.sqlite.SQLiteDatabase
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.api.span.MotadataSpan
 import com.motadata.android.trace.withinSpan
 
@@ -26,7 +26,7 @@ inline fun <T> SQLiteDatabase.transactionTraced(
     exclusive: Boolean = true,
     body: MotadataSpan.(SQLiteDatabase) -> T
 ): T {
-    val parentSpan = GlobalDatadogTracer.get().activeSpan()
+    val parentSpan = GlobalMotadataTracer.get().activeSpan()
     withinSpan(operationName, parentSpan, true) {
         if (exclusive) {
             @Suppress("UnsafeThirdPartyFunctionCall") // we are in a valid state

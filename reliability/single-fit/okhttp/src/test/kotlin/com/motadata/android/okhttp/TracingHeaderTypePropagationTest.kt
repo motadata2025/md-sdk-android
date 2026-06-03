@@ -11,7 +11,7 @@ import com.motadata.android.core.stub.StubSDKCore
 import com.motadata.android.okhttp.tests.elmyr.OkHttpConfigurator
 import com.motadata.android.okhttp.trace.TracingInterceptor
 import com.motadata.android.trace.MotadataTracing
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
 import com.motadata.android.trace.TraceContextInjection
@@ -56,7 +56,7 @@ class TracingHeaderTypePropagationTest {
 
     @AfterEach
     fun `tear down`() {
-        GlobalDatadogTracer.clear()
+        GlobalMotadataTracer.clear()
         Motadata.stopInstance(stubSdkCore.name)
         mockServer.shutdown()
     }
@@ -111,7 +111,7 @@ class TracingHeaderTypePropagationTest {
             .withTracingHeadersTypes(setOf(headerType))
             .withSampleRate(100.0)
             .build()
-        GlobalDatadogTracer.registerIfAbsent(tracer)
+        GlobalMotadataTracer.registerIfAbsent(tracer)
         val client = OkHttpClient.Builder()
             .addInterceptor(
                 TracingInterceptor.Builder(mapOf(mockServer.hostName to setOf(headerType)))

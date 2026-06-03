@@ -14,7 +14,7 @@ import com.motadata.android.core.configuration.Configuration
 import com.motadata.android.privacy.TrackingConsent
 import com.motadata.android.sdk.integration.network.utils.TestEchoWebServer
 import com.motadata.android.trace.MotadataTracing
-import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.GlobalMotadataTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
 import fr.xgouchet.elmyr.Forge
@@ -44,7 +44,7 @@ internal class NetworkInstrumentationTestRule : ExternalResource() {
     }
 
     override fun after() {
-        GlobalDatadogTracer.clear()
+        GlobalMotadataTracer.clear()
         Motadata.stopInstance()
         mockWebServer.shutdown()
 
@@ -74,7 +74,7 @@ internal class NetworkInstrumentationTestRule : ExternalResource() {
                 .build()
         )
 
-        GlobalDatadogTracer.registerIfAbsent(
+        GlobalMotadataTracer.registerIfAbsent(
             MotadataTracing.newTracerBuilder()
                 .withPartialFlushMinSpans(1)
                 .build()
