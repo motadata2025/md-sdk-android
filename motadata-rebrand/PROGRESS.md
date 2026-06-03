@@ -21,7 +21,7 @@ step does = `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`. This file tracks *status onl
 | 5 | Wire names `DD-*`→`MD-*`, `ddsource`/`ddtags`→`mdsource`/`mdtags`, logcat tags — plan §1C | ✅ | `df3e9c0d9` | 26876753887 ✅ |
 | 6 | Runtime leaks: NTP→`pool.ntp.org`, User-Agent, storage dir, logcat messages — plan §1E | ✅ | `df269823f` | 26877583518 ✅ |
 | 6.5 | Internal class-name debrand (remaining `Datadog*`/`Dd*` internal classes → `Motadata*`/`Md*`) — pure rename, no behavior/API-shape change | ✅ | `61de63f52`,`236f36aeb` | 26879305308 ✅ |
-| 7 | Body envelope `_dd`→`_md`, `ddtags`→`mdtags` via JSON-schema edit + codegen regen — plan §2.6 | ⬜ | — | — |
+| 7 | Body envelope `_dd`→`_md`, `ddtags`→`mdtags` via JSON-schema edit + codegen regen — plan §2.6 | ✅ | `4900580cb`,`95f8f68f4` | 26884001463 ✅ |
 | 8 | Maven coords + POM: group `com.motadata`, version `1.0.0`, artifact ids — plan §1D | ⬜ | — | — |
 | 9 | `apiDumpAll` + `generateApiSurfaceAll` + fix broken tests → full green — plan Part 6 | ⬜ | — | — |
 
@@ -48,6 +48,12 @@ step does = `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`. This file tracks *status onl
   - `group = "datadog"` Gradle task-group labels in `buildSrc` (~10×) — cosmetic, internal-only, not shipped.
   - `MavenConfig.kt` `GROUP_ID = "com.datadoghq"` and AAR/artifact filenames `dd-sdk-android-*` → **step 8**.
 - **Telemetry stays ON** (server ignores it). Ship core + rum + okhttp closure (7 AARs); not session-replay.
+
+### Step-7 detail (for the record)
+- Edited 9 shipped JSON schemas (rum/* 7 + telemetry/_common + trace/span) `"_dd"`→`"_md"`, `"ddtags"`→`"mdtags"`. json2kotlin regenerates property `dd`→`md`, class `.Dd`→`.Md`, `DdSession`→`MdSession`, `@SerializedName("_md")` on the wire. Updated 38 rum/trace .kt: `.Dd`→`.Md`, `DdSession`→`MdSession`, `.dd`→`.md`, `dd =`→`md =`, `ddtags`→`mdtags`, `buildDDTagsString`→`buildMdTagsString`, serializer-test `"_dd"`→`"_md"`. Trace mapper `dd = dd`→`md = md`.
+- **2nd commit fix:** implicit-receiver `dd.configuration` (no leading dot) in `MotadataLateCrashReporter.sampleRate` → `md.configuration` (dot-anchored regex missed it).
+- **Anchored regexes correctly LEFT:** `dd-sdk`/`dd-trace` in comments + GitHub URLs; `dd=p:%s;s:0` W3C tracestate string (`MotadataPropagationHelper` — that's the future trace-correlation `dd=` item); trace meta keys `_dd.p.id`/`_dd.agent_psr`/`_dd.span_links`/`_dd.datadog_initial_context` (trace-internal APM keys, separate scope).
+- **Step-9 TODO:** regenerate `api/apiSurface` + `api/*.api` (still list `DdSession`/`DdAction`/`DdActionTarget`/`DdCls` — these generated model classes only live in api files). **Deferred (unshipped modules):** logs/session-replay/webview/benchmark schemas still have `_dd`/`ddtags`.
 
 ### Step-6.5 detail (for the record)
 - Renamed all 106 `Datadog*`/`Dd*` classes DEFINED in `com.motadata.*` → `Motadata*`/`Md*` (+ 4 extension files + manifest `MdRumContentProvider`). 110 files moved. No cross-namespace collisions.
