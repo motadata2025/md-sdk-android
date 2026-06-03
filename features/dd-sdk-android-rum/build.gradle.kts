@@ -141,6 +141,7 @@ javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
     "The RUM feature to use with the Motadata monitoring " +
-        "library for Android applications."
+        "library for Android applications.",
+    customArtifactId = "motadata-rum-android"
 )
 detektCustomConfig()

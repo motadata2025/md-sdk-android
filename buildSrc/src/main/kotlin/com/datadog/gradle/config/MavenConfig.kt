@@ -1,6 +1,6 @@
 /*
  * Unless explicitly stated otherwise all files in this repository are licensed under the Apache License Version 2.0.
- * This product includes software developed at Datadog (https://www.datadoghq.com/).
+ * This product includes software developed at Datadog (https://www.motadata.com/).
  * Copyright 2016-Present Datadog, Inc.
  */
 
@@ -15,7 +15,7 @@ import org.gradle.kotlin.dsl.findByType
 import org.gradle.plugins.signing.SigningExtension
 
 object MavenConfig {
-    const val GROUP_ID = "com.datadoghq"
+    const val GROUP_ID = "com.motadata"
     const val PUBLICATION = "release"
 }
 
@@ -56,9 +56,9 @@ fun Project.publishingConfig(
                 version = AndroidConfig.VERSION.name
 
                 pom {
-                    name.set(projectName)
+                    name.set(customArtifactId)
                     description.set(projectDescription)
-                    url.set("https://github.com/DataDog/dd-sdk-android/")
+                    url.set("https://github.com/motadata2025/md-sdk-android/")
 
                     licenses {
                         license {
@@ -69,22 +69,22 @@ fun Project.publishingConfig(
 
                     organization {
                         name.set("Motadata")
-                        url.set("https://www.datadoghq.com/")
+                        url.set("https://www.motadata.com/")
                     }
 
                     developers {
                         developer {
                             name.set("Motadata")
-                            email.set("info@datadoghq.com")
+                            email.set("info@motadata.com")
                             organization.set("Motadata")
-                            organizationUrl.set("https://www.datadoghq.com/")
+                            organizationUrl.set("https://www.motadata.com/")
                         }
                     }
 
                     scm {
-                        url.set("https://github.com/DataDog/dd-sdk-android/")
-                        connection.set("scm:git:git@github.com:Motadata/dd-sdk-android.git")
-                        developerConnection.set("scm:git:git@github.com:Motadata/dd-sdk-android.git")
+                        url.set("https://github.com/motadata2025/md-sdk-android/")
+                        connection.set("scm:git:git@github.com:motadata2025/md-sdk-android.git")
+                        developerConnection.set("scm:git:git@github.com:motadata2025/md-sdk-android.git")
                     }
                 }
             }

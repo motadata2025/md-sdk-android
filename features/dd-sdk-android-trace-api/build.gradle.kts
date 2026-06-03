@@ -72,7 +72,8 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "Tracing engine API specification used for internal module communication."
+    "Tracing engine API specification used for internal module communication.",
+    customArtifactId = "motadata-rum-android-trace-api"
 )
 detektCustomConfig()
 

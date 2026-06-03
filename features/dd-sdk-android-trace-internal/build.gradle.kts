@@ -83,6 +83,7 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "Internal APM support library for Android applications."
+    "Internal APM support library for Android applications.",
+    customArtifactId = "motadata-rum-android-trace-internal"
 )
 detektCustomConfig()

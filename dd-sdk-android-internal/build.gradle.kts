@@ -93,7 +93,8 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "Internal library to be used by the Motadata SDK modules."
+    "Internal library to be used by the Motadata SDK modules.",
+    customArtifactId = "motadata-rum-android-internal"
 )
 detektCustomConfig()
 
