@@ -22,7 +22,7 @@ step does = `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`. This file tracks *status onl
 | 6 | Runtime leaks: NTP→`pool.ntp.org`, User-Agent, storage dir, logcat messages — plan §1E | ✅ | `df269823f` | 26877583518 ✅ |
 | 6.5 | Internal class-name debrand (remaining `Datadog*`/`Dd*` internal classes → `Motadata*`/`Md*`) — pure rename, no behavior/API-shape change | ✅ | `61de63f52`,`236f36aeb` | 26879305308 ✅ |
 | 7 | Body envelope `_dd`→`_md`, `ddtags`→`mdtags` via JSON-schema edit + codegen regen — plan §2.6 | ✅ | `4900580cb`,`95f8f68f4` | 26884001463 ✅ |
-| 8 | Maven coords + POM: group `com.motadata`, version `1.0.0`, artifact ids — plan §1D | ⬜ | — | — |
+| 8 | Maven coords + POM: group `com.motadata`, version `1.0.0`, artifact ids — plan §1D | ✅ | `873882f8a` | 26885382569 ✅ |
 | 9 | `apiDumpAll` + `generateApiSurfaceAll` + fix broken tests → full green — plan Part 6 | ⬜ | — | — |
 
 **Then:** test Branch 1 end-to-end (deferred until step 9 done) — Path A (CI sample APK → `adb logcat`, CurlInterceptor dumps request) and/or Path B (CI → GitHub Packages → Windows app). No Maven Central needed for testing.
@@ -48,6 +48,11 @@ step does = `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`. This file tracks *status onl
   - `group = "datadog"` Gradle task-group labels in `buildSrc` (~10×) — cosmetic, internal-only, not shipped.
   - `MavenConfig.kt` `GROUP_ID = "com.datadoghq"` and AAR/artifact filenames `dd-sdk-android-*` → **step 8**.
 - **Telemetry stays ON** (server ignores it). Ship core + rum + okhttp closure (7 AARs); not session-replay.
+
+### Step-8 detail (for the record)
+- `MavenConfig.kt`: GROUP_ID `com.datadoghq`→`com.motadata`; POM `name`→artifactId (was module dir name `dd-sdk-android-*`); url/scm→`github.com/motadata2025/md-sdk-android`; org/dev url→`motadata.com`; email→`info@motadata.com`. `AndroidConfig.kt` VERSION 3.10.0→1.0.0.
+- Artifact ids (Option A, matches onboarding): rum=`motadata-rum-android`, okhttp=`motadata-rum-android-okhttp`, core/internal/trace/trace-api/trace-internal=`motadata-rum-android-<suffix>` (set via `publishingConfig(customArtifactId=…)`).
+- **Left:** internal build flag `dd-skip-signing` (not published, not customer-facing). Email/urls are reasonable placeholders — tweak before publish if needed. Non-shipped modules keep default artifact id (= module name) under com.motadata group, but they're not published.
 
 ### Step-7 detail (for the record)
 - Edited 9 shipped JSON schemas (rum/* 7 + telemetry/_common + trace/span) `"_dd"`→`"_md"`, `"ddtags"`→`"mdtags"`. json2kotlin regenerates property `dd`→`md`, class `.Dd`→`.Md`, `DdSession`→`MdSession`, `@SerializedName("_md")` on the wire. Updated 38 rum/trace .kt: `.Dd`→`.Md`, `DdSession`→`MdSession`, `.dd`→`.md`, `dd =`→`md =`, `ddtags`→`mdtags`, `buildDDTagsString`→`buildMdTagsString`, serializer-test `"_dd"`→`"_md"`. Trace mapper `dd = dd`→`md = md`.
