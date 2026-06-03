@@ -19,7 +19,8 @@ step does = `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`. This file tracks *status onl
 | 3 | In-event strings — plan §1B (launch view url/id, `telemetry.service`, flags/meter → `motadata-rum-android`) | ✅ | `f66b053e2` | 26870147865 ✅ |
 | 4 | Thread names `datadog-*` → `motadata-*` — plan §1B.8 / §1E.2-4 | ✅ | `f94c6fd55` | 26874612559 ✅ |
 | 5 | Wire names `DD-*`→`MD-*`, `ddsource`/`ddtags`→`mdsource`/`mdtags`, logcat tags — plan §1C | ✅ | `df3e9c0d9` | 26876753887 ✅ |
-| 6 | Runtime leaks: NTP→`pool.ntp.org`, User-Agent, storage dir, logcat messages — plan §1E | ⬜ | — | — |
+| 6 | Runtime leaks: NTP→`pool.ntp.org`, User-Agent, storage dir, logcat messages — plan §1E | ✅ | `df269823f` | 26877583518 ✅ |
+| 6.5 | Internal class-name debrand (remaining `Datadog*`/`Dd*` internal classes → `Motadata*`/`Md*`) — pure rename, no behavior/API-shape change | ⬜ | — | — |
 | 7 | Body envelope `_dd`→`_md`, `ddtags`→`mdtags` via JSON-schema edit + codegen regen — plan §2.6 | ⬜ | — | — |
 | 8 | Maven coords + POM: group `com.motadata`, version `1.0.0`, artifact ids — plan §1D | ⬜ | — | — |
 | 9 | `apiDumpAll` + `generateApiSurfaceAll` + fix broken tests → full green — plan Part 6 | ⬜ | — | — |
