@@ -1,12 +1,12 @@
-public final class com/datadog/android/cronet/CronetIntegrationPlugin {
+public final class com/motadata/android/cronet/CronetIntegrationPlugin {
 	public static final field CRONET_NETWORK_INSTRUMENTATION_NAME Ljava/lang/String;
 	public static final field DEFAULT_KEEP_ALIVE_TIME_SECONDS J
 	public static final field ORIGIN_RUM Ljava/lang/String;
 	public final fun build ()Lorg/chromium/net/CronetEngine;
-	public final fun setListenerExecutor (Ljava/util/concurrent/Executor;)Lcom/datadog/android/cronet/CronetIntegrationPlugin;
+	public final fun setListenerExecutor (Ljava/util/concurrent/Executor;)Lcom/motadata/android/cronet/CronetIntegrationPlugin;
 }
 
-public final class com/datadog/android/cronet/CronetIntegrationPluginKt {
-	public static final fun configureDatadogInstrumentation (Lorg/chromium/net/CronetEngine$Builder;Lcom/datadog/android/rum/configuration/RumNetworkInstrumentationConfiguration;Lcom/datadog/android/trace/ApmNetworkInstrumentationConfiguration;)Lcom/datadog/android/cronet/CronetIntegrationPlugin;
+public final class com/motadata/android/cronet/CronetIntegrationPluginKt {
+	public static final fun configureDatadogInstrumentation (Lorg/chromium/net/CronetEngine$Builder;Lcom/motadata/android/rum/configuration/RumNetworkInstrumentationConfiguration;Lcom/motadata/android/trace/ApmNetworkInstrumentationConfiguration;)Lcom/motadata/android/cronet/CronetIntegrationPlugin;
 }
 

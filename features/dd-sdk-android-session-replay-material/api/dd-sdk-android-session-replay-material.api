@@ -1,4 +1,4 @@
-public final class com/datadog/android/sessionreplay/material/MaterialExtensionSupport : com/datadog/android/sessionreplay/ExtensionSupport {
+public final class com/motadata/android/sessionreplay/material/MaterialExtensionSupport : com/motadata/android/sessionreplay/ExtensionSupport {
 	public fun <init> ()V
 	public fun getCustomDrawableMapper ()Ljava/util/List;
 	public fun getCustomViewMappers ()Ljava/util/List;

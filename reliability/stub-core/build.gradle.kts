@@ -23,7 +23,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.core.stub"
+    namespace = "com.motadata.android.core.stub"
 }
 
 dependencies {

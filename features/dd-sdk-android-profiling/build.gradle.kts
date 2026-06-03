@@ -39,7 +39,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.profiling"
+    namespace = "com.motadata.android.profiling"
 }
 
 dependencies {

@@ -37,7 +37,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.coil3"
+    namespace = "com.motadata.android.coil3"
 }
 
 dependencies {

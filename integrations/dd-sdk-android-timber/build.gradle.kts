@@ -37,7 +37,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.timber"
+    namespace = "com.motadata.android.timber"
 }
 
 dependencies {

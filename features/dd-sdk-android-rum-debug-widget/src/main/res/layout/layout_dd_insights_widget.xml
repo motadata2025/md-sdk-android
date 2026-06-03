@@ -126,7 +126,7 @@
         row
         offset
     -->
-    <com.datadog.android.insights.internal.widgets.TimelineView
+    <com.motadata.android.insights.internal.widgets.TimelineView
         android:id="@+id/timeline"
         android:layout_width="match_parent"
         android:layout_height="40dp"

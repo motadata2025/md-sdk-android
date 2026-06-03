@@ -40,7 +40,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.trace.api"
+    namespace = "com.motadata.android.trace.api"
 
     libraryVariants.all {
         packageLibraryProvider.configure {

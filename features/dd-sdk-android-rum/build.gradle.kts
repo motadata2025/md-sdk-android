@@ -48,7 +48,7 @@ android {
         )
     }
 
-    namespace = "com.datadog.android.rum"
+    namespace = "com.motadata.android.rum"
 
     testFixtures {
         enable = true

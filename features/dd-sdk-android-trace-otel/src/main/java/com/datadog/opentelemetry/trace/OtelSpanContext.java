@@ -8,9 +8,9 @@ package com.datadog.opentelemetry.trace;
 
 import androidx.annotation.VisibleForTesting;
 
-import com.datadog.android.trace.api.span.DatadogSpan;
-import com.datadog.android.trace.api.span.DatadogSpanContext;
-import com.datadog.android.trace.internal._TraceInternalProxy;
+import com.motadata.android.trace.api.span.DatadogSpan;
+import com.motadata.android.trace.api.span.DatadogSpanContext;
+import com.motadata.android.trace.internal._TraceInternalProxy;
 
 import io.opentelemetry.api.trace.SpanContext;
 import io.opentelemetry.api.trace.TraceFlags;

@@ -2,7 +2,7 @@ package com.datadog.trace.common.sampling;
 
 import androidx.annotation.VisibleForTesting;
 
-import com.datadog.android.trace.internal.compat.function.Function;
+import com.motadata.android.trace.internal.compat.function.Function;
 import com.datadog.trace.api.cache.DDCache;
 import com.datadog.trace.api.cache.DDCaches;
 import com.datadog.trace.api.sampling.PrioritySampling;

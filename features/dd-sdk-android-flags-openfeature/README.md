@@ -65,8 +65,8 @@ Rum.enable(rumConfig)
 Create a `FlagsClient` and convert it to an OpenFeature provider using the `asOpenFeatureProvider()` extension function:
 
 ```kotlin
-import com.datadog.android.flags.FlagsClient
-import com.datadog.android.flags.openfeature.asOpenFeatureProvider
+import com.motadata.android.flags.FlagsClient
+import com.motadata.android.flags.openfeature.asOpenFeatureProvider
 import dev.openfeature.kotlin.sdk.OpenFeatureAPI
 
 // Create a FlagsClient and convert to OpenFeature provider

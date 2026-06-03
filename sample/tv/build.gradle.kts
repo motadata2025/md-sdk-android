@@ -20,7 +20,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.tv.sample"
+    namespace = "com.motadata.android.tv.sample"
     compileSdk = AndroidConfig.TARGET_SDK
     buildToolsVersion = AndroidConfig.BUILD_TOOLS_VERSION
 

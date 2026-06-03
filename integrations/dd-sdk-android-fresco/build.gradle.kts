@@ -37,7 +37,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.fresco"
+    namespace = "com.motadata.android.fresco"
 }
 
 dependencies {

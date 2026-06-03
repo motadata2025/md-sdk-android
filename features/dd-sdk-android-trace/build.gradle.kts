@@ -43,7 +43,7 @@ android {
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
     }
-    namespace = "com.datadog.android.trace"
+    namespace = "com.motadata.android.trace"
 
     testFixtures {
         enable = true

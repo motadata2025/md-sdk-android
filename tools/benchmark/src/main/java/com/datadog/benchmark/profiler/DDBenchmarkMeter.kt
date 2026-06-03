@@ -6,8 +6,8 @@
 
 package com.datadog.benchmark.profiler
 
-import com.datadog.android.internal.profiler.BenchmarkCounter
-import com.datadog.android.internal.profiler.BenchmarkMeter
+import com.motadata.android.internal.profiler.BenchmarkCounter
+import com.motadata.android.internal.profiler.BenchmarkMeter
 import io.opentelemetry.api.common.Attributes
 import io.opentelemetry.api.metrics.Meter
 import io.opentelemetry.api.metrics.ObservableDoubleMeasurement

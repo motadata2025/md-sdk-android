@@ -37,7 +37,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.tv"
+    namespace = "com.motadata.android.tv"
 }
 
 dependencies {

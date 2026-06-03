@@ -6,8 +6,8 @@
 
 package com.datadog.benchmark.profiler
 
-import com.datadog.android.internal.profiler.BenchmarkProfiler
-import com.datadog.android.internal.profiler.BenchmarkTracer
+import com.motadata.android.internal.profiler.BenchmarkProfiler
+import com.motadata.android.internal.profiler.BenchmarkTracer
 import io.opentelemetry.api.GlobalOpenTelemetry
 
 /**

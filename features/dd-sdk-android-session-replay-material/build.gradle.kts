@@ -41,7 +41,7 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    namespace = "com.datadog.android.sessionreplay.material"
+    namespace = "com.motadata.android.sessionreplay.material"
 
     libraryVariants.all {
         packageLibraryProvider.configure {

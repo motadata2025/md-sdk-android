@@ -6,8 +6,8 @@
 
 package com.datadog.benchmark.sample.di.app
 
-import com.datadog.android.api.SdkCore
-import com.datadog.android.trace.opentelemetry.OtelTracerProvider
+import com.motadata.android.api.SdkCore
+import com.motadata.android.trace.opentelemetry.OtelTracerProvider
 import com.datadog.benchmark.sample.config.BenchmarkConfig
 import com.datadog.benchmark.sample.config.SyntheticsRun
 import com.datadog.benchmark.sample.config.SyntheticsScenario

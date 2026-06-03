@@ -39,7 +39,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.compose"
+    namespace = "com.motadata.android.compose"
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
     }

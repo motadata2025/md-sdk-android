@@ -1,4 +1,4 @@
-class com.datadog.android.trace.ApmNetworkInstrumentationConfiguration
+class com.motadata.android.trace.ApmNetworkInstrumentationConfiguration
   constructor(List<String>)
   constructor(Map<String, Set<TracingHeaderType>>)
   fun setTraceOrigin(String, Boolean = true)
@@ -6,92 +6,92 @@ class com.datadog.android.trace.ApmNetworkInstrumentationConfiguration
   fun setSdkInstanceName(String)
   fun setTracedRequestListener(NetworkTracedRequestListener)
   fun setTraceSampleRate(Float)
-  fun setTraceSampler(com.datadog.android.core.sampling.Sampler<com.datadog.android.trace.api.span.DatadogSpan>)
+  fun setTraceSampler(com.motadata.android.core.sampling.Sampler<com.motadata.android.trace.api.span.DatadogSpan>)
   fun setTraceContextInjection(TraceContextInjection)
   fun set404ResourcesRedacted(Boolean)
   fun setTraceScope(ApmNetworkTracingScope)
   fun setHeaderPropagationOnly()
   fun isHeaderPropagationOnly(): Boolean
   fun copy()
-enum com.datadog.android.trace.ApmNetworkTracingScope
+enum com.motadata.android.trace.ApmNetworkTracingScope
   - ALL
   - EXCLUDE_INTERNAL_REDIRECTS
-object com.datadog.android.trace.DatadogTracing
-  fun newTracerBuilder(com.datadog.android.api.SdkCore = Datadog.getInstance()): com.datadog.android.trace.api.tracer.DatadogTracerBuilder
-open class com.datadog.android.trace.DeterministicTraceSampler : com.datadog.android.core.sampling.DeterministicSampler<com.datadog.android.trace.api.span.DatadogSpan>
+object com.motadata.android.trace.DatadogTracing
+  fun newTracerBuilder(com.motadata.android.api.SdkCore = Datadog.getInstance()): com.motadata.android.trace.api.tracer.DatadogTracerBuilder
+open class com.motadata.android.trace.DeterministicTraceSampler : com.motadata.android.core.sampling.DeterministicSampler<com.motadata.android.trace.api.span.DatadogSpan>
   constructor(() -> Float)
   constructor(Float)
   constructor(Double)
-annotation com.datadog.android.trace.ExperimentalTraceApi
-object com.datadog.android.trace.GlobalDatadogTracer
-  fun registerIfAbsent(com.datadog.android.trace.api.tracer.DatadogTracer): Boolean
-  fun get(): com.datadog.android.trace.api.tracer.DatadogTracer
-  fun getOrNull(): com.datadog.android.trace.api.tracer.DatadogTracer?
+annotation com.motadata.android.trace.ExperimentalTraceApi
+object com.motadata.android.trace.GlobalDatadogTracer
+  fun registerIfAbsent(com.motadata.android.trace.api.tracer.DatadogTracer): Boolean
+  fun get(): com.motadata.android.trace.api.tracer.DatadogTracer
+  fun getOrNull(): com.motadata.android.trace.api.tracer.DatadogTracer?
   fun clear()
-interface com.datadog.android.trace.InternalCoreWriterProvider
-  fun getCoreTracerWriter(): com.datadog.android.trace.api.span.DatadogSpanWriter
-interface com.datadog.android.trace.NetworkTracedRequestListener
-  fun onRequestIntercepted(com.datadog.android.api.instrumentation.network.HttpRequestInfo, com.datadog.android.trace.api.span.DatadogSpan, com.datadog.android.api.instrumentation.network.HttpResponseInfo?, Throwable?)
-fun <T: Any?> withinSpan(String, com.datadog.android.trace.api.span.DatadogSpan? = null, Boolean = true, com.datadog.android.trace.api.span.DatadogSpan.() -> T): T
-object com.datadog.android.trace.Trace
-  fun enable(TraceConfiguration, com.datadog.android.api.SdkCore = Datadog.getInstance())
-data class com.datadog.android.trace.TraceConfiguration
+interface com.motadata.android.trace.InternalCoreWriterProvider
+  fun getCoreTracerWriter(): com.motadata.android.trace.api.span.DatadogSpanWriter
+interface com.motadata.android.trace.NetworkTracedRequestListener
+  fun onRequestIntercepted(com.motadata.android.api.instrumentation.network.HttpRequestInfo, com.motadata.android.trace.api.span.DatadogSpan, com.motadata.android.api.instrumentation.network.HttpResponseInfo?, Throwable?)
+fun <T: Any?> withinSpan(String, com.motadata.android.trace.api.span.DatadogSpan? = null, Boolean = true, com.motadata.android.trace.api.span.DatadogSpan.() -> T): T
+object com.motadata.android.trace.Trace
+  fun enable(TraceConfiguration, com.motadata.android.api.SdkCore = Datadog.getInstance())
+data class com.motadata.android.trace.TraceConfiguration
   class Builder
     fun useCustomEndpoint(String): Builder
-    fun setEventMapper(com.datadog.android.trace.event.SpanEventMapper): Builder
+    fun setEventMapper(com.motadata.android.trace.event.SpanEventMapper): Builder
     fun setNetworkInfoEnabled(Boolean): Builder
     fun build(): TraceConfiguration
-enum com.datadog.android.trace.TraceContextInjection
+enum com.motadata.android.trace.TraceContextInjection
   - ALL
   - SAMPLED
-interface com.datadog.android.trace.event.SpanEventMapper : com.datadog.android.event.EventMapper<com.datadog.android.trace.model.SpanEvent>
-  override fun map(com.datadog.android.trace.model.SpanEvent): com.datadog.android.trace.model.SpanEvent
-class com.datadog.android.trace.internal.ApmNetworkInstrumentation
-  val sdkCore: com.datadog.android.api.SdkCore?
-  val sdkCoreReference: com.datadog.android.core.SdkReference
+interface com.motadata.android.trace.event.SpanEventMapper : com.motadata.android.event.EventMapper<com.motadata.android.trace.model.SpanEvent>
+  override fun map(com.motadata.android.trace.model.SpanEvent): com.motadata.android.trace.model.SpanEvent
+class com.motadata.android.trace.internal.ApmNetworkInstrumentation
+  val sdkCore: com.motadata.android.api.SdkCore?
+  val sdkCoreReference: com.motadata.android.core.SdkReference
   val sampleRate: Float?
-  val localHeaderTypes: Set<com.datadog.android.trace.TracingHeaderType>
-  fun onRequest(com.datadog.android.api.instrumentation.network.HttpRequestInfo): com.datadog.android.trace.internal.net.RequestTracingState?
-  fun onResponseSucceeded(com.datadog.android.trace.internal.net.RequestTracingState, com.datadog.android.api.instrumentation.network.HttpResponseInfo)
-  fun onResponseFailed(com.datadog.android.trace.internal.net.RequestTracingState, Throwable)
-  fun removeTracingHeaders(com.datadog.android.api.instrumentation.network.HttpRequestInfoBuilder)
+  val localHeaderTypes: Set<com.motadata.android.trace.TracingHeaderType>
+  fun onRequest(com.motadata.android.api.instrumentation.network.HttpRequestInfo): com.motadata.android.trace.internal.net.RequestTracingState?
+  fun onResponseSucceeded(com.motadata.android.trace.internal.net.RequestTracingState, com.motadata.android.api.instrumentation.network.HttpResponseInfo)
+  fun onResponseFailed(com.motadata.android.trace.internal.net.RequestTracingState, Throwable)
+  fun removeTracingHeaders(com.motadata.android.api.instrumentation.network.HttpRequestInfoBuilder)
   fun reportInstrumentationError(() -> String)
-class com.datadog.android.trace.internal.DatadogPropagationHelper
-  fun isExtractedContext(com.datadog.android.trace.api.span.DatadogSpanContext): Boolean
-  fun setTraceContext(com.datadog.android.api.instrumentation.network.HttpRequestInfoBuilder, String, String, Int)
-  fun extractParentContext(com.datadog.android.trace.api.tracer.DatadogTracer, com.datadog.android.api.instrumentation.network.HttpRequestInfo): com.datadog.android.trace.api.span.DatadogSpanContext?
-  fun createExtractedContext(String, String, Int): com.datadog.android.trace.api.span.DatadogSpanContext
-  fun propagateSampledHeaders(com.datadog.android.api.instrumentation.network.HttpRequestInfoBuilder, com.datadog.android.trace.api.tracer.DatadogTracer, com.datadog.android.trace.api.span.DatadogSpan, Set<com.datadog.android.trace.TracingHeaderType>)
-  fun propagateNotSampledHeaders(com.datadog.android.api.instrumentation.network.HttpRequestInfoBuilder, com.datadog.android.trace.api.tracer.DatadogTracer, com.datadog.android.trace.api.span.DatadogSpan, Set<com.datadog.android.trace.TracingHeaderType>, com.datadog.android.trace.TraceContextInjection, String?)
-  fun removeAllTracingHeaders(com.datadog.android.api.instrumentation.network.HttpRequestInfoBuilder)
-  fun extractSamplingDecision(com.datadog.android.api.instrumentation.network.HttpRequestInfo): Boolean?
+class com.motadata.android.trace.internal.DatadogPropagationHelper
+  fun isExtractedContext(com.motadata.android.trace.api.span.DatadogSpanContext): Boolean
+  fun setTraceContext(com.motadata.android.api.instrumentation.network.HttpRequestInfoBuilder, String, String, Int)
+  fun extractParentContext(com.motadata.android.trace.api.tracer.DatadogTracer, com.motadata.android.api.instrumentation.network.HttpRequestInfo): com.motadata.android.trace.api.span.DatadogSpanContext?
+  fun createExtractedContext(String, String, Int): com.motadata.android.trace.api.span.DatadogSpanContext
+  fun propagateSampledHeaders(com.motadata.android.api.instrumentation.network.HttpRequestInfoBuilder, com.motadata.android.trace.api.tracer.DatadogTracer, com.motadata.android.trace.api.span.DatadogSpan, Set<com.motadata.android.trace.TracingHeaderType>)
+  fun propagateNotSampledHeaders(com.motadata.android.api.instrumentation.network.HttpRequestInfoBuilder, com.motadata.android.trace.api.tracer.DatadogTracer, com.motadata.android.trace.api.span.DatadogSpan, Set<com.motadata.android.trace.TracingHeaderType>, com.motadata.android.trace.TraceContextInjection, String?)
+  fun removeAllTracingHeaders(com.motadata.android.api.instrumentation.network.HttpRequestInfoBuilder)
+  fun extractSamplingDecision(com.motadata.android.api.instrumentation.network.HttpRequestInfo): Boolean?
   companion object 
-class com.datadog.android.trace.internal.DatadogSpanIdConverter
+class com.motadata.android.trace.internal.DatadogSpanIdConverter
   fun fromHex(String): Long
   fun toHexStringPadded(Long): String
-fun com.datadog.android.trace.api.trace.DatadogTraceId.Companion.fromHex(String): com.datadog.android.trace.api.trace.DatadogTraceId
-class com.datadog.android.trace.internal.RumContextPropagator
-  constructor(() -> com.datadog.android.api.feature.FeatureSdkCore?)
+fun com.motadata.android.trace.api.trace.DatadogTraceId.Companion.fromHex(String): com.motadata.android.trace.api.trace.DatadogTraceId
+class com.motadata.android.trace.internal.RumContextPropagator
+  constructor(() -> com.motadata.android.api.feature.FeatureSdkCore?)
   companion object 
-    fun com.datadog.android.trace.api.span.DatadogSpan.extractRumContext(RumContextPropagator, Boolean = false)
-object com.datadog.android.trace.internal._TraceInternalProxy
+    fun com.motadata.android.trace.api.span.DatadogSpan.extractRumContext(RumContextPropagator, Boolean = false)
+object com.motadata.android.trace.internal._TraceInternalProxy
   val spanIdConverter: DatadogSpanIdConverter
   var propagationHelper: DatadogPropagationHelper
-  fun setTracingSamplingPriorityIfNecessary(com.datadog.android.trace.api.span.DatadogSpanContext)
-  fun setTraceId128BitGenerationEnabled(com.datadog.android.trace.api.tracer.DatadogTracerBuilder): com.datadog.android.trace.api.tracer.DatadogTracerBuilder
-  fun setSdkV2Compatible(com.datadog.android.trace.api.tracer.DatadogTracerBuilder): com.datadog.android.trace.api.tracer.DatadogTracerBuilder
-  fun addThrowable(com.datadog.android.trace.api.span.DatadogSpan, Throwable, Byte)
-  fun activateSpan(com.datadog.android.trace.api.tracer.DatadogTracer, com.datadog.android.trace.api.span.DatadogSpan, Boolean): com.datadog.android.trace.api.scope.DatadogScope?
+  fun setTracingSamplingPriorityIfNecessary(com.motadata.android.trace.api.span.DatadogSpanContext)
+  fun setTraceId128BitGenerationEnabled(com.motadata.android.trace.api.tracer.DatadogTracerBuilder): com.motadata.android.trace.api.tracer.DatadogTracerBuilder
+  fun setSdkV2Compatible(com.motadata.android.trace.api.tracer.DatadogTracerBuilder): com.motadata.android.trace.api.tracer.DatadogTracerBuilder
+  fun addThrowable(com.motadata.android.trace.api.span.DatadogSpan, Throwable, Byte)
+  fun activateSpan(com.motadata.android.trace.api.tracer.DatadogTracer, com.motadata.android.trace.api.span.DatadogSpan, Boolean): com.motadata.android.trace.api.scope.DatadogScope?
   fun mergeBaggage(String?, String): String
-  fun createApmNetworkInstrumentation(String, com.datadog.android.trace.ApmNetworkInstrumentationConfiguration)
-data class com.datadog.android.trace.internal.net.RequestTracingState
-  constructor(com.datadog.android.api.instrumentation.network.HttpRequestInfoBuilder, Boolean = false, com.datadog.android.trace.api.span.DatadogSpan? = null, Float? = null)
-  fun createRequestInfo(): com.datadog.android.api.instrumentation.network.HttpRequestInfo
+  fun createApmNetworkInstrumentation(String, com.motadata.android.trace.ApmNetworkInstrumentationConfiguration)
+data class com.motadata.android.trace.internal.net.RequestTracingState
+  constructor(com.motadata.android.api.instrumentation.network.HttpRequestInfoBuilder, Boolean = false, com.motadata.android.trace.api.span.DatadogSpan? = null, Float? = null)
+  fun createRequestInfo(): com.motadata.android.api.instrumentation.network.HttpRequestInfo
 fun RequestTracingState?.toAttributesMap(String, String, String): Map<String, Any?>
-data class com.datadog.android.trace.internal.net.TraceContext
+data class com.motadata.android.trace.internal.net.TraceContext
   constructor(String, String, Int)
-fun <T> android.database.sqlite.SQLiteDatabase.transactionTraced(String, Boolean = true, com.datadog.android.trace.api.span.DatadogSpan.(android.database.sqlite.SQLiteDatabase) -> T): T
-data class com.datadog.android.trace.model.SpanEvent
+fun <T> android.database.sqlite.SQLiteDatabase.transactionTraced(String, Boolean = true, com.motadata.android.trace.api.span.DatadogSpan.(android.database.sqlite.SQLiteDatabase) -> T): T
+data class com.motadata.android.trace.model.SpanEvent
   constructor(kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.String, kotlin.Long, kotlin.Long, kotlin.Long = 0L, Metrics, Meta)
   val type: kotlin.String
   fun toJson(): com.google.gson.JsonElement

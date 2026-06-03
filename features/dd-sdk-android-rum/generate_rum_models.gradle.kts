@@ -8,7 +8,7 @@ import com.datadog.gradle.utils.createJsonModelsGenerationTask
 
 createJsonModelsGenerationTask("generateRumModelsFromJson") {
     inputDirPath = "src/main/json/rum"
-    targetPackageName = "com.datadog.android.rum.model"
+    targetPackageName = "com.motadata.android.rum.model"
     ignoredFiles = listOf(
         "_common-schema.json",
         "_action-child-schema.json",

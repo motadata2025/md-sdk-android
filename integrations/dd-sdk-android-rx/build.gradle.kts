@@ -37,7 +37,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.rx"
+    namespace = "com.motadata.android.rx"
 }
 
 dependencies {

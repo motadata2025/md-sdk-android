@@ -12,7 +12,7 @@ createJsonModelsGenerationTask("generateLogModelsFromJson") {
     ignoredFiles = listOf(
         "_common-schema.json"
     )
-    targetPackageName = "com.datadog.android.log.model"
+    targetPackageName = "com.motadata.android.log.model"
     extraInputWatchDir = project.layout.projectDirectory.dir(
         Paths.get("../dd-sdk-android-rum/src/main/json/rum").toString()
     )

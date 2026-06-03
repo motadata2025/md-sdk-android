@@ -1,4 +1,4 @@
-class com.datadog.android.flags.openfeature.DatadogFlagsProvider : dev.openfeature.kotlin.sdk.FeatureProvider
+class com.motadata.android.flags.openfeature.DatadogFlagsProvider : dev.openfeature.kotlin.sdk.FeatureProvider
   override val metadata: dev.openfeature.kotlin.sdk.ProviderMetadata
   override val hooks: List<dev.openfeature.kotlin.sdk.Hook<*>>
   override fun initialize(dev.openfeature.kotlin.sdk.EvaluationContext?)
@@ -11,4 +11,4 @@ class com.datadog.android.flags.openfeature.DatadogFlagsProvider : dev.openfeatu
   override fun shutdown()
   override fun observe(): kotlinx.coroutines.flow.Flow<dev.openfeature.kotlin.sdk.events.OpenFeatureProviderEvents>
   companion object 
-fun com.datadog.android.flags.FlagsClient.asOpenFeatureProvider(): dev.openfeature.kotlin.sdk.FeatureProvider
+fun com.motadata.android.flags.FlagsClient.asOpenFeatureProvider(): dev.openfeature.kotlin.sdk.FeatureProvider

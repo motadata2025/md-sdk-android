@@ -35,11 +35,11 @@ Redirects are not individually traced — a single span covers the entire reques
 This is the default behavior.
 
 ```kotlin
-import com.datadog.android.cronet.configureDatadogInstrumentation
-import com.datadog.android.rum.configuration.RumNetworkInstrumentationConfiguration
-import com.datadog.android.rum.ExperimentalRumApi
-import com.datadog.android.trace.ApmNetworkInstrumentationConfiguration
-import com.datadog.android.trace.ExperimentalTraceApi
+import com.motadata.android.cronet.configureDatadogInstrumentation
+import com.motadata.android.rum.configuration.RumNetworkInstrumentationConfiguration
+import com.motadata.android.rum.ExperimentalRumApi
+import com.motadata.android.trace.ApmNetworkInstrumentationConfiguration
+import com.motadata.android.trace.ExperimentalTraceApi
 
 @OptIn(ExperimentalTraceApi::class, ExperimentalRumApi::class)
 val cronetEngine = CronetEngine.Builder(context)
@@ -52,8 +52,8 @@ val cronetEngine = CronetEngine.Builder(context)
 
 **Note:** Both RUM and Trace features should be enabled: 
 ```kotlin
-import com.datadog.android.rum.Rum
-import com.datadog.android.trace.Trace
+import com.motadata.android.rum.Rum
+import com.motadata.android.trace.Trace
 
 Trace.enable(...)
 Rum.enable(...)

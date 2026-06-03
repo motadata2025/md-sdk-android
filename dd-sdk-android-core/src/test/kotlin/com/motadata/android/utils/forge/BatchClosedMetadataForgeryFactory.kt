@@ -1,0 +1,21 @@
+/*
+ * Unless explicitly stated otherwise all files in this repository are licensed under the Apache License Version 2.0.
+ * This product includes software developed at Datadog (https://www.datadoghq.com/).
+ * Copyright 2016-Present Datadog, Inc.
+ */
+
+package com.motadata.android.utils.forge
+
+import com.motadata.android.core.internal.metrics.BatchClosedMetadata
+import fr.xgouchet.elmyr.Forge
+import fr.xgouchet.elmyr.ForgeryFactory
+
+internal class BatchClosedMetadataForgeryFactory : ForgeryFactory<BatchClosedMetadata> {
+
+    override fun getForgery(forge: Forge): BatchClosedMetadata {
+        return BatchClosedMetadata(
+            lastTimeWasUsedInMs = forge.aLong(min = Long.MAX_VALUE / 2),
+            eventsCount = forge.aPositiveLong()
+        )
+    }
+}

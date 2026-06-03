@@ -6,7 +6,7 @@
 
 package com.datadog.benchmark.sample.ui.logsheavytraffic.di
 
-import com.datadog.android.log.Logger
+import com.motadata.android.log.Logger
 import com.datadog.benchmark.sample.di.common.DispatchersModule
 import com.datadog.benchmark.sample.ui.logsheavytraffic.LogsHeavyTrafficFragment
 import com.datadog.benchmark.sample.ui.logsheavytraffic.LogsHeavyTrafficHostFragment

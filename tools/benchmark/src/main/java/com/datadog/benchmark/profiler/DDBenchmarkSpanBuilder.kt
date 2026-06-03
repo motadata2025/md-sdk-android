@@ -6,8 +6,8 @@
 
 package com.datadog.benchmark.profiler
 
-import com.datadog.android.internal.profiler.BenchmarkSpan
-import com.datadog.android.internal.profiler.BenchmarkSpanBuilder
+import com.motadata.android.internal.profiler.BenchmarkSpan
+import com.motadata.android.internal.profiler.BenchmarkSpanBuilder
 import io.opentelemetry.api.trace.SpanBuilder
 
 /**

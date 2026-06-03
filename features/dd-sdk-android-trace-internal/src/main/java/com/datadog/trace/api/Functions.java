@@ -3,7 +3,7 @@ package com.datadog.trace.api;
 import com.datadog.trace.bootstrap.instrumentation.api.UTF8BytesString;
 
 import java.util.Locale;
-import com.datadog.android.trace.internal.compat.function.Function;
+import com.motadata.android.trace.internal.compat.function.Function;
 
 public final class Functions {
 

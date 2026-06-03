@@ -39,7 +39,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.internal"
+    namespace = "com.motadata.android.internal"
     compileOptions {
         java11()
     }

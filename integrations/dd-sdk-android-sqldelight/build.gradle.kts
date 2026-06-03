@@ -37,7 +37,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.sqldelight"
+    namespace = "com.motadata.android.sqldelight"
 }
 
 dependencies {

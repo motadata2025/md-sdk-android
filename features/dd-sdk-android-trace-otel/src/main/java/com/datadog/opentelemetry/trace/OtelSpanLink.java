@@ -10,10 +10,10 @@ package com.datadog.opentelemetry.trace;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.datadog.android.trace.api.span.DatadogSpanLink;
-import com.datadog.android.trace.api.trace.DatadogTraceId;
-import com.datadog.android.trace.internal.DatadogTraceExtKt;
-import com.datadog.android.trace.internal._TraceInternalProxy;
+import com.motadata.android.trace.api.span.DatadogSpanLink;
+import com.motadata.android.trace.api.trace.DatadogTraceId;
+import com.motadata.android.trace.internal.DatadogTraceExtKt;
+import com.motadata.android.trace.internal._TraceInternalProxy;
 import com.datadog.opentelemetry.context.propagation.TraceStateHelper;
 
 import java.util.Collections;

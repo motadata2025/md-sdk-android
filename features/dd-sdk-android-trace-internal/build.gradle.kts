@@ -39,7 +39,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.trace.internal"
+    namespace = "com.motadata.android.trace.internal"
 
     libraryVariants.all {
         packageLibraryProvider.configure {

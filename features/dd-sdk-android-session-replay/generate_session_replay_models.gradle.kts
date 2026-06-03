@@ -10,5 +10,5 @@ val generateSessionReplayModelsTaskName = "generateSessionReplayModels"
 
 createJsonModelsGenerationTask(generateSessionReplayModelsTaskName) {
     inputDirPath = "src/main/json/schemas"
-    targetPackageName = "com.datadog.android.sessionreplay.model"
+    targetPackageName = "com.motadata.android.sessionreplay.model"
 }

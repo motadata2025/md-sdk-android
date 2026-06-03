@@ -8,11 +8,11 @@ package com.datadog.benchmark.sample.ui.rummanual
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.datadog.android.rum.RumActionType
-import com.datadog.android.rum.RumErrorSource
-import com.datadog.android.rum.RumMonitor
-import com.datadog.android.rum.RumResourceKind
-import com.datadog.android.rum.RumResourceMethod
+import com.motadata.android.rum.RumActionType
+import com.motadata.android.rum.RumErrorSource
+import com.motadata.android.rum.RumMonitor
+import com.motadata.android.rum.RumResourceKind
+import com.motadata.android.rum.RumResourceMethod
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable

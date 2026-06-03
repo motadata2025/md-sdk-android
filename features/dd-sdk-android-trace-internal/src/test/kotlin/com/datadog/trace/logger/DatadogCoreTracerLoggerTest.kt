@@ -6,8 +6,8 @@
 
 package com.datadog.trace.logger
 
-import com.datadog.android.api.InternalLogger
-import com.datadog.android.utils.verifyLog
+import com.motadata.android.api.InternalLogger
+import com.motadata.android.utils.verifyLog
 import com.datadog.utils.forge.Configurator
 import fr.xgouchet.elmyr.Forge
 import fr.xgouchet.elmyr.annotation.StringForgery

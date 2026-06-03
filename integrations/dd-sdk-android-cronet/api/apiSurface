@@ -1,4 +1,4 @@
-fun org.chromium.net.CronetEngine.Builder.configureDatadogInstrumentation(com.datadog.android.rum.configuration.RumNetworkInstrumentationConfiguration?, com.datadog.android.trace.ApmNetworkInstrumentationConfiguration?)
-class com.datadog.android.cronet.CronetIntegrationPlugin
+fun org.chromium.net.CronetEngine.Builder.configureDatadogInstrumentation(com.motadata.android.rum.configuration.RumNetworkInstrumentationConfiguration?, com.motadata.android.trace.ApmNetworkInstrumentationConfiguration?)
+class com.motadata.android.cronet.CronetIntegrationPlugin
   fun setListenerExecutor(java.util.concurrent.Executor)
   fun build(): org.chromium.net.CronetEngine

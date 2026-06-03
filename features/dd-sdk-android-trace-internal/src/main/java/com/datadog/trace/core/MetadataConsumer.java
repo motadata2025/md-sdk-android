@@ -1,6 +1,6 @@
 package com.datadog.trace.core;
 
-import com.datadog.android.trace.internal.compat.function.Consumer;
+import com.motadata.android.trace.internal.compat.function.Consumer;
 
 @FunctionalInterface
 public interface MetadataConsumer extends Consumer<Metadata> {

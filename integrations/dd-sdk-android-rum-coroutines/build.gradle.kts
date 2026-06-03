@@ -36,7 +36,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.rum.coroutines"
+    namespace = "com.motadata.android.rum.coroutines"
 
     libraryVariants.all {
         packageLibraryProvider.configure {

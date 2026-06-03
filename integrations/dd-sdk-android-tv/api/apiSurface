@@ -1,4 +1,4 @@
-class com.datadog.android.tv.LeanbackViewAttributesProvider : com.datadog.android.rum.tracking.ViewAttributesProvider
+class com.motadata.android.tv.LeanbackViewAttributesProvider : com.motadata.android.rum.tracking.ViewAttributesProvider
   override fun extractAttributes(android.view.View, MutableMap<String, Any?>)
   override fun equals(Any?): Boolean
   override fun hashCode(): Int

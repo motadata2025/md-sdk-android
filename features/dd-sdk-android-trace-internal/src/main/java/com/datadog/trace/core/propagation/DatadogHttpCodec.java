@@ -7,7 +7,7 @@ import static com.datadog.trace.core.propagation.XRayHttpCodec.X_AMZN_TRACE_ID;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
-import com.datadog.android.trace.internal.compat.function.Supplier;
+import com.motadata.android.trace.internal.compat.function.Supplier;
 import com.datadog.trace.api.Config;
 import com.datadog.trace.api.DD128bTraceId;
 import com.datadog.trace.api.DDSpanId;

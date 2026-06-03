@@ -9,9 +9,9 @@
 package com.datadog.benchmark.sample.di.activity
 
 import android.content.Context
-import com.datadog.android.api.SdkCore
-import com.datadog.android.log.Logger
-import com.datadog.android.rum.RumMonitor
+import com.motadata.android.api.SdkCore
+import com.motadata.android.log.Logger
+import com.motadata.android.rum.RumMonitor
 import com.datadog.benchmark.DatadogBaseMeter
 import com.datadog.benchmark.sample.activities.scenarios.DefaultScenarioActivity
 import com.datadog.benchmark.sample.activities.scenarios.RumAutoScenarioActivity

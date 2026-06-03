@@ -8,7 +8,7 @@ import com.datadog.gradle.utils.createJsonModelsGenerationTask
 
 createJsonModelsGenerationTask("generateTelemetryModelsFromJson") {
     inputDirPath = "src/main/json/telemetry"
-    targetPackageName = "com.datadog.android.telemetry.model"
+    targetPackageName = "com.motadata.android.telemetry.model"
     ignoredFiles = listOf(
         "_common-schema.json"
     )

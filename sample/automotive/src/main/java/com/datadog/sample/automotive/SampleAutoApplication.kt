@@ -8,18 +8,18 @@ package com.datadog.sample.automotive
 
 import android.app.Application
 import android.util.Log
-import com.datadog.android.Datadog
-import com.datadog.android.DatadogSite
-import com.datadog.android.core.configuration.BatchSize
-import com.datadog.android.core.configuration.Configuration
-import com.datadog.android.core.configuration.UploadFrequency
-import com.datadog.android.log.Logs
-import com.datadog.android.log.LogsConfiguration
-import com.datadog.android.privacy.TrackingConsent
-import com.datadog.android.rum.GlobalRumMonitor
-import com.datadog.android.rum.Rum
-import com.datadog.android.rum.RumConfiguration
-import com.datadog.android.rum.tracking.ActivityViewTrackingStrategy
+import com.motadata.android.Datadog
+import com.motadata.android.DatadogSite
+import com.motadata.android.core.configuration.BatchSize
+import com.motadata.android.core.configuration.Configuration
+import com.motadata.android.core.configuration.UploadFrequency
+import com.motadata.android.log.Logs
+import com.motadata.android.log.LogsConfiguration
+import com.motadata.android.privacy.TrackingConsent
+import com.motadata.android.rum.GlobalRumMonitor
+import com.motadata.android.rum.Rum
+import com.motadata.android.rum.RumConfiguration
+import com.motadata.android.rum.tracking.ActivityViewTrackingStrategy
 
 @Suppress("UndocumentedPublicClass")
 class SampleAutoApplication : Application() {

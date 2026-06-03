@@ -9,7 +9,7 @@ import com.datadog.trace.logger.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import com.datadog.android.trace.internal.compat.function.Function;
+import com.motadata.android.trace.internal.compat.function.Function;
 
 final class AntPatternHttpPathNormalizer extends HttpPathNormalizer {
   private static final Logger log = LoggerFactory.getLogger(AntPatternHttpPathNormalizer.class);

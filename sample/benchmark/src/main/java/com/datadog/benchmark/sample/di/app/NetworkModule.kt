@@ -7,8 +7,8 @@
 package com.datadog.benchmark.sample.di.app
 
 import android.content.Context
-import com.datadog.android.api.SdkCore
-import com.datadog.android.okhttp.DatadogInterceptor
+import com.motadata.android.api.SdkCore
+import com.motadata.android.okhttp.DatadogInterceptor
 import com.datadog.benchmark.sample.config.BenchmarkConfig
 import com.datadog.benchmark.sample.config.SyntheticsRun
 import com.datadog.benchmark.sample.config.SyntheticsScenario

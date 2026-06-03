@@ -12,7 +12,7 @@ import com.datadog.trace.relocate.api.RatelimitedLogger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import com.datadog.android.trace.internal.compat.function.IntPredicate;
+import com.motadata.android.trace.internal.compat.function.IntPredicate;
 
 public class W3CPTagsCodec extends PTagsCodec {
   private static final RatelimitedLogger log =

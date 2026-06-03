@@ -1,0 +1,543 @@
+/*
+ * Unless explicitly stated otherwise all files in this repository are licensed under the Apache License Version 2.0.
+ * This product includes software developed at Datadog (https://www.datadoghq.com/).
+ * Copyright 2016-Present Datadog, Inc.
+ */
+@file:Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+
+package com.motadata.android.sample
+
+import android.annotation.SuppressLint
+import android.app.Application
+import android.content.Context
+import android.os.Build
+import android.util.Log
+import androidx.lifecycle.ViewModelProvider
+import com.motadata.android.Datadog
+import com.motadata.android.DatadogSite
+import com.motadata.android.compose.enableComposeActionTracking
+import com.motadata.android.core.configuration.BackPressureMitigation
+import com.motadata.android.core.configuration.BackPressureStrategy
+import com.motadata.android.core.configuration.BatchSize
+import com.motadata.android.core.configuration.Configuration
+import com.motadata.android.core.configuration.UploadFrequency
+import com.motadata.android.flags.Flags
+import com.motadata.android.flags.FlagsClient
+import com.motadata.android.flags.FlagsConfiguration
+import com.motadata.android.flags.openfeature.asOpenFeatureProvider
+import com.motadata.android.insights.enableRumDebugWidget
+import com.motadata.android.log.Logger
+import com.motadata.android.log.Logs
+import com.motadata.android.log.LogsConfiguration
+import com.motadata.android.ndk.NdkCrashReports
+import com.motadata.android.okhttp.configureDatadogInstrumentation
+import com.motadata.android.profiling.Profiling
+import com.motadata.android.profiling.ProfilingConfiguration
+import com.motadata.android.rum.ExperimentalRumApi
+import com.motadata.android.rum.GlobalRumMonitor
+import com.motadata.android.rum.Rum
+import com.motadata.android.rum.RumConfiguration
+import com.motadata.android.rum.RumErrorSource
+import com.motadata.android.rum.configuration.RumNetworkInstrumentationConfiguration
+import com.motadata.android.rum.resource.ResourceHeadersExtractor
+import com.motadata.android.rum.tracking.NavigationViewTrackingStrategy
+import com.motadata.android.sample.account.AccountFragment
+import com.motadata.android.sample.data.db.LocalDataSource
+import com.motadata.android.sample.data.remote.RemoteDataSource
+import com.motadata.android.sample.image.Coil3ImageLoader
+import com.motadata.android.sample.image.CoilImageLoader
+import com.motadata.android.sample.image.FrescoImageLoader
+import com.motadata.android.sample.image.PicassoImageLoader
+import com.motadata.android.sample.user.UserFragment
+import com.motadata.android.sessionreplay.ImagePrivacy
+import com.motadata.android.sessionreplay.SessionReplay
+import com.motadata.android.sessionreplay.SessionReplayConfiguration
+import com.motadata.android.sessionreplay.SessionReplayPrivacy
+import com.motadata.android.sessionreplay.SystemRequirementsConfiguration
+import com.motadata.android.sessionreplay.TextAndInputPrivacy
+import com.motadata.android.sessionreplay.TouchPrivacy
+import com.motadata.android.sessionreplay.compose.ComposeExtensionSupport
+import com.motadata.android.sessionreplay.material.MaterialExtensionSupport
+import com.motadata.android.timber.DatadogTree
+import com.motadata.android.trace.ApmNetworkInstrumentationConfiguration
+import com.motadata.android.trace.DatadogTracing
+import com.motadata.android.trace.ExperimentalTraceApi
+import com.motadata.android.trace.GlobalDatadogTracer
+import com.motadata.android.trace.Trace
+import com.motadata.android.trace.TraceConfiguration
+import com.motadata.android.trace.opentelemetry.DatadogOpenTelemetry
+import com.motadata.android.vendor.sample.LocalServer
+import com.facebook.stetho.Stetho
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
+import dev.openfeature.kotlin.sdk.ImmutableContext
+import dev.openfeature.kotlin.sdk.OpenFeatureAPI
+import dev.openfeature.kotlin.sdk.Value
+import dev.openfeature.kotlin.sdk.events.OpenFeatureProviderEvents
+import io.opentelemetry.api.GlobalOpenTelemetry
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
+import java.security.SecureRandom
+import java.util.UUID
+
+/**
+ * The main [Application] for the sample project.
+ */
+@Suppress("MagicNumber", "TooManyFunctions")
+class SampleApplication : Application() {
+
+    private val tracedHosts = listOf(
+        "datadoghq.com",
+        "127.0.0.1"
+    )
+
+    @OptIn(ExperimentalRumApi::class, ExperimentalTraceApi::class)
+    private val okHttpClient = OkHttpClient.Builder()
+        .configureDatadogInstrumentation(
+            rumInstrumentationConfiguration = RumNetworkInstrumentationConfiguration()
+                .trackResourceHeaders(resourceHeadersExtractor),
+            apmInstrumentationConfiguration = ApmNetworkInstrumentationConfiguration(tracedHosts)
+        )
+        .build()
+
+    private val retrofitClient = Retrofit.Builder()
+        .baseUrl("https://api.datadoghq.com/api/v2/")
+        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+        .addCallAdapterFactory(RxJava3CallAdapterFactory.createSynchronous())
+        .client(okHttpClient)
+        .build()
+
+    private val retrofitBaseDataSource = retrofitClient.create(RemoteDataSource::class.java)
+
+    private val localServer = LocalServer()
+
+    // Coroutine scope for observing OpenFeature events
+    private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
+    override fun onCreate() {
+        super.onCreate()
+        Stetho.initializeWithDefaults(this)
+        initializeDatadog()
+
+        initializeTimber()
+
+        initializeImageLoaders()
+
+        localServer.init(this)
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        GlobalRumMonitor.get().addError(
+            "Low Memory warning",
+            RumErrorSource.SOURCE,
+            null
+        )
+    }
+
+    override fun onTrimMemory(level: Int) {
+        super.onTrimMemory(level)
+        GlobalRumMonitor.get().addError(
+            "Low Memory warning",
+            RumErrorSource.SOURCE,
+            null,
+            mapOf("trim.level" to level)
+        )
+    }
+
+    private fun initializeImageLoaders() {
+        CoilImageLoader.initialize(this, okHttpClient)
+        Coil3ImageLoader.initialize(this, okHttpClient)
+        PicassoImageLoader.initialize(this, okHttpClient)
+        FrescoImageLoader.initialize(this, okHttpClient)
+    }
+
+    private fun initializeDatadog() {
+        val preferences = Preferences.defaultPreferences(this)
+        Datadog.setVerbosity(Log.VERBOSE)
+        Datadog.initialize(
+            this,
+            createDatadogConfiguration(),
+            preferences.getTrackingConsent()
+        )
+
+        initializeSessionReplay()
+        initializeLogs()
+        initializeTraces()
+
+        NdkCrashReports.enable()
+
+        initializeUserInfo(preferences)
+        initializeAccountInfo(preferences)
+
+        Rum.enable(createRumConfiguration())
+
+        initializeFlags()
+
+        GlobalRumMonitor.get().debug = true
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            Profiling.enable(
+                ProfilingConfiguration.Builder()
+                    .setApplicationLaunchSampleRate(100f)
+                    .build()
+            )
+        }
+    }
+
+    private fun initializeUserInfo(preferences: Preferences.DefaultPreferences) {
+        Datadog.setUserInfo(
+            id = preferences.getUserId() ?: "unknown",
+            name = preferences.getUserName(),
+            email = preferences.getUserEmail(),
+            extraInfo = mapOf(
+                UserFragment.GENDER_KEY to preferences.getUserGender(),
+                UserFragment.AGE_KEY to preferences.getUserAge()
+            )
+        )
+    }
+
+    private fun initializeAccountInfo(preferences: Preferences.DefaultPreferences) {
+        preferences.getAccountId()?.let { id ->
+            Datadog.setAccountInfo(
+                id = id,
+                name = preferences.getAccountName(),
+                extraInfo = mapOf(
+                    AccountFragment.ROLE_KEY to preferences.getAccountRole(),
+                    AccountFragment.AGE_KEY to preferences.getUserAge()
+                )
+            )
+        }
+    }
+
+    private fun initializeTraces() {
+        val tracesConfig = TraceConfiguration.Builder().apply {
+            if (BuildConfig.DD_OVERRIDE_TRACES_URL.isNotBlank()) {
+                useCustomEndpoint(BuildConfig.DD_OVERRIDE_TRACES_URL)
+            }
+        }.build()
+        Trace.enable(tracesConfig)
+
+        GlobalDatadogTracer.registerIfAbsent(
+            DatadogTracing.newTracerBuilder()
+                .withPartialFlushMinSpans(1)
+                .build()
+        )
+
+        GlobalOpenTelemetry.set(
+            DatadogOpenTelemetry(BuildConfig.APPLICATION_ID)
+        )
+    }
+
+    private fun initializeFlags() {
+        // Enable Datadog Flags feature
+        val flagsConfig = FlagsConfiguration.Builder().build()
+        Flags.enable(flagsConfig)
+
+        // Create FlagsClient and convert to OpenFeature provider
+        val flagsClient = FlagsClient.Builder().build()
+        val provider = flagsClient.asOpenFeatureProvider()
+
+        // Set as OpenFeature provider
+        OpenFeatureAPI.setProvider(provider)
+
+        // Set evaluation context on OpenFeatureAPI (provider forwards to FlagsClient)
+        val preferences = Preferences.defaultPreferences(this)
+        val userId = preferences.getUserId()?.takeIf { it.isNotBlank() } ?: UUID.randomUUID().toString()
+        val attributes = buildMap {
+            put("userId", Value.String(userId))
+            preferences.getUserName()?.takeIf { it.isNotBlank() }?.let {
+                put("userName", Value.String(it))
+            }
+            preferences.getUserEmail()?.takeIf { it.isNotBlank() }?.let {
+                put("userEmail", Value.String(it))
+            }
+        }
+
+        // Setting a blank targeting key results in all users being assigned the same bucket where randomization occurs.
+        val context = ImmutableContext(
+            targetingKey = userId,
+            attributes = attributes
+        )
+        OpenFeatureAPI.setEvaluationContext(context)
+
+        // Observe OpenFeature provider state changes
+        applicationScope.launch {
+            provider.observe()
+                .catch { error ->
+                    GlobalRumMonitor.get().addError(
+                        "OpenFeature observer error",
+                        RumErrorSource.SOURCE,
+                        error,
+                        mapOf("component" to "openfeature-observer")
+                    )
+                }
+                .collect { event ->
+                    // Track provider errors in RUM
+                    when (event) {
+                        is OpenFeatureProviderEvents.ProviderError -> {
+                            GlobalRumMonitor.get().addError(
+                                "OpenFeature provider error",
+                                RumErrorSource.SOURCE,
+                                null,
+                                mapOf(
+                                    "error" to event.error.toString(),
+                                    "component" to "openfeature-provider"
+                                )
+                            )
+                        }
+                        else -> {
+                            // Ignore other events (UI handles state display)
+                        }
+                    }
+                }
+        }
+    }
+
+    private fun initializeLogs() {
+        val logsConfig = LogsConfiguration.Builder().apply {
+            if (BuildConfig.DD_OVERRIDE_LOGS_URL.isNotBlank()) {
+                useCustomEndpoint(BuildConfig.DD_OVERRIDE_LOGS_URL)
+            }
+        }.build()
+        Logs.enable(logsConfig)
+    }
+
+    private fun initializeSessionReplay() {
+        val shouldUseFgm = SecureRandom().nextInt(100) < USE_FGM_PCT
+        val systemRequirementsConfiguration = SystemRequirementsConfiguration.Builder()
+            .setMinRAMSizeMb(1024)
+            .setMinCPUCoreNumber(1)
+            .build()
+
+        val sessionReplayConfig = SessionReplayConfiguration.Builder(SAMPLE_IN_ALL_SESSIONS)
+            .apply {
+                if (BuildConfig.DD_OVERRIDE_SESSION_REPLAY_URL.isNotBlank()) {
+                    useCustomEndpoint(BuildConfig.DD_OVERRIDE_SESSION_REPLAY_URL)
+                }
+
+                if (shouldUseFgm) {
+                    useFgmConfiguration(this)
+                } else {
+                    useLegacyConfiguration(this)
+                }
+            }
+            .addExtensionSupport(MaterialExtensionSupport())
+            .addExtensionSupport(ComposeExtensionSupport())
+            .setSystemRequirements(systemRequirementsConfiguration)
+            .build()
+        SessionReplay.enable(sessionReplayConfig)
+    }
+
+    private fun useFgmConfiguration(builder: SessionReplayConfiguration.Builder) {
+        val shouldMaskAll = SecureRandom().nextInt(100) < MASK_SESSION_PCT // 25%
+
+        val imagePrivacy = if (shouldMaskAll) {
+            ImagePrivacy.MASK_ALL
+        } else {
+            ImagePrivacy.MASK_NONE
+        }
+
+        val textAndInputPrivacy = if (shouldMaskAll) {
+            TextAndInputPrivacy.MASK_ALL
+        } else {
+            TextAndInputPrivacy.MASK_SENSITIVE_INPUTS
+        }
+
+        val touchPrivacy = TouchPrivacy.SHOW
+
+        GlobalRumMonitor.get().addAttribute("imagePrivacy", imagePrivacy)
+        GlobalRumMonitor.get().addAttribute("textAndInputPrivacy", textAndInputPrivacy)
+        GlobalRumMonitor.get().addAttribute("touchPrivacy", touchPrivacy)
+
+        builder.setImagePrivacy(imagePrivacy)
+        builder.setTouchPrivacy(touchPrivacy)
+        builder.setTextAndInputPrivacy(textAndInputPrivacy)
+    }
+
+    @Suppress("Deprecation")
+    private fun useLegacyConfiguration(builder: SessionReplayConfiguration.Builder) {
+        if (SecureRandom().nextInt(100) <= SESSION_REPLAY_PRIVACY_SAMPLING) {
+            builder.setPrivacy(SessionReplayPrivacy.ALLOW)
+        } else {
+            builder.setPrivacy(SessionReplayPrivacy.MASK_USER_INPUT)
+        }
+    }
+
+    @OptIn(ExperimentalRumApi::class)
+    private fun createRumConfiguration(): RumConfiguration {
+        return RumConfiguration.Builder(BuildConfig.DD_RUM_APPLICATION_ID)
+            .apply {
+                if (BuildConfig.DD_OVERRIDE_RUM_URL.isNotBlank()) {
+                    useCustomEndpoint(BuildConfig.DD_OVERRIDE_RUM_URL)
+                }
+            }
+            .useViewTrackingStrategy(
+                NavigationViewTrackingStrategy(
+                    R.id.nav_host_fragment,
+                    true,
+                    SampleNavigationPredicate()
+                )
+            )
+            .setTelemetrySampleRate(100f)
+            .trackUserInteractions()
+            .trackLongTasks(250L)
+            .trackNonFatalAnrs(true)
+            .enableRumDebugWidget(this)
+            .setViewEventMapper { event ->
+                event.context?.additionalProperties?.put(ATTR_IS_MAPPED, true)
+                event
+            }
+            .setActionEventMapper { event ->
+                event.context?.additionalProperties?.put(ATTR_IS_MAPPED, true)
+                event
+            }
+            .setResourceEventMapper { event ->
+                event.context?.additionalProperties?.put(ATTR_IS_MAPPED, true)
+                event
+            }
+            .setErrorEventMapper { event ->
+                event.context?.additionalProperties?.put(ATTR_IS_MAPPED, true)
+                event
+            }
+            .setLongTaskEventMapper { event ->
+                event.context?.additionalProperties?.put(ATTR_IS_MAPPED, true)
+                event
+            }
+            .setVitalEventMapper(
+                vitalOperationStepEventMapper = { event ->
+                    event.context?.additionalProperties?.put(ATTR_IS_MAPPED, true)
+                    event
+                },
+                vitalAppLaunchEventMapper = { event ->
+                    event.context?.additionalProperties?.put(ATTR_IS_MAPPED, true)
+                    event
+                }
+            )
+            .trackBackgroundEvents(true)
+            .trackAnonymousUser(true)
+            .enableComposeActionTracking()
+            .collectAccessibility(true)
+            .build()
+    }
+
+    @SuppressLint("LogNotTimber")
+    private fun createDatadogConfiguration(): Configuration {
+        val configBuilder = Configuration.Builder(
+            clientToken = BuildConfig.DD_CLIENT_TOKEN,
+            env = BuildConfig.BUILD_TYPE,
+            variant = BuildConfig.FLAVOR
+        )
+            .setFirstPartyHosts(tracedHosts)
+            .setBatchSize(BatchSize.SMALL)
+            .setUploadFrequency(UploadFrequency.FREQUENT)
+
+        try {
+            configBuilder.useSite(DatadogSite.valueOf(BuildConfig.DD_SITE_NAME))
+        } catch (e: IllegalArgumentException) {
+            Timber.e("Error setting site to ${BuildConfig.DD_SITE_NAME}")
+        }
+
+        configBuilder.setBackpressureStrategy(
+            BackPressureStrategy(
+                32,
+                { Log.w("BackPressure", "THRESHOLD REACHED!") },
+                { Log.e("BackPressure", "ITEM DROPPED $it!") },
+                BackPressureMitigation.IGNORE_NEWEST
+            )
+        )
+
+        return configBuilder.build()
+    }
+
+    @Suppress("TooGenericExceptionCaught", "CheckInternal")
+    private fun initializeTimber() {
+        val logger = Logger.Builder()
+            .setName("timber")
+            .setNetworkInfoEnabled(true)
+            .build()
+
+        val device = JsonObject()
+        val abis = JsonArray()
+        try {
+            device.addProperty("api", Build.VERSION.SDK_INT)
+            device.addProperty("brand", Build.BRAND)
+            device.addProperty("manufacturer", Build.MANUFACTURER)
+            device.addProperty("model", Build.MODEL)
+            for (abi in Build.SUPPORTED_ABIS) {
+                abis.add(abi)
+            }
+        } catch (t: Throwable) {
+            Timber.e(t, "Error setting device and abi properties")
+        }
+        logger.addAttribute("device", device)
+        logger.addAttribute("supported_abis", abis)
+
+        logger.addTag("flavor", BuildConfig.FLAVOR)
+        logger.addTag("build_type", BuildConfig.BUILD_TYPE)
+
+        Timber.plant(DatadogTree(logger))
+    }
+
+    companion object {
+        private const val USE_FGM_PCT = 10
+        private const val SAMPLE_IN_ALL_SESSIONS = 100f
+        private const val MASK_SESSION_PCT = 25
+        private const val SESSION_REPLAY_PRIVACY_SAMPLING = 75
+
+        init {
+            System.loadLibrary("datadog-ndk-sample")
+        }
+
+        internal val resourceHeadersExtractor = ResourceHeadersExtractor.Builder()
+            .captureHeaders(
+                "accept-ranges",
+                "content-disposition",
+                "server",
+                "user-agent",
+                "via",
+                "x-cache-hits",
+                "x-served-by",
+                "x-datadog-trace-id",
+                "x-datadog-parent-id",
+                "x-datadog-origin",
+                "traceparent"
+            )
+            .build()
+
+        internal const val ATTR_IS_MAPPED = "is_mapped"
+
+        internal fun getViewModelFactory(context: Context): ViewModelProvider.Factory {
+            return ViewModelFactory(
+                getOkHttpClient(context),
+                getRemoteDataSource(context),
+                LocalDataSource(context),
+                getLocalServer(context)
+            )
+        }
+
+        internal fun getOkHttpClient(context: Context): OkHttpClient {
+            val application = context.applicationContext as SampleApplication
+            return application.okHttpClient
+        }
+
+        private fun getRemoteDataSource(context: Context): RemoteDataSource {
+            val application = context.applicationContext as SampleApplication
+            return application.retrofitBaseDataSource
+        }
+
+        private fun getLocalServer(context: Context): LocalServer {
+            val application = context.applicationContext as SampleApplication
+            return application.localServer
+        }
+    }
+}

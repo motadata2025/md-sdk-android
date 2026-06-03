@@ -8,5 +8,5 @@ import com.datadog.gradle.utils.createJsonModelsGenerationTask
 
 createJsonModelsGenerationTask("generateFlagsModelsFromJson") {
     inputDirPath = "src/main/json/flags"
-    targetPackageName = "com.datadog.android.flags.model"
+    targetPackageName = "com.motadata.android.flags.model"
 }

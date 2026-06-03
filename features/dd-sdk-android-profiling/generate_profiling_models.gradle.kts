@@ -13,5 +13,5 @@ createJsonModelsGenerationTask("generateProfilingModelsFromJson") {
     inputNameMapping = mapOf(
         "profile-event-schema.json" to "ProfileEvent"
     )
-    targetPackageName = "com.datadog.android.profiling.model"
+    targetPackageName = "com.motadata.android.profiling.model"
 }

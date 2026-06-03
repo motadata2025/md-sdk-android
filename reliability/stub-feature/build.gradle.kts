@@ -19,7 +19,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.api.feature.stub"
+    namespace = "com.motadata.android.api.feature.stub"
 }
 
 dependencies {

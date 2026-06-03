@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.TreeMap;
-import com.datadog.android.trace.internal.compat.function.Supplier;
+import com.motadata.android.trace.internal.compat.function.Supplier;
 
 /** A codec designed for HTTP transport via headers using B3 headers */
 public class B3HttpCodec {

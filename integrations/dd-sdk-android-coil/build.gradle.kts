@@ -37,7 +37,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.coil"
+    namespace = "com.motadata.android.coil"
 
     libraryVariants.all {
         packageLibraryProvider.configure {

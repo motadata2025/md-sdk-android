@@ -24,7 +24,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.logs.integration"
+    namespace = "com.motadata.android.logs.integration"
 }
 
 dependencies {

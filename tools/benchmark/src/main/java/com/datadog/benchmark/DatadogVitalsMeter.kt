@@ -6,9 +6,9 @@
 
 package com.datadog.benchmark
 
-import com.datadog.android.api.SdkCore
-import com.datadog.android.api.feature.FeatureSdkCore
-import com.datadog.android.internal.profiler.GlobalBenchmark
+import com.motadata.android.api.SdkCore
+import com.motadata.android.api.feature.FeatureSdkCore
+import com.motadata.android.internal.profiler.GlobalBenchmark
 import com.datadog.benchmark.exporter.DatadogMetricExporter
 import com.datadog.benchmark.exporter.DatadogSpanExporter
 import com.datadog.benchmark.internal.reader.CPUVitalReader

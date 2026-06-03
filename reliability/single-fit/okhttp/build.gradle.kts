@@ -25,7 +25,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.okhttp.integration"
+    namespace = "com.motadata.android.okhttp.integration"
 }
 
 dependencies {
@@ -62,7 +62,7 @@ dependencies {
 apollo {
     service("testService") {
         srcDir("src/test/resources/graphql")
-        packageName.set("com.datadog.android.testgraphql")
+        packageName.set("com.motadata.android.testgraphql")
         schemaFiles.from("src/test/resources/graphql/schema.graphqls")
 
         outputDirConnection {

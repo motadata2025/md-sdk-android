@@ -45,7 +45,7 @@ android {
         consumerProguardFiles(Paths.get(rootDir.path, "consumer-rules.pro").toString())
     }
 
-    namespace = "com.datadog.android.log"
+    namespace = "com.motadata.android.log"
 }
 
 dependencies {

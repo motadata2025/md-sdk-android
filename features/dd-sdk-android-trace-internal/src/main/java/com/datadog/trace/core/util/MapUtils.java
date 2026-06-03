@@ -10,7 +10,7 @@ import com.google.gson.JsonObject;
 
 import java.util.Map;
 import java.util.Objects;
-import com.datadog.android.trace.internal.compat.function.Function;
+import com.motadata.android.trace.internal.compat.function.Function;
 
 public class MapUtils {
 

@@ -26,7 +26,7 @@ The Android SDK uses `CurlInterceptor` to log every outgoing HTTP request as a `
 
 ### 1. Enable Request Body Logging
 
-In `dd-sdk-android-core/src/main/kotlin/com/datadog/android/core/internal/CoreFeature.kt`, find the `OkHttpClient` builder block inside `if (BuildConfig.DEBUG)` and enable body printing on the `CurlInterceptor`:
+In `dd-sdk-android-core/src/main/kotlin/com/motadata/android/core/internal/CoreFeature.kt`, find the `OkHttpClient` builder block inside `if (BuildConfig.DEBUG)` and enable body printing on the `CurlInterceptor`:
 
 ```kotlin
 // Before (body suppressed):
@@ -72,10 +72,10 @@ Ensure `JAVA_HOME` and `ANDROID_HOME` are set in your environment, then run:
 
 ```sh
 # Find the launcher activity (run once to confirm):
-adb shell dumpsys package com.datadog.android.sample | grep -A2 "MAIN"
-# → com.datadog.android.sample/.NavActivity
+adb shell dumpsys package com.motadata.android.sample | grep -A2 "MAIN"
+# → com.motadata.android.sample/.NavActivity
 
-adb shell am start -n com.datadog.android.sample/.NavActivity
+adb shell am start -n com.motadata.android.sample/.NavActivity
 ```
 
 ### 5. Stream Logcat
@@ -102,7 +102,7 @@ Each `Curl` log line is a single `curl` command. The `-d` argument contains the 
   {
     "message": "onStart",
     "status": "debug",
-    "service": "com.datadog.android.sample",
+    "service": "com.motadata.android.sample",
     "date": "...",
     "application_id": "...",
     "session_id": "...",

@@ -102,7 +102,7 @@ datadog-test-pyramid:
       - '**/dd-sdk-android-internal/**'
     internalPackagePrefix: 'com.datadog'
     ignoredAnnotations:
-      - "com.datadog.android.lint.InternalApi"
+      - "com.motadata.android.lint.InternalApi"
     ignoredClasses:
-      - "com.datadog.android._InternalProxy"
-      - "com.datadog.android.rum._RumInternalProxy"
+      - "com.motadata.android._InternalProxy"
+      - "com.motadata.android.rum._RumInternalProxy"

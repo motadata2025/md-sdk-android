@@ -1,4 +1,4 @@
-interface com.datadog.android.internal.attributes.LocalAttribute
+interface com.motadata.android.internal.attributes.LocalAttribute
   enum Key
     constructor(String)
     - CREATION_SAMPLING_RATE
@@ -10,7 +10,7 @@ interface com.datadog.android.internal.attributes.LocalAttribute
 fun MutableMap<String, Any?>.enrichWithConstantAttribute(LocalAttribute.Constant)
 fun MutableMap<String, Any?>.enrichWithNonNullAttribute(LocalAttribute.Key, Any?)
 fun MutableMap<String, Any?>.enrichWithLocalAttribute(LocalAttribute.Key, Any?)
-sealed interface com.datadog.android.internal.attributes.ViewScopeInstrumentationType : LocalAttribute.Constant
+sealed interface com.motadata.android.internal.attributes.ViewScopeInstrumentationType : LocalAttribute.Constant
   val value: String
   enum Native : ViewScopeInstrumentationType
     constructor(String)
@@ -24,14 +24,14 @@ sealed interface com.datadog.android.internal.attributes.ViewScopeInstrumentatio
     override val key: LocalAttribute.Key
     companion object 
       fun create(String): Custom
-class com.datadog.android.internal.collections.EvictingQueue<T> : java.util.Queue<T>
+class com.motadata.android.internal.collections.EvictingQueue<T> : java.util.Queue<T>
   constructor(Int, java.util.Deque<T>)
   constructor(Int = Int.MAX_VALUE)
   override fun add(T): Boolean
   override fun offer(T): Boolean
   override fun addAll(Collection<T>): Boolean
   fun lastOrNull(): T?
-interface com.datadog.android.internal.data.PreferencesStorage
+interface com.motadata.android.internal.data.PreferencesStorage
   fun putFloat(String, Float)
   fun getFloat(String, Float = 0f): Float
   fun putInt(String, Int)
@@ -44,7 +44,7 @@ interface com.datadog.android.internal.data.PreferencesStorage
   fun getBoolean(String, Boolean = false): Boolean
   fun remove(String)
   fun clear()
-class com.datadog.android.internal.data.SharedPreferencesStorage : PreferencesStorage
+class com.motadata.android.internal.data.SharedPreferencesStorage : PreferencesStorage
   constructor(android.content.Context)
   override fun putFloat(String, Float)
   override fun getFloat(String, Float): Float
@@ -58,9 +58,9 @@ class com.datadog.android.internal.data.SharedPreferencesStorage : PreferencesSt
   override fun getBoolean(String, Boolean): Boolean
   override fun remove(String)
   override fun clear()
-data class com.datadog.android.internal.flags.RumFlagEvaluationMessage
+data class com.motadata.android.internal.flags.RumFlagEvaluationMessage
   constructor(String, Any)
-class com.datadog.android.internal.lifecycle.ProcessLifecycleMonitor : android.app.Application.ActivityLifecycleCallbacks
+class com.motadata.android.internal.lifecycle.ProcessLifecycleMonitor : android.app.Application.ActivityLifecycleCallbacks
   constructor(Callback)
   val activitiesResumedCounter: java.util.concurrent.atomic.AtomicInteger
   val activitiesStartedCounter: java.util.concurrent.atomic.AtomicInteger
@@ -78,13 +78,13 @@ class com.datadog.android.internal.lifecycle.ProcessLifecycleMonitor : android.a
     fun onResumed()
     fun onStopped()
     fun onPaused()
-enum com.datadog.android.internal.network.GraphQLHeaders
+enum com.motadata.android.internal.network.GraphQLHeaders
   constructor(String)
   - DD_GRAPHQL_NAME_HEADER
   - DD_GRAPHQL_VARIABLES_HEADER
   - DD_GRAPHQL_TYPE_HEADER
   - DD_GRAPHQL_PAYLOAD_HEADER
-object com.datadog.android.internal.network.HttpSpec
+object com.motadata.android.internal.network.HttpSpec
   object Method
     const val GET: String
     const val POST: String
@@ -135,40 +135,40 @@ object com.datadog.android.internal.network.HttpSpec
     const val APPLICATION_GRPC_JSON: String
     fun values()
     fun isStream(String?): Boolean
-interface com.datadog.android.internal.profiler.BenchmarkCounter
+interface com.motadata.android.internal.profiler.BenchmarkCounter
   fun add(Long, Map<String, String>)
-interface com.datadog.android.internal.profiler.BenchmarkMeter
+interface com.motadata.android.internal.profiler.BenchmarkMeter
   fun getCounter(String): BenchmarkCounter
   fun createObservableGauge(String, Map<String, String>, () -> Double)
-interface com.datadog.android.internal.profiler.BenchmarkProfiler
+interface com.motadata.android.internal.profiler.BenchmarkProfiler
   fun getTracer(String): BenchmarkTracer
-interface com.datadog.android.internal.profiler.BenchmarkSdkUploads
+interface com.motadata.android.internal.profiler.BenchmarkSdkUploads
   fun getMeter(String): BenchmarkMeter
-interface com.datadog.android.internal.profiler.BenchmarkSpan
+interface com.motadata.android.internal.profiler.BenchmarkSpan
   fun stop()
-interface com.datadog.android.internal.profiler.BenchmarkSpanBuilder
+interface com.motadata.android.internal.profiler.BenchmarkSpanBuilder
   fun startSpan(): BenchmarkSpan
 fun <T> withinBenchmarkSpan(String, Map<String, String> = emptyMap(), BenchmarkSpan.() -> T): T
-interface com.datadog.android.internal.profiler.BenchmarkTracer
+interface com.motadata.android.internal.profiler.BenchmarkTracer
   fun spanBuilder(String, Map<String, String> = emptyMap()): BenchmarkSpanBuilder
-interface com.datadog.android.internal.profiler.ExecutionTimer
+interface com.motadata.android.internal.profiler.ExecutionTimer
   fun <T> measure(() -> T): T
-object com.datadog.android.internal.profiler.GlobalBenchmark
+object com.motadata.android.internal.profiler.GlobalBenchmark
   fun register(BenchmarkProfiler)
   fun register(BenchmarkSdkUploads)
   fun getProfiler(): BenchmarkProfiler
   fun getBenchmarkSdkUploads(): BenchmarkSdkUploads
-  fun createExecutionTimer(String, com.datadog.android.internal.time.TimeProvider): ExecutionTimer
-sealed class com.datadog.android.internal.profiling.ProfilerStopEvent
+  fun createExecutionTimer(String, com.motadata.android.internal.time.TimeProvider): ExecutionTimer
+sealed class com.motadata.android.internal.profiling.ProfilerStopEvent
   data class TTID : ProfilerStopEvent
     constructor(TTIDRumContext? = null)
-data class com.datadog.android.internal.profiling.TTIDRumContext
+data class com.motadata.android.internal.profiling.TTIDRumContext
   constructor(String, String, String, String?, String?, String?)
-object com.datadog.android.internal.sampling.DeterministicSampling
+object com.motadata.android.internal.sampling.DeterministicSampling
   fun combinedSampleRate(Float, Float): Float
-object com.datadog.android.internal.sampling.SessionSamplingIdProvider
+object com.motadata.android.internal.sampling.SessionSamplingIdProvider
   fun provideId(String): ULong
-interface com.datadog.android.internal.system.BuildSdkVersionProvider
+interface com.motadata.android.internal.system.BuildSdkVersionProvider
   val version: Int
   val isAtLeastN: Boolean
   val isAtLeastO: Boolean
@@ -180,7 +180,7 @@ interface com.datadog.android.internal.system.BuildSdkVersionProvider
   val isAtLeastVanillaIceCream: Boolean
   companion object 
     val DEFAULT: BuildSdkVersionProvider
-sealed class com.datadog.android.internal.telemetry.InternalTelemetryEvent
+sealed class com.motadata.android.internal.telemetry.InternalTelemetryEvent
   sealed class Log : InternalTelemetryEvent
     constructor(String, Map<String, Any?>?)
     class Debug : Log
@@ -217,44 +217,44 @@ sealed class com.datadog.android.internal.telemetry.InternalTelemetryEvent
     enum Mode
       - DEFAULT_HEADERS
       - CUSTOM
-enum com.datadog.android.internal.telemetry.TracingHeaderType
+enum com.motadata.android.internal.telemetry.TracingHeaderType
   - DATADOG
   - B3
   - B3MULTI
   - TRACECONTEXT
-data class com.datadog.android.internal.telemetry.TracingHeaderTypesSet
+data class com.motadata.android.internal.telemetry.TracingHeaderTypesSet
   constructor(Set<TracingHeaderType>)
-interface com.datadog.android.internal.thread.NamedExecutionUnit
+interface com.motadata.android.internal.thread.NamedExecutionUnit
   val name: String
-class com.datadog.android.internal.thread.NamedRunnable : NamedExecutionUnit, Runnable
+class com.motadata.android.internal.thread.NamedRunnable : NamedExecutionUnit, Runnable
   constructor(String, Runnable)
-class com.datadog.android.internal.thread.NamedCallable<V> : NamedExecutionUnit, java.util.concurrent.Callable<V>
+class com.motadata.android.internal.thread.NamedCallable<V> : NamedExecutionUnit, java.util.concurrent.Callable<V>
   constructor(String, java.util.concurrent.Callable<V>)
 fun isMainThread(): Boolean
-class com.datadog.android.internal.time.DefaultTimeProvider : BaseTimeProvider
+class com.motadata.android.internal.time.DefaultTimeProvider : BaseTimeProvider
   override fun getServerTimestampMillis(): Long
   override fun getServerOffsetNanos(): Long
   override fun getServerOffsetMillis(): Long
-interface com.datadog.android.internal.time.TimeProvider
+interface com.motadata.android.internal.time.TimeProvider
   fun getDeviceTimestampMillis(): Long
   fun getServerTimestampMillis(): Long
   fun getDeviceElapsedTimeNanos(): Long
   fun getServerOffsetNanos(): Long
   fun getServerOffsetMillis(): Long
   fun getDeviceElapsedRealtimeMillis(): Long
-abstract class com.datadog.android.internal.time.BaseTimeProvider : TimeProvider
+abstract class com.motadata.android.internal.time.BaseTimeProvider : TimeProvider
   override fun getDeviceTimestampMillis(): Long
   override fun getDeviceElapsedTimeNanos(): Long
   override fun getDeviceElapsedRealtimeMillis(): Long
 fun ByteArray.toHexString(): String
-interface com.datadog.android.internal.utils.DDCoreSubscription<T: Any>
+interface com.motadata.android.internal.utils.DDCoreSubscription<T: Any>
   fun addListener(T)
   fun removeListener(T)
   fun notifyListeners(T.() -> Unit)
   val listenersCount: Int
   companion object 
     fun <T: Any> create(): DDCoreSubscription<T>
-object com.datadog.android.internal.utils.ImageViewUtils
+object com.motadata.android.internal.utils.ImageViewUtils
   fun resolveParentRectAbsPosition(android.view.View, Boolean = true): android.graphics.Rect
   fun calculateClipping(android.graphics.Rect, android.graphics.Rect, Float): android.graphics.Rect
   fun resolveContentRectWithScaling(android.widget.ImageView, android.graphics.drawable.Drawable, android.widget.ImageView.ScaleType? = null): android.graphics.Rect
@@ -275,7 +275,7 @@ fun Thread.State.asString(): String
 fun Array<StackTraceElement>.loggableStackTrace(): String
 fun Throwable.loggableStackTrace(): String
 fun formatIsoUtc(Long): String
-class com.datadog.android.rum.DdRumContentProvider : android.content.ContentProvider
+class com.motadata.android.rum.DdRumContentProvider : android.content.ContentProvider
   override fun onCreate(): Boolean
   override fun query(android.net.Uri, Array<String>?, String?, Array<String>?, String?): android.database.Cursor?
   override fun getType(android.net.Uri): String?

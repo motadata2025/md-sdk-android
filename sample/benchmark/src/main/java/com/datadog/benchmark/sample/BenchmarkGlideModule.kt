@@ -10,7 +10,7 @@ import android.content.Context
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Registry
 import com.bumptech.glide.annotation.GlideModule
-import com.datadog.android.glide.DatadogGlideModule
+import com.motadata.android.glide.DatadogGlideModule
 import okhttp3.OkHttpClient
 import javax.inject.Inject
 

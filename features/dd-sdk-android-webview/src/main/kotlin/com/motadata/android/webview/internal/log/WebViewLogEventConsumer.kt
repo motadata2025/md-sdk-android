@@ -1,0 +1,177 @@
+/*
+ * Unless explicitly stated otherwise all files in this repository are licensed under the Apache License Version 2.0.
+ * This product includes software developed at Datadog (https://www.datadoghq.com/).
+ * Copyright 2016-Present Datadog, Inc.
+ */
+
+package com.motadata.android.webview.internal.log
+
+import com.motadata.android.api.InternalLogger
+import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.feature.Feature
+import com.motadata.android.api.feature.FeatureSdkCore
+import com.motadata.android.api.storage.DataWriter
+import com.motadata.android.api.storage.EventType
+import com.motadata.android.core.sampling.RateBasedSampler
+import com.motadata.android.core.sampling.Sampler
+import com.motadata.android.log.LogAttributes
+import com.motadata.android.webview.internal.WebViewEventConsumer
+import com.motadata.android.webview.internal.rum.WebViewRumEventContextProvider
+import com.motadata.android.webview.internal.rum.domain.RumContext
+import com.google.gson.JsonObject
+
+internal class WebViewLogEventConsumer(
+    private val sdkCore: FeatureSdkCore,
+    internal val userLogsWriter: DataWriter<JsonObject>,
+    private val rumContextProvider: WebViewRumEventContextProvider,
+    sampleRate: Float
+) : WebViewEventConsumer<Pair<JsonObject, String>> {
+
+    private val sampler: Sampler<Unit> = RateBasedSampler(sampleRate)
+
+    override fun consume(event: Pair<JsonObject, String>) {
+        if (event.second == USER_LOG_EVENT_TYPE) {
+            if (sampler.sample(Unit)) {
+                sdkCore.getFeature(WebViewLogsFeature.WEB_LOGS_FEATURE_NAME)
+                    ?.withWriteContext(
+                        withFeatureContexts = setOf(Feature.RUM_FEATURE_NAME)
+                    ) { datadogContext, writeScope ->
+                        val rumContext = rumContextProvider.getRumContext(datadogContext)
+                        writeScope {
+                            val mappedEvent = map(event.first, datadogContext, rumContext)
+                            userLogsWriter.write(it, mappedEvent, EventType.DEFAULT)
+                        }
+                    }
+            }
+        }
+    }
+
+    private fun map(
+        event: JsonObject,
+        datadogContext: DatadogContext,
+        rumContext: RumContext?
+    ): JsonObject {
+        addDdTags(event, datadogContext)
+        correctDate(event, datadogContext)
+        addAnonymousId(event, datadogContext)
+        if (rumContext != null) {
+            event.addProperty(LogAttributes.RUM_APPLICATION_ID, rumContext.applicationId)
+            event.addProperty(LogAttributes.RUM_SESSION_ID, rumContext.sessionId)
+        }
+        return event
+    }
+
+    private fun addAnonymousId(event: JsonObject, datadogContext: DatadogContext) {
+        val anonymousId = datadogContext.userInfo.anonymousId ?: return
+        val usr = event.getAsJsonObject(USR_KEY_NAME) ?: JsonObject()
+        usr.addProperty(ANONYMOUS_ID_KEY_NAME, anonymousId)
+        event.add(USR_KEY_NAME, usr)
+    }
+
+    private fun correctDate(event: JsonObject, datadogContext: DatadogContext) {
+        try {
+            event.get(DATE_KEY_NAME)?.asLong?.let {
+                event.addProperty(
+                    DATE_KEY_NAME,
+                    it + datadogContext.time.serverTimeOffsetMs
+                )
+            }
+        } catch (e: ClassCastException) {
+            sdkCore.internalLogger.log(
+                InternalLogger.Level.ERROR,
+                listOf(InternalLogger.Target.MAINTAINER, InternalLogger.Target.TELEMETRY),
+                { JSON_PARSING_ERROR_MESSAGE },
+                e
+            )
+        } catch (e: IllegalStateException) {
+            sdkCore.internalLogger.log(
+                InternalLogger.Level.ERROR,
+                listOf(InternalLogger.Target.MAINTAINER, InternalLogger.Target.TELEMETRY),
+                { JSON_PARSING_ERROR_MESSAGE },
+                e
+            )
+        } catch (e: NumberFormatException) {
+            sdkCore.internalLogger.log(
+                InternalLogger.Level.ERROR,
+                listOf(InternalLogger.Target.MAINTAINER, InternalLogger.Target.TELEMETRY),
+                { JSON_PARSING_ERROR_MESSAGE },
+                e
+            )
+        } catch (e: UnsupportedOperationException) {
+            sdkCore.internalLogger.log(
+                InternalLogger.Level.ERROR,
+                listOf(InternalLogger.Target.MAINTAINER, InternalLogger.Target.TELEMETRY),
+                { JSON_PARSING_ERROR_MESSAGE },
+                e
+            )
+        }
+    }
+
+    private fun addDdTags(event: JsonObject, datadogContext: DatadogContext) {
+        val sdkDdTags = mapOf(
+            LogAttributes.APPLICATION_VERSION to datadogContext.version,
+            LogAttributes.ENV to datadogContext.env,
+            LogAttributes.VARIANT to datadogContext.variant,
+            LogAttributes.SERVICE to datadogContext.service
+        )
+        val eventDdTags = try {
+            event.get(DDTAGS_KEY_NAME)?.asString?.let {
+                it.split(DDTAGS_SEPARATOR)
+                    .mapNotNull { tag ->
+                        @Suppress("UnsafeThirdPartyFunctionCall") // safe indexOf invocation
+                        val splitIndex = tag.indexOf(":")
+                        if (splitIndex == -1 || splitIndex == tag.lastIndex) {
+                            null
+                        } else {
+                            @Suppress("UnsafeThirdPartyFunctionCall") // safe substring invocations
+                            tag.substring(0, splitIndex) to tag.substring(splitIndex + 1)
+                        }
+                    }
+                    .associate { it }
+            }.orEmpty()
+        } catch (e: ClassCastException) {
+            sdkCore.internalLogger.log(
+                InternalLogger.Level.ERROR,
+                listOf(InternalLogger.Target.MAINTAINER, InternalLogger.Target.TELEMETRY),
+                { JSON_PARSING_ERROR_MESSAGE },
+                e
+            )
+            emptyMap<String, String>()
+        } catch (e: IllegalStateException) {
+            sdkCore.internalLogger.log(
+                InternalLogger.Level.ERROR,
+                listOf(InternalLogger.Target.MAINTAINER, InternalLogger.Target.TELEMETRY),
+                { JSON_PARSING_ERROR_MESSAGE },
+                e
+            )
+            emptyMap<String, String>()
+        } catch (e: UnsupportedOperationException) {
+            sdkCore.internalLogger.log(
+                InternalLogger.Level.ERROR,
+                listOf(InternalLogger.Target.MAINTAINER, InternalLogger.Target.TELEMETRY),
+                { JSON_PARSING_ERROR_MESSAGE },
+                e
+            )
+            emptyMap<String, String>()
+        }
+        event.addProperty(
+            DDTAGS_KEY_NAME,
+            (eventDdTags + sdkDdTags)
+                .map { "${it.key}:${it.value}" }
+                .joinToString(DDTAGS_SEPARATOR)
+        )
+    }
+
+    companion object {
+        const val DDTAGS_SEPARATOR = ","
+        const val DDTAGS_KEY_NAME = "ddtags"
+        const val DATE_KEY_NAME = "date"
+        const val USER_LOG_EVENT_TYPE = "log"
+        const val INTERNAL_LOG_EVENT_TYPE = "internal_log"
+        const val USR_KEY_NAME = "usr"
+        const val ANONYMOUS_ID_KEY_NAME = "anonymous_id"
+        const val JSON_PARSING_ERROR_MESSAGE = "The bundled web log event could not be deserialized"
+        val LOG_EVENT_TYPES = setOf(USER_LOG_EVENT_TYPE)
+        internal const val DEFAULT_SAMPLE_RATE = 100f
+    }
+}

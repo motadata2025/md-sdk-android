@@ -18,7 +18,7 @@ android {
     buildToolsVersion = AndroidConfig.BUILD_TOOLS_VERSION
 
     defaultConfig {
-        applicationId = "com.datadog.android.wear.sample"
+        applicationId = "com.motadata.android.wear.sample"
         minSdk = AndroidConfig.MIN_SDK
         targetSdk = AndroidConfig.TARGET_SDK
         versionCode = AndroidConfig.VERSION.code
@@ -29,7 +29,7 @@ android {
         }
     }
 
-    namespace = "com.datadog.android.wear.sample"
+    namespace = "com.motadata.android.wear.sample"
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true

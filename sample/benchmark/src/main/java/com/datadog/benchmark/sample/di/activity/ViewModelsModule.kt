@@ -9,8 +9,8 @@ package com.datadog.benchmark.sample.di.activity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.datadog.android.log.Logger
-import com.datadog.android.rum.RumMonitor
+import com.motadata.android.log.Logger
+import com.motadata.android.rum.RumMonitor
 import com.datadog.benchmark.sample.di.common.CoroutineDispatcherQualifier
 import com.datadog.benchmark.sample.di.common.CoroutineDispatcherType
 import com.datadog.benchmark.sample.ui.logscustom.LogsScreenViewModel

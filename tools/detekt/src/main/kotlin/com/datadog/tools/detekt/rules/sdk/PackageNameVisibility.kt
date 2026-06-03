@@ -25,7 +25,7 @@ import org.jetbrains.kotlin.psi.KtProperty
  * A rule to detekt classes in the wrong package name.
  *
  * Our naming policy implies that a class that is Internal to the SDK be in a
- * `com.datadog.android.*.internal.*` package name.
+ * `com.motadata.android.*.internal.*` package name.
  * @active
  */
 @RequiresTypeResolution
@@ -99,6 +99,6 @@ class PackageNameVisibility(
          * declared with internal modifier so that they can be used by other modules, in this case, all the packages
          * under it should escape from this check rule.
          */
-        private const val ESCAPE_PACKAGE = "com.datadog.android.internal"
+        private const val ESCAPE_PACKAGE = "com.motadata.android.internal"
     }
 }

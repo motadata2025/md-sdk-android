@@ -74,7 +74,7 @@ android {
         )
     }
 
-    namespace = "com.datadog.android"
+    namespace = "com.motadata.android"
 
     buildTypes {
         getByName("release") {

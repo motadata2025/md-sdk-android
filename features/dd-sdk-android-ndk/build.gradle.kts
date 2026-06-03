@@ -54,7 +54,7 @@ android {
         targetSdk = AndroidConfig.TARGET_SDK
     }
 
-    namespace = "com.datadog.android.ndk"
+    namespace = "com.motadata.android.ndk"
 
     externalNativeBuild {
         cmake {

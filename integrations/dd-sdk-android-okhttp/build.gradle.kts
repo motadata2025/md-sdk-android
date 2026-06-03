@@ -41,7 +41,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.okhttp"
+    namespace = "com.motadata.android.okhttp"
 }
 
 dependencies {

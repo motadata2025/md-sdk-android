@@ -269,7 +269,7 @@ import static com.datadog.trace.util.CollectionUtils.tryMakeImmutableSet;
 
 import androidx.annotation.NonNull;
 
-import com.datadog.android.trace.internal.compat.function.Function;
+import com.motadata.android.trace.internal.compat.function.Function;
 import com.datadog.trace.api.config.GeneralConfig;
 import com.datadog.trace.api.config.ProfilingConfig;
 import com.datadog.trace.api.config.TracerConfig;

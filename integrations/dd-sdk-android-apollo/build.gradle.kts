@@ -34,7 +34,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.apollo"
+    namespace = "com.motadata.android.apollo"
 
     libraryVariants.all {
         packageLibraryProvider.configure {

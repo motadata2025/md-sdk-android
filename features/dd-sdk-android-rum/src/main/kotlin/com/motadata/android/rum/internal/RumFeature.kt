@@ -1,0 +1,904 @@
+/*
+ * Unless explicitly stated otherwise all files in this repository are licensed under the Apache License Version 2.0.
+ * This product includes software developed at Datadog (https://www.datadoghq.com/).
+ * Copyright 2016-Present Datadog, Inc.
+ */
+
+package com.motadata.android.rum.internal
+
+import android.app.Activity
+import android.app.ActivityManager
+import android.app.Application
+import android.app.ApplicationExitInfo
+import android.content.Context
+import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import androidx.annotation.AnyThread
+import androidx.annotation.RequiresApi
+import com.motadata.android.api.InternalLogger
+import com.motadata.android.api.feature.Feature
+import com.motadata.android.api.feature.FeatureContextUpdateReceiver
+import com.motadata.android.api.feature.FeatureEventReceiver
+import com.motadata.android.api.feature.FeatureSdkCore
+import com.motadata.android.api.feature.StorageBackedFeature
+import com.motadata.android.api.net.RequestFactory
+import com.motadata.android.api.storage.DataWriter
+import com.motadata.android.api.storage.FeatureStorageConfiguration
+import com.motadata.android.api.storage.NoOpDataWriter
+import com.motadata.android.core.InternalSdkCore
+import com.motadata.android.core.feature.event.JvmCrash
+import com.motadata.android.core.internal.utils.executeSafe
+import com.motadata.android.core.internal.utils.scheduleSafe
+import com.motadata.android.event.EventMapper
+import com.motadata.android.event.MapperSerializer
+import com.motadata.android.event.NoOpEventMapper
+import com.motadata.android.internal.flags.RumFlagEvaluationMessage
+import com.motadata.android.internal.system.BuildSdkVersionProvider
+import com.motadata.android.internal.telemetry.InternalTelemetryEvent
+import com.motadata.android.internal.thread.isMainThread
+import com.motadata.android.rum.GlobalRumMonitor
+import com.motadata.android.rum.RumErrorSource
+import com.motadata.android.rum.RumSessionListener
+import com.motadata.android.rum.RumSessionType
+import com.motadata.android.rum.configuration.SlowFramesConfiguration
+import com.motadata.android.rum.configuration.VitalsUpdateFrequency
+import com.motadata.android.rum.internal.anr.ANRDetectorRunnable
+import com.motadata.android.rum.internal.debug.UiRumDebugListener
+import com.motadata.android.rum.internal.domain.InfoProvider
+import com.motadata.android.rum.internal.domain.RumDataWriter
+import com.motadata.android.rum.internal.domain.accessibility.AccessibilityInfo
+import com.motadata.android.rum.internal.domain.accessibility.AccessibilitySnapshotManager
+import com.motadata.android.rum.internal.domain.accessibility.DefaultAccessibilityReader
+import com.motadata.android.rum.internal.domain.accessibility.DefaultAccessibilitySnapshotManager
+import com.motadata.android.rum.internal.domain.accessibility.NoOpAccessibilityReader
+import com.motadata.android.rum.internal.domain.accessibility.NoOpAccessibilitySnapshotManager
+import com.motadata.android.rum.internal.domain.battery.BatteryInfo
+import com.motadata.android.rum.internal.domain.battery.DefaultBatteryInfoProvider
+import com.motadata.android.rum.internal.domain.battery.NoOpBatteryInfoProvider
+import com.motadata.android.rum.internal.domain.display.DefaultDisplayInfoProvider
+import com.motadata.android.rum.internal.domain.display.DisplayInfo
+import com.motadata.android.rum.internal.domain.display.NoOpDisplayInfoProvider
+import com.motadata.android.rum.internal.domain.event.RumEventMapper
+import com.motadata.android.rum.internal.domain.event.RumEventMetaDeserializer
+import com.motadata.android.rum.internal.domain.event.RumEventMetaSerializer
+import com.motadata.android.rum.internal.domain.event.RumEventSerializer
+import com.motadata.android.rum.internal.domain.event.RumViewEventFilter
+import com.motadata.android.rum.internal.instrumentation.MainLooperLongTaskStrategy
+import com.motadata.android.rum.internal.instrumentation.UserActionTrackingStrategyApi29
+import com.motadata.android.rum.internal.instrumentation.UserActionTrackingStrategyLegacy
+import com.motadata.android.rum.internal.instrumentation.gestures.DatadogGesturesTracker
+import com.motadata.android.rum.internal.instrumentation.insights.InsightsCollector
+import com.motadata.android.rum.internal.instrumentation.insights.NoOpInsightsCollector
+import com.motadata.android.rum.internal.metric.slowframes.DefaultSlowFramesListener
+import com.motadata.android.rum.internal.metric.slowframes.DefaultUISlownessMetricDispatcher
+import com.motadata.android.rum.internal.metric.slowframes.SlowFramesListener
+import com.motadata.android.rum.internal.monitor.AdvancedRumMonitor
+import com.motadata.android.rum.internal.monitor.DatadogRumMonitor
+import com.motadata.android.rum.internal.net.RumRequestFactory
+import com.motadata.android.rum.internal.startup.DefaultAppStartupActivityPredicate
+import com.motadata.android.rum.internal.startup.RumAppStartupDetector
+import com.motadata.android.rum.internal.startup.RumStartupScenario
+import com.motadata.android.rum.internal.startup.RumTTIDInfo
+import com.motadata.android.rum.internal.thread.NoOpScheduledExecutorService
+import com.motadata.android.rum.internal.tracking.JetpackViewAttributesProvider
+import com.motadata.android.rum.internal.tracking.NoOpInteractionPredicate
+import com.motadata.android.rum.internal.tracking.NoOpUserActionTrackingStrategy
+import com.motadata.android.rum.internal.tracking.UserActionTrackingStrategy
+import com.motadata.android.rum.internal.vitals.AggregatingVitalMonitor
+import com.motadata.android.rum.internal.vitals.CPUVitalReader
+import com.motadata.android.rum.internal.vitals.FPSVitalListener
+import com.motadata.android.rum.internal.vitals.FrameStateListener
+import com.motadata.android.rum.internal.vitals.FrameStatesAggregator
+import com.motadata.android.rum.internal.vitals.MemoryVitalReader
+import com.motadata.android.rum.internal.vitals.NoOpVitalMonitor
+import com.motadata.android.rum.internal.vitals.VitalMonitor
+import com.motadata.android.rum.internal.vitals.VitalObserver
+import com.motadata.android.rum.internal.vitals.VitalReader
+import com.motadata.android.rum.internal.vitals.VitalReaderRunnable
+import com.motadata.android.rum.metric.interactiontonextview.LastInteractionIdentifier
+import com.motadata.android.rum.metric.interactiontonextview.NoOpLastInteractionIdentifier
+import com.motadata.android.rum.metric.interactiontonextview.TimeBasedInteractionIdentifier
+import com.motadata.android.rum.metric.networksettled.InitialResourceIdentifier
+import com.motadata.android.rum.metric.networksettled.NoOpInitialResourceIdentifier
+import com.motadata.android.rum.metric.networksettled.TimeBasedInitialResourceIdentifier
+import com.motadata.android.rum.model.ActionEvent
+import com.motadata.android.rum.model.ErrorEvent
+import com.motadata.android.rum.model.LongTaskEvent
+import com.motadata.android.rum.model.ResourceEvent
+import com.motadata.android.rum.model.ViewEvent
+import com.motadata.android.rum.model.VitalAppLaunchEvent
+import com.motadata.android.rum.model.VitalOperationStepEvent
+import com.motadata.android.rum.startup.AppStartupActivityPredicate
+import com.motadata.android.rum.tracking.ActionTrackingStrategy
+import com.motadata.android.rum.tracking.ActivityViewTrackingStrategy
+import com.motadata.android.rum.tracking.InteractionPredicate
+import com.motadata.android.rum.tracking.NoOpActionTrackingStrategy
+import com.motadata.android.rum.tracking.NoOpTrackingStrategy
+import com.motadata.android.rum.tracking.NoOpViewTrackingStrategy
+import com.motadata.android.rum.tracking.TrackingStrategy
+import com.motadata.android.rum.tracking.ViewAttributesProvider
+import com.motadata.android.rum.tracking.ViewTrackingStrategy
+import com.motadata.android.telemetry.model.TelemetryConfigurationEvent
+import java.util.Locale
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.ScheduledExecutorService
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicReference
+
+/**
+ * RUM feature class, which needs to be registered with Datadog SDK instance.
+ */
+@Suppress("TooManyFunctions")
+internal class RumFeature(
+    private val sdkCore: FeatureSdkCore,
+    internal val applicationId: String,
+    internal val configuration: Configuration,
+    private val lateCrashReporterFactory: (InternalSdkCore) -> LateCrashReporter = {
+        DatadogLateCrashReporter(it)
+    },
+    private val buildSdkVersionProvider: BuildSdkVersionProvider = BuildSdkVersionProvider.DEFAULT,
+    private val handler: Handler = Handler(Looper.getMainLooper())
+) : StorageBackedFeature, FeatureEventReceiver {
+
+    internal var dataWriter: DataWriter<Any> = NoOpDataWriter()
+    internal val initialized = AtomicBoolean(false)
+
+    internal var sampleRate: Float = 0f
+    internal var telemetrySampleRate: Float = 0f
+    internal var telemetryConfigurationSampleRate: Float = 0f
+    internal var backgroundEventTracking: Boolean = false
+    internal var trackFrustrations: Boolean = false
+
+    internal var viewTrackingStrategy: ViewTrackingStrategy = NoOpViewTrackingStrategy()
+    internal var actionTrackingStrategy: UserActionTrackingStrategy =
+        NoOpUserActionTrackingStrategy()
+    internal var longTaskTrackingStrategy: TrackingStrategy = NoOpTrackingStrategy()
+
+    internal var cpuVitalMonitor: VitalMonitor = NoOpVitalMonitor()
+    internal var memoryVitalMonitor: VitalMonitor = NoOpVitalMonitor()
+    internal var frameRateVitalMonitor: VitalMonitor = NoOpVitalMonitor()
+
+    internal var debugActivityLifecycleListener =
+        AtomicReference<Application.ActivityLifecycleCallbacks>(null)
+    internal var frameStatesAggregator: Application.ActivityLifecycleCallbacks? = null
+    internal var sessionListener: RumSessionListener = NoOpRumSessionListener()
+
+    internal var vitalExecutorService: ScheduledExecutorService = NoOpScheduledExecutorService()
+    private var anrDetectorExecutorService: ExecutorService? = null
+    internal var anrDetectorRunnable: ANRDetectorRunnable? = null
+    internal lateinit var appContext: Context
+    internal var initialResourceIdentifier: InitialResourceIdentifier = NoOpInitialResourceIdentifier()
+    internal var lastInteractionIdentifier: LastInteractionIdentifier? = NoOpLastInteractionIdentifier()
+    internal var slowFramesListener: SlowFramesListener? = null
+    internal var accessibilityReader: InfoProvider<AccessibilityInfo> = NoOpAccessibilityReader()
+    internal var accessibilitySnapshotManager: AccessibilitySnapshotManager = NoOpAccessibilitySnapshotManager()
+    internal var batteryInfoProvider: InfoProvider<BatteryInfo> = NoOpBatteryInfoProvider()
+    internal var displayInfoProvider: InfoProvider<DisplayInfo> = NoOpDisplayInfoProvider()
+    internal val rumContextUpdateReceivers = mutableSetOf<FeatureContextUpdateReceiver>()
+    internal var insightsCollector: InsightsCollector = NoOpInsightsCollector()
+
+    private val lateCrashEventHandler by lazy { lateCrashReporterFactory(sdkCore as InternalSdkCore) }
+    internal var rumAppStartupDetector: RumAppStartupDetector? = null
+
+    // region Feature
+
+    override val name: String = Feature.RUM_FEATURE_NAME
+
+    @Suppress("LongMethod")
+    override fun onInitialize(appContext: Context) {
+        this.appContext = appContext
+
+        if (configuration.collectAccessibility) {
+            accessibilityReader = DefaultAccessibilityReader(
+                internalLogger = sdkCore.internalLogger,
+                applicationContext = appContext,
+                timeProvider = sdkCore.timeProvider
+            )
+            accessibilitySnapshotManager = DefaultAccessibilitySnapshotManager(accessibilityReader)
+        }
+
+        initialResourceIdentifier = configuration.initialResourceIdentifier
+        lastInteractionIdentifier = configuration.lastInteractionIdentifier
+        insightsCollector = configuration.insightsCollector
+
+        dataWriter = createDataWriter(
+            configuration,
+            sdkCore as InternalSdkCore
+        )
+
+        sampleRate = if (sdkCore.isDeveloperModeEnabled) {
+            sdkCore.internalLogger.log(
+                InternalLogger.Level.INFO,
+                InternalLogger.Target.USER,
+                { DEVELOPER_MODE_SAMPLE_RATE_CHANGED_MESSAGE }
+            )
+            ALL_IN_SAMPLE_RATE
+        } else {
+            configuration.sampleRate
+        }
+        telemetrySampleRate = configuration.telemetrySampleRate
+        telemetryConfigurationSampleRate = configuration.telemetryConfigurationSampleRate
+        backgroundEventTracking = configuration.backgroundEventTracking
+        trackFrustrations = configuration.trackFrustrations
+        batteryInfoProvider = DefaultBatteryInfoProvider(
+            applicationContext = appContext,
+            timeProvider = sdkCore.timeProvider
+        )
+        displayInfoProvider = DefaultDisplayInfoProvider(
+            applicationContext = appContext,
+            internalLogger = sdkCore.internalLogger
+        )
+
+        configuration.viewTrackingStrategy?.let { viewTrackingStrategy = it }
+        actionTrackingStrategy = if (configuration.userActionTracking) {
+            provideUserTrackingStrategy(
+                configuration.touchTargetExtraAttributesProviders.toTypedArray(),
+                configuration.interactionPredicate,
+                composeActionTrackingStrategy = configuration.composeActionTrackingStrategy,
+                buildSdkVersionProvider,
+                sdkCore.internalLogger
+            )
+        } else {
+            NoOpUserActionTrackingStrategy()
+        }
+        configuration.longTaskTrackingStrategy?.let { longTaskTrackingStrategy = it }
+
+        val frequency = configuration.vitalsMonitorUpdateFrequency
+        val slowFrameListenerConfiguration = configuration.slowFramesConfiguration
+        if (frequency != VitalsUpdateFrequency.NEVER || slowFrameListenerConfiguration != null) {
+            initializeVitalExecutorService(frequency)
+            initializeCpuVitalMonitor(frequency)
+            initializeMemoryVitalMonitor(frequency)
+            if (!configuration.disableJankStats) {
+                initializeFrameStatesAggregator(
+                    application = appContext as? Application,
+                    listeners = listOfNotNull(
+                        initializeSlowFrameListener(slowFrameListenerConfiguration),
+                        initializeFPSVitalMonitor(frequency)
+                    )
+                )
+            }
+        }
+
+        if (configuration.trackNonFatalAnrs) {
+            initializeANRDetector()
+        }
+
+        registerTrackingStrategies(appContext)
+
+        sessionListener = configuration.sessionListener
+
+        initRumAppStartupDetector()
+
+        sdkCore.setEventReceiver(name, this)
+
+        initialized.set(true)
+    }
+
+    private fun initializeFrameStatesAggregator(
+        application: Application?,
+        listeners: List<FrameStateListener>
+    ) {
+        frameStatesAggregator = FrameStatesAggregator(listeners, sdkCore.internalLogger)
+        application?.registerActivityLifecycleCallbacks(frameStatesAggregator)
+    }
+
+    private fun initializeSlowFrameListener(
+        slowFramesConfiguration: SlowFramesConfiguration?
+    ): FrameStateListener? {
+        slowFramesListener = if (slowFramesConfiguration != null) {
+            sdkCore.internalLogger.log(
+                InternalLogger.Level.INFO,
+                InternalLogger.Target.USER,
+                { SLOW_FRAMES_MONITORING_ENABLED_MESSAGE }
+            )
+            DefaultSlowFramesListener(
+                configuration = slowFramesConfiguration,
+                metricDispatcher = DefaultUISlownessMetricDispatcher(
+                    slowFramesConfiguration,
+                    sdkCore.internalLogger
+                ),
+                insightsCollector = insightsCollector,
+                timeProvider = sdkCore.timeProvider
+            )
+        } else {
+            sdkCore.internalLogger.log(
+                InternalLogger.Level.INFO,
+                InternalLogger.Target.USER,
+                { SLOW_FRAMES_MONITORING_DISABLED_MESSAGE }
+            )
+            null
+        }
+
+        return slowFramesListener
+    }
+
+    override val requestFactory: RequestFactory by lazy {
+        RumRequestFactory(
+            customEndpointUrl = configuration.customEndpointUrl,
+            viewEventFilter = RumViewEventFilter(
+                eventMetaDeserializer = RumEventMetaDeserializer(sdkCore.internalLogger)
+            ),
+            internalLogger = sdkCore.internalLogger
+        )
+    }
+
+    override val storageConfiguration: FeatureStorageConfiguration = FeatureStorageConfiguration.DEFAULT.copy(
+        oldBatchThreshold = RUM_TTL_24H
+    )
+
+    override fun onStop() {
+        sdkCore.removeEventReceiver(name)
+
+        rumContextUpdateReceivers.forEach {
+            sdkCore.removeContextUpdateReceiver(it)
+        }
+        rumContextUpdateReceivers.clear()
+
+        unregisterTrackingStrategies(appContext)
+
+        dataWriter = NoOpDataWriter()
+
+        viewTrackingStrategy = NoOpViewTrackingStrategy()
+        actionTrackingStrategy = NoOpUserActionTrackingStrategy()
+        longTaskTrackingStrategy = NoOpTrackingStrategy()
+
+        cpuVitalMonitor = NoOpVitalMonitor()
+        memoryVitalMonitor = NoOpVitalMonitor()
+        frameRateVitalMonitor = NoOpVitalMonitor()
+
+        vitalExecutorService.shutdownNow()
+        anrDetectorExecutorService?.shutdownNow()
+        anrDetectorRunnable?.stop()
+        vitalExecutorService = NoOpScheduledExecutorService()
+        sessionListener = NoOpRumSessionListener()
+
+        cleanupInfoProviders()
+
+        val detector = rumAppStartupDetector
+        if (isMainThread()) {
+            @Suppress("ThreadSafety") // just verified we are on the main thread
+            detector?.destroy()
+        } else {
+            handler.post {
+                @Suppress("ThreadSafety") // handler posts to the main looper
+                detector?.destroy()
+            }
+        }
+
+        rumAppStartupDetector = null
+
+        GlobalRumMonitor.unregister(sdkCore)
+        initialized.set(false)
+    }
+
+    // endregion
+
+    private fun cleanupInfoProviders() {
+        if (configuration.collectAccessibility) {
+            accessibilityReader.cleanup()
+            accessibilityReader = NoOpAccessibilityReader()
+            accessibilitySnapshotManager = NoOpAccessibilitySnapshotManager()
+        }
+
+        batteryInfoProvider.cleanup()
+        batteryInfoProvider = NoOpBatteryInfoProvider()
+        displayInfoProvider.cleanup()
+        displayInfoProvider = NoOpDisplayInfoProvider()
+    }
+
+    private fun createDataWriter(
+        configuration: Configuration,
+        sdkCore: InternalSdkCore
+    ): DataWriter<Any> {
+        return RumDataWriter(
+            eventSerializer = MapperSerializer(
+                RumEventMapper(
+                    viewEventMapper = configuration.viewEventMapper,
+                    errorEventMapper = configuration.errorEventMapper,
+                    resourceEventMapper = configuration.resourceEventMapper,
+                    actionEventMapper = configuration.actionEventMapper,
+                    longTaskEventMapper = configuration.longTaskEventMapper,
+                    vitalOperationStepEventMapper = configuration.vitalOperationStepEventMapper,
+                    vitalAppLaunchEventMapper = configuration.vitalAppLaunchEventMapper,
+                    telemetryConfigurationMapper = configuration.telemetryConfigurationMapper,
+                    internalLogger = sdkCore.internalLogger
+                ),
+                RumEventSerializer(sdkCore.internalLogger)
+            ),
+            eventMetaSerializer = RumEventMetaSerializer(),
+            sdkCore = sdkCore
+        )
+    }
+
+    // region FeatureEventReceiver
+
+    override fun onReceive(event: Any) {
+        when (event) {
+            is Map<*, *> -> handleMapLikeEvent(event)
+            is JvmCrash.Rum -> addJvmCrash(event)
+            is InternalTelemetryEvent -> handleTelemetryEvent(event)
+            is RumFlagEvaluationMessage -> handleFlagEvaluationEvent(event)
+            else -> {
+                sdkCore.internalLogger.log(
+                    InternalLogger.Level.WARN,
+                    InternalLogger.Target.USER,
+                    { UNSUPPORTED_EVENT_TYPE.format(Locale.US, event::class.java.canonicalName) }
+                )
+            }
+        }
+    }
+
+    // endregion
+
+    // region Internal
+    private fun handleFlagEvaluationEvent(event: RumFlagEvaluationMessage) {
+        (GlobalRumMonitor.get(sdkCore) as? AdvancedRumMonitor)?.addFeatureFlagEvaluation(
+            name = event.flagKey,
+            value = event.value
+        )
+    }
+
+    private fun handleMapLikeEvent(event: Map<*, *>) {
+        when (event["type"]) {
+            NDK_CRASH_BUS_MESSAGE_TYPE ->
+                lateCrashEventHandler.handleNdkCrashEvent(event, dataWriter)
+
+            LOGGER_ERROR_BUS_MESSAGE_TYPE -> addLoggerError(event)
+            LOGGER_ERROR_WITH_STACK_TRACE_MESSAGE_TYPE -> addLoggerErrorWithStacktrace(event)
+            WEB_VIEW_INGESTED_NOTIFICATION_MESSAGE_TYPE -> {
+                (GlobalRumMonitor.get(sdkCore) as? AdvancedRumMonitor)?.sendWebViewEvent()
+            }
+
+            TELEMETRY_SESSION_REPLAY_SKIP_FRAME -> addSessionReplaySkippedFrame()
+            FLUSH_AND_STOP_MONITOR_MESSAGE_TYPE -> {
+                (GlobalRumMonitor.get(sdkCore) as? DatadogRumMonitor)?.drainExecutorService()
+            }
+
+            else -> {
+                sdkCore.internalLogger.log(
+                    InternalLogger.Level.WARN,
+                    InternalLogger.Target.USER,
+                    { UNKNOWN_EVENT_TYPE_PROPERTY_VALUE.format(Locale.US, event["type"]) }
+                )
+            }
+        }
+    }
+
+    private fun handleTelemetryEvent(event: InternalTelemetryEvent) {
+        val advancedRumMonitor = GlobalRumMonitor.get(sdkCore) as? AdvancedRumMonitor ?: return
+        advancedRumMonitor.sendTelemetryEvent(event)
+    }
+
+    @AnyThread
+    internal fun enableDebugging(advancedRumMonitor: AdvancedRumMonitor) {
+        if (!initialized.get()) {
+            InternalLogger.UNBOUND.log(
+                InternalLogger.Level.WARN,
+                InternalLogger.Target.USER,
+                { "$RUM_FEATURE_NOT_YET_INITIALIZED Cannot enable RUM debugging." }
+            )
+            return
+        }
+        val context = appContext
+        synchronized(debugActivityLifecycleListener) {
+            if (context is Application && debugActivityLifecycleListener.get() == null) {
+                val listener = UiRumDebugListener(sdkCore, advancedRumMonitor)
+                debugActivityLifecycleListener.set(listener)
+                context.registerActivityLifecycleCallbacks(listener)
+            }
+        }
+    }
+
+    @AnyThread
+    internal fun disableDebugging() {
+        val context = appContext
+        synchronized(debugActivityLifecycleListener) {
+            if (debugActivityLifecycleListener.get() != null && context is Application) {
+                val listener = debugActivityLifecycleListener.get()
+                context.unregisterActivityLifecycleCallbacks(listener)
+                debugActivityLifecycleListener.set(null)
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    internal fun consumeLastFatalAnr(rumEventsExecutorService: ExecutorService) {
+        val activityManager =
+            appContext.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val lastKnownAnr = try {
+            activityManager.getHistoricalProcessExitReasons(null, 0, 0)
+                // from docs: Returns: a list of ApplicationExitInfo records matching the criteria,
+                // sorted in the order from most recent to least recent.
+                .firstOrNull { it.reason == ApplicationExitInfo.REASON_ANR }
+        } catch (@Suppress("TooGenericExceptionCaught") e: RuntimeException) {
+            sdkCore.internalLogger.log(
+                InternalLogger.Level.ERROR,
+                InternalLogger.Target.MAINTAINER,
+                { FAILED_TO_GET_HISTORICAL_EXIT_REASONS },
+                e
+            )
+            null
+        } ?: return
+
+        rumEventsExecutorService.executeSafe("Send fatal ANR", sdkCore.internalLogger) {
+            val lastRumViewEvent = (sdkCore as InternalSdkCore).lastViewEvent
+            if (lastRumViewEvent != null) {
+                lateCrashEventHandler.handleAnrCrash(
+                    lastKnownAnr,
+                    lastRumViewEvent,
+                    dataWriter
+                )
+            } else {
+                sdkCore.internalLogger.log(
+                    InternalLogger.Level.INFO,
+                    InternalLogger.Target.USER,
+                    { NO_LAST_RUM_VIEW_EVENT_AVAILABLE }
+                )
+            }
+        }
+    }
+
+    /**
+     * Enables the tracking of JankStats for the given activity. This should only be necessary for the
+     * initial activity of an application if Datadog is initialized after that activity is created.
+     * @param activity the activity to track
+     */
+    internal fun enableJankStatsTracking(activity: Activity) {
+        try {
+            @Suppress("UnsafeThirdPartyFunctionCall")
+            frameStatesAggregator?.onActivityStarted(activity)
+        } catch (@Suppress("TooGenericExceptionCaught") e: Exception) {
+            sdkCore.internalLogger.log(
+                InternalLogger.Level.ERROR,
+                InternalLogger.Target.TELEMETRY,
+                { FAILED_TO_ENABLE_JANK_STATS_TRACKING_MANUALLY },
+                e
+            )
+        }
+    }
+
+    private fun registerTrackingStrategies(appContext: Context) {
+        actionTrackingStrategy.register(sdkCore, appContext)
+        viewTrackingStrategy.register(sdkCore, appContext)
+        longTaskTrackingStrategy.register(sdkCore, appContext)
+    }
+
+    private fun unregisterTrackingStrategies(appContext: Context?) {
+        actionTrackingStrategy.unregister(appContext)
+        viewTrackingStrategy.unregister(appContext)
+        longTaskTrackingStrategy.unregister(appContext)
+    }
+
+    private fun initializeVitalExecutorService(frequency: VitalsUpdateFrequency) {
+        if (frequency == VitalsUpdateFrequency.NEVER) {
+            return
+        }
+        @Suppress("UnsafeThirdPartyFunctionCall") // pool size can't be <= 0
+        vitalExecutorService = sdkCore.createScheduledExecutorService("rum-vital")
+    }
+
+    private fun initializeCpuVitalMonitor(frequency: VitalsUpdateFrequency) {
+        if (frequency == VitalsUpdateFrequency.NEVER) return
+
+        cpuVitalMonitor = AggregatingVitalMonitor()
+        initializeVitalMonitor(
+            CPUVitalReader(internalLogger = sdkCore.internalLogger),
+            cpuVitalMonitor,
+            frequency.periodInMs
+        )
+    }
+
+    private fun initializeMemoryVitalMonitor(frequency: VitalsUpdateFrequency) {
+        if (frequency == VitalsUpdateFrequency.NEVER) return
+
+        memoryVitalMonitor = AggregatingVitalMonitor()
+        initializeVitalMonitor(
+            MemoryVitalReader(internalLogger = sdkCore.internalLogger),
+            memoryVitalMonitor,
+            frequency.periodInMs
+        )
+    }
+
+    private fun initializeFPSVitalMonitor(frequency: VitalsUpdateFrequency): FPSVitalListener? {
+        if (frequency == VitalsUpdateFrequency.NEVER) return null
+
+        frameRateVitalMonitor = AggregatingVitalMonitor()
+        return FPSVitalListener(frameRateVitalMonitor)
+    }
+
+    private fun initializeVitalMonitor(
+        vitalReader: VitalReader,
+        vitalObserver: VitalObserver,
+        periodInMs: Long
+    ) {
+        val readerRunnable = VitalReaderRunnable(
+            sdkCore,
+            vitalReader,
+            vitalObserver,
+            vitalExecutorService,
+            periodInMs
+        ).apply {
+            sdkCore.setContextUpdateReceiver(this)
+            rumContextUpdateReceivers += this
+        }
+        vitalExecutorService.scheduleSafe(
+            "Vitals monitoring",
+            periodInMs,
+            TimeUnit.MILLISECONDS,
+            sdkCore.internalLogger,
+            readerRunnable
+        )
+    }
+
+    private fun initializeANRDetector() {
+        val detectorRunnable = ANRDetectorRunnable(sdkCore, Handler(Looper.getMainLooper()))
+        anrDetectorExecutorService = sdkCore.createSingleThreadExecutorService("rum-anr-detection")
+        anrDetectorExecutorService?.executeSafe(
+            "ANR detection",
+            sdkCore.internalLogger,
+            detectorRunnable
+        )
+        anrDetectorRunnable = detectorRunnable
+    }
+
+    private fun addJvmCrash(crashEvent: JvmCrash.Rum) {
+        (GlobalRumMonitor.get(sdkCore) as? AdvancedRumMonitor)?.addCrash(
+            crashEvent.message,
+            RumErrorSource.SOURCE,
+            crashEvent.throwable,
+            crashEvent.threads
+        )
+    }
+
+    private fun addLoggerError(loggerErrorEvent: Map<*, *>) {
+        val throwable = loggerErrorEvent[EVENT_THROWABLE_PROPERTY] as? Throwable
+        val message = loggerErrorEvent[EVENT_MESSAGE_PROPERTY] as? String
+
+        @Suppress("UNCHECKED_CAST")
+        val attributes = loggerErrorEvent[EVENT_ATTRIBUTES_PROPERTY] as? Map<String, Any?>
+
+        if (message == null) {
+            sdkCore.internalLogger.log(
+                InternalLogger.Level.WARN,
+                listOf(InternalLogger.Target.USER, InternalLogger.Target.TELEMETRY),
+                { LOG_ERROR_EVENT_MISSING_MANDATORY_FIELDS }
+            )
+            return
+        }
+
+        (GlobalRumMonitor.get(sdkCore) as? AdvancedRumMonitor)?.addError(
+            message,
+            RumErrorSource.LOGGER,
+            throwable,
+            attributes ?: emptyMap()
+        )
+    }
+
+    private fun addLoggerErrorWithStacktrace(loggerErrorEvent: Map<*, *>) {
+        val stacktrace = loggerErrorEvent[EVENT_STACKTRACE_PROPERTY] as? String
+        val message = loggerErrorEvent[EVENT_MESSAGE_PROPERTY] as? String
+
+        @Suppress("UNCHECKED_CAST")
+        val attributes = loggerErrorEvent[EVENT_ATTRIBUTES_PROPERTY] as? Map<String, Any?>
+
+        if (message == null) {
+            sdkCore.internalLogger.log(
+                InternalLogger.Level.WARN,
+                listOf(InternalLogger.Target.USER, InternalLogger.Target.TELEMETRY),
+                { LOG_ERROR_WITH_STACKTRACE_EVENT_MISSING_MANDATORY_FIELDS }
+            )
+            return
+        }
+
+        (GlobalRumMonitor.get(sdkCore) as? AdvancedRumMonitor)?.addErrorWithStacktrace(
+            message,
+            RumErrorSource.LOGGER,
+            stacktrace,
+            attributes ?: emptyMap()
+        )
+    }
+
+    private fun addSessionReplaySkippedFrame() {
+        (GlobalRumMonitor.get(sdkCore) as? AdvancedRumMonitor)?.addSessionReplaySkippedFrame()
+    }
+
+    private fun initRumAppStartupDetector() {
+        rumAppStartupDetector = RumAppStartupDetector.create(
+            application = appContext.applicationContext as Application,
+            sdkCore = sdkCore as InternalSdkCore,
+            listener = object : RumAppStartupDetector.Listener {
+
+                override fun onAppStartupDetected(scenario: RumStartupScenario) {
+                    val rumMonitor = GlobalRumMonitor.get(sdkCore) as? AdvancedRumMonitor ?: return
+                    rumMonitor.sendAppStartEvent(scenario)
+                }
+
+                override fun onTTIDComputed(
+                    scenario: RumStartupScenario,
+                    durationNs: Long,
+                    wasForwarded: Boolean
+                ) {
+                    val rumMonitor = GlobalRumMonitor.get(sdkCore) as? AdvancedRumMonitor ?: return
+                    val info = RumTTIDInfo(
+                        scenario = scenario,
+                        durationNs = durationNs,
+                        wasForwarded = wasForwarded
+                    )
+
+                    rumMonitor.sendTTIDEvent(info)
+                }
+            },
+            appStartupActivityPredicate = configuration.appStartupActivityPredicate
+        )
+    }
+
+    // endregion
+
+    internal data class Configuration(
+        val customEndpointUrl: String?,
+        val sampleRate: Float,
+        val telemetrySampleRate: Float,
+        val telemetryConfigurationSampleRate: Float,
+        val userActionTracking: Boolean,
+        val touchTargetExtraAttributesProviders: List<ViewAttributesProvider>,
+        val interactionPredicate: InteractionPredicate,
+        val viewTrackingStrategy: ViewTrackingStrategy?,
+        val longTaskTrackingStrategy: TrackingStrategy?,
+        val viewEventMapper: EventMapper<ViewEvent>,
+        val errorEventMapper: EventMapper<ErrorEvent>,
+        val resourceEventMapper: EventMapper<ResourceEvent>,
+        val actionEventMapper: EventMapper<ActionEvent>,
+        val longTaskEventMapper: EventMapper<LongTaskEvent>,
+        val vitalOperationStepEventMapper: EventMapper<VitalOperationStepEvent>,
+        val vitalAppLaunchEventMapper: EventMapper<VitalAppLaunchEvent>,
+        val telemetryConfigurationMapper: EventMapper<TelemetryConfigurationEvent>,
+        val backgroundEventTracking: Boolean,
+        val trackFrustrations: Boolean,
+        val trackNonFatalAnrs: Boolean,
+        val vitalsMonitorUpdateFrequency: VitalsUpdateFrequency,
+        val sessionListener: RumSessionListener,
+        val initialResourceIdentifier: InitialResourceIdentifier,
+        val lastInteractionIdentifier: LastInteractionIdentifier?,
+        val slowFramesConfiguration: SlowFramesConfiguration?,
+        val composeActionTrackingStrategy: ActionTrackingStrategy,
+        val additionalConfig: Map<String, Any>,
+        val trackAnonymousUser: Boolean,
+        val rumSessionTypeOverride: RumSessionType?,
+        val collectAccessibility: Boolean,
+        val disableJankStats: Boolean,
+        val insightsCollector: InsightsCollector,
+        val appStartupActivityPredicate: AppStartupActivityPredicate
+    )
+
+    internal companion object {
+
+        internal const val NDK_CRASH_BUS_MESSAGE_TYPE = "ndk_crash"
+        internal const val LOGGER_ERROR_BUS_MESSAGE_TYPE = "logger_error"
+        internal const val LOGGER_ERROR_WITH_STACK_TRACE_MESSAGE_TYPE = "logger_error_with_stacktrace"
+        internal const val WEB_VIEW_INGESTED_NOTIFICATION_MESSAGE_TYPE = "web_view_ingested_notification"
+        internal const val TELEMETRY_SESSION_REPLAY_SKIP_FRAME = "sr_skipped_frame"
+        internal const val FLUSH_AND_STOP_MONITOR_MESSAGE_TYPE = "flush_and_stop_monitor"
+
+        internal val RUM_TTL_24H = TimeUnit.HOURS.toMillis(24)
+        internal const val ALL_IN_SAMPLE_RATE: Float = 100f
+        internal const val DEFAULT_SAMPLE_RATE: Float = 100f
+        internal const val DEFAULT_TELEMETRY_SAMPLE_RATE: Float = 20f
+        internal const val DEFAULT_TELEMETRY_CONFIGURATION_SAMPLE_RATE: Float = 20f
+        internal const val DEFAULT_LONG_TASK_THRESHOLD_MS = 100L
+        internal const val DD_TELEMETRY_CONFIG_SAMPLE_RATE_TAG =
+            "_dd.telemetry.configuration_sample_rate"
+
+        internal val DEFAULT_RUM_CONFIG = Configuration(
+            customEndpointUrl = null,
+            sampleRate = DEFAULT_SAMPLE_RATE,
+            telemetrySampleRate = DEFAULT_TELEMETRY_SAMPLE_RATE,
+            telemetryConfigurationSampleRate = DEFAULT_TELEMETRY_CONFIGURATION_SAMPLE_RATE,
+            userActionTracking = true,
+            touchTargetExtraAttributesProviders = emptyList(),
+            interactionPredicate = NoOpInteractionPredicate(),
+            viewTrackingStrategy = ActivityViewTrackingStrategy(false),
+            longTaskTrackingStrategy = MainLooperLongTaskStrategy(DEFAULT_LONG_TASK_THRESHOLD_MS),
+            viewEventMapper = NoOpEventMapper(),
+            errorEventMapper = NoOpEventMapper(),
+            resourceEventMapper = NoOpEventMapper(),
+            actionEventMapper = NoOpEventMapper(),
+            longTaskEventMapper = NoOpEventMapper(),
+            vitalOperationStepEventMapper = NoOpEventMapper(),
+            vitalAppLaunchEventMapper = NoOpEventMapper(),
+            telemetryConfigurationMapper = NoOpEventMapper(),
+            backgroundEventTracking = false,
+            trackFrustrations = true,
+            trackNonFatalAnrs = isTrackNonFatalAnrsEnabledByDefault(),
+            vitalsMonitorUpdateFrequency = VitalsUpdateFrequency.AVERAGE,
+            sessionListener = NoOpRumSessionListener(),
+            initialResourceIdentifier = TimeBasedInitialResourceIdentifier(),
+            lastInteractionIdentifier = TimeBasedInteractionIdentifier(),
+            composeActionTrackingStrategy = NoOpActionTrackingStrategy(),
+            additionalConfig = emptyMap(),
+            trackAnonymousUser = true,
+            slowFramesConfiguration = SlowFramesConfiguration.DEFAULT,
+            rumSessionTypeOverride = null,
+            collectAccessibility = false,
+            disableJankStats = false,
+            insightsCollector = NoOpInsightsCollector(),
+            appStartupActivityPredicate = DefaultAppStartupActivityPredicate
+        )
+
+        internal const val EVENT_MESSAGE_PROPERTY = "message"
+        internal const val EVENT_THROWABLE_PROPERTY = "throwable"
+        internal const val EVENT_ATTRIBUTES_PROPERTY = "attributes"
+        internal const val EVENT_STACKTRACE_PROPERTY = "stacktrace"
+
+        internal const val UNSUPPORTED_EVENT_TYPE =
+            "RUM feature receive an event of unsupported type=%s."
+        internal const val UNKNOWN_EVENT_TYPE_PROPERTY_VALUE =
+            "RUM feature received an event with unknown value of \"type\" property=%s."
+        internal const val FAILED_TO_GET_HISTORICAL_EXIT_REASONS =
+            "Couldn't get historical exit reasons"
+        internal const val NO_LAST_RUM_VIEW_EVENT_AVAILABLE =
+            "No last known RUM view event found, skipping fatal ANR reporting."
+        internal const val LOG_ERROR_EVENT_MISSING_MANDATORY_FIELDS =
+            "RUM feature received a log event" +
+                " where mandatory message field is either missing or has a wrong type."
+        internal const val LOG_ERROR_WITH_STACKTRACE_EVENT_MISSING_MANDATORY_FIELDS =
+            "RUM feature received a log event with stacktrace" +
+                " where mandatory message field is either missing or has a wrong type."
+        internal const val DEVELOPER_MODE_SAMPLE_RATE_CHANGED_MESSAGE =
+            "Developer mode enabled, setting RUM sample rate to 100%."
+        internal const val SLOW_FRAMES_MONITORING_ENABLED_MESSAGE =
+            "Slow frames monitoring enabled."
+        internal const val SLOW_FRAMES_MONITORING_DISABLED_MESSAGE =
+            "Slow frames monitoring disabled."
+        internal const val RUM_FEATURE_NOT_YET_INITIALIZED =
+            "RUM feature is not initialized yet, you need to register it with a" +
+                " SDK instance by calling SdkCore#registerFeature method."
+        internal const val FAILED_TO_ENABLE_JANK_STATS_TRACKING_MANUALLY =
+            "Manually enabling JankStats tracking threw an exception."
+
+        private fun provideUserTrackingStrategy(
+            touchTargetExtraAttributesProviders: Array<ViewAttributesProvider>,
+            interactionPredicate: InteractionPredicate,
+            composeActionTrackingStrategy: ActionTrackingStrategy,
+            buildSdkVersionProvider: BuildSdkVersionProvider,
+            internalLogger: InternalLogger
+        ): UserActionTrackingStrategy {
+            val gesturesTracker =
+                provideGestureTracker(
+                    customProviders = touchTargetExtraAttributesProviders,
+                    interactionPredicate = interactionPredicate,
+                    composeActionTrackingStrategy = composeActionTrackingStrategy,
+                    internalLogger = internalLogger
+                )
+            return if (buildSdkVersionProvider.isAtLeastQ) {
+                UserActionTrackingStrategyApi29(gesturesTracker)
+            } else {
+                UserActionTrackingStrategyLegacy(gesturesTracker)
+            }
+        }
+
+        private fun provideGestureTracker(
+            customProviders: Array<ViewAttributesProvider>,
+            interactionPredicate: InteractionPredicate,
+            composeActionTrackingStrategy: ActionTrackingStrategy,
+            internalLogger: InternalLogger
+        ): DatadogGesturesTracker {
+            val defaultProviders = arrayOf(JetpackViewAttributesProvider())
+            val providers = customProviders + defaultProviders
+            return DatadogGesturesTracker(
+                providers,
+                interactionPredicate,
+                composeActionsTrackingStrategy = composeActionTrackingStrategy,
+                internalLogger
+            )
+        }
+
+        internal fun isTrackNonFatalAnrsEnabledByDefault(
+            buildSdkVersionProvider: BuildSdkVersionProvider = BuildSdkVersionProvider.DEFAULT
+        ): Boolean {
+            return !buildSdkVersionProvider.isAtLeastR
+        }
+    }
+}

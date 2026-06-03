@@ -6,7 +6,7 @@
 
 package com.datadog.trace.core
 
-import com.datadog.android.internal.utils.safeGetThreadId
+import com.motadata.android.internal.utils.safeGetThreadId
 import com.datadog.tools.unit.getFieldValue
 import com.datadog.trace.api.Config
 import com.datadog.trace.api.DDSpanId

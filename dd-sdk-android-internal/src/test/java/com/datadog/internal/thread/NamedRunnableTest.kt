@@ -6,7 +6,7 @@
 
 package com.datadog.internal.thread
 
-import com.datadog.android.internal.thread.NamedRunnable
+import com.motadata.android.internal.thread.NamedRunnable
 import com.datadog.tools.unit.forge.BaseConfigurator
 import fr.xgouchet.elmyr.Forge
 import fr.xgouchet.elmyr.junit5.ForgeConfiguration

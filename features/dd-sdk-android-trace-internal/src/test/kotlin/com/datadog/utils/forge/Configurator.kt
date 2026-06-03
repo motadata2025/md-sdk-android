@@ -6,7 +6,7 @@
 
 package com.datadog.utils.forge
 
-import com.datadog.android.tests.elmyr.useCoreFactories
+import com.motadata.android.tests.elmyr.useCoreFactories
 import com.datadog.tools.unit.forge.BaseConfigurator
 import fr.xgouchet.elmyr.Forge
 

@@ -3,7 +3,7 @@ package com.datadog.trace.core.propagation;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.datadog.android.trace.internal.compat.function.Supplier;
+import com.motadata.android.trace.internal.compat.function.Supplier;
 import com.datadog.trace.api.TraceConfig;
 import com.datadog.trace.bootstrap.instrumentation.api.AgentPropagation;
 import com.datadog.trace.bootstrap.instrumentation.api.TagContext;

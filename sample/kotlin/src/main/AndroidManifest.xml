@@ -66,10 +66,10 @@
             android:name=".compose.JetpackComposeActivity"
             android:theme="@style/Sample.Theme.Compose" />
         <activity
-            android:name="com.datadog.android.sample.compose.LegacyComposeActivity"
+            android:name="com.motadata.android.sample.compose.LegacyComposeActivity"
             android:theme="@style/Sample.Theme.Compose" />
         <activity
-            android:name="com.datadog.android.sample.compose.Navigation3Activity"
+            android:name="com.motadata.android.sample.compose.Navigation3Activity"
             android:theme="@style/Sample.Theme.Compose" />
 
         <service
@@ -82,7 +82,7 @@
         <service android:name=".widget.WidgetIntentService"/>
 
         <provider
-            android:authorities="com.datadog.android.provider"
+            android:authorities="com.motadata.android.provider"
             android:name=".data.db.sqlite.DatadogContentProvider"
             android:exported="false"/>
 

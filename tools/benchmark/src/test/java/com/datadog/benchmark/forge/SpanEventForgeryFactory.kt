@@ -6,9 +6,9 @@
 
 package com.datadog.benchmark.forge
 
-import com.datadog.android.api.context.NetworkInfo
-import com.datadog.android.api.context.UserInfo
-import com.datadog.android.internal.utils.toHexString
+import com.motadata.android.api.context.NetworkInfo
+import com.motadata.android.api.context.UserInfo
+import com.motadata.android.internal.utils.toHexString
 import com.datadog.benchmark.internal.model.SpanEvent
 import fr.xgouchet.elmyr.Forge
 import fr.xgouchet.elmyr.ForgeryFactory

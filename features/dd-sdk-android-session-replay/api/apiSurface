@@ -1,16 +1,16 @@
-interface com.datadog.android.sessionreplay.ExtensionSupport
+interface com.motadata.android.sessionreplay.ExtensionSupport
   fun name(): String
   fun getCustomViewMappers(): List<MapperTypeWrapper<*>>
-  fun getOptionSelectorDetectors(): List<com.datadog.android.sessionreplay.recorder.OptionSelectorDetector>
-  fun getCustomDrawableMapper(): List<com.datadog.android.sessionreplay.utils.DrawableToColorMapper>
-enum com.datadog.android.sessionreplay.ImagePrivacy : PrivacyLevel
+  fun getOptionSelectorDetectors(): List<com.motadata.android.sessionreplay.recorder.OptionSelectorDetector>
+  fun getCustomDrawableMapper(): List<com.motadata.android.sessionreplay.utils.DrawableToColorMapper>
+enum com.motadata.android.sessionreplay.ImagePrivacy : PrivacyLevel
   - MASK_NONE
   - MASK_LARGE_ONLY
   - MASK_ALL
-data class com.datadog.android.sessionreplay.MapperTypeWrapper<T: android.view.View>
-  constructor(Class<T>, com.datadog.android.sessionreplay.recorder.mapper.WireframeMapper<T>)
+data class com.motadata.android.sessionreplay.MapperTypeWrapper<T: android.view.View>
+  constructor(Class<T>, com.motadata.android.sessionreplay.recorder.mapper.WireframeMapper<T>)
   fun supportsView(android.view.View): Boolean
-  fun getUnsafeMapper(): com.datadog.android.sessionreplay.recorder.mapper.WireframeMapper<android.view.View>
+  fun getUnsafeMapper(): com.motadata.android.sessionreplay.recorder.mapper.WireframeMapper<android.view.View>
   override fun equals(Any?): Boolean
   override fun hashCode(): Int
 const val RECORD_TYPE_META: Long
@@ -25,16 +25,16 @@ const val WIREFRAME_TYPE_IMAGE: String
 const val WIREFRAME_TYPE_PLACEHOLDER: String
 const val WIREFRAME_TYPE_WEBVIEW: String
 const val IMAGE_DIMEN_CONSIDERED_PII_IN_DP: Int
-interface com.datadog.android.sessionreplay.PrivacyLevel
+interface com.motadata.android.sessionreplay.PrivacyLevel
 fun android.view.View.setSessionReplayHidden(Boolean)
 fun android.view.View.setSessionReplayImagePrivacy(ImagePrivacy?)
 fun android.view.View.setSessionReplayTextAndInputPrivacy(TextAndInputPrivacy?)
 fun android.view.View.setSessionReplayTouchPrivacy(TouchPrivacy?)
-object com.datadog.android.sessionreplay.SessionReplay
-  fun enable(SessionReplayConfiguration, com.datadog.android.api.SdkCore = Datadog.getInstance())
-  fun startRecording(com.datadog.android.api.SdkCore = Datadog.getInstance())
-  fun stopRecording(com.datadog.android.api.SdkCore = Datadog.getInstance())
-data class com.datadog.android.sessionreplay.SessionReplayConfiguration
+object com.motadata.android.sessionreplay.SessionReplay
+  fun enable(SessionReplayConfiguration, com.motadata.android.api.SdkCore = Datadog.getInstance())
+  fun startRecording(com.motadata.android.api.SdkCore = Datadog.getInstance())
+  fun stopRecording(com.motadata.android.api.SdkCore = Datadog.getInstance())
+data class com.motadata.android.sessionreplay.SessionReplayConfiguration
   class Builder
     constructor()
     constructor(Float = SAMPLE_IN_ALL_SESSIONS)
@@ -48,17 +48,17 @@ data class com.datadog.android.sessionreplay.SessionReplayConfiguration
     fun setDynamicOptimizationEnabled(Boolean): Builder
     fun setSystemRequirements(SystemRequirementsConfiguration): Builder
     fun build(): SessionReplayConfiguration
-interface com.datadog.android.sessionreplay.SessionReplayInternalCallback
+interface com.motadata.android.sessionreplay.SessionReplayInternalCallback
   fun getCurrentActivity(): android.app.Activity?
   fun addResourceItem(String, ByteArray, String? = null)
   fun setResourceQueue(SessionReplayInternalResourceQueue)
-interface com.datadog.android.sessionreplay.SessionReplayInternalResourceQueue
+interface com.motadata.android.sessionreplay.SessionReplayInternalResourceQueue
   fun addResourceItem(String, ByteArray, String? = null)
-enum com.datadog.android.sessionreplay.SessionReplayPrivacy
+enum com.motadata.android.sessionreplay.SessionReplayPrivacy
   - ALLOW
   - MASK
   - MASK_USER_INPUT
-class com.datadog.android.sessionreplay.SystemRequirementsConfiguration
+class com.motadata.android.sessionreplay.SystemRequirementsConfiguration
   class Builder
     fun setMinCPUCoreNumber(Int): Builder
     fun setMinRAMSizeMb(Int): Builder
@@ -66,105 +66,105 @@ class com.datadog.android.sessionreplay.SystemRequirementsConfiguration
   companion object 
     val BASIC: SystemRequirementsConfiguration
     val NONE: SystemRequirementsConfiguration
-enum com.datadog.android.sessionreplay.TextAndInputPrivacy : PrivacyLevel
+enum com.motadata.android.sessionreplay.TextAndInputPrivacy : PrivacyLevel
   - MASK_SENSITIVE_INPUTS
   - MASK_ALL_INPUTS
   - MASK_ALL
-enum com.datadog.android.sessionreplay.TouchPrivacy : PrivacyLevel
+enum com.motadata.android.sessionreplay.TouchPrivacy : PrivacyLevel
   - SHOW
   - HIDE
-class com.datadog.android.sessionreplay._SessionReplayInternalProxy
+class com.motadata.android.sessionreplay._SessionReplayInternalProxy
   constructor(SessionReplayConfiguration.Builder)
   fun setInternalCallback(SessionReplayInternalCallback): SessionReplayConfiguration.Builder
-class com.datadog.android.sessionreplay.internal.TouchPrivacyManager
-  constructor(com.datadog.android.sessionreplay.TouchPrivacy)
-  fun addTouchOverrideArea(android.graphics.Rect, com.datadog.android.sessionreplay.TouchPrivacy)
-interface com.datadog.android.sessionreplay.internal.recorder.obfuscator.StringObfuscator
+class com.motadata.android.sessionreplay.internal.TouchPrivacyManager
+  constructor(com.motadata.android.sessionreplay.TouchPrivacy)
+  fun addTouchOverrideArea(android.graphics.Rect, com.motadata.android.sessionreplay.TouchPrivacy)
+interface com.motadata.android.sessionreplay.internal.recorder.obfuscator.StringObfuscator
   fun obfuscate(String): String
   companion object 
     fun getStringObfuscator(): StringObfuscator
-interface com.datadog.android.sessionreplay.recorder.InteropViewCallback
-  fun map(android.view.View, MappingContext): List<com.datadog.android.sessionreplay.model.MobileSegment.Wireframe>
-data class com.datadog.android.sessionreplay.recorder.MappingContext
-  constructor(SystemInformation, com.datadog.android.sessionreplay.utils.ImageWireframeHelper, com.datadog.android.sessionreplay.TextAndInputPrivacy, com.datadog.android.sessionreplay.ImagePrivacy, com.datadog.android.sessionreplay.internal.TouchPrivacyManager, Boolean = false, InteropViewCallback)
-interface com.datadog.android.sessionreplay.recorder.OptionSelectorDetector
+interface com.motadata.android.sessionreplay.recorder.InteropViewCallback
+  fun map(android.view.View, MappingContext): List<com.motadata.android.sessionreplay.model.MobileSegment.Wireframe>
+data class com.motadata.android.sessionreplay.recorder.MappingContext
+  constructor(SystemInformation, com.motadata.android.sessionreplay.utils.ImageWireframeHelper, com.motadata.android.sessionreplay.TextAndInputPrivacy, com.motadata.android.sessionreplay.ImagePrivacy, com.motadata.android.sessionreplay.internal.TouchPrivacyManager, Boolean = false, InteropViewCallback)
+interface com.motadata.android.sessionreplay.recorder.OptionSelectorDetector
   fun isOptionSelector(android.view.ViewGroup): Boolean
-data class com.datadog.android.sessionreplay.recorder.SystemInformation
-  constructor(com.datadog.android.sessionreplay.utils.GlobalBounds, Int = Configuration.ORIENTATION_UNDEFINED, Float, String? = null)
-abstract class com.datadog.android.sessionreplay.recorder.mapper.BaseAsyncBackgroundWireframeMapper<T: android.view.View> : BaseWireframeMapper<T>
-  constructor(com.datadog.android.sessionreplay.utils.ViewIdentifierResolver, com.datadog.android.sessionreplay.utils.ColorStringFormatter, com.datadog.android.sessionreplay.utils.ViewBoundsResolver, com.datadog.android.sessionreplay.utils.DrawableToColorMapper)
-  override fun map(T, com.datadog.android.sessionreplay.recorder.MappingContext, com.datadog.android.sessionreplay.utils.AsyncJobStatusCallback, com.datadog.android.api.InternalLogger): List<com.datadog.android.sessionreplay.model.MobileSegment.Wireframe>
-  protected open fun resolveViewBackground(android.view.View, com.datadog.android.sessionreplay.recorder.MappingContext, com.datadog.android.sessionreplay.utils.AsyncJobStatusCallback, com.datadog.android.api.InternalLogger): com.datadog.android.sessionreplay.model.MobileSegment.Wireframe?
-  protected open fun resolveBackgroundAsShapeWireframe(android.view.View, com.datadog.android.sessionreplay.utils.GlobalBounds, Int, Int, com.datadog.android.sessionreplay.model.MobileSegment.ShapeStyle?): com.datadog.android.sessionreplay.model.MobileSegment.Wireframe.ShapeWireframe?
-  protected open fun resolveBackgroundAsImageWireframe(android.view.View, com.datadog.android.sessionreplay.utils.GlobalBounds, Int, Int, com.datadog.android.sessionreplay.recorder.MappingContext, com.datadog.android.sessionreplay.utils.AsyncJobStatusCallback): com.datadog.android.sessionreplay.model.MobileSegment.Wireframe?
+data class com.motadata.android.sessionreplay.recorder.SystemInformation
+  constructor(com.motadata.android.sessionreplay.utils.GlobalBounds, Int = Configuration.ORIENTATION_UNDEFINED, Float, String? = null)
+abstract class com.motadata.android.sessionreplay.recorder.mapper.BaseAsyncBackgroundWireframeMapper<T: android.view.View> : BaseWireframeMapper<T>
+  constructor(com.motadata.android.sessionreplay.utils.ViewIdentifierResolver, com.motadata.android.sessionreplay.utils.ColorStringFormatter, com.motadata.android.sessionreplay.utils.ViewBoundsResolver, com.motadata.android.sessionreplay.utils.DrawableToColorMapper)
+  override fun map(T, com.motadata.android.sessionreplay.recorder.MappingContext, com.motadata.android.sessionreplay.utils.AsyncJobStatusCallback, com.motadata.android.api.InternalLogger): List<com.motadata.android.sessionreplay.model.MobileSegment.Wireframe>
+  protected open fun resolveViewBackground(android.view.View, com.motadata.android.sessionreplay.recorder.MappingContext, com.motadata.android.sessionreplay.utils.AsyncJobStatusCallback, com.motadata.android.api.InternalLogger): com.motadata.android.sessionreplay.model.MobileSegment.Wireframe?
+  protected open fun resolveBackgroundAsShapeWireframe(android.view.View, com.motadata.android.sessionreplay.utils.GlobalBounds, Int, Int, com.motadata.android.sessionreplay.model.MobileSegment.ShapeStyle?): com.motadata.android.sessionreplay.model.MobileSegment.Wireframe.ShapeWireframe?
+  protected open fun resolveBackgroundAsImageWireframe(android.view.View, com.motadata.android.sessionreplay.utils.GlobalBounds, Int, Int, com.motadata.android.sessionreplay.recorder.MappingContext, com.motadata.android.sessionreplay.utils.AsyncJobStatusCallback): com.motadata.android.sessionreplay.model.MobileSegment.Wireframe?
   companion object 
-open class com.datadog.android.sessionreplay.recorder.mapper.BaseViewGroupMapper<T: android.view.ViewGroup> : BaseAsyncBackgroundWireframeMapper<T>, TraverseAllChildrenMapper<T>
-  constructor(com.datadog.android.sessionreplay.utils.ViewIdentifierResolver, com.datadog.android.sessionreplay.utils.ColorStringFormatter, com.datadog.android.sessionreplay.utils.ViewBoundsResolver, com.datadog.android.sessionreplay.utils.DrawableToColorMapper)
-abstract class com.datadog.android.sessionreplay.recorder.mapper.BaseWireframeMapper<T: android.view.View> : WireframeMapper<T>
-  constructor(com.datadog.android.sessionreplay.utils.ViewIdentifierResolver, com.datadog.android.sessionreplay.utils.ColorStringFormatter, com.datadog.android.sessionreplay.utils.ViewBoundsResolver, com.datadog.android.sessionreplay.utils.DrawableToColorMapper)
+open class com.motadata.android.sessionreplay.recorder.mapper.BaseViewGroupMapper<T: android.view.ViewGroup> : BaseAsyncBackgroundWireframeMapper<T>, TraverseAllChildrenMapper<T>
+  constructor(com.motadata.android.sessionreplay.utils.ViewIdentifierResolver, com.motadata.android.sessionreplay.utils.ColorStringFormatter, com.motadata.android.sessionreplay.utils.ViewBoundsResolver, com.motadata.android.sessionreplay.utils.DrawableToColorMapper)
+abstract class com.motadata.android.sessionreplay.recorder.mapper.BaseWireframeMapper<T: android.view.View> : WireframeMapper<T>
+  constructor(com.motadata.android.sessionreplay.utils.ViewIdentifierResolver, com.motadata.android.sessionreplay.utils.ColorStringFormatter, com.motadata.android.sessionreplay.utils.ViewBoundsResolver, com.motadata.android.sessionreplay.utils.DrawableToColorMapper)
   protected fun resolveViewId(android.view.View): Long
-  protected fun resolveShapeStyle(android.graphics.drawable.Drawable, Float, com.datadog.android.api.InternalLogger): com.datadog.android.sessionreplay.model.MobileSegment.ShapeStyle?
-class com.datadog.android.sessionreplay.recorder.mapper.EditTextMapper : TextViewMapper<android.widget.EditText>
-  constructor(com.datadog.android.sessionreplay.utils.ViewIdentifierResolver, com.datadog.android.sessionreplay.utils.ColorStringFormatter, com.datadog.android.sessionreplay.utils.ViewBoundsResolver, com.datadog.android.sessionreplay.utils.DrawableToColorMapper)
-  override fun resolveCapturedText(android.widget.EditText, com.datadog.android.sessionreplay.TextAndInputPrivacy, Boolean): String
+  protected fun resolveShapeStyle(android.graphics.drawable.Drawable, Float, com.motadata.android.api.InternalLogger): com.motadata.android.sessionreplay.model.MobileSegment.ShapeStyle?
+class com.motadata.android.sessionreplay.recorder.mapper.EditTextMapper : TextViewMapper<android.widget.EditText>
+  constructor(com.motadata.android.sessionreplay.utils.ViewIdentifierResolver, com.motadata.android.sessionreplay.utils.ColorStringFormatter, com.motadata.android.sessionreplay.utils.ViewBoundsResolver, com.motadata.android.sessionreplay.utils.DrawableToColorMapper)
+  override fun resolveCapturedText(android.widget.EditText, com.motadata.android.sessionreplay.TextAndInputPrivacy, Boolean): String
   companion object 
-open class com.datadog.android.sessionreplay.recorder.mapper.ImageViewMapper : BaseAsyncBackgroundWireframeMapper<android.widget.ImageView>
-  constructor(com.datadog.android.sessionreplay.utils.ViewIdentifierResolver, com.datadog.android.sessionreplay.utils.ColorStringFormatter, com.datadog.android.sessionreplay.utils.ViewBoundsResolver, com.datadog.android.sessionreplay.utils.DrawableToColorMapper, com.datadog.android.sessionreplay.recorder.resources.DrawableCopier)
-  override fun map(android.widget.ImageView, com.datadog.android.sessionreplay.recorder.MappingContext, com.datadog.android.sessionreplay.utils.AsyncJobStatusCallback, com.datadog.android.api.InternalLogger): List<com.datadog.android.sessionreplay.model.MobileSegment.Wireframe>
-open class com.datadog.android.sessionreplay.recorder.mapper.TextViewMapper<T: android.widget.TextView> : BaseAsyncBackgroundWireframeMapper<T>
-  constructor(com.datadog.android.sessionreplay.utils.ViewIdentifierResolver, com.datadog.android.sessionreplay.utils.ColorStringFormatter, com.datadog.android.sessionreplay.utils.ViewBoundsResolver, com.datadog.android.sessionreplay.utils.DrawableToColorMapper)
-  override fun map(T, com.datadog.android.sessionreplay.recorder.MappingContext, com.datadog.android.sessionreplay.utils.AsyncJobStatusCallback, com.datadog.android.api.InternalLogger): List<com.datadog.android.sessionreplay.model.MobileSegment.Wireframe>
-  protected open fun resolveCapturedText(T, com.datadog.android.sessionreplay.TextAndInputPrivacy, Boolean): String
-  protected fun createTextWireframe(T, com.datadog.android.sessionreplay.recorder.MappingContext, com.datadog.android.sessionreplay.utils.GlobalBounds): com.datadog.android.sessionreplay.model.MobileSegment.Wireframe.TextWireframe
-interface com.datadog.android.sessionreplay.recorder.mapper.TraverseAllChildrenMapper<T: android.view.ViewGroup> : WireframeMapper<T>
-interface com.datadog.android.sessionreplay.recorder.mapper.WireframeMapper<T: android.view.View>
-  fun map(T, com.datadog.android.sessionreplay.recorder.MappingContext, com.datadog.android.sessionreplay.utils.AsyncJobStatusCallback, com.datadog.android.api.InternalLogger): List<com.datadog.android.sessionreplay.model.MobileSegment.Wireframe>
-class com.datadog.android.sessionreplay.recorder.resources.DefaultDrawableCopier : DrawableCopier
+open class com.motadata.android.sessionreplay.recorder.mapper.ImageViewMapper : BaseAsyncBackgroundWireframeMapper<android.widget.ImageView>
+  constructor(com.motadata.android.sessionreplay.utils.ViewIdentifierResolver, com.motadata.android.sessionreplay.utils.ColorStringFormatter, com.motadata.android.sessionreplay.utils.ViewBoundsResolver, com.motadata.android.sessionreplay.utils.DrawableToColorMapper, com.motadata.android.sessionreplay.recorder.resources.DrawableCopier)
+  override fun map(android.widget.ImageView, com.motadata.android.sessionreplay.recorder.MappingContext, com.motadata.android.sessionreplay.utils.AsyncJobStatusCallback, com.motadata.android.api.InternalLogger): List<com.motadata.android.sessionreplay.model.MobileSegment.Wireframe>
+open class com.motadata.android.sessionreplay.recorder.mapper.TextViewMapper<T: android.widget.TextView> : BaseAsyncBackgroundWireframeMapper<T>
+  constructor(com.motadata.android.sessionreplay.utils.ViewIdentifierResolver, com.motadata.android.sessionreplay.utils.ColorStringFormatter, com.motadata.android.sessionreplay.utils.ViewBoundsResolver, com.motadata.android.sessionreplay.utils.DrawableToColorMapper)
+  override fun map(T, com.motadata.android.sessionreplay.recorder.MappingContext, com.motadata.android.sessionreplay.utils.AsyncJobStatusCallback, com.motadata.android.api.InternalLogger): List<com.motadata.android.sessionreplay.model.MobileSegment.Wireframe>
+  protected open fun resolveCapturedText(T, com.motadata.android.sessionreplay.TextAndInputPrivacy, Boolean): String
+  protected fun createTextWireframe(T, com.motadata.android.sessionreplay.recorder.MappingContext, com.motadata.android.sessionreplay.utils.GlobalBounds): com.motadata.android.sessionreplay.model.MobileSegment.Wireframe.TextWireframe
+interface com.motadata.android.sessionreplay.recorder.mapper.TraverseAllChildrenMapper<T: android.view.ViewGroup> : WireframeMapper<T>
+interface com.motadata.android.sessionreplay.recorder.mapper.WireframeMapper<T: android.view.View>
+  fun map(T, com.motadata.android.sessionreplay.recorder.MappingContext, com.motadata.android.sessionreplay.utils.AsyncJobStatusCallback, com.motadata.android.api.InternalLogger): List<com.motadata.android.sessionreplay.model.MobileSegment.Wireframe>
+class com.motadata.android.sessionreplay.recorder.resources.DefaultDrawableCopier : DrawableCopier
   override fun copy(android.graphics.drawable.Drawable, android.content.res.Resources): android.graphics.drawable.Drawable?
-interface com.datadog.android.sessionreplay.recorder.resources.DrawableCopier
+interface com.motadata.android.sessionreplay.recorder.resources.DrawableCopier
   fun copy(android.graphics.drawable.Drawable, android.content.res.Resources): android.graphics.drawable.Drawable?
-class com.datadog.android.sessionreplay.recorder.wrappers.BitmapWrapper
-  constructor(com.datadog.android.api.InternalLogger = InternalLogger.UNBOUND)
+class com.motadata.android.sessionreplay.recorder.wrappers.BitmapWrapper
+  constructor(com.motadata.android.api.InternalLogger = InternalLogger.UNBOUND)
   fun createBitmap(Int, Int, android.graphics.Bitmap.Config, android.util.DisplayMetrics? = null): android.graphics.Bitmap?
-class com.datadog.android.sessionreplay.recorder.wrappers.CanvasWrapper
-  constructor(com.datadog.android.api.InternalLogger)
+class com.motadata.android.sessionreplay.recorder.wrappers.CanvasWrapper
+  constructor(com.motadata.android.api.InternalLogger)
   fun createCanvas(android.graphics.Bitmap): android.graphics.Canvas?
-interface com.datadog.android.sessionreplay.utils.AsyncJobStatusCallback
+interface com.motadata.android.sessionreplay.utils.AsyncJobStatusCallback
   fun jobStarted()
   fun jobFinished()
 const val OPAQUE_ALPHA_VALUE: Int
 const val PARTIALLY_OPAQUE_ALPHA_VALUE: Int
-interface com.datadog.android.sessionreplay.utils.ColorStringFormatter
+interface com.motadata.android.sessionreplay.utils.ColorStringFormatter
   fun formatColorAsHexString(Int): String
   fun formatColorAndAlphaAsHexString(Int, Int): String
-object com.datadog.android.sessionreplay.utils.DefaultColorStringFormatter : ColorStringFormatter
+object com.motadata.android.sessionreplay.utils.DefaultColorStringFormatter : ColorStringFormatter
   override fun formatColorAsHexString(Int): String
   override fun formatColorAndAlphaAsHexString(Int, Int): String
-object com.datadog.android.sessionreplay.utils.DefaultViewBoundsResolver : ViewBoundsResolver
+object com.motadata.android.sessionreplay.utils.DefaultViewBoundsResolver : ViewBoundsResolver
   override fun resolveViewGlobalBounds(android.view.View, Float): GlobalBounds
   override fun resolveViewPaddedBounds(android.view.View, Float): GlobalBounds
-object com.datadog.android.sessionreplay.utils.DefaultViewIdentifierResolver : ViewIdentifierResolver
+object com.motadata.android.sessionreplay.utils.DefaultViewIdentifierResolver : ViewIdentifierResolver
   override fun resolveViewId(android.view.View): Long
   override fun resolveChildUniqueIdentifier(android.view.View, String): Long?
-interface com.datadog.android.sessionreplay.utils.DrawableToColorMapper
-  fun mapDrawableToColor(android.graphics.drawable.Drawable, com.datadog.android.api.InternalLogger): Int?
+interface com.motadata.android.sessionreplay.utils.DrawableToColorMapper
+  fun mapDrawableToColor(android.graphics.drawable.Drawable, com.motadata.android.api.InternalLogger): Int?
   companion object 
     fun getDefault(List<DrawableToColorMapper> = emptyList()): DrawableToColorMapper
-data class com.datadog.android.sessionreplay.utils.GlobalBounds
+data class com.motadata.android.sessionreplay.utils.GlobalBounds
   constructor(Long, Long, Long, Long)
-interface com.datadog.android.sessionreplay.utils.ImageWireframeHelper
-  fun createImageWireframeByPath(Long, GlobalBounds, android.graphics.Path, Int, Int, Int, Int, Float, Boolean, com.datadog.android.sessionreplay.ImagePrivacy, AsyncJobStatusCallback, com.datadog.android.sessionreplay.model.MobileSegment.WireframeClip? = null, com.datadog.android.sessionreplay.model.MobileSegment.ShapeStyle? = null, com.datadog.android.sessionreplay.model.MobileSegment.ShapeBorder? = null, String?): com.datadog.android.sessionreplay.model.MobileSegment.Wireframe?
-  fun createImageWireframeByBitmap(Long, GlobalBounds, android.graphics.Bitmap, Float, Boolean, com.datadog.android.sessionreplay.ImagePrivacy, AsyncJobStatusCallback, com.datadog.android.sessionreplay.model.MobileSegment.WireframeClip? = null, com.datadog.android.sessionreplay.model.MobileSegment.ShapeStyle? = null, com.datadog.android.sessionreplay.model.MobileSegment.ShapeBorder? = null): com.datadog.android.sessionreplay.model.MobileSegment.Wireframe?
-  fun createImageWireframeByDrawable(android.view.View, com.datadog.android.sessionreplay.ImagePrivacy, Int, Long, Long, Int, Int, Boolean, android.graphics.drawable.Drawable, com.datadog.android.sessionreplay.recorder.resources.DrawableCopier = DefaultDrawableCopier(), AsyncJobStatusCallback, com.datadog.android.sessionreplay.model.MobileSegment.WireframeClip? = null, com.datadog.android.sessionreplay.model.MobileSegment.ShapeStyle? = null, com.datadog.android.sessionreplay.model.MobileSegment.ShapeBorder? = null, String? = DRAWABLE_CHILD_NAME, String?): com.datadog.android.sessionreplay.model.MobileSegment.Wireframe?
-  fun createCompoundDrawableWireframes(android.widget.TextView, com.datadog.android.sessionreplay.recorder.MappingContext, Int, String?, AsyncJobStatusCallback): MutableList<com.datadog.android.sessionreplay.model.MobileSegment.Wireframe>
+interface com.motadata.android.sessionreplay.utils.ImageWireframeHelper
+  fun createImageWireframeByPath(Long, GlobalBounds, android.graphics.Path, Int, Int, Int, Int, Float, Boolean, com.motadata.android.sessionreplay.ImagePrivacy, AsyncJobStatusCallback, com.motadata.android.sessionreplay.model.MobileSegment.WireframeClip? = null, com.motadata.android.sessionreplay.model.MobileSegment.ShapeStyle? = null, com.motadata.android.sessionreplay.model.MobileSegment.ShapeBorder? = null, String?): com.motadata.android.sessionreplay.model.MobileSegment.Wireframe?
+  fun createImageWireframeByBitmap(Long, GlobalBounds, android.graphics.Bitmap, Float, Boolean, com.motadata.android.sessionreplay.ImagePrivacy, AsyncJobStatusCallback, com.motadata.android.sessionreplay.model.MobileSegment.WireframeClip? = null, com.motadata.android.sessionreplay.model.MobileSegment.ShapeStyle? = null, com.motadata.android.sessionreplay.model.MobileSegment.ShapeBorder? = null): com.motadata.android.sessionreplay.model.MobileSegment.Wireframe?
+  fun createImageWireframeByDrawable(android.view.View, com.motadata.android.sessionreplay.ImagePrivacy, Int, Long, Long, Int, Int, Boolean, android.graphics.drawable.Drawable, com.motadata.android.sessionreplay.recorder.resources.DrawableCopier = DefaultDrawableCopier(), AsyncJobStatusCallback, com.motadata.android.sessionreplay.model.MobileSegment.WireframeClip? = null, com.motadata.android.sessionreplay.model.MobileSegment.ShapeStyle? = null, com.motadata.android.sessionreplay.model.MobileSegment.ShapeBorder? = null, String? = DRAWABLE_CHILD_NAME, String?): com.motadata.android.sessionreplay.model.MobileSegment.Wireframe?
+  fun createCompoundDrawableWireframes(android.widget.TextView, com.motadata.android.sessionreplay.recorder.MappingContext, Int, String?, AsyncJobStatusCallback): MutableList<com.motadata.android.sessionreplay.model.MobileSegment.Wireframe>
   companion object 
-interface com.datadog.android.sessionreplay.utils.ViewBoundsResolver
+interface com.motadata.android.sessionreplay.utils.ViewBoundsResolver
   fun resolveViewGlobalBounds(android.view.View, Float): GlobalBounds
   fun resolveViewPaddedBounds(android.view.View, Float): GlobalBounds
-interface com.datadog.android.sessionreplay.utils.ViewIdentifierResolver
+interface com.motadata.android.sessionreplay.utils.ViewIdentifierResolver
   fun resolveViewId(android.view.View): Long
   fun resolveChildUniqueIdentifier(android.view.View, String): Long?
-data class com.datadog.android.sessionreplay.model.MobileSegment
+data class com.motadata.android.sessionreplay.model.MobileSegment
   constructor(Application, Session, View, kotlin.Long, kotlin.Long, kotlin.Long, kotlin.Long? = null, kotlin.Boolean? = null, Source, kotlin.collections.List<MobileRecord>)
   fun toJson(): com.google.gson.JsonElement
   companion object 
@@ -484,13 +484,13 @@ data class com.datadog.android.sessionreplay.model.MobileSegment
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): Vertical
-data class com.datadog.android.sessionreplay.model.ResourceHashesEntry
+data class com.motadata.android.sessionreplay.model.ResourceHashesEntry
   constructor(kotlin.Number, kotlin.collections.List<kotlin.String>)
   fun toJson(): com.google.gson.JsonElement
   companion object 
     fun fromJson(kotlin.String): ResourceHashesEntry
     fun fromJsonObject(com.google.gson.JsonObject): ResourceHashesEntry
-data class com.datadog.android.sessionreplay.model.ResourceMetadata
+data class com.motadata.android.sessionreplay.model.ResourceMetadata
   constructor(Application)
   val type: kotlin.String
   fun toJson(): com.google.gson.JsonElement

@@ -17,12 +17,12 @@ import static io.opentelemetry.api.trace.SpanKind.INTERNAL;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.datadog.android.api.InternalLogger;
-import com.datadog.android.trace.api.DatadogTracingConstants;
-import com.datadog.android.trace.api.span.DatadogSpan;
-import com.datadog.android.trace.api.span.DatadogSpanBuilder;
-import com.datadog.android.trace.api.span.DatadogSpanContext;
-import com.datadog.android.trace.api.tracer.DatadogTracer;
+import com.motadata.android.api.InternalLogger;
+import com.motadata.android.trace.api.DatadogTracingConstants;
+import com.motadata.android.trace.api.span.DatadogSpan;
+import com.motadata.android.trace.api.span.DatadogSpanBuilder;
+import com.motadata.android.trace.api.span.DatadogSpanContext;
+import com.motadata.android.trace.api.tracer.DatadogTracer;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;

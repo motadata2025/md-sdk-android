@@ -24,7 +24,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.trace.integration"
+    namespace = "com.motadata.android.trace.integration"
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true

@@ -1,0 +1,31 @@
+/*
+ * Unless explicitly stated otherwise all files in this repository are licensed under the Apache License Version 2.0.
+ * This product includes software developed at Datadog (https://www.datadoghq.com/).
+ * Copyright 2016-Present Datadog, Inc.
+ */
+
+package com.motadata.android.log.internal.storage
+
+import androidx.annotation.WorkerThread
+import com.motadata.android.api.InternalLogger
+import com.motadata.android.api.storage.DataWriter
+import com.motadata.android.api.storage.EventBatchWriter
+import com.motadata.android.api.storage.EventType
+import com.motadata.android.api.storage.RawBatchEvent
+import com.motadata.android.core.persistence.Serializer
+import com.motadata.android.core.persistence.serializeToByteArray
+import com.motadata.android.log.model.LogEvent
+
+internal class LogsDataWriter(
+    internal val serializer: Serializer<LogEvent>,
+    private val internalLogger: InternalLogger
+) : DataWriter<LogEvent> {
+
+    @WorkerThread
+    override fun write(writer: EventBatchWriter, element: LogEvent, eventType: EventType): Boolean {
+        val serialized = serializer.serializeToByteArray(element, internalLogger) ?: return false
+        return synchronized(this) {
+            writer.write(RawBatchEvent(data = serialized), batchMetadata = null, eventType = eventType)
+        }
+    }
+}

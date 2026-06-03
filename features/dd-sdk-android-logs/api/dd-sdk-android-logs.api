@@ -1,151 +1,151 @@
-public final class com/datadog/android/log/Logger {
+public final class com/motadata/android/log/Logger {
 	public final fun addAttribute (Ljava/lang/String;Ljava/lang/Object;)V
 	public final fun addTag (Ljava/lang/String;)V
 	public final fun addTag (Ljava/lang/String;Ljava/lang/String;)V
 	public final fun d (Ljava/lang/String;)V
 	public final fun d (Ljava/lang/String;Ljava/lang/Throwable;)V
 	public final fun d (Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;)V
-	public static synthetic fun d$default (Lcom/datadog/android/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;ILjava/lang/Object;)V
+	public static synthetic fun d$default (Lcom/motadata/android/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;ILjava/lang/Object;)V
 	public final fun e (Ljava/lang/String;)V
 	public final fun e (Ljava/lang/String;Ljava/lang/Throwable;)V
 	public final fun e (Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;)V
-	public static synthetic fun e$default (Lcom/datadog/android/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;ILjava/lang/Object;)V
+	public static synthetic fun e$default (Lcom/motadata/android/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;ILjava/lang/Object;)V
 	public final fun i (Ljava/lang/String;)V
 	public final fun i (Ljava/lang/String;Ljava/lang/Throwable;)V
 	public final fun i (Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;)V
-	public static synthetic fun i$default (Lcom/datadog/android/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;ILjava/lang/Object;)V
+	public static synthetic fun i$default (Lcom/motadata/android/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;ILjava/lang/Object;)V
 	public final fun log (ILjava/lang/String;)V
 	public final fun log (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public final fun log (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)V
 	public final fun log (ILjava/lang/String;Ljava/lang/Throwable;)V
 	public final fun log (ILjava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;)V
-	public static synthetic fun log$default (Lcom/datadog/android/log/Logger;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)V
-	public static synthetic fun log$default (Lcom/datadog/android/log/Logger;ILjava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;ILjava/lang/Object;)V
+	public static synthetic fun log$default (Lcom/motadata/android/log/Logger;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)V
+	public static synthetic fun log$default (Lcom/motadata/android/log/Logger;ILjava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;ILjava/lang/Object;)V
 	public final fun removeAttribute (Ljava/lang/String;)V
 	public final fun removeTag (Ljava/lang/String;)V
 	public final fun removeTagsWithKey (Ljava/lang/String;)V
 	public final fun v (Ljava/lang/String;)V
 	public final fun v (Ljava/lang/String;Ljava/lang/Throwable;)V
 	public final fun v (Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;)V
-	public static synthetic fun v$default (Lcom/datadog/android/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;ILjava/lang/Object;)V
+	public static synthetic fun v$default (Lcom/motadata/android/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;ILjava/lang/Object;)V
 	public final fun w (Ljava/lang/String;)V
 	public final fun w (Ljava/lang/String;Ljava/lang/Throwable;)V
 	public final fun w (Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;)V
-	public static synthetic fun w$default (Lcom/datadog/android/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;ILjava/lang/Object;)V
+	public static synthetic fun w$default (Lcom/motadata/android/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;ILjava/lang/Object;)V
 	public final fun wtf (Ljava/lang/String;)V
 	public final fun wtf (Ljava/lang/String;Ljava/lang/Throwable;)V
 	public final fun wtf (Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;)V
-	public static synthetic fun wtf$default (Lcom/datadog/android/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;ILjava/lang/Object;)V
+	public static synthetic fun wtf$default (Lcom/motadata/android/log/Logger;Ljava/lang/String;Ljava/lang/Throwable;Ljava/util/Map;ILjava/lang/Object;)V
 }
 
-public final class com/datadog/android/log/Logger$Builder {
+public final class com/motadata/android/log/Logger$Builder {
 	public fun <init> ()V
-	public fun <init> (Lcom/datadog/android/api/SdkCore;)V
-	public synthetic fun <init> (Lcom/datadog/android/api/SdkCore;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun build ()Lcom/datadog/android/log/Logger;
-	public final fun setBundleWithRumEnabled (Z)Lcom/datadog/android/log/Logger$Builder;
-	public final fun setBundleWithTraceEnabled (Z)Lcom/datadog/android/log/Logger$Builder;
-	public final fun setLogcatLogsEnabled (Z)Lcom/datadog/android/log/Logger$Builder;
-	public final fun setName (Ljava/lang/String;)Lcom/datadog/android/log/Logger$Builder;
-	public final fun setNetworkInfoEnabled (Z)Lcom/datadog/android/log/Logger$Builder;
-	public final fun setRemoteLogThreshold (I)Lcom/datadog/android/log/Logger$Builder;
-	public final fun setRemoteSampleRate (F)Lcom/datadog/android/log/Logger$Builder;
-	public final fun setService (Ljava/lang/String;)Lcom/datadog/android/log/Logger$Builder;
+	public fun <init> (Lcom/motadata/android/api/SdkCore;)V
+	public synthetic fun <init> (Lcom/motadata/android/api/SdkCore;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun build ()Lcom/motadata/android/log/Logger;
+	public final fun setBundleWithRumEnabled (Z)Lcom/motadata/android/log/Logger$Builder;
+	public final fun setBundleWithTraceEnabled (Z)Lcom/motadata/android/log/Logger$Builder;
+	public final fun setLogcatLogsEnabled (Z)Lcom/motadata/android/log/Logger$Builder;
+	public final fun setName (Ljava/lang/String;)Lcom/motadata/android/log/Logger$Builder;
+	public final fun setNetworkInfoEnabled (Z)Lcom/motadata/android/log/Logger$Builder;
+	public final fun setRemoteLogThreshold (I)Lcom/motadata/android/log/Logger$Builder;
+	public final fun setRemoteSampleRate (F)Lcom/motadata/android/log/Logger$Builder;
+	public final fun setService (Ljava/lang/String;)Lcom/motadata/android/log/Logger$Builder;
 }
 
-public final class com/datadog/android/log/Logs {
-	public static final field INSTANCE Lcom/datadog/android/log/Logs;
+public final class com/motadata/android/log/Logs {
+	public static final field INSTANCE Lcom/motadata/android/log/Logs;
 	public static final fun addAttribute (Ljava/lang/String;Ljava/lang/Object;)V
-	public static final fun addAttribute (Ljava/lang/String;Ljava/lang/Object;Lcom/datadog/android/api/SdkCore;)V
-	public static synthetic fun addAttribute$default (Ljava/lang/String;Ljava/lang/Object;Lcom/datadog/android/api/SdkCore;ILjava/lang/Object;)V
-	public static final fun enable (Lcom/datadog/android/log/LogsConfiguration;)V
-	public static final fun enable (Lcom/datadog/android/log/LogsConfiguration;Lcom/datadog/android/api/SdkCore;)V
-	public static synthetic fun enable$default (Lcom/datadog/android/log/LogsConfiguration;Lcom/datadog/android/api/SdkCore;ILjava/lang/Object;)V
+	public static final fun addAttribute (Ljava/lang/String;Ljava/lang/Object;Lcom/motadata/android/api/SdkCore;)V
+	public static synthetic fun addAttribute$default (Ljava/lang/String;Ljava/lang/Object;Lcom/motadata/android/api/SdkCore;ILjava/lang/Object;)V
+	public static final fun enable (Lcom/motadata/android/log/LogsConfiguration;)V
+	public static final fun enable (Lcom/motadata/android/log/LogsConfiguration;Lcom/motadata/android/api/SdkCore;)V
+	public static synthetic fun enable$default (Lcom/motadata/android/log/LogsConfiguration;Lcom/motadata/android/api/SdkCore;ILjava/lang/Object;)V
 	public static final fun isEnabled ()Z
-	public static final fun isEnabled (Lcom/datadog/android/api/SdkCore;)Z
-	public static synthetic fun isEnabled$default (Lcom/datadog/android/api/SdkCore;ILjava/lang/Object;)Z
+	public static final fun isEnabled (Lcom/motadata/android/api/SdkCore;)Z
+	public static synthetic fun isEnabled$default (Lcom/motadata/android/api/SdkCore;ILjava/lang/Object;)Z
 	public static final fun removeAttribute (Ljava/lang/String;)V
-	public static final fun removeAttribute (Ljava/lang/String;Lcom/datadog/android/api/SdkCore;)V
-	public static synthetic fun removeAttribute$default (Ljava/lang/String;Lcom/datadog/android/api/SdkCore;ILjava/lang/Object;)V
+	public static final fun removeAttribute (Ljava/lang/String;Lcom/motadata/android/api/SdkCore;)V
+	public static synthetic fun removeAttribute$default (Ljava/lang/String;Lcom/motadata/android/api/SdkCore;ILjava/lang/Object;)V
 }
 
-public final class com/datadog/android/log/LogsConfiguration {
-	public final fun copy (Ljava/lang/String;Lcom/datadog/android/event/EventMapper;)Lcom/datadog/android/log/LogsConfiguration;
-	public static synthetic fun copy$default (Lcom/datadog/android/log/LogsConfiguration;Ljava/lang/String;Lcom/datadog/android/event/EventMapper;ILjava/lang/Object;)Lcom/datadog/android/log/LogsConfiguration;
+public final class com/motadata/android/log/LogsConfiguration {
+	public final fun copy (Ljava/lang/String;Lcom/motadata/android/event/EventMapper;)Lcom/motadata/android/log/LogsConfiguration;
+	public static synthetic fun copy$default (Lcom/motadata/android/log/LogsConfiguration;Ljava/lang/String;Lcom/motadata/android/event/EventMapper;ILjava/lang/Object;)Lcom/motadata/android/log/LogsConfiguration;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/datadog/android/log/LogsConfiguration$Builder {
+public final class com/motadata/android/log/LogsConfiguration$Builder {
 	public fun <init> ()V
-	public final fun build ()Lcom/datadog/android/log/LogsConfiguration;
-	public final fun setEventMapper (Lcom/datadog/android/event/EventMapper;)Lcom/datadog/android/log/LogsConfiguration$Builder;
-	public final fun useCustomEndpoint (Ljava/lang/String;)Lcom/datadog/android/log/LogsConfiguration$Builder;
+	public final fun build ()Lcom/motadata/android/log/LogsConfiguration;
+	public final fun setEventMapper (Lcom/motadata/android/event/EventMapper;)Lcom/motadata/android/log/LogsConfiguration$Builder;
+	public final fun useCustomEndpoint (Ljava/lang/String;)Lcom/motadata/android/log/LogsConfiguration$Builder;
 }
 
-public final class com/datadog/android/log/model/LogEvent {
-	public static final field Companion Lcom/datadog/android/log/model/LogEvent$Companion;
-	public fun <init> (Lcom/datadog/android/log/model/LogEvent$LogEventDevice;Lcom/datadog/android/log/model/LogEvent$Os;Lcom/datadog/android/log/model/LogEvent$Status;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/datadog/android/log/model/LogEvent$Logger;Lcom/datadog/android/log/model/LogEvent$Dd;Lcom/datadog/android/log/model/LogEvent$Usr;Lcom/datadog/android/log/model/LogEvent$Account;Lcom/datadog/android/log/model/LogEvent$Network;Lcom/datadog/android/log/model/LogEvent$Error;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)V
-	public synthetic fun <init> (Lcom/datadog/android/log/model/LogEvent$LogEventDevice;Lcom/datadog/android/log/model/LogEvent$Os;Lcom/datadog/android/log/model/LogEvent$Status;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/datadog/android/log/model/LogEvent$Logger;Lcom/datadog/android/log/model/LogEvent$Dd;Lcom/datadog/android/log/model/LogEvent$Usr;Lcom/datadog/android/log/model/LogEvent$Account;Lcom/datadog/android/log/model/LogEvent$Network;Lcom/datadog/android/log/model/LogEvent$Error;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Lcom/datadog/android/log/model/LogEvent$LogEventDevice;
-	public final fun component10 ()Lcom/datadog/android/log/model/LogEvent$Account;
-	public final fun component11 ()Lcom/datadog/android/log/model/LogEvent$Network;
-	public final fun component12 ()Lcom/datadog/android/log/model/LogEvent$Error;
+public final class com/motadata/android/log/model/LogEvent {
+	public static final field Companion Lcom/motadata/android/log/model/LogEvent$Companion;
+	public fun <init> (Lcom/motadata/android/log/model/LogEvent$LogEventDevice;Lcom/motadata/android/log/model/LogEvent$Os;Lcom/motadata/android/log/model/LogEvent$Status;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/motadata/android/log/model/LogEvent$Logger;Lcom/motadata/android/log/model/LogEvent$Dd;Lcom/motadata/android/log/model/LogEvent$Usr;Lcom/motadata/android/log/model/LogEvent$Account;Lcom/motadata/android/log/model/LogEvent$Network;Lcom/motadata/android/log/model/LogEvent$Error;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)V
+	public synthetic fun <init> (Lcom/motadata/android/log/model/LogEvent$LogEventDevice;Lcom/motadata/android/log/model/LogEvent$Os;Lcom/motadata/android/log/model/LogEvent$Status;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/motadata/android/log/model/LogEvent$Logger;Lcom/motadata/android/log/model/LogEvent$Dd;Lcom/motadata/android/log/model/LogEvent$Usr;Lcom/motadata/android/log/model/LogEvent$Account;Lcom/motadata/android/log/model/LogEvent$Network;Lcom/motadata/android/log/model/LogEvent$Error;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/motadata/android/log/model/LogEvent$LogEventDevice;
+	public final fun component10 ()Lcom/motadata/android/log/model/LogEvent$Account;
+	public final fun component11 ()Lcom/motadata/android/log/model/LogEvent$Network;
+	public final fun component12 ()Lcom/motadata/android/log/model/LogEvent$Error;
 	public final fun component13 ()Ljava/lang/String;
 	public final fun component14 ()Ljava/lang/String;
 	public final fun component15 ()Ljava/lang/String;
 	public final fun component16 ()Ljava/util/Map;
-	public final fun component2 ()Lcom/datadog/android/log/model/LogEvent$Os;
-	public final fun component3 ()Lcom/datadog/android/log/model/LogEvent$Status;
+	public final fun component2 ()Lcom/motadata/android/log/model/LogEvent$Os;
+	public final fun component3 ()Lcom/motadata/android/log/model/LogEvent$Status;
 	public final fun component4 ()Ljava/lang/String;
 	public final fun component5 ()Ljava/lang/String;
 	public final fun component6 ()Ljava/lang/String;
-	public final fun component7 ()Lcom/datadog/android/log/model/LogEvent$Logger;
-	public final fun component8 ()Lcom/datadog/android/log/model/LogEvent$Dd;
-	public final fun component9 ()Lcom/datadog/android/log/model/LogEvent$Usr;
-	public final fun copy (Lcom/datadog/android/log/model/LogEvent$LogEventDevice;Lcom/datadog/android/log/model/LogEvent$Os;Lcom/datadog/android/log/model/LogEvent$Status;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/datadog/android/log/model/LogEvent$Logger;Lcom/datadog/android/log/model/LogEvent$Dd;Lcom/datadog/android/log/model/LogEvent$Usr;Lcom/datadog/android/log/model/LogEvent$Account;Lcom/datadog/android/log/model/LogEvent$Network;Lcom/datadog/android/log/model/LogEvent$Error;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Lcom/datadog/android/log/model/LogEvent;
-	public static synthetic fun copy$default (Lcom/datadog/android/log/model/LogEvent;Lcom/datadog/android/log/model/LogEvent$LogEventDevice;Lcom/datadog/android/log/model/LogEvent$Os;Lcom/datadog/android/log/model/LogEvent$Status;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/datadog/android/log/model/LogEvent$Logger;Lcom/datadog/android/log/model/LogEvent$Dd;Lcom/datadog/android/log/model/LogEvent$Usr;Lcom/datadog/android/log/model/LogEvent$Account;Lcom/datadog/android/log/model/LogEvent$Network;Lcom/datadog/android/log/model/LogEvent$Error;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lcom/datadog/android/log/model/LogEvent;
+	public final fun component7 ()Lcom/motadata/android/log/model/LogEvent$Logger;
+	public final fun component8 ()Lcom/motadata/android/log/model/LogEvent$Dd;
+	public final fun component9 ()Lcom/motadata/android/log/model/LogEvent$Usr;
+	public final fun copy (Lcom/motadata/android/log/model/LogEvent$LogEventDevice;Lcom/motadata/android/log/model/LogEvent$Os;Lcom/motadata/android/log/model/LogEvent$Status;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/motadata/android/log/model/LogEvent$Logger;Lcom/motadata/android/log/model/LogEvent$Dd;Lcom/motadata/android/log/model/LogEvent$Usr;Lcom/motadata/android/log/model/LogEvent$Account;Lcom/motadata/android/log/model/LogEvent$Network;Lcom/motadata/android/log/model/LogEvent$Error;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Lcom/motadata/android/log/model/LogEvent;
+	public static synthetic fun copy$default (Lcom/motadata/android/log/model/LogEvent;Lcom/motadata/android/log/model/LogEvent$LogEventDevice;Lcom/motadata/android/log/model/LogEvent$Os;Lcom/motadata/android/log/model/LogEvent$Status;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/motadata/android/log/model/LogEvent$Logger;Lcom/motadata/android/log/model/LogEvent$Dd;Lcom/motadata/android/log/model/LogEvent$Usr;Lcom/motadata/android/log/model/LogEvent$Account;Lcom/motadata/android/log/model/LogEvent$Network;Lcom/motadata/android/log/model/LogEvent$Error;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lcom/motadata/android/log/model/LogEvent;
 	public fun equals (Ljava/lang/Object;)Z
-	public static final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent;
-	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent;
-	public final fun getAccount ()Lcom/datadog/android/log/model/LogEvent$Account;
+	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent;
+	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent;
+	public final fun getAccount ()Lcom/motadata/android/log/model/LogEvent$Account;
 	public final fun getAdditionalProperties ()Ljava/util/Map;
 	public final fun getBuildId ()Ljava/lang/String;
 	public final fun getBuildVersion ()Ljava/lang/String;
 	public final fun getDate ()Ljava/lang/String;
-	public final fun getDd ()Lcom/datadog/android/log/model/LogEvent$Dd;
+	public final fun getDd ()Lcom/motadata/android/log/model/LogEvent$Dd;
 	public final fun getDdtags ()Ljava/lang/String;
-	public final fun getDevice ()Lcom/datadog/android/log/model/LogEvent$LogEventDevice;
-	public final fun getError ()Lcom/datadog/android/log/model/LogEvent$Error;
-	public final fun getLogger ()Lcom/datadog/android/log/model/LogEvent$Logger;
+	public final fun getDevice ()Lcom/motadata/android/log/model/LogEvent$LogEventDevice;
+	public final fun getError ()Lcom/motadata/android/log/model/LogEvent$Error;
+	public final fun getLogger ()Lcom/motadata/android/log/model/LogEvent$Logger;
 	public final fun getMessage ()Ljava/lang/String;
-	public final fun getNetwork ()Lcom/datadog/android/log/model/LogEvent$Network;
-	public final fun getOs ()Lcom/datadog/android/log/model/LogEvent$Os;
+	public final fun getNetwork ()Lcom/motadata/android/log/model/LogEvent$Network;
+	public final fun getOs ()Lcom/motadata/android/log/model/LogEvent$Os;
 	public final fun getService ()Ljava/lang/String;
-	public final fun getStatus ()Lcom/datadog/android/log/model/LogEvent$Status;
-	public final fun getUsr ()Lcom/datadog/android/log/model/LogEvent$Usr;
+	public final fun getStatus ()Lcom/motadata/android/log/model/LogEvent$Status;
+	public final fun getUsr ()Lcom/motadata/android/log/model/LogEvent$Usr;
 	public fun hashCode ()I
 	public final fun setDdtags (Ljava/lang/String;)V
 	public final fun setMessage (Ljava/lang/String;)V
-	public final fun setStatus (Lcom/datadog/android/log/model/LogEvent$Status;)V
+	public final fun setStatus (Lcom/motadata/android/log/model/LogEvent$Status;)V
 	public final fun toJson ()Lcom/google/gson/JsonElement;
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Account {
-	public static final field Companion Lcom/datadog/android/log/model/LogEvent$Account$Companion;
+public final class com/motadata/android/log/model/LogEvent$Account {
+	public static final field Companion Lcom/motadata/android/log/model/LogEvent$Account$Companion;
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/util/Map;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Lcom/datadog/android/log/model/LogEvent$Account;
-	public static synthetic fun copy$default (Lcom/datadog/android/log/model/LogEvent$Account;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lcom/datadog/android/log/model/LogEvent$Account;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Lcom/motadata/android/log/model/LogEvent$Account;
+	public static synthetic fun copy$default (Lcom/motadata/android/log/model/LogEvent$Account;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lcom/motadata/android/log/model/LogEvent$Account;
 	public fun equals (Ljava/lang/Object;)Z
-	public static final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Account;
-	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Account;
+	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Account;
+	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Account;
 	public final fun getAdditionalProperties ()Ljava/util/Map;
 	public final fun getId ()Ljava/lang/String;
 	public final fun getName ()Ljava/lang/String;
@@ -154,87 +154,87 @@ public final class com/datadog/android/log/model/LogEvent$Account {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Account$Companion {
-	public final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Account;
-	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Account;
+public final class com/motadata/android/log/model/LogEvent$Account$Companion {
+	public final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Account;
+	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Account;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Client {
-	public static final field Companion Lcom/datadog/android/log/model/LogEvent$Client$Companion;
-	public fun <init> (Lcom/datadog/android/log/model/LogEvent$SimCarrier;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
-	public synthetic fun <init> (Lcom/datadog/android/log/model/LogEvent$SimCarrier;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Lcom/datadog/android/log/model/LogEvent$SimCarrier;
+public final class com/motadata/android/log/model/LogEvent$Client {
+	public static final field Companion Lcom/motadata/android/log/model/LogEvent$Client$Companion;
+	public fun <init> (Lcom/motadata/android/log/model/LogEvent$SimCarrier;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Lcom/motadata/android/log/model/LogEvent$SimCarrier;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/motadata/android/log/model/LogEvent$SimCarrier;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()Ljava/lang/String;
 	public final fun component5 ()Ljava/lang/String;
-	public final fun copy (Lcom/datadog/android/log/model/LogEvent$SimCarrier;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Client;
-	public static synthetic fun copy$default (Lcom/datadog/android/log/model/LogEvent$Client;Lcom/datadog/android/log/model/LogEvent$SimCarrier;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/datadog/android/log/model/LogEvent$Client;
+	public final fun copy (Lcom/motadata/android/log/model/LogEvent$SimCarrier;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Client;
+	public static synthetic fun copy$default (Lcom/motadata/android/log/model/LogEvent$Client;Lcom/motadata/android/log/model/LogEvent$SimCarrier;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/motadata/android/log/model/LogEvent$Client;
 	public fun equals (Ljava/lang/Object;)Z
-	public static final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Client;
-	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Client;
+	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Client;
+	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Client;
 	public final fun getConnectivity ()Ljava/lang/String;
 	public final fun getDownlinkKbps ()Ljava/lang/String;
 	public final fun getSignalStrength ()Ljava/lang/String;
-	public final fun getSimCarrier ()Lcom/datadog/android/log/model/LogEvent$SimCarrier;
+	public final fun getSimCarrier ()Lcom/motadata/android/log/model/LogEvent$SimCarrier;
 	public final fun getUplinkKbps ()Ljava/lang/String;
 	public fun hashCode ()I
 	public final fun toJson ()Lcom/google/gson/JsonElement;
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Client$Companion {
-	public final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Client;
-	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Client;
+public final class com/motadata/android/log/model/LogEvent$Client$Companion {
+	public final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Client;
+	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Client;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Companion {
-	public final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent;
-	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent;
+public final class com/motadata/android/log/model/LogEvent$Companion {
+	public final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent;
+	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Dd {
-	public static final field Companion Lcom/datadog/android/log/model/LogEvent$Dd$Companion;
-	public fun <init> (Lcom/datadog/android/log/model/LogEvent$DdDevice;)V
-	public final fun component1 ()Lcom/datadog/android/log/model/LogEvent$DdDevice;
-	public final fun copy (Lcom/datadog/android/log/model/LogEvent$DdDevice;)Lcom/datadog/android/log/model/LogEvent$Dd;
-	public static synthetic fun copy$default (Lcom/datadog/android/log/model/LogEvent$Dd;Lcom/datadog/android/log/model/LogEvent$DdDevice;ILjava/lang/Object;)Lcom/datadog/android/log/model/LogEvent$Dd;
+public final class com/motadata/android/log/model/LogEvent$Dd {
+	public static final field Companion Lcom/motadata/android/log/model/LogEvent$Dd$Companion;
+	public fun <init> (Lcom/motadata/android/log/model/LogEvent$DdDevice;)V
+	public final fun component1 ()Lcom/motadata/android/log/model/LogEvent$DdDevice;
+	public final fun copy (Lcom/motadata/android/log/model/LogEvent$DdDevice;)Lcom/motadata/android/log/model/LogEvent$Dd;
+	public static synthetic fun copy$default (Lcom/motadata/android/log/model/LogEvent$Dd;Lcom/motadata/android/log/model/LogEvent$DdDevice;ILjava/lang/Object;)Lcom/motadata/android/log/model/LogEvent$Dd;
 	public fun equals (Ljava/lang/Object;)Z
-	public static final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Dd;
-	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Dd;
-	public final fun getDevice ()Lcom/datadog/android/log/model/LogEvent$DdDevice;
+	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Dd;
+	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Dd;
+	public final fun getDevice ()Lcom/motadata/android/log/model/LogEvent$DdDevice;
 	public fun hashCode ()I
 	public final fun toJson ()Lcom/google/gson/JsonElement;
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Dd$Companion {
-	public final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Dd;
-	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Dd;
+public final class com/motadata/android/log/model/LogEvent$Dd$Companion {
+	public final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Dd;
+	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Dd;
 }
 
-public final class com/datadog/android/log/model/LogEvent$DdDevice {
-	public static final field Companion Lcom/datadog/android/log/model/LogEvent$DdDevice$Companion;
+public final class com/motadata/android/log/model/LogEvent$DdDevice {
+	public static final field Companion Lcom/motadata/android/log/model/LogEvent$DdDevice$Companion;
 	public fun <init> (Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$DdDevice;
-	public static synthetic fun copy$default (Lcom/datadog/android/log/model/LogEvent$DdDevice;Ljava/lang/String;ILjava/lang/Object;)Lcom/datadog/android/log/model/LogEvent$DdDevice;
+	public final fun copy (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$DdDevice;
+	public static synthetic fun copy$default (Lcom/motadata/android/log/model/LogEvent$DdDevice;Ljava/lang/String;ILjava/lang/Object;)Lcom/motadata/android/log/model/LogEvent$DdDevice;
 	public fun equals (Ljava/lang/Object;)Z
-	public static final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$DdDevice;
-	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$DdDevice;
+	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$DdDevice;
+	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$DdDevice;
 	public final fun getArchitecture ()Ljava/lang/String;
 	public fun hashCode ()I
 	public final fun toJson ()Lcom/google/gson/JsonElement;
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/datadog/android/log/model/LogEvent$DdDevice$Companion {
-	public final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$DdDevice;
-	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$DdDevice;
+public final class com/motadata/android/log/model/LogEvent$DdDevice$Companion {
+	public final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$DdDevice;
+	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$DdDevice;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Error {
-	public static final field Companion Lcom/datadog/android/log/model/LogEvent$Error$Companion;
+public final class com/motadata/android/log/model/LogEvent$Error {
+	public static final field Companion Lcom/motadata/android/log/model/LogEvent$Error$Companion;
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -244,11 +244,11 @@ public final class com/datadog/android/log/model/LogEvent$Error {
 	public final fun component4 ()Ljava/lang/String;
 	public final fun component5 ()Ljava/lang/String;
 	public final fun component6 ()Ljava/util/List;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)Lcom/datadog/android/log/model/LogEvent$Error;
-	public static synthetic fun copy$default (Lcom/datadog/android/log/model/LogEvent$Error;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lcom/datadog/android/log/model/LogEvent$Error;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)Lcom/motadata/android/log/model/LogEvent$Error;
+	public static synthetic fun copy$default (Lcom/motadata/android/log/model/LogEvent$Error;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILjava/lang/Object;)Lcom/motadata/android/log/model/LogEvent$Error;
 	public fun equals (Ljava/lang/Object;)Z
-	public static final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Error;
-	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Error;
+	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Error;
+	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Error;
 	public final fun getFingerprint ()Ljava/lang/String;
 	public final fun getKind ()Ljava/lang/String;
 	public final fun getMessage ()Ljava/lang/String;
@@ -265,17 +265,17 @@ public final class com/datadog/android/log/model/LogEvent$Error {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Error$Companion {
-	public final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Error;
-	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Error;
+public final class com/motadata/android/log/model/LogEvent$Error$Companion {
+	public final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Error;
+	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Error;
 }
 
-public final class com/datadog/android/log/model/LogEvent$LogEventDevice {
-	public static final field Companion Lcom/datadog/android/log/model/LogEvent$LogEventDevice$Companion;
+public final class com/motadata/android/log/model/LogEvent$LogEventDevice {
+	public static final field Companion Lcom/motadata/android/log/model/LogEvent$LogEventDevice$Companion;
 	public fun <init> ()V
-	public fun <init> (Lcom/datadog/android/log/model/LogEvent$Type;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/Number;Ljava/lang/Boolean;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Boolean;)V
-	public synthetic fun <init> (Lcom/datadog/android/log/model/LogEvent$Type;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/Number;Ljava/lang/Boolean;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Lcom/datadog/android/log/model/LogEvent$Type;
+	public fun <init> (Lcom/motadata/android/log/model/LogEvent$Type;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/Number;Ljava/lang/Boolean;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Boolean;)V
+	public synthetic fun <init> (Lcom/motadata/android/log/model/LogEvent$Type;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/Number;Ljava/lang/Boolean;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lcom/motadata/android/log/model/LogEvent$Type;
 	public final fun component10 ()Ljava/lang/Boolean;
 	public final fun component11 ()Ljava/lang/Number;
 	public final fun component12 ()Ljava/lang/Number;
@@ -289,11 +289,11 @@ public final class com/datadog/android/log/model/LogEvent$LogEventDevice {
 	public final fun component7 ()Ljava/util/List;
 	public final fun component8 ()Ljava/lang/String;
 	public final fun component9 ()Ljava/lang/Number;
-	public final fun copy (Lcom/datadog/android/log/model/LogEvent$Type;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/Number;Ljava/lang/Boolean;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Boolean;)Lcom/datadog/android/log/model/LogEvent$LogEventDevice;
-	public static synthetic fun copy$default (Lcom/datadog/android/log/model/LogEvent$LogEventDevice;Lcom/datadog/android/log/model/LogEvent$Type;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/Number;Ljava/lang/Boolean;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/datadog/android/log/model/LogEvent$LogEventDevice;
+	public final fun copy (Lcom/motadata/android/log/model/LogEvent$Type;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/Number;Ljava/lang/Boolean;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Boolean;)Lcom/motadata/android/log/model/LogEvent$LogEventDevice;
+	public static synthetic fun copy$default (Lcom/motadata/android/log/model/LogEvent$LogEventDevice;Lcom/motadata/android/log/model/LogEvent$Type;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/Number;Ljava/lang/Boolean;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Number;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/motadata/android/log/model/LogEvent$LogEventDevice;
 	public fun equals (Ljava/lang/Object;)Z
-	public static final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$LogEventDevice;
-	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$LogEventDevice;
+	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$LogEventDevice;
+	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$LogEventDevice;
 	public final fun getArchitecture ()Ljava/lang/String;
 	public final fun getBatteryLevel ()Ljava/lang/Number;
 	public final fun getBrand ()Ljava/lang/String;
@@ -306,30 +306,30 @@ public final class com/datadog/android/log/model/LogEvent$LogEventDevice {
 	public final fun getPowerSavingMode ()Ljava/lang/Boolean;
 	public final fun getTimeZone ()Ljava/lang/String;
 	public final fun getTotalRam ()Ljava/lang/Number;
-	public final fun getType ()Lcom/datadog/android/log/model/LogEvent$Type;
+	public final fun getType ()Lcom/motadata/android/log/model/LogEvent$Type;
 	public fun hashCode ()I
 	public final fun isLowRam ()Ljava/lang/Boolean;
 	public final fun toJson ()Lcom/google/gson/JsonElement;
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/datadog/android/log/model/LogEvent$LogEventDevice$Companion {
-	public final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$LogEventDevice;
-	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$LogEventDevice;
+public final class com/motadata/android/log/model/LogEvent$LogEventDevice$Companion {
+	public final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$LogEventDevice;
+	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$LogEventDevice;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Logger {
-	public static final field Companion Lcom/datadog/android/log/model/LogEvent$Logger$Companion;
+public final class com/motadata/android/log/model/LogEvent$Logger {
+	public static final field Companion Lcom/motadata/android/log/model/LogEvent$Logger$Companion;
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Logger;
-	public static synthetic fun copy$default (Lcom/datadog/android/log/model/LogEvent$Logger;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/datadog/android/log/model/LogEvent$Logger;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Logger;
+	public static synthetic fun copy$default (Lcom/motadata/android/log/model/LogEvent$Logger;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/motadata/android/log/model/LogEvent$Logger;
 	public fun equals (Ljava/lang/Object;)Z
-	public static final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Logger;
-	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Logger;
+	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Logger;
+	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Logger;
 	public final fun getName ()Ljava/lang/String;
 	public final fun getThreadName ()Ljava/lang/String;
 	public final fun getVersion ()Ljava/lang/String;
@@ -339,44 +339,44 @@ public final class com/datadog/android/log/model/LogEvent$Logger {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Logger$Companion {
-	public final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Logger;
-	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Logger;
+public final class com/motadata/android/log/model/LogEvent$Logger$Companion {
+	public final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Logger;
+	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Logger;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Network {
-	public static final field Companion Lcom/datadog/android/log/model/LogEvent$Network$Companion;
-	public fun <init> (Lcom/datadog/android/log/model/LogEvent$Client;)V
-	public final fun component1 ()Lcom/datadog/android/log/model/LogEvent$Client;
-	public final fun copy (Lcom/datadog/android/log/model/LogEvent$Client;)Lcom/datadog/android/log/model/LogEvent$Network;
-	public static synthetic fun copy$default (Lcom/datadog/android/log/model/LogEvent$Network;Lcom/datadog/android/log/model/LogEvent$Client;ILjava/lang/Object;)Lcom/datadog/android/log/model/LogEvent$Network;
+public final class com/motadata/android/log/model/LogEvent$Network {
+	public static final field Companion Lcom/motadata/android/log/model/LogEvent$Network$Companion;
+	public fun <init> (Lcom/motadata/android/log/model/LogEvent$Client;)V
+	public final fun component1 ()Lcom/motadata/android/log/model/LogEvent$Client;
+	public final fun copy (Lcom/motadata/android/log/model/LogEvent$Client;)Lcom/motadata/android/log/model/LogEvent$Network;
+	public static synthetic fun copy$default (Lcom/motadata/android/log/model/LogEvent$Network;Lcom/motadata/android/log/model/LogEvent$Client;ILjava/lang/Object;)Lcom/motadata/android/log/model/LogEvent$Network;
 	public fun equals (Ljava/lang/Object;)Z
-	public static final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Network;
-	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Network;
-	public final fun getClient ()Lcom/datadog/android/log/model/LogEvent$Client;
+	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Network;
+	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Network;
+	public final fun getClient ()Lcom/motadata/android/log/model/LogEvent$Client;
 	public fun hashCode ()I
 	public final fun toJson ()Lcom/google/gson/JsonElement;
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Network$Companion {
-	public final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Network;
-	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Network;
+public final class com/motadata/android/log/model/LogEvent$Network$Companion {
+	public final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Network;
+	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Network;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Os {
-	public static final field Companion Lcom/datadog/android/log/model/LogEvent$Os$Companion;
+public final class com/motadata/android/log/model/LogEvent$Os {
+	public static final field Companion Lcom/motadata/android/log/model/LogEvent$Os$Companion;
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Os;
-	public static synthetic fun copy$default (Lcom/datadog/android/log/model/LogEvent$Os;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/datadog/android/log/model/LogEvent$Os;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Os;
+	public static synthetic fun copy$default (Lcom/motadata/android/log/model/LogEvent$Os;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/motadata/android/log/model/LogEvent$Os;
 	public fun equals (Ljava/lang/Object;)Z
-	public static final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Os;
-	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Os;
+	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Os;
+	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Os;
 	public final fun getBuild ()Ljava/lang/String;
 	public final fun getName ()Ljava/lang/String;
 	public final fun getVersion ()Ljava/lang/String;
@@ -386,23 +386,23 @@ public final class com/datadog/android/log/model/LogEvent$Os {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Os$Companion {
-	public final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Os;
-	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Os;
+public final class com/motadata/android/log/model/LogEvent$Os$Companion {
+	public final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Os;
+	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Os;
 }
 
-public final class com/datadog/android/log/model/LogEvent$SimCarrier {
-	public static final field Companion Lcom/datadog/android/log/model/LogEvent$SimCarrier$Companion;
+public final class com/motadata/android/log/model/LogEvent$SimCarrier {
+	public static final field Companion Lcom/motadata/android/log/model/LogEvent$SimCarrier$Companion;
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$SimCarrier;
-	public static synthetic fun copy$default (Lcom/datadog/android/log/model/LogEvent$SimCarrier;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/datadog/android/log/model/LogEvent$SimCarrier;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$SimCarrier;
+	public static synthetic fun copy$default (Lcom/motadata/android/log/model/LogEvent$SimCarrier;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/motadata/android/log/model/LogEvent$SimCarrier;
 	public fun equals (Ljava/lang/Object;)Z
-	public static final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$SimCarrier;
-	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$SimCarrier;
+	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$SimCarrier;
+	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$SimCarrier;
 	public final fun getId ()Ljava/lang/String;
 	public final fun getName ()Ljava/lang/String;
 	public fun hashCode ()I
@@ -410,43 +410,43 @@ public final class com/datadog/android/log/model/LogEvent$SimCarrier {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/datadog/android/log/model/LogEvent$SimCarrier$Companion {
-	public final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$SimCarrier;
-	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$SimCarrier;
+public final class com/motadata/android/log/model/LogEvent$SimCarrier$Companion {
+	public final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$SimCarrier;
+	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$SimCarrier;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Status : java/lang/Enum {
-	public static final field CRITICAL Lcom/datadog/android/log/model/LogEvent$Status;
-	public static final field Companion Lcom/datadog/android/log/model/LogEvent$Status$Companion;
-	public static final field DEBUG Lcom/datadog/android/log/model/LogEvent$Status;
-	public static final field EMERGENCY Lcom/datadog/android/log/model/LogEvent$Status;
-	public static final field ERROR Lcom/datadog/android/log/model/LogEvent$Status;
-	public static final field INFO Lcom/datadog/android/log/model/LogEvent$Status;
-	public static final field TRACE Lcom/datadog/android/log/model/LogEvent$Status;
-	public static final field WARN Lcom/datadog/android/log/model/LogEvent$Status;
-	public static final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Status;
+public final class com/motadata/android/log/model/LogEvent$Status : java/lang/Enum {
+	public static final field CRITICAL Lcom/motadata/android/log/model/LogEvent$Status;
+	public static final field Companion Lcom/motadata/android/log/model/LogEvent$Status$Companion;
+	public static final field DEBUG Lcom/motadata/android/log/model/LogEvent$Status;
+	public static final field EMERGENCY Lcom/motadata/android/log/model/LogEvent$Status;
+	public static final field ERROR Lcom/motadata/android/log/model/LogEvent$Status;
+	public static final field INFO Lcom/motadata/android/log/model/LogEvent$Status;
+	public static final field TRACE Lcom/motadata/android/log/model/LogEvent$Status;
+	public static final field WARN Lcom/motadata/android/log/model/LogEvent$Status;
+	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Status;
 	public final fun toJson ()Lcom/google/gson/JsonElement;
-	public static fun valueOf (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Status;
-	public static fun values ()[Lcom/datadog/android/log/model/LogEvent$Status;
+	public static fun valueOf (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Status;
+	public static fun values ()[Lcom/motadata/android/log/model/LogEvent$Status;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Status$Companion {
-	public final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Status;
+public final class com/motadata/android/log/model/LogEvent$Status$Companion {
+	public final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Status;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Thread {
-	public static final field Companion Lcom/datadog/android/log/model/LogEvent$Thread$Companion;
+public final class com/motadata/android/log/model/LogEvent$Thread {
+	public static final field Companion Lcom/motadata/android/log/model/LogEvent$Thread$Companion;
 	public fun <init> (Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Z
 	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Thread;
-	public static synthetic fun copy$default (Lcom/datadog/android/log/model/LogEvent$Thread;Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/datadog/android/log/model/LogEvent$Thread;
+	public final fun copy (Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Thread;
+	public static synthetic fun copy$default (Lcom/motadata/android/log/model/LogEvent$Thread;Ljava/lang/String;ZLjava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/motadata/android/log/model/LogEvent$Thread;
 	public fun equals (Ljava/lang/Object;)Z
-	public static final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Thread;
-	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Thread;
+	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Thread;
+	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Thread;
 	public final fun getCrashed ()Z
 	public final fun getName ()Ljava/lang/String;
 	public final fun getStack ()Ljava/lang/String;
@@ -456,32 +456,32 @@ public final class com/datadog/android/log/model/LogEvent$Thread {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Thread$Companion {
-	public final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Thread;
-	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Thread;
+public final class com/motadata/android/log/model/LogEvent$Thread$Companion {
+	public final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Thread;
+	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Thread;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Type : java/lang/Enum {
-	public static final field BOT Lcom/datadog/android/log/model/LogEvent$Type;
-	public static final field Companion Lcom/datadog/android/log/model/LogEvent$Type$Companion;
-	public static final field DESKTOP Lcom/datadog/android/log/model/LogEvent$Type;
-	public static final field GAMING_CONSOLE Lcom/datadog/android/log/model/LogEvent$Type;
-	public static final field MOBILE Lcom/datadog/android/log/model/LogEvent$Type;
-	public static final field OTHER Lcom/datadog/android/log/model/LogEvent$Type;
-	public static final field TABLET Lcom/datadog/android/log/model/LogEvent$Type;
-	public static final field TV Lcom/datadog/android/log/model/LogEvent$Type;
-	public static final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Type;
+public final class com/motadata/android/log/model/LogEvent$Type : java/lang/Enum {
+	public static final field BOT Lcom/motadata/android/log/model/LogEvent$Type;
+	public static final field Companion Lcom/motadata/android/log/model/LogEvent$Type$Companion;
+	public static final field DESKTOP Lcom/motadata/android/log/model/LogEvent$Type;
+	public static final field GAMING_CONSOLE Lcom/motadata/android/log/model/LogEvent$Type;
+	public static final field MOBILE Lcom/motadata/android/log/model/LogEvent$Type;
+	public static final field OTHER Lcom/motadata/android/log/model/LogEvent$Type;
+	public static final field TABLET Lcom/motadata/android/log/model/LogEvent$Type;
+	public static final field TV Lcom/motadata/android/log/model/LogEvent$Type;
+	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Type;
 	public final fun toJson ()Lcom/google/gson/JsonElement;
-	public static fun valueOf (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Type;
-	public static fun values ()[Lcom/datadog/android/log/model/LogEvent$Type;
+	public static fun valueOf (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Type;
+	public static fun values ()[Lcom/motadata/android/log/model/LogEvent$Type;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Type$Companion {
-	public final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Type;
+public final class com/motadata/android/log/model/LogEvent$Type$Companion {
+	public final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Type;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Usr {
-	public static final field Companion Lcom/datadog/android/log/model/LogEvent$Usr$Companion;
+public final class com/motadata/android/log/model/LogEvent$Usr {
+	public static final field Companion Lcom/motadata/android/log/model/LogEvent$Usr$Companion;
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -490,11 +490,11 @@ public final class com/datadog/android/log/model/LogEvent$Usr {
 	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()Ljava/lang/String;
 	public final fun component5 ()Ljava/util/Map;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Lcom/datadog/android/log/model/LogEvent$Usr;
-	public static synthetic fun copy$default (Lcom/datadog/android/log/model/LogEvent$Usr;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lcom/datadog/android/log/model/LogEvent$Usr;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;)Lcom/motadata/android/log/model/LogEvent$Usr;
+	public static synthetic fun copy$default (Lcom/motadata/android/log/model/LogEvent$Usr;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lcom/motadata/android/log/model/LogEvent$Usr;
 	public fun equals (Ljava/lang/Object;)Z
-	public static final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Usr;
-	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Usr;
+	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Usr;
+	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Usr;
 	public final fun getAdditionalProperties ()Ljava/util/Map;
 	public final fun getAnonymousId ()Ljava/lang/String;
 	public final fun getEmail ()Ljava/lang/String;
@@ -505,8 +505,8 @@ public final class com/datadog/android/log/model/LogEvent$Usr {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/datadog/android/log/model/LogEvent$Usr$Companion {
-	public final fun fromJson (Ljava/lang/String;)Lcom/datadog/android/log/model/LogEvent$Usr;
-	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/datadog/android/log/model/LogEvent$Usr;
+public final class com/motadata/android/log/model/LogEvent$Usr$Companion {
+	public final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/log/model/LogEvent$Usr;
+	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/log/model/LogEvent$Usr;
 }
 

@@ -24,7 +24,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.rum.integration"
+    namespace = "com.motadata.android.rum.integration"
 }
 
 dependencies {

@@ -24,7 +24,7 @@ android {
 
     compileSdk = AndroidConfig.TARGET_SDK
     buildToolsVersion = AndroidConfig.BUILD_TOOLS_VERSION
-    namespace = "com.datadog.android.core.integration"
+    namespace = "com.motadata.android.core.integration"
 
     defaultConfig {
         minSdk = AndroidConfig.MIN_SDK

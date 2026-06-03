@@ -12,7 +12,7 @@ createJsonModelsGenerationTask("generateTraceModelsFromJson") {
     ignoredFiles = listOf(
         "_common-schema.json"
     )
-    targetPackageName = "com.datadog.android.trace.model"
+    targetPackageName = "com.motadata.android.trace.model"
     extraInputWatchDir = project.layout.projectDirectory.dir(
         Paths.get("../dd-sdk-android-rum/src/main/json/rum").toString()
     )

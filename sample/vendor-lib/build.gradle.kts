@@ -41,7 +41,7 @@ android {
         )
     }
 
-    namespace = "com.datadog.android.vendor.sample"
+    namespace = "com.motadata.android.vendor.sample"
 
     compileOptions {
         java17()

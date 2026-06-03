@@ -6,10 +6,10 @@
 
 package com.datadog.opentelemetry.trace
 
-import com.datadog.android.api.InternalLogger
-import com.datadog.android.trace.api.span.DatadogSpanBuilder
-import com.datadog.android.trace.api.tracer.DatadogTracer
-import com.datadog.android.trace.opentelemetry.utils.forge.Configurator
+import com.motadata.android.api.InternalLogger
+import com.motadata.android.trace.api.span.DatadogSpanBuilder
+import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.opentelemetry.utils.forge.Configurator
 import fr.xgouchet.elmyr.annotation.StringForgery
 import fr.xgouchet.elmyr.junit5.ForgeConfiguration
 import fr.xgouchet.elmyr.junit5.ForgeExtension

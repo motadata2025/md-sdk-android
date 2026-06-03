@@ -18,4 +18,4 @@ out/
 build/
 
 # Generated Poko
-src/main/kotlin/com/datadog/android/sessionreplay/model/
+src/main/kotlin/com/motadata/android/sessionreplay/model/

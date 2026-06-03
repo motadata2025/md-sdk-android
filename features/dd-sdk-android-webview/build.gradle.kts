@@ -39,7 +39,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.webview"
+    namespace = "com.motadata.android.webview"
 }
 
 dependencies {

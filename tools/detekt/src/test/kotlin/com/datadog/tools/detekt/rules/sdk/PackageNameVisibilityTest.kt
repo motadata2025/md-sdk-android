@@ -52,7 +52,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to fakeWithBreakingChanges)
         val code =
             """
-            package com.datadog.android.tools.detekt
+            package com.motadata.android.tools.detekt
             
             internal $type Foo {
             }
@@ -67,7 +67,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to fakeWithBreakingChanges)
         val code =
             """
-            package com.datadog.android.tools.detekt
+            package com.motadata.android.tools.detekt
             
             internal data class Foo(val i :Int) {
             }
@@ -82,7 +82,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to fakeWithBreakingChanges)
         val code =
             """
-            package com.datadog.android.tools.detekt
+            package com.motadata.android.tools.detekt
             
             fun foo() {
                 bar()
@@ -102,7 +102,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to fakeWithBreakingChanges)
         val code =
             """
-            package com.datadog.android.tools.detekt
+            package com.motadata.android.tools.detekt
             
             internal $field foo: String = ""
             """.trimIndent()
@@ -117,7 +117,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to true)
         val code =
             """
-            package com.datadog.android.tools.detekt.internal.data
+            package com.motadata.android.tools.detekt.internal.data
             
             $type Foo {
             }
@@ -132,7 +132,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to true)
         val code =
             """
-            package com.datadog.android.tools.detekt.internal.data
+            package com.motadata.android.tools.detekt.internal.data
             
             data class Foo(val i: Int) {
             }
@@ -147,7 +147,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to true)
         val code =
             """
-            package com.datadog.android.tools.detekt.internal.data
+            package com.motadata.android.tools.detekt.internal.data
             
             fun foo() {
             }
@@ -163,7 +163,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to true)
         val code =
             """
-            package com.datadog.android.tools.detekt.internal.data
+            package com.motadata.android.tools.detekt.internal.data
             
             $field foo: String = ""
             """.trimIndent()
@@ -178,7 +178,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to false)
         val code =
             """
-            package com.datadog.android.tools.detekt.internal.data
+            package com.motadata.android.tools.detekt.internal.data
             
             $type Foo {
             }
@@ -193,7 +193,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to false)
         val code =
             """
-            package com.datadog.android.tools.detekt.internal.data
+            package com.motadata.android.tools.detekt.internal.data
             
             data class Foo(val i: Int) {
             }
@@ -208,7 +208,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to false)
         val code =
             """
-            package com.datadog.android.tools.detekt.internal.data
+            package com.motadata.android.tools.detekt.internal.data
             
             fun foo() {
             }
@@ -224,7 +224,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to false)
         val code =
             """
-            package com.datadog.android.tools.detekt.internal.data
+            package com.motadata.android.tools.detekt.internal.data
             
             internal $field foo: String = ""
             """.trimIndent()
@@ -240,7 +240,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to true, "ignoredAnnotations" to listOf(annotationFqName))
         val code =
             """
-            package com.datadog.android.tools.detekt.internal.data
+            package com.motadata.android.tools.detekt.internal.data
             
             import $annotationFqName
             
@@ -259,7 +259,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to true, "ignoredAnnotations" to listOf(annotationFqName))
         val code =
             """
-            package com.datadog.android.tools.detekt.internal.data
+            package com.motadata.android.tools.detekt.internal.data
             
             import $annotationFqName
             
@@ -278,7 +278,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to true, "ignoredAnnotations" to listOf(annotationFqName))
         val code =
             """
-            package com.datadog.android.tools.detekt.internal.data
+            package com.motadata.android.tools.detekt.internal.data
             
             import $annotationFqName
             
@@ -298,7 +298,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to true, "ignoredAnnotations" to listOf(annotationFqName))
         val code =
             """
-            package com.datadog.android.tools.detekt.internal.data
+            package com.motadata.android.tools.detekt.internal.data
             
             import $annotationFqName
             
@@ -316,7 +316,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to fakeWithBreakingChanges)
         val code =
             """
-            package com.datadog.android.tools.detekt
+            package com.motadata.android.tools.detekt
             
             class Foo {
                 internal $type Bar {}
@@ -332,7 +332,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to fakeWithBreakingChanges)
         val code =
             """
-            package com.datadog.android.tools.detekt
+            package com.motadata.android.tools.detekt
             
             class Foo {
                 internal data class Bar(val i: Int)
@@ -348,7 +348,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to fakeWithBreakingChanges)
         val code =
             """
-            package com.datadog.android.tools.detekt
+            package com.motadata.android.tools.detekt
             
             class Foo {
                 internal fun bar() {}
@@ -365,7 +365,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to false)
         val code =
             """
-            package com.datadog.android.tools.detekt
+            package com.motadata.android.tools.detekt
             
             class Foo {
                 internal $field foo: String = ""
@@ -382,7 +382,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to fakeWithBreakingChanges)
         val code =
             """
-            package com.datadog.android.tools.detekt.internal.data
+            package com.motadata.android.tools.detekt.internal.data
             
             internal class Foo {
                 $type Bar {}
@@ -398,7 +398,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to fakeWithBreakingChanges)
         val code =
             """
-            package com.datadog.android.tools.detekt.internal.data
+            package com.motadata.android.tools.detekt.internal.data
             
             internal class Foo {
                 data class Bar(val i: Int)
@@ -414,7 +414,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to fakeWithBreakingChanges)
         val code =
             """
-            package com.datadog.android.tools.detekt.internal.data
+            package com.motadata.android.tools.detekt.internal.data
             
             internal class Foo {
                 fun bar() {}
@@ -431,7 +431,7 @@ class PackageNameVisibilityTest {
         val config = TestConfig("withBreakingChanges" to false)
         val code =
             """
-            package com.datadog.android.tools.detekt.internal.data
+            package com.motadata.android.tools.detekt.internal.data
             
             internal class Foo {
                 $field foo: String = ""

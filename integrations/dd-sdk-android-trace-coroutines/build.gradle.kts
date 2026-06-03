@@ -36,7 +36,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.trace.coroutines"
+    namespace = "com.motadata.android.trace.coroutines"
 
     libraryVariants.all {
         packageLibraryProvider.configure {

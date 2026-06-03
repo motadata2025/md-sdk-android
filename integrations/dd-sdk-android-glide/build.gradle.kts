@@ -37,7 +37,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.glide"
+    namespace = "com.motadata.android.glide"
 
     libraryVariants.all {
         packageLibraryProvider.configure {

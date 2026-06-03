@@ -7,7 +7,7 @@
 package com.datadog.benchmark.sample.ui.logsheavytraffic
 
 import android.util.Log
-import com.datadog.android.log.Logger
+import com.motadata.android.log.Logger
 import com.datadog.benchmark.sample.di.common.CoroutineDispatcherQualifier
 import com.datadog.benchmark.sample.di.common.CoroutineDispatcherType
 import com.datadog.benchmark.sample.ui.LogPayloadSize

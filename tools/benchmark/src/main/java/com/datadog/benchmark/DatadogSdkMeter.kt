@@ -6,7 +6,7 @@
 
 package com.datadog.benchmark
 
-import com.datadog.android.internal.profiler.GlobalBenchmark
+import com.motadata.android.internal.profiler.GlobalBenchmark
 import com.datadog.benchmark.exporter.DatadogMetricExporter
 import com.datadog.benchmark.profiler.DDBenchmarkSdkUploads
 import io.opentelemetry.api.GlobalOpenTelemetry

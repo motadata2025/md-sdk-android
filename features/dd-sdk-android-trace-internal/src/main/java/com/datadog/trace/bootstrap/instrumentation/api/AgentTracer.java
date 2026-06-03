@@ -4,7 +4,7 @@ import static java.util.Collections.emptyList;
 
 import androidx.annotation.Nullable;
 
-import com.datadog.android.trace.internal.compat.function.Consumer;
+import com.motadata.android.trace.internal.compat.function.Consumer;
 import com.datadog.trace.api.DDSpanId;
 import com.datadog.trace.api.DDTraceId;
 import com.datadog.trace.api.EndpointCheckpointer;

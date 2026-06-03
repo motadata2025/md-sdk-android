@@ -13,7 +13,7 @@
                                                    android:padding="10dp"
                                                    tools:context=".NavActivity">
 
-    <com.datadog.android.sample.image.AspectRatioImageView
+    <com.motadata.android.sample.image.AspectRatioImageView
         android:id="@+id/image"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

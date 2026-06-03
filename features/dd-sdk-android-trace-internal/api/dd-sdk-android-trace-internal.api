@@ -1,5 +1,5 @@
-public final class com/datadog/android/trace/internal/domain/event/BigIntegerUtils {
-	public static final field INSTANCE Lcom/datadog/android/trace/internal/domain/event/BigIntegerUtils;
+public final class com/motadata/android/trace/internal/domain/event/BigIntegerUtils {
+	public static final field INSTANCE Lcom/motadata/android/trace/internal/domain/event/BigIntegerUtils;
 	public final fun leastSignificant64BitsAsDecimal (Ljava/math/BigInteger;)Ljava/lang/String;
 	public final fun leastSignificant64BitsAsHex (Ljava/math/BigInteger;)Ljava/lang/String;
 	public final fun mostSignificant64BitsAsHex (Ljava/math/BigInteger;)Ljava/lang/String;
@@ -299,7 +299,7 @@ public abstract class com/datadog/trace/api/DDTraceId {
 public final class com/datadog/trace/api/DynamicConfig {
 	public fun captureTraceConfig ()Lcom/datadog/trace/api/DynamicConfig$Snapshot;
 	public static fun create ()Lcom/datadog/trace/api/DynamicConfig$Builder;
-	public static fun create (Lcom/datadog/android/trace/internal/compat/function/BiFunction;)Lcom/datadog/trace/api/DynamicConfig$Builder;
+	public static fun create (Lcom/motadata/android/trace/internal/compat/function/BiFunction;)Lcom/datadog/trace/api/DynamicConfig$Builder;
 	public fun current ()Lcom/datadog/trace/api/DynamicConfig$Builder;
 	public fun initial ()Lcom/datadog/trace/api/DynamicConfig$Builder;
 	public fun resetTraceConfig ()V
@@ -356,10 +356,10 @@ public abstract interface class com/datadog/trace/api/EndpointTracker {
 }
 
 public final class com/datadog/trace/api/Functions {
-	public static final field UTF8_ENCODE Lcom/datadog/android/trace/internal/compat/function/Function;
+	public static final field UTF8_ENCODE Lcom/motadata/android/trace/internal/compat/function/Function;
 }
 
-public final class com/datadog/trace/api/Functions$LowerCase : com/datadog/android/trace/internal/compat/function/Function {
+public final class com/datadog/trace/api/Functions$LowerCase : com/motadata/android/trace/internal/compat/function/Function {
 	public static final field INSTANCE Lcom/datadog/trace/api/Functions$LowerCase;
 	public fun <init> ()V
 	public synthetic fun apply (Ljava/lang/Object;)Ljava/lang/Object;
@@ -542,8 +542,8 @@ public class com/datadog/trace/api/WellKnownTags {
 
 public abstract interface class com/datadog/trace/api/cache/DDCache {
 	public abstract fun clear ()V
-	public abstract fun computeIfAbsent (Ljava/lang/Object;Lcom/datadog/android/trace/internal/compat/function/Function;)Ljava/lang/Object;
-	public abstract fun visit (Lcom/datadog/android/trace/internal/compat/function/BiConsumer;)V
+	public abstract fun computeIfAbsent (Ljava/lang/Object;Lcom/motadata/android/trace/internal/compat/function/Function;)Ljava/lang/Object;
+	public abstract fun visit (Lcom/motadata/android/trace/internal/compat/function/BiConsumer;)V
 }
 
 public final class com/datadog/trace/api/cache/DDCaches {
@@ -573,7 +573,7 @@ public final class com/datadog/trace/api/cache/RadixTreeCache {
 	public static final field PORTS Lcom/datadog/trace/api/cache/RadixTreeCache;
 	public static final field UNSET_PORT I
 	public static final field UNSET_STATUS I
-	public fun <init> (IILcom/datadog/android/trace/internal/compat/function/IntFunction;[I)V
+	public fun <init> (IILcom/motadata/android/trace/internal/compat/function/IntFunction;[I)V
 	public fun get (I)Ljava/lang/Object;
 }
 
@@ -1830,9 +1830,9 @@ public class com/datadog/trace/bootstrap/instrumentation/api/AgentTracer$NoopPat
 	public fun getSavedStats ()Lcom/datadog/trace/bootstrap/instrumentation/api/StatsPoint;
 	public fun isStarted ()Z
 	public fun saveStats (Lcom/datadog/trace/bootstrap/instrumentation/api/StatsPoint;)V
-	public fun setCheckpoint (Ljava/util/LinkedHashMap;Lcom/datadog/android/trace/internal/compat/function/Consumer;)V
-	public fun setCheckpoint (Ljava/util/LinkedHashMap;Lcom/datadog/android/trace/internal/compat/function/Consumer;J)V
-	public fun setCheckpoint (Ljava/util/LinkedHashMap;Lcom/datadog/android/trace/internal/compat/function/Consumer;JJ)V
+	public fun setCheckpoint (Ljava/util/LinkedHashMap;Lcom/motadata/android/trace/internal/compat/function/Consumer;)V
+	public fun setCheckpoint (Ljava/util/LinkedHashMap;Lcom/motadata/android/trace/internal/compat/function/Consumer;J)V
+	public fun setCheckpoint (Ljava/util/LinkedHashMap;Lcom/motadata/android/trace/internal/compat/function/Consumer;JJ)V
 	public fun strEncode ()Ljava/lang/String;
 }
 
@@ -2006,9 +2006,9 @@ public abstract interface class com/datadog/trace/bootstrap/instrumentation/api/
 	public abstract fun getSavedStats ()Lcom/datadog/trace/bootstrap/instrumentation/api/StatsPoint;
 	public abstract fun isStarted ()Z
 	public abstract fun saveStats (Lcom/datadog/trace/bootstrap/instrumentation/api/StatsPoint;)V
-	public abstract fun setCheckpoint (Ljava/util/LinkedHashMap;Lcom/datadog/android/trace/internal/compat/function/Consumer;)V
-	public abstract fun setCheckpoint (Ljava/util/LinkedHashMap;Lcom/datadog/android/trace/internal/compat/function/Consumer;J)V
-	public abstract fun setCheckpoint (Ljava/util/LinkedHashMap;Lcom/datadog/android/trace/internal/compat/function/Consumer;JJ)V
+	public abstract fun setCheckpoint (Ljava/util/LinkedHashMap;Lcom/motadata/android/trace/internal/compat/function/Consumer;)V
+	public abstract fun setCheckpoint (Ljava/util/LinkedHashMap;Lcom/motadata/android/trace/internal/compat/function/Consumer;J)V
+	public abstract fun setCheckpoint (Ljava/util/LinkedHashMap;Lcom/motadata/android/trace/internal/compat/function/Consumer;JJ)V
 	public abstract fun strEncode ()Ljava/lang/String;
 }
 
@@ -2290,7 +2290,7 @@ public class com/datadog/trace/bootstrap/instrumentation/api/URIUtils {
 	public static fun safeParse (Ljava/lang/String;)Ljava/net/URI;
 }
 
-public abstract class com/datadog/trace/bootstrap/instrumentation/api/URIUtils$LazyUrl : com/datadog/android/trace/internal/compat/function/Supplier, java/lang/CharSequence {
+public abstract class com/datadog/trace/bootstrap/instrumentation/api/URIUtils$LazyUrl : com/motadata/android/trace/internal/compat/function/Supplier, java/lang/CharSequence {
 	protected field lazy Ljava/lang/String;
 	protected fun <init> (Ljava/lang/String;)V
 	public fun charAt (I)C
@@ -2676,7 +2676,7 @@ public class com/datadog/trace/core/CoreTracer$CoreSpanBuilder : com/datadog/tra
 }
 
 public class com/datadog/trace/core/CoreTracer$CoreTracerBuilder {
-	public fun <init> (Lcom/datadog/android/api/InternalLogger;)V
+	public fun <init> (Lcom/motadata/android/api/InternalLogger;)V
 	public fun baggageMapping (Ljava/util/Map;)Lcom/datadog/trace/core/CoreTracer$CoreTracerBuilder;
 	public fun build ()Lcom/datadog/trace/core/CoreTracer;
 	public fun config (Lcom/datadog/trace/api/Config;)Lcom/datadog/trace/core/CoreTracer$CoreTracerBuilder;
@@ -2700,7 +2700,7 @@ public class com/datadog/trace/core/CoreTracer$CoreTracerBuilder {
 }
 
 public class com/datadog/trace/core/DDSpan : com/datadog/trace/api/profiling/TransientProfilingContextHolder, com/datadog/trace/bootstrap/instrumentation/api/AgentSpan, com/datadog/trace/bootstrap/instrumentation/api/AttachableWrapper, com/datadog/trace/core/CoreSpan {
-	public fun <init> (Ljava/lang/String;JLcom/datadog/trace/core/DDSpanContext;Ljava/util/List;Lcom/datadog/android/api/InternalLogger;)V
+	public fun <init> (Ljava/lang/String;JLcom/datadog/trace/core/DDSpanContext;Ljava/util/List;Lcom/motadata/android/api/InternalLogger;)V
 	public fun addLink (Lcom/datadog/trace/bootstrap/instrumentation/api/AgentSpanLink;)V
 	public synthetic fun addThrowable (Ljava/lang/Throwable;)Lcom/datadog/trace/bootstrap/instrumentation/api/AgentSpan;
 	public synthetic fun addThrowable (Ljava/lang/Throwable;)Lcom/datadog/trace/core/CoreSpan;
@@ -2970,7 +2970,7 @@ public final class com/datadog/trace/core/Metadata {
 	public fun topLevel ()Z
 }
 
-public abstract interface class com/datadog/trace/core/MetadataConsumer : com/datadog/android/trace/internal/compat/function/Consumer {
+public abstract interface class com/datadog/trace/core/MetadataConsumer : com/motadata/android/trace/internal/compat/function/Consumer {
 	public static final field NO_OP Lcom/datadog/trace/core/MetadataConsumer;
 	public abstract fun accept (Lcom/datadog/trace/core/Metadata;)V
 	public synthetic fun accept (Ljava/lang/Object;)V
@@ -3009,7 +3009,7 @@ public abstract class com/datadog/trace/core/PendingTraceBuffer : java/lang/Auto
 	public fun <init> ()V
 	public abstract fun close ()V
 	public static fun delaying (Lcom/datadog/trace/api/time/TimeSource;Lcom/datadog/trace/api/Config;Lcom/datadog/trace/core/monitor/HealthMetrics;)Lcom/datadog/trace/core/PendingTraceBuffer;
-	public static fun discarding (Lcom/datadog/android/api/InternalLogger;)Lcom/datadog/trace/core/PendingTraceBuffer;
+	public static fun discarding (Lcom/motadata/android/api/InternalLogger;)Lcom/datadog/trace/core/PendingTraceBuffer;
 	public abstract fun enqueue (Lcom/datadog/trace/core/PendingTraceBuffer$Element;)V
 	public abstract fun flush ()V
 	public fun longRunningSpansEnabled ()Z
@@ -3062,9 +3062,9 @@ public class com/datadog/trace/core/propagation/B3HttpCodec {
 	public static final field SPAN_ID_KEY Ljava/lang/String;
 	public static final field TRACE_ID_KEY Ljava/lang/String;
 	public static fun newCombinedInjector (Z)Lcom/datadog/trace/core/propagation/HttpCodec$Injector;
-	public static fun newMultiExtractor (Lcom/datadog/trace/api/Config;Lcom/datadog/android/trace/internal/compat/function/Supplier;)Lcom/datadog/trace/core/propagation/HttpCodec$Extractor;
+	public static fun newMultiExtractor (Lcom/datadog/trace/api/Config;Lcom/motadata/android/trace/internal/compat/function/Supplier;)Lcom/datadog/trace/core/propagation/HttpCodec$Extractor;
 	public static fun newMultiInjector (Z)Lcom/datadog/trace/core/propagation/HttpCodec$Injector;
-	public static fun newSingleExtractor (Lcom/datadog/trace/api/Config;Lcom/datadog/android/trace/internal/compat/function/Supplier;)Lcom/datadog/trace/core/propagation/HttpCodec$Extractor;
+	public static fun newSingleExtractor (Lcom/datadog/trace/api/Config;Lcom/motadata/android/trace/internal/compat/function/Supplier;)Lcom/datadog/trace/core/propagation/HttpCodec$Extractor;
 	public static fun newSingleInjector (Z)Lcom/datadog/trace/core/propagation/HttpCodec$Injector;
 }
 
@@ -3142,7 +3142,7 @@ public class com/datadog/trace/core/propagation/DatadogHttpCodec {
 	public static final field SAMPLING_PRIORITY_KEY Ljava/lang/String;
 	public static final field SPAN_ID_KEY Ljava/lang/String;
 	public static final field TRACE_ID_KEY Ljava/lang/String;
-	public static fun newExtractor (Lcom/datadog/trace/api/Config;Lcom/datadog/android/trace/internal/compat/function/Supplier;)Lcom/datadog/trace/core/propagation/HttpCodec$Extractor;
+	public static fun newExtractor (Lcom/datadog/trace/api/Config;Lcom/motadata/android/trace/internal/compat/function/Supplier;)Lcom/datadog/trace/core/propagation/HttpCodec$Extractor;
 	public static fun newInjector (Ljava/util/Map;)Lcom/datadog/trace/core/propagation/HttpCodec$Injector;
 }
 
@@ -3161,7 +3161,7 @@ public class com/datadog/trace/core/propagation/HttpCodec {
 	public static final field RUM_KEY_USER_ID Ljava/lang/String;
 	public fun <init> ()V
 	public static fun allInjectorsFor (Lcom/datadog/trace/api/Config;Ljava/util/Map;)Ljava/util/Map;
-	public static fun createExtractor (Lcom/datadog/trace/api/Config;Lcom/datadog/android/trace/internal/compat/function/Supplier;)Lcom/datadog/trace/core/propagation/HttpCodec$Extractor;
+	public static fun createExtractor (Lcom/datadog/trace/api/Config;Lcom/motadata/android/trace/internal/compat/function/Supplier;)Lcom/datadog/trace/core/propagation/HttpCodec$Extractor;
 	public static fun createInjector (Lcom/datadog/trace/api/Config;Ljava/util/Set;Ljava/util/Map;)Lcom/datadog/trace/core/propagation/HttpCodec$Injector;
 }
 
@@ -3232,7 +3232,7 @@ public final class com/datadog/trace/core/propagation/PropagationTags$HeaderType
 }
 
 public class com/datadog/trace/core/propagation/TagContextExtractor : com/datadog/trace/core/propagation/HttpCodec$Extractor {
-	public fun <init> (Lcom/datadog/android/trace/internal/compat/function/Supplier;Lcom/datadog/trace/core/propagation/ContextInterpreter$Factory;)V
+	public fun <init> (Lcom/motadata/android/trace/internal/compat/function/Supplier;Lcom/datadog/trace/core/propagation/ContextInterpreter$Factory;)V
 	public fun cleanup ()V
 	public fun extract (Ljava/lang/Object;Lcom/datadog/trace/bootstrap/instrumentation/api/AgentPropagation$ContextVisitor;)Lcom/datadog/trace/bootstrap/instrumentation/api/TagContext;
 }
@@ -3241,7 +3241,7 @@ public class com/datadog/trace/core/propagation/W3CHttpCodec {
 	public static final field BAGGAGE_KEY Ljava/lang/String;
 	public static final field TRACE_PARENT_KEY Ljava/lang/String;
 	public static final field TRACE_STATE_KEY Ljava/lang/String;
-	public static fun newExtractor (Lcom/datadog/trace/api/Config;Lcom/datadog/android/trace/internal/compat/function/Supplier;)Lcom/datadog/trace/core/propagation/HttpCodec$Extractor;
+	public static fun newExtractor (Lcom/datadog/trace/api/Config;Lcom/motadata/android/trace/internal/compat/function/Supplier;)Lcom/datadog/trace/core/propagation/HttpCodec$Extractor;
 	public static fun newInjector (Ljava/util/Map;)Lcom/datadog/trace/core/propagation/HttpCodec$Injector;
 }
 
@@ -3270,8 +3270,8 @@ public class com/datadog/trace/core/propagation/ptags/W3CPTagsCodec {
 }
 
 public final class com/datadog/trace/core/scopemanager/ContinuableScopeManager : com/datadog/trace/bootstrap/instrumentation/api/AgentScopeManager {
-	public fun <init> (IZZLcom/datadog/android/api/InternalLogger;)V
-	public fun <init> (IZZLcom/datadog/trace/bootstrap/instrumentation/api/ProfilingContextIntegration;Lcom/datadog/trace/core/monitor/HealthMetrics;Lcom/datadog/android/api/InternalLogger;)V
+	public fun <init> (IZZLcom/motadata/android/api/InternalLogger;)V
+	public fun <init> (IZZLcom/datadog/trace/bootstrap/instrumentation/api/ProfilingContextIntegration;Lcom/datadog/trace/core/monitor/HealthMetrics;Lcom/motadata/android/api/InternalLogger;)V
 	public fun activate (Lcom/datadog/trace/bootstrap/instrumentation/api/AgentSpan;Lcom/datadog/trace/bootstrap/instrumentation/api/ScopeSource;)Lcom/datadog/trace/bootstrap/instrumentation/api/AgentScope;
 	public fun activate (Lcom/datadog/trace/bootstrap/instrumentation/api/AgentSpan;Lcom/datadog/trace/bootstrap/instrumentation/api/ScopeSource;Z)Lcom/datadog/trace/bootstrap/instrumentation/api/AgentScope;
 	public fun activateNext (Lcom/datadog/trace/bootstrap/instrumentation/api/AgentSpan;)Lcom/datadog/trace/bootstrap/instrumentation/api/AgentScope;
@@ -3355,7 +3355,7 @@ public class com/datadog/trace/core/util/JsonObjectUtils {
 
 public class com/datadog/trace/core/util/MapUtils {
 	public fun <init> ()V
-	public static fun computeIfAbsent (Ljava/lang/Object;Ljava/util/Map;Lcom/datadog/android/trace/internal/compat/function/Function;)Ljava/lang/Object;
+	public static fun computeIfAbsent (Ljava/lang/Object;Ljava/util/Map;Lcom/motadata/android/trace/internal/compat/function/Function;)Ljava/lang/Object;
 	public static fun getAsJsonObject (Ljava/util/Map;)Lcom/google/gson/JsonObject;
 }
 
@@ -3384,7 +3384,7 @@ public class com/datadog/trace/core/util/TagsMatcher {
 }
 
 public class com/datadog/trace/logger/DatadogCoreTracerLogger : com/datadog/trace/logger/Logger {
-	public fun <init> (Ljava/lang/String;Lcom/datadog/android/api/InternalLogger;)V
+	public fun <init> (Ljava/lang/String;Lcom/motadata/android/api/InternalLogger;)V
 	public fun debug (Ljava/lang/String;)V
 	public fun debug (Ljava/lang/String;Ljava/lang/Object;)V
 	public fun debug (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)V
@@ -3412,7 +3412,7 @@ public class com/datadog/trace/logger/DatadogCoreTracerLogger : com/datadog/trac
 
 public abstract interface class com/datadog/trace/logger/ILoggerFactory {
 	public abstract fun getLogger (Ljava/lang/String;)Lcom/datadog/trace/logger/Logger;
-	public abstract fun getLogger (Ljava/lang/String;Lcom/datadog/android/api/InternalLogger;)Lcom/datadog/trace/logger/Logger;
+	public abstract fun getLogger (Ljava/lang/String;Lcom/motadata/android/api/InternalLogger;)Lcom/datadog/trace/logger/Logger;
 }
 
 public abstract interface class com/datadog/trace/logger/Logger {
@@ -3447,7 +3447,7 @@ public final class com/datadog/trace/logger/LoggerFactory {
 	public static fun getILoggerFactory ()Lcom/datadog/trace/logger/ILoggerFactory;
 	public static fun getLogger (Ljava/lang/Class;)Lcom/datadog/trace/logger/Logger;
 	public static fun getLogger (Ljava/lang/String;)Lcom/datadog/trace/logger/Logger;
-	public static fun getLogger (Ljava/lang/String;Lcom/datadog/android/api/InternalLogger;)Lcom/datadog/trace/logger/Logger;
+	public static fun getLogger (Ljava/lang/String;Lcom/motadata/android/api/InternalLogger;)Lcom/datadog/trace/logger/Logger;
 }
 
 public class com/datadog/trace/logger/NoOpLogger : com/datadog/trace/logger/Logger {

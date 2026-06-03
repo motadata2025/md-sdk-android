@@ -32,6 +32,6 @@ dependencyUpdateConfig()
 
 taskConfig<Jar> {
     manifest {
-        attributes("Lint-Registry-v2" to "com.datadog.android.lint.DatadogIssueRegistry")
+        attributes("Lint-Registry-v2" to "com.motadata.android.lint.DatadogIssueRegistry")
     }
 }

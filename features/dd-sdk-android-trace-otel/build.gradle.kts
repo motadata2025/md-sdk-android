@@ -50,7 +50,7 @@ android {
             "\"${libs.versions.openTelemetry.get()}\""
         )
     }
-    namespace = "com.datadog.android.trace.opentelemetry"
+    namespace = "com.motadata.android.trace.opentelemetry"
 
     libraryVariants.all {
         packageLibraryProvider.configure {

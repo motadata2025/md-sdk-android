@@ -38,7 +38,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.rumdebugwidget"
+    namespace = "com.motadata.android.rumdebugwidget"
 }
 
 dependencies {

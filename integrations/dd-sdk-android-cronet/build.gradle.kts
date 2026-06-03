@@ -38,7 +38,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.cronet"
+    namespace = "com.motadata.android.cronet"
     lint {
         // Cronet library has experimental annotations that AndroidX lint checker
         // cannot properly parse, causing "Failed to extract attribute 'level'" error

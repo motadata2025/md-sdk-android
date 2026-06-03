@@ -1,18 +1,18 @@
-fun <T: java.io.Closeable, R> T.useMonitored(com.datadog.android.api.SdkCore = Datadog.getInstance(), (T) -> R): R
-annotation com.datadog.android.rum.ExperimentalRumApi
-object com.datadog.android.rum.GlobalRumMonitor
-  fun isRegistered(com.datadog.android.api.SdkCore = Datadog.getInstance()): Boolean
-  fun get(com.datadog.android.api.SdkCore = Datadog.getInstance()): RumMonitor
-object com.datadog.android.rum.Rum
-  fun enable(RumConfiguration, com.datadog.android.api.SdkCore = Datadog.getInstance())
-enum com.datadog.android.rum.RumActionType
+fun <T: java.io.Closeable, R> T.useMonitored(com.motadata.android.api.SdkCore = Datadog.getInstance(), (T) -> R): R
+annotation com.motadata.android.rum.ExperimentalRumApi
+object com.motadata.android.rum.GlobalRumMonitor
+  fun isRegistered(com.motadata.android.api.SdkCore = Datadog.getInstance()): Boolean
+  fun get(com.motadata.android.api.SdkCore = Datadog.getInstance()): RumMonitor
+object com.motadata.android.rum.Rum
+  fun enable(RumConfiguration, com.motadata.android.api.SdkCore = Datadog.getInstance())
+enum com.motadata.android.rum.RumActionType
   - TAP
   - SCROLL
   - SWIPE
   - CLICK
   - BACK
   - CUSTOM
-object com.datadog.android.rum.RumAttributes
+object com.motadata.android.rum.RumAttributes
   const val APPLICATION_VERSION: String
   const val ENV: String
   const val SERVICE_NAME: String
@@ -62,36 +62,36 @@ object com.datadog.android.rum.RumAttributes
   const val NETWORK_BYTES_READ: String
   const val FLUTTER_FIRST_BUILD_COMPLETE: String
   const val CUSTOM_INV_VALUE: String
-data class com.datadog.android.rum.RumConfiguration
+data class com.motadata.android.rum.RumConfiguration
   class Builder
     constructor(String)
     fun setSessionSampleRate(Float): Builder
     fun collectAccessibility(Boolean): Builder
     fun setTelemetrySampleRate(Float): Builder
-    fun trackUserInteractions(Array<com.datadog.android.rum.tracking.ViewAttributesProvider> = emptyArray(), com.datadog.android.rum.tracking.InteractionPredicate = NoOpInteractionPredicate()): Builder
+    fun trackUserInteractions(Array<com.motadata.android.rum.tracking.ViewAttributesProvider> = emptyArray(), com.motadata.android.rum.tracking.InteractionPredicate = NoOpInteractionPredicate()): Builder
     fun disableUserInteractionTracking(): Builder
-    fun useViewTrackingStrategy(com.datadog.android.rum.tracking.ViewTrackingStrategy?): Builder
+    fun useViewTrackingStrategy(com.motadata.android.rum.tracking.ViewTrackingStrategy?): Builder
     fun trackLongTasks(Long = RumFeature.DEFAULT_LONG_TASK_THRESHOLD_MS): Builder
     fun trackNonFatalAnrs(Boolean): Builder
-    fun setViewEventMapper(com.datadog.android.rum.event.ViewEventMapper): Builder
-    fun setResourceEventMapper(com.datadog.android.event.EventMapper<com.datadog.android.rum.model.ResourceEvent>): Builder
-    fun setActionEventMapper(com.datadog.android.event.EventMapper<com.datadog.android.rum.model.ActionEvent>): Builder
-    fun setErrorEventMapper(com.datadog.android.event.EventMapper<com.datadog.android.rum.model.ErrorEvent>): Builder
-    fun setLongTaskEventMapper(com.datadog.android.event.EventMapper<com.datadog.android.rum.model.LongTaskEvent>): Builder
-    DEPRECATED fun setVitalEventMapper(com.datadog.android.event.EventMapper<com.datadog.android.rum.model.VitalOperationStepEvent>): Builder
-    fun setVitalEventMapper(com.datadog.android.event.EventMapper<com.datadog.android.rum.model.VitalOperationStepEvent> = NoOpEventMapper(), com.datadog.android.event.EventMapper<com.datadog.android.rum.model.VitalAppLaunchEvent> = NoOpEventMapper()): Builder
+    fun setViewEventMapper(com.motadata.android.rum.event.ViewEventMapper): Builder
+    fun setResourceEventMapper(com.motadata.android.event.EventMapper<com.motadata.android.rum.model.ResourceEvent>): Builder
+    fun setActionEventMapper(com.motadata.android.event.EventMapper<com.motadata.android.rum.model.ActionEvent>): Builder
+    fun setErrorEventMapper(com.motadata.android.event.EventMapper<com.motadata.android.rum.model.ErrorEvent>): Builder
+    fun setLongTaskEventMapper(com.motadata.android.event.EventMapper<com.motadata.android.rum.model.LongTaskEvent>): Builder
+    DEPRECATED fun setVitalEventMapper(com.motadata.android.event.EventMapper<com.motadata.android.rum.model.VitalOperationStepEvent>): Builder
+    fun setVitalEventMapper(com.motadata.android.event.EventMapper<com.motadata.android.rum.model.VitalOperationStepEvent> = NoOpEventMapper(), com.motadata.android.event.EventMapper<com.motadata.android.rum.model.VitalAppLaunchEvent> = NoOpEventMapper()): Builder
     fun trackBackgroundEvents(Boolean): Builder
     fun trackFrustrations(Boolean): Builder
-    fun setVitalsUpdateFrequency(com.datadog.android.rum.configuration.VitalsUpdateFrequency): Builder
+    fun setVitalsUpdateFrequency(com.motadata.android.rum.configuration.VitalsUpdateFrequency): Builder
     fun useCustomEndpoint(String): Builder
     fun setSessionListener(RumSessionListener): Builder
-    fun setInitialResourceIdentifier(com.datadog.android.rum.metric.networksettled.InitialResourceIdentifier): Builder
-    fun setLastInteractionIdentifier(com.datadog.android.rum.metric.interactiontonextview.LastInteractionIdentifier?): Builder
-    fun setSlowFramesConfiguration(com.datadog.android.rum.configuration.SlowFramesConfiguration?): Builder
+    fun setInitialResourceIdentifier(com.motadata.android.rum.metric.networksettled.InitialResourceIdentifier): Builder
+    fun setLastInteractionIdentifier(com.motadata.android.rum.metric.interactiontonextview.LastInteractionIdentifier?): Builder
+    fun setSlowFramesConfiguration(com.motadata.android.rum.configuration.SlowFramesConfiguration?): Builder
     fun trackAnonymousUser(Boolean): Builder
-    fun setAppStartupActivityPredicate(com.datadog.android.rum.startup.AppStartupActivityPredicate): Builder
+    fun setAppStartupActivityPredicate(com.motadata.android.rum.startup.AppStartupActivityPredicate): Builder
     fun build(): RumConfiguration
-enum com.datadog.android.rum.RumErrorSource
+enum com.motadata.android.rum.RumErrorSource
   - NETWORK
   - SOURCE
   - CONSOLE
@@ -100,7 +100,7 @@ enum com.datadog.android.rum.RumErrorSource
   - WEBVIEW
   - CUSTOM
   - REPORT
-interface com.datadog.android.rum.RumMonitor
+interface com.motadata.android.rum.RumMonitor
   fun getCurrentSessionId((String?) -> Unit)
   fun startView(Any, String, Map<String, Any?> = emptyMap())
   fun stopView(Any, Map<String, Any?> = emptyMap())
@@ -125,22 +125,22 @@ interface com.datadog.android.rum.RumMonitor
   fun addViewAttributes(Map<String, Any?>)
   fun removeViewAttributes(Collection<String>)
   DEPRECATED fun startFeatureOperation(String, String? = null, Map<String, Any?> = emptyMap())
-  fun startOperation(String, String? = null, com.datadog.android.rum.operations.OperationOptions = OperationOptions.Empty, Map<String, Any?> = emptyMap())
+  fun startOperation(String, String? = null, com.motadata.android.rum.operations.OperationOptions = OperationOptions.Empty, Map<String, Any?> = emptyMap())
   DEPRECATED fun succeedFeatureOperation(String, String? = null, Map<String, Any?> = emptyMap())
   fun succeedOperation(String, String? = null, Map<String, Any?> = emptyMap())
-  DEPRECATED fun failFeatureOperation(String, String? = null, com.datadog.android.rum.featureoperations.FailureReason, Map<String, Any?> = emptyMap())
-  fun failOperation(String, String? = null, com.datadog.android.rum.operations.FailureReason, Map<String, Any?> = emptyMap())
+  DEPRECATED fun failFeatureOperation(String, String? = null, com.motadata.android.rum.featureoperations.FailureReason, Map<String, Any?> = emptyMap())
+  fun failOperation(String, String? = null, com.motadata.android.rum.operations.FailureReason, Map<String, Any?> = emptyMap())
   fun reportAppFullyDisplayed()
   var debug: Boolean
   fun _getInternal(): _RumInternalProxy?
-enum com.datadog.android.rum.RumPerformanceMetric
+enum com.motadata.android.rum.RumPerformanceMetric
   - FLUTTER_BUILD_TIME
   - FLUTTER_RASTER_TIME
   - JS_FRAME_TIME
-interface com.datadog.android.rum.RumResourceAttributesProvider
+interface com.motadata.android.rum.RumResourceAttributesProvider
   DEPRECATED fun onProvideAttributes(okhttp3.Request, okhttp3.Response?, Throwable?): Map<String, Any?>
-  fun onProvideAttributes(com.datadog.android.api.instrumentation.network.HttpRequestInfo, com.datadog.android.api.instrumentation.network.HttpResponseInfo?, Throwable?): Map<String, Any?>
-enum com.datadog.android.rum.RumResourceKind
+  fun onProvideAttributes(com.motadata.android.api.instrumentation.network.HttpRequestInfo, com.motadata.android.api.instrumentation.network.HttpResponseInfo?, Throwable?): Map<String, Any?>
+enum com.motadata.android.rum.RumResourceKind
   constructor(String)
   - BEACON
   - FETCH
@@ -156,7 +156,7 @@ enum com.datadog.android.rum.RumResourceKind
   - OTHER
   companion object 
     fun fromMimeType(String): RumResourceKind
-enum com.datadog.android.rum.RumResourceMethod
+enum com.motadata.android.rum.RumResourceMethod
   - POST
   - GET
   - HEAD
@@ -166,12 +166,12 @@ enum com.datadog.android.rum.RumResourceMethod
   - TRACE
   - OPTIONS
   - CONNECT
-interface com.datadog.android.rum.RumSessionListener
+interface com.motadata.android.rum.RumSessionListener
   fun onSessionStarted(String, Boolean)
-enum com.datadog.android.rum.RumSessionType
+enum com.motadata.android.rum.RumSessionType
   - SYNTHETICS
   - USER
-class com.datadog.android.rum._RumInternalProxy
+class com.motadata.android.rum._RumInternalProxy
   fun addLongTask(Long, String)
   fun updatePerformanceMetric(RumPerformanceMetric, Double)
   fun updateExternalRefreshRate(Double)
@@ -180,37 +180,37 @@ class com.datadog.android.rum._RumInternalProxy
   fun enableJankStatsTracking(android.app.Activity)
   fun setSyntheticsAttributeFromIntent(android.content.Intent)
   companion object 
-    fun setTelemetryConfigurationEventMapper(com.datadog.android.rum.RumConfiguration.Builder, com.datadog.android.event.EventMapper<com.datadog.android.telemetry.model.TelemetryConfigurationEvent>): com.datadog.android.rum.RumConfiguration.Builder
-    fun setAdditionalConfiguration(com.datadog.android.rum.RumConfiguration.Builder, Map<String, Any>): com.datadog.android.rum.RumConfiguration.Builder
-    fun setComposeActionTrackingStrategy(com.datadog.android.rum.RumConfiguration.Builder, com.datadog.android.rum.tracking.ActionTrackingStrategy): com.datadog.android.rum.RumConfiguration.Builder
-    fun setRumSessionTypeOverride(com.datadog.android.rum.RumConfiguration.Builder, RumSessionType): com.datadog.android.rum.RumConfiguration.Builder
-    fun setDisableJankStats(com.datadog.android.rum.RumConfiguration.Builder, Boolean): com.datadog.android.rum.RumConfiguration.Builder
-    fun setInsightsCollector(com.datadog.android.rum.RumConfiguration.Builder, com.datadog.android.rum.internal.instrumentation.insights.InsightsCollector): com.datadog.android.rum.RumConfiguration.Builder
-    fun createRumNetworkInstrumentation(String, com.datadog.android.internal.telemetry.InternalTelemetryEvent.ApiUsage.NetworkInstrumentation.LibraryType, com.datadog.android.rum.configuration.RumNetworkInstrumentationConfiguration)
-    fun toResourceAttributes(com.datadog.android.rum.resource.ResourceHeadersExtractor, Map<String, List<String>>, Map<String, List<String>>, com.datadog.android.api.InternalLogger)
-class com.datadog.android.rum.configuration.RumNetworkInstrumentationConfiguration
+    fun setTelemetryConfigurationEventMapper(com.motadata.android.rum.RumConfiguration.Builder, com.motadata.android.event.EventMapper<com.motadata.android.telemetry.model.TelemetryConfigurationEvent>): com.motadata.android.rum.RumConfiguration.Builder
+    fun setAdditionalConfiguration(com.motadata.android.rum.RumConfiguration.Builder, Map<String, Any>): com.motadata.android.rum.RumConfiguration.Builder
+    fun setComposeActionTrackingStrategy(com.motadata.android.rum.RumConfiguration.Builder, com.motadata.android.rum.tracking.ActionTrackingStrategy): com.motadata.android.rum.RumConfiguration.Builder
+    fun setRumSessionTypeOverride(com.motadata.android.rum.RumConfiguration.Builder, RumSessionType): com.motadata.android.rum.RumConfiguration.Builder
+    fun setDisableJankStats(com.motadata.android.rum.RumConfiguration.Builder, Boolean): com.motadata.android.rum.RumConfiguration.Builder
+    fun setInsightsCollector(com.motadata.android.rum.RumConfiguration.Builder, com.motadata.android.rum.internal.instrumentation.insights.InsightsCollector): com.motadata.android.rum.RumConfiguration.Builder
+    fun createRumNetworkInstrumentation(String, com.motadata.android.internal.telemetry.InternalTelemetryEvent.ApiUsage.NetworkInstrumentation.LibraryType, com.motadata.android.rum.configuration.RumNetworkInstrumentationConfiguration)
+    fun toResourceAttributes(com.motadata.android.rum.resource.ResourceHeadersExtractor, Map<String, List<String>>, Map<String, List<String>>, com.motadata.android.api.InternalLogger)
+class com.motadata.android.rum.configuration.RumNetworkInstrumentationConfiguration
   fun setSdkInstanceName(String)
-  fun setRumResourceAttributesProvider(com.datadog.android.rum.RumResourceAttributesProvider)
-  fun trackResourceHeaders(com.datadog.android.rum.resource.ResourceHeadersExtractor = ResourceHeadersExtractor.Builder().build())
-data class com.datadog.android.rum.configuration.SlowFramesConfiguration
+  fun setRumResourceAttributesProvider(com.motadata.android.rum.RumResourceAttributesProvider)
+  fun trackResourceHeaders(com.motadata.android.rum.resource.ResourceHeadersExtractor = ResourceHeadersExtractor.Builder().build())
+data class com.motadata.android.rum.configuration.SlowFramesConfiguration
   constructor(Int = DEFAULT_SLOW_FRAME_RECORDS_MAX_AMOUNT, Long = DEFAULT_FROZEN_FRAME_THRESHOLD_NS, Long = DEFAULT_CONTINUOUS_SLOW_FRAME_THRESHOLD_NS, Long = DEFAULT_FREEZE_DURATION_NS, Long = DEFAULT_VIEW_LIFETIME_THRESHOLD_NS)
   companion object 
     val DEFAULT: SlowFramesConfiguration
-enum com.datadog.android.rum.configuration.VitalsUpdateFrequency
+enum com.motadata.android.rum.configuration.VitalsUpdateFrequency
   constructor(Long)
   - FREQUENT
   - AVERAGE
   - RARE
   - NEVER
-interface com.datadog.android.rum.event.ViewEventMapper : com.datadog.android.event.EventMapper<com.datadog.android.rum.model.ViewEvent>
-  override fun map(com.datadog.android.rum.model.ViewEvent): com.datadog.android.rum.model.ViewEvent
-DEPRECATED enum com.datadog.android.rum.featureoperations.FailureReason
+interface com.motadata.android.rum.event.ViewEventMapper : com.motadata.android.event.EventMapper<com.motadata.android.rum.model.ViewEvent>
+  override fun map(com.motadata.android.rum.model.ViewEvent): com.motadata.android.rum.model.ViewEvent
+DEPRECATED enum com.motadata.android.rum.featureoperations.FailureReason
   - ERROR
   - ABANDONED
   - OTHER
-data class com.datadog.android.rum.internal.domain.event.ResourceTiming
+data class com.motadata.android.rum.internal.domain.event.ResourceTiming
   constructor(Long = 0L, Long = 0L, Long = 0L, Long = 0L, Long = 0L, Long = 0L, Long = 0L, Long = 0L, Long = 0L, Long = 0L)
-interface com.datadog.android.rum.internal.instrumentation.insights.InsightsCollector
+interface com.motadata.android.rum.internal.instrumentation.insights.InsightsCollector
   var maxSize: Int
   var updateIntervalMs: Long
   fun addUpdateListener(InsightsUpdatesListener)
@@ -223,49 +223,49 @@ interface com.datadog.android.rum.internal.instrumentation.insights.InsightsColl
   fun onCpuVital(Double?)
   fun onMemoryVital(Double?)
   fun onSlowFrameRate(Double?)
-interface com.datadog.android.rum.internal.instrumentation.insights.InsightsUpdatesListener
+interface com.motadata.android.rum.internal.instrumentation.insights.InsightsUpdatesListener
   fun onDataUpdated()
-interface com.datadog.android.rum.internal.monitor.AdvancedNetworkRumMonitor : com.datadog.android.rum.RumMonitor
+interface com.motadata.android.rum.internal.monitor.AdvancedNetworkRumMonitor : com.motadata.android.rum.RumMonitor
   fun waitForResourceTiming(Any)
-  fun addResourceTiming(Any, com.datadog.android.rum.internal.domain.event.ResourceTiming)
+  fun addResourceTiming(Any, com.motadata.android.rum.internal.domain.event.ResourceTiming)
   fun notifyInterceptorInstantiated()
-  fun reportNetworkingLibraryType(com.datadog.android.internal.telemetry.InternalTelemetryEvent.ApiUsage.NetworkInstrumentation.LibraryType)
-  fun notifyResourceHeadersTrackingConfigured(com.datadog.android.internal.telemetry.InternalTelemetryEvent.ResourceHeadersTrackingConfigured.Mode)
-  fun startResource(com.datadog.android.rum.resource.ResourceId, com.datadog.android.rum.RumResourceMethod, String, Map<String, Any?> = emptyMap())
-  fun stopResource(com.datadog.android.rum.resource.ResourceId, Int?, Long?, com.datadog.android.rum.RumResourceKind, Map<String, Any?> = emptyMap())
-  fun stopResourceWithError(com.datadog.android.rum.resource.ResourceId, Int?, String, com.datadog.android.rum.RumErrorSource, Throwable, Map<String, Any?> = emptyMap())
-  fun stopResourceWithError(com.datadog.android.rum.resource.ResourceId, Int?, String, com.datadog.android.rum.RumErrorSource, String, String?, Map<String, Any?> = emptyMap())
-class com.datadog.android.rum.internal.net.GraphQLExtractor
-  fun extractGraphQLAttributes(com.datadog.android.api.instrumentation.network.HttpRequestInfo): Map<String, Any?>
-  fun extractGraphQLErrors(String?, String?, com.datadog.android.api.InternalLogger): String?
+  fun reportNetworkingLibraryType(com.motadata.android.internal.telemetry.InternalTelemetryEvent.ApiUsage.NetworkInstrumentation.LibraryType)
+  fun notifyResourceHeadersTrackingConfigured(com.motadata.android.internal.telemetry.InternalTelemetryEvent.ResourceHeadersTrackingConfigured.Mode)
+  fun startResource(com.motadata.android.rum.resource.ResourceId, com.motadata.android.rum.RumResourceMethod, String, Map<String, Any?> = emptyMap())
+  fun stopResource(com.motadata.android.rum.resource.ResourceId, Int?, Long?, com.motadata.android.rum.RumResourceKind, Map<String, Any?> = emptyMap())
+  fun stopResourceWithError(com.motadata.android.rum.resource.ResourceId, Int?, String, com.motadata.android.rum.RumErrorSource, Throwable, Map<String, Any?> = emptyMap())
+  fun stopResourceWithError(com.motadata.android.rum.resource.ResourceId, Int?, String, com.motadata.android.rum.RumErrorSource, String, String?, Map<String, Any?> = emptyMap())
+class com.motadata.android.rum.internal.net.GraphQLExtractor
+  fun extractGraphQLAttributes(com.motadata.android.api.instrumentation.network.HttpRequestInfo): Map<String, Any?>
+  fun extractGraphQLErrors(String?, String?, com.motadata.android.api.InternalLogger): String?
   companion object 
     const val MAX_GRAPHQL_BODY_PEEK: Long
-fun com.datadog.android.rum.internal.monitor.AdvancedNetworkRumMonitor.reportNetworkInstrumentationConfigured(com.datadog.android.internal.telemetry.InternalTelemetryEvent.ApiUsage.NetworkInstrumentation.LibraryType, com.datadog.android.rum.resource.ResourceHeadersExtractor?)
-class com.datadog.android.rum.internal.net.RumNetworkInstrumentation
-  val sdkCore: com.datadog.android.api.SdkCore?
-  fun sendWaitForResourceTimingEvent(com.datadog.android.api.instrumentation.network.HttpRequestInfo)
-  fun sendTiming(com.datadog.android.api.instrumentation.network.HttpRequestInfo, com.datadog.android.rum.internal.domain.event.ResourceTiming)
-  fun startResource(com.datadog.android.api.instrumentation.network.HttpRequestInfo)
-  fun stopResource(com.datadog.android.api.instrumentation.network.HttpRequestInfo, com.datadog.android.api.instrumentation.network.HttpResponseInfo, Map<String, Any?> = emptyMap())
-  fun stopResourceWithError(com.datadog.android.api.instrumentation.network.HttpRequestInfo, Throwable)
+fun com.motadata.android.rum.internal.monitor.AdvancedNetworkRumMonitor.reportNetworkInstrumentationConfigured(com.motadata.android.internal.telemetry.InternalTelemetryEvent.ApiUsage.NetworkInstrumentation.LibraryType, com.motadata.android.rum.resource.ResourceHeadersExtractor?)
+class com.motadata.android.rum.internal.net.RumNetworkInstrumentation
+  val sdkCore: com.motadata.android.api.SdkCore?
+  fun sendWaitForResourceTimingEvent(com.motadata.android.api.instrumentation.network.HttpRequestInfo)
+  fun sendTiming(com.motadata.android.api.instrumentation.network.HttpRequestInfo, com.motadata.android.rum.internal.domain.event.ResourceTiming)
+  fun startResource(com.motadata.android.api.instrumentation.network.HttpRequestInfo)
+  fun stopResource(com.motadata.android.api.instrumentation.network.HttpRequestInfo, com.motadata.android.api.instrumentation.network.HttpResponseInfo, Map<String, Any?> = emptyMap())
+  fun stopResourceWithError(com.motadata.android.api.instrumentation.network.HttpRequestInfo, Throwable)
   fun reportInstrumentationError(() -> String)
   companion object 
-    fun buildResourceId(com.datadog.android.api.instrumentation.network.HttpRequestInfo, Boolean): com.datadog.android.rum.resource.ResourceId
-interface com.datadog.android.rum.metric.interactiontonextview.LastInteractionIdentifier
+    fun buildResourceId(com.motadata.android.api.instrumentation.network.HttpRequestInfo, Boolean): com.motadata.android.rum.resource.ResourceId
+interface com.motadata.android.rum.metric.interactiontonextview.LastInteractionIdentifier
   fun validate(PreviousViewLastInteractionContext): Boolean
-data class com.datadog.android.rum.metric.interactiontonextview.PreviousViewLastInteractionContext
-  constructor(com.datadog.android.rum.model.ActionEvent.ActionEventActionType, Long, Long?)
-class com.datadog.android.rum.metric.interactiontonextview.TimeBasedInteractionIdentifier : LastInteractionIdentifier
+data class com.motadata.android.rum.metric.interactiontonextview.PreviousViewLastInteractionContext
+  constructor(com.motadata.android.rum.model.ActionEvent.ActionEventActionType, Long, Long?)
+class com.motadata.android.rum.metric.interactiontonextview.TimeBasedInteractionIdentifier : LastInteractionIdentifier
   constructor(Long = DEFAULT_TIME_THRESHOLD_MS)
   override fun validate(PreviousViewLastInteractionContext): Boolean
   override fun equals(Any?): Boolean
   override fun hashCode(): Int
   companion object 
-interface com.datadog.android.rum.metric.networksettled.InitialResourceIdentifier
+interface com.motadata.android.rum.metric.networksettled.InitialResourceIdentifier
   fun validate(NetworkSettledResourceContext): Boolean
-data class com.datadog.android.rum.metric.networksettled.NetworkSettledResourceContext
+data class com.motadata.android.rum.metric.networksettled.NetworkSettledResourceContext
   constructor(String, Long, Long?)
-class com.datadog.android.rum.metric.networksettled.TimeBasedInitialResourceIdentifier : InitialResourceIdentifier
+class com.motadata.android.rum.metric.networksettled.TimeBasedInitialResourceIdentifier : InitialResourceIdentifier
   constructor(Long = DEFAULT_TIME_THRESHOLD_MS)
   override fun validate(NetworkSettledResourceContext): Boolean
   override fun equals(Any?): Boolean
@@ -273,26 +273,26 @@ class com.datadog.android.rum.metric.networksettled.TimeBasedInitialResourceIden
   companion object 
 typealias RumVitalAppLaunchEvent = VitalAppLaunchEvent
 typealias RumVitalOperationStepEvent = VitalOperationStepEvent
-enum com.datadog.android.rum.operations.FailureReason
+enum com.motadata.android.rum.operations.FailureReason
   - ERROR
   - ABANDONED
   - OTHER
-sealed class com.datadog.android.rum.operations.OperationOptions
+sealed class com.motadata.android.rum.operations.OperationOptions
   object Empty : OperationOptions
-fun android.content.Context.getAssetAsRumResource(String, Int = AssetManager.ACCESS_STREAMING, com.datadog.android.api.SdkCore = Datadog.getInstance()): java.io.InputStream
-fun android.content.Context.getRawResAsRumResource(Int, com.datadog.android.api.SdkCore = Datadog.getInstance()): java.io.InputStream
-fun java.io.InputStream.asRumResource(String, com.datadog.android.api.SdkCore = Datadog.getInstance()): java.io.InputStream
-class com.datadog.android.rum.resource.ResourceHeadersExtractor
+fun android.content.Context.getAssetAsRumResource(String, Int = AssetManager.ACCESS_STREAMING, com.motadata.android.api.SdkCore = Datadog.getInstance()): java.io.InputStream
+fun android.content.Context.getRawResAsRumResource(Int, com.motadata.android.api.SdkCore = Datadog.getInstance()): java.io.InputStream
+fun java.io.InputStream.asRumResource(String, com.motadata.android.api.SdkCore = Datadog.getInstance()): java.io.InputStream
+class com.motadata.android.rum.resource.ResourceHeadersExtractor
   class Builder
     constructor(Boolean = true)
     fun captureHeaders(String): Builder
     fun build(): ResourceHeadersExtractor
-class com.datadog.android.rum.resource.ResourceId
+class com.motadata.android.rum.resource.ResourceId
   constructor(String, String?)
   override fun equals(Any?): Boolean
   override fun hashCode(): Int
-class com.datadog.android.rum.resource.RumResourceInputStream : java.io.InputStream
-  constructor(java.io.InputStream, String, com.datadog.android.api.SdkCore = Datadog.getInstance())
+class com.motadata.android.rum.resource.RumResourceInputStream : java.io.InputStream
+  constructor(java.io.InputStream, String, com.motadata.android.api.SdkCore = Datadog.getInstance())
   override fun read(): Int
   override fun read(ByteArray): Int
   override fun read(ByteArray, Int, Int): Int
@@ -302,34 +302,34 @@ class com.datadog.android.rum.resource.RumResourceInputStream : java.io.InputStr
   override fun mark(Int)
   override fun reset()
   override fun close()
-interface com.datadog.android.rum.startup.AppStartupActivityPredicate
+interface com.motadata.android.rum.startup.AppStartupActivityPredicate
   fun shouldTrackStartup(android.app.Activity): Boolean
-open class com.datadog.android.rum.tracking.AcceptAllActivities : ComponentPredicate<android.app.Activity>
+open class com.motadata.android.rum.tracking.AcceptAllActivities : ComponentPredicate<android.app.Activity>
   override fun accept(android.app.Activity): Boolean
   override fun getViewName(android.app.Activity): String?
   override fun equals(Any?): Boolean
   override fun hashCode(): Int
-open class com.datadog.android.rum.tracking.AcceptAllDefaultFragment : ComponentPredicate<android.app.Fragment>
+open class com.motadata.android.rum.tracking.AcceptAllDefaultFragment : ComponentPredicate<android.app.Fragment>
   override fun accept(android.app.Fragment): Boolean
   override fun getViewName(android.app.Fragment): String?
   override fun equals(Any?): Boolean
   override fun hashCode(): Int
-open class com.datadog.android.rum.tracking.AcceptAllNavDestinations : ComponentPredicate<androidx.navigation.NavDestination>
+open class com.motadata.android.rum.tracking.AcceptAllNavDestinations : ComponentPredicate<androidx.navigation.NavDestination>
   override fun accept(androidx.navigation.NavDestination): Boolean
   override fun getViewName(androidx.navigation.NavDestination): String?
   override fun equals(Any?): Boolean
   override fun hashCode(): Int
-open class com.datadog.android.rum.tracking.AcceptAllSupportFragments : ComponentPredicate<androidx.fragment.app.Fragment>
+open class com.motadata.android.rum.tracking.AcceptAllSupportFragments : ComponentPredicate<androidx.fragment.app.Fragment>
   override fun accept(androidx.fragment.app.Fragment): Boolean
   override fun getViewName(androidx.fragment.app.Fragment): String?
   override fun equals(Any?): Boolean
   override fun hashCode(): Int
-interface com.datadog.android.rum.tracking.ActionTrackingStrategy : TrackingStrategy
+interface com.motadata.android.rum.tracking.ActionTrackingStrategy : TrackingStrategy
   fun findTargetForTap(android.view.View, Float, Float): ViewTarget?
   fun findTargetForScroll(android.view.View, Float, Float): ViewTarget?
-abstract class com.datadog.android.rum.tracking.ActivityLifecycleTrackingStrategy : android.app.Application.ActivityLifecycleCallbacks, TrackingStrategy
-  protected var sdkCore: com.datadog.android.api.feature.FeatureSdkCore
-  override fun register(com.datadog.android.api.SdkCore, android.content.Context)
+abstract class com.motadata.android.rum.tracking.ActivityLifecycleTrackingStrategy : android.app.Application.ActivityLifecycleCallbacks, TrackingStrategy
+  protected var sdkCore: com.motadata.android.api.feature.FeatureSdkCore
+  override fun register(com.motadata.android.api.SdkCore, android.content.Context)
   override fun unregister(android.content.Context?)
   override fun onActivityPaused(android.app.Activity)
   override fun onActivityStarted(android.app.Activity)
@@ -338,32 +338,32 @@ abstract class com.datadog.android.rum.tracking.ActivityLifecycleTrackingStrateg
   override fun onActivityStopped(android.app.Activity)
   override fun onActivityCreated(android.app.Activity, android.os.Bundle?)
   override fun onActivityResumed(android.app.Activity)
-  protected fun <T> withSdkCore((com.datadog.android.api.feature.FeatureSdkCore) -> T): T?
-class com.datadog.android.rum.tracking.ActivityViewTrackingStrategy : ActivityLifecycleTrackingStrategy, ViewTrackingStrategy
+  protected fun <T> withSdkCore((com.motadata.android.api.feature.FeatureSdkCore) -> T): T?
+class com.motadata.android.rum.tracking.ActivityViewTrackingStrategy : ActivityLifecycleTrackingStrategy, ViewTrackingStrategy
   constructor(Boolean, ComponentPredicate<android.app.Activity> = AcceptAllActivities())
   override fun onActivityResumed(android.app.Activity)
   override fun onActivityStopped(android.app.Activity)
   override fun equals(Any?): Boolean
   override fun hashCode(): Int
 fun android.os.Bundle?.convertToRumViewAttributes(): Map<String, Any?>
-interface com.datadog.android.rum.tracking.ComponentPredicate<T>
+interface com.motadata.android.rum.tracking.ComponentPredicate<T>
   fun accept(T): Boolean
   fun getViewName(T): String?
-class com.datadog.android.rum.tracking.FragmentViewTrackingStrategy : ActivityLifecycleTrackingStrategy, ViewTrackingStrategy
+class com.motadata.android.rum.tracking.FragmentViewTrackingStrategy : ActivityLifecycleTrackingStrategy, ViewTrackingStrategy
   constructor(Boolean, ComponentPredicate<androidx.fragment.app.Fragment> = AcceptAllSupportFragments(), ComponentPredicate<android.app.Fragment> = AcceptAllDefaultFragment())
   override fun onActivityStarted(android.app.Activity)
   override fun onActivityStopped(android.app.Activity)
   override fun equals(Any?): Boolean
   override fun hashCode(): Int
-interface com.datadog.android.rum.tracking.InteractionPredicate
+interface com.motadata.android.rum.tracking.InteractionPredicate
   fun getTargetName(Any): String?
-class com.datadog.android.rum.tracking.MixedViewTrackingStrategy : ActivityLifecycleTrackingStrategy, ViewTrackingStrategy
+class com.motadata.android.rum.tracking.MixedViewTrackingStrategy : ActivityLifecycleTrackingStrategy, ViewTrackingStrategy
   constructor(Boolean, ComponentPredicate<android.app.Activity> = AcceptAllActivities(), ComponentPredicate<androidx.fragment.app.Fragment> = AcceptAllSupportFragments(), ComponentPredicate<android.app.Fragment> = AcceptAllDefaultFragment())
-  override fun register(com.datadog.android.api.SdkCore, android.content.Context)
+  override fun register(com.motadata.android.api.SdkCore, android.content.Context)
   override fun unregister(android.content.Context?)
   override fun equals(Any?): Boolean
   override fun hashCode(): Int
-class com.datadog.android.rum.tracking.NavigationViewTrackingStrategy : ActivityLifecycleTrackingStrategy, ViewTrackingStrategy, androidx.navigation.NavController.OnDestinationChangedListener
+class com.motadata.android.rum.tracking.NavigationViewTrackingStrategy : ActivityLifecycleTrackingStrategy, ViewTrackingStrategy, androidx.navigation.NavController.OnDestinationChangedListener
   constructor(Int, Boolean, ComponentPredicate<androidx.navigation.NavDestination> = AcceptAllNavDestinations())
   override fun onActivityStarted(android.app.Activity)
   override fun onActivityStopped(android.app.Activity)
@@ -371,22 +371,22 @@ class com.datadog.android.rum.tracking.NavigationViewTrackingStrategy : Activity
   override fun onDestinationChanged(androidx.navigation.NavController, androidx.navigation.NavDestination, android.os.Bundle?)
   fun startTracking()
   fun stopTracking()
-interface com.datadog.android.rum.tracking.TrackingStrategy
-  fun register(com.datadog.android.api.SdkCore, android.content.Context)
+interface com.motadata.android.rum.tracking.TrackingStrategy
+  fun register(com.motadata.android.api.SdkCore, android.content.Context)
   fun unregister(android.content.Context?)
-interface com.datadog.android.rum.tracking.ViewAttributesProvider
+interface com.motadata.android.rum.tracking.ViewAttributesProvider
   fun extractAttributes(android.view.View, MutableMap<String, Any?>)
-class com.datadog.android.rum.tracking.ViewTarget
+class com.motadata.android.rum.tracking.ViewTarget
   constructor(java.lang.ref.WeakReference<android.view.View?> = WeakReference(null), Node? = null)
   override fun equals(Any?): Boolean
   override fun hashCode(): Int
-data class com.datadog.android.rum.tracking.Node
+data class com.motadata.android.rum.tracking.Node
   constructor(String, Map<String, Any?> = mapOf())
-interface com.datadog.android.rum.tracking.ViewTrackingStrategy : TrackingStrategy
-class com.datadog.android.sqlite.DatadogDatabaseErrorHandler : android.database.DatabaseErrorHandler
+interface com.motadata.android.rum.tracking.ViewTrackingStrategy : TrackingStrategy
+class com.motadata.android.sqlite.DatadogDatabaseErrorHandler : android.database.DatabaseErrorHandler
   constructor(String? = null, android.database.DatabaseErrorHandler = DefaultDatabaseErrorHandler())
   override fun onCorruption(android.database.sqlite.SQLiteDatabase)
-data class com.datadog.android.rum.model.ActionEvent
+data class com.motadata.android.rum.model.ActionEvent
   constructor(kotlin.Long, Application, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, ActionEventSession, ActionEventSource? = null, ActionEventView, Usr? = null, Account? = null, Connectivity? = null, Display? = null, Synthetics? = null, CiTest? = null, Os? = null, Device? = null, Dd, Context? = null, Container? = null, ActionEventAction)
   val type: kotlin.String
   fun toJson(): com.google.gson.JsonElement
@@ -687,7 +687,7 @@ data class com.datadog.android.rum.model.ActionEvent
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): Type
-data class com.datadog.android.rum.model.ErrorEvent
+data class com.motadata.android.rum.model.ErrorEvent
   constructor(kotlin.Long, Application, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, ErrorEventSession, ErrorEventSource? = null, ErrorEventView, Usr? = null, Account? = null, Connectivity? = null, Display? = null, Synthetics? = null, CiTest? = null, Os? = null, Device? = null, Dd, Context? = null, Action? = null, Container? = null, Error, Freeze? = null, Context? = null)
   val type: kotlin.String
   fun toJson(): com.google.gson.JsonElement
@@ -1068,7 +1068,7 @@ data class com.datadog.android.rum.model.ErrorEvent
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): ProviderType
-data class com.datadog.android.rum.model.LongTaskEvent
+data class com.motadata.android.rum.model.LongTaskEvent
   constructor(kotlin.Long, Application, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, LongTaskEventSession, LongTaskEventSource? = null, LongTaskEventView, Usr? = null, Account? = null, Connectivity? = null, Display? = null, Synthetics? = null, CiTest? = null, Os? = null, Device? = null, Dd, Context? = null, Action? = null, Container? = null, LongTask)
   val type: kotlin.String
   fun toJson(): com.google.gson.JsonElement
@@ -1336,7 +1336,7 @@ data class com.datadog.android.rum.model.LongTaskEvent
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): InvokerType
-data class com.datadog.android.rum.model.ResourceEvent
+data class com.motadata.android.rum.model.ResourceEvent
   constructor(kotlin.Long, Application, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, ResourceEventSession, ResourceEventSource? = null, ResourceEventView, Usr? = null, Account? = null, Connectivity? = null, Display? = null, Synthetics? = null, CiTest? = null, Os? = null, Device? = null, Dd, Context? = null, Action? = null, Container? = null, Resource)
   val type: kotlin.String
   fun toJson(): com.google.gson.JsonElement
@@ -1729,7 +1729,7 @@ data class com.datadog.android.rum.model.ResourceEvent
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): OperationType
-data class com.datadog.android.rum.model.ViewEvent
+data class com.motadata.android.rum.model.ViewEvent
   constructor(kotlin.Long, Application, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, ViewEventSession, ViewEventSource? = null, ViewEventView, Usr? = null, Account? = null, Connectivity? = null, Display? = null, Synthetics? = null, CiTest? = null, Os? = null, Device? = null, Dd, Context? = null, Container? = null, Context? = null, Privacy? = null)
   val type: kotlin.String
   fun toJson(): com.google.gson.JsonElement
@@ -2154,7 +2154,7 @@ data class com.datadog.android.rum.model.ViewEvent
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): ErrorReason
-data class com.datadog.android.rum.model.VitalAppLaunchEvent
+data class com.motadata.android.rum.model.VitalAppLaunchEvent
   constructor(kotlin.Long, Application, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, VitalAppLaunchEventSession, VitalAppLaunchEventSource? = null, VitalAppLaunchEventView, Usr? = null, Account? = null, Connectivity? = null, Display? = null, Synthetics? = null, CiTest? = null, Os? = null, Device? = null, Dd, Context? = null, Container? = null, Vital)
   val type: kotlin.String
   fun toJson(): com.google.gson.JsonElement
@@ -2407,7 +2407,7 @@ data class com.datadog.android.rum.model.VitalAppLaunchEvent
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): ErrorReason
-data class com.datadog.android.rum.model.VitalOperationStepEvent
+data class com.motadata.android.rum.model.VitalOperationStepEvent
   constructor(kotlin.Long, Application, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, VitalOperationStepEventSession, VitalOperationStepEventSource? = null, VitalOperationStepEventView, Usr? = null, Account? = null, Connectivity? = null, Display? = null, Synthetics? = null, CiTest? = null, Os? = null, Device? = null, Dd, Context? = null, Container? = null, Vital)
   val type: kotlin.String
   fun toJson(): com.google.gson.JsonElement
@@ -2663,7 +2663,7 @@ data class com.datadog.android.rum.model.VitalOperationStepEvent
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): ErrorReason
-data class com.datadog.android.telemetry.model.TelemetryConfigurationEvent
+data class com.motadata.android.telemetry.model.TelemetryConfigurationEvent
   constructor(Dd, kotlin.Long, kotlin.String, Source, kotlin.String, Application? = null, Session? = null, View? = null, Action? = null, kotlin.Number? = null, kotlin.collections.List<kotlin.String>? = null, Telemetry)
   val type: kotlin.String
   fun toJson(): com.google.gson.JsonElement
@@ -2803,7 +2803,7 @@ data class com.datadog.android.telemetry.model.TelemetryConfigurationEvent
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): TrackResourceHeaders
-data class com.datadog.android.telemetry.model.TelemetryDebugEvent
+data class com.motadata.android.telemetry.model.TelemetryDebugEvent
   constructor(Dd, kotlin.Long, kotlin.String, Source, kotlin.String, Application? = null, Session? = null, View? = null, Action? = null, kotlin.Number? = null, kotlin.collections.List<kotlin.String>? = null, Telemetry)
   val type: kotlin.String
   fun toJson(): com.google.gson.JsonElement
@@ -2875,7 +2875,7 @@ data class com.datadog.android.telemetry.model.TelemetryDebugEvent
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): Source
-data class com.datadog.android.telemetry.model.TelemetryErrorEvent
+data class com.motadata.android.telemetry.model.TelemetryErrorEvent
   constructor(Dd, kotlin.Long, kotlin.String, Source, kotlin.String, Application? = null, Session? = null, View? = null, Action? = null, kotlin.Number? = null, kotlin.collections.List<kotlin.String>? = null, Telemetry)
   val type: kotlin.String
   fun toJson(): com.google.gson.JsonElement
@@ -2953,7 +2953,7 @@ data class com.datadog.android.telemetry.model.TelemetryErrorEvent
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): Source
-data class com.datadog.android.telemetry.model.TelemetryUsageEvent
+data class com.motadata.android.telemetry.model.TelemetryUsageEvent
   constructor(Dd, kotlin.Long, kotlin.String, Source, kotlin.String, Application? = null, Session? = null, View? = null, Action? = null, kotlin.Number? = null, kotlin.collections.List<kotlin.String>? = null, Telemetry)
   val type: kotlin.String
   fun toJson(): com.google.gson.JsonElement

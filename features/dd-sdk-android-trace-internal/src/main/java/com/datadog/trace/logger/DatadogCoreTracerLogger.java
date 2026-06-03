@@ -7,7 +7,7 @@
 package com.datadog.trace.logger;
 
 
-import com.datadog.android.api.InternalLogger;
+import com.motadata.android.api.InternalLogger;
 
 import java.util.Arrays;
 import java.util.Locale;

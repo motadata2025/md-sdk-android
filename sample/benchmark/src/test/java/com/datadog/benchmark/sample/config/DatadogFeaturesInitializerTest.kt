@@ -6,12 +6,12 @@
 
 package com.datadog.benchmark.sample.config
 
-import com.datadog.android.api.SdkCore
-import com.datadog.android.log.Logs
-import com.datadog.android.rum.Rum
-import com.datadog.android.rum.RumMonitor
-import com.datadog.android.rum._RumInternalProxy
-import com.datadog.android.sessionreplay.SessionReplay
+import com.motadata.android.api.SdkCore
+import com.motadata.android.log.Logs
+import com.motadata.android.rum.Rum
+import com.motadata.android.rum.RumMonitor
+import com.motadata.android.rum._RumInternalProxy
+import com.motadata.android.sessionreplay.SessionReplay
 import com.datadog.benchmark.sample.DatadogFeaturesInitializer
 import fr.xgouchet.elmyr.junit5.ForgeExtension
 import org.junit.jupiter.api.Test

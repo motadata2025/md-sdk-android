@@ -28,7 +28,7 @@ plugins {
 
 sqldelight {
     database("LogsDatabase") {
-        packageName = "com.datadog.android.sample"
+        packageName = "com.motadata.android.sample"
         dialect = "sqlite:3.24"
         sourceFolders = listOf("sqldelight")
     }
@@ -58,7 +58,7 @@ android {
         }
     }
 
-    namespace = "com.datadog.android.sample"
+    namespace = "com.motadata.android.sample"
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true

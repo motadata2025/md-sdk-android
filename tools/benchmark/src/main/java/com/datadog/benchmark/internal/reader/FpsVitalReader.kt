@@ -7,7 +7,7 @@
 package com.datadog.benchmark.internal.reader
 
 import android.view.Choreographer
-import com.datadog.android.internal.time.TimeProvider
+import com.motadata.android.internal.time.TimeProvider
 import java.util.concurrent.TimeUnit
 
 internal class FpsVitalReader(timeProvider: TimeProvider) : VitalReader {

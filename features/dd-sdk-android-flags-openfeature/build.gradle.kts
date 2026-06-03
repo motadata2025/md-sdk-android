@@ -38,7 +38,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.flags.openfeature"
+    namespace = "com.motadata.android.flags.openfeature"
 }
 
 dependencies {

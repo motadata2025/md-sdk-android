@@ -44,7 +44,7 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
-    namespace = "com.datadog.android.sessionreplay"
+    namespace = "com.motadata.android.sessionreplay"
 }
 
 dependencies {

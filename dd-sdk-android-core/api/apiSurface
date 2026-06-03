@@ -1,21 +1,21 @@
-object com.datadog.android.Datadog
-  fun initialize(String?, android.content.Context, com.datadog.android.core.configuration.Configuration, com.datadog.android.privacy.TrackingConsent): com.datadog.android.api.SdkCore?
-  fun initialize(android.content.Context, com.datadog.android.core.configuration.Configuration, com.datadog.android.privacy.TrackingConsent): com.datadog.android.api.SdkCore?
-  fun getInstance(String? = null): com.datadog.android.api.SdkCore
+object com.motadata.android.Datadog
+  fun initialize(String?, android.content.Context, com.motadata.android.core.configuration.Configuration, com.motadata.android.privacy.TrackingConsent): com.motadata.android.api.SdkCore?
+  fun initialize(android.content.Context, com.motadata.android.core.configuration.Configuration, com.motadata.android.privacy.TrackingConsent): com.motadata.android.api.SdkCore?
+  fun getInstance(String? = null): com.motadata.android.api.SdkCore
   fun isInitialized(String? = null): Boolean
   fun stopInstance(String? = null)
   fun setVerbosity(Int)
   fun getVerbosity(): Int
-  fun setTrackingConsent(com.datadog.android.privacy.TrackingConsent, com.datadog.android.api.SdkCore = getInstance())
-  fun setUserInfo(String, String? = null, String? = null, Map<String, Any?> = emptyMap(), com.datadog.android.api.SdkCore = getInstance())
-  fun addUserProperties(Map<String, Any?>, com.datadog.android.api.SdkCore = getInstance())
-  fun clearUserInfo(com.datadog.android.api.SdkCore = getInstance())
-  fun clearAllData(com.datadog.android.api.SdkCore = getInstance())
-  fun setAccountInfo(String, String? = null, Map<String, Any?> = emptyMap(), com.datadog.android.api.SdkCore = getInstance())
-  fun addAccountExtraInfo(Map<String, Any?>, com.datadog.android.api.SdkCore = getInstance())
-  fun clearAccountInfo(com.datadog.android.api.SdkCore = getInstance())
+  fun setTrackingConsent(com.motadata.android.privacy.TrackingConsent, com.motadata.android.api.SdkCore = getInstance())
+  fun setUserInfo(String, String? = null, String? = null, Map<String, Any?> = emptyMap(), com.motadata.android.api.SdkCore = getInstance())
+  fun addUserProperties(Map<String, Any?>, com.motadata.android.api.SdkCore = getInstance())
+  fun clearUserInfo(com.motadata.android.api.SdkCore = getInstance())
+  fun clearAllData(com.motadata.android.api.SdkCore = getInstance())
+  fun setAccountInfo(String, String? = null, Map<String, Any?> = emptyMap(), com.motadata.android.api.SdkCore = getInstance())
+  fun addAccountExtraInfo(Map<String, Any?>, com.motadata.android.api.SdkCore = getInstance())
+  fun clearAccountInfo(com.motadata.android.api.SdkCore = getInstance())
   fun _internalProxy(String? = null): _InternalProxy
-enum com.datadog.android.DatadogSite
+enum com.motadata.android.DatadogSite
   - US1
   - US3
   - US5
@@ -26,7 +26,7 @@ enum com.datadog.android.DatadogSite
   - US2_FED
   - STAGING
   val intakeEndpoint: String
-class com.datadog.android._InternalProxy
+class com.motadata.android._InternalProxy
   class _TelemetryProxy
     fun debug(String)
     fun error(String, Throwable? = null)
@@ -36,8 +36,8 @@ class com.datadog.android._InternalProxy
   fun setCustomAppVersion(String)
   fun flushAndShutdownExecutors()
   companion object 
-    fun allowClearTextHttp(com.datadog.android.core.configuration.Configuration.Builder): com.datadog.android.core.configuration.Configuration.Builder
-interface com.datadog.android.api.InternalLogger
+    fun allowClearTextHttp(com.motadata.android.core.configuration.Configuration.Builder): com.motadata.android.core.configuration.Configuration.Builder
+interface com.motadata.android.api.InternalLogger
   enum Level
     - VERBOSE
     - DEBUG
@@ -51,17 +51,17 @@ interface com.datadog.android.api.InternalLogger
   fun log(Level, Target, () -> String, Throwable? = null, Boolean = false, Map<String, Any?>? = null)
   fun log(Level, List<Target>, () -> String, Throwable? = null, Boolean = false, Map<String, Any?>? = null)
   fun logMetric(() -> String, Map<String, Any?>, Float, Float? = null)
-  fun startPerformanceMeasure(String, com.datadog.android.core.metrics.TelemetryMetricType, Float, String): com.datadog.android.core.metrics.PerformanceMetric?
-  fun logApiUsage(Float = DEFAULT_API_USAGE_TELEMETRY_SAMPLING_RATE, () -> com.datadog.android.internal.telemetry.InternalTelemetryEvent.ApiUsage)
+  fun startPerformanceMeasure(String, com.motadata.android.core.metrics.TelemetryMetricType, Float, String): com.motadata.android.core.metrics.PerformanceMetric?
+  fun logApiUsage(Float = DEFAULT_API_USAGE_TELEMETRY_SAMPLING_RATE, () -> com.motadata.android.internal.telemetry.InternalTelemetryEvent.ApiUsage)
   companion object 
     val UNBOUND: InternalLogger
 fun InternalLogger.logToUser(InternalLogger.Level, Boolean = false, () -> String)
-interface com.datadog.android.api.SdkCore
+interface com.motadata.android.api.SdkCore
   val name: String
-  val time: com.datadog.android.api.context.TimeInfo
+  val time: com.motadata.android.api.context.TimeInfo
   val service: String
   fun isCoreActive(): Boolean
-  fun setTrackingConsent(com.datadog.android.privacy.TrackingConsent)
+  fun setTrackingConsent(com.motadata.android.privacy.TrackingConsent)
   fun setUserInfo(String, String? = null, String? = null, Map<String, Any?> = emptyMap())
   fun addUserProperties(Map<String, Any?>)
   fun clearUserInfo()
@@ -69,13 +69,13 @@ interface com.datadog.android.api.SdkCore
   fun setAccountInfo(String, String? = null, Map<String, Any?> = emptyMap())
   fun addAccountExtraInfo(Map<String, Any?>)
   fun clearAccountInfo()
-data class com.datadog.android.api.context.AccountInfo
+data class com.motadata.android.api.context.AccountInfo
   constructor(String, String? = null, Map<String, Any?> = emptyMap())
-data class com.datadog.android.api.context.DatadogContext
-  constructor(com.datadog.android.DatadogSite, String, String, String, String, Int, String, String, String, TimeInfo, ProcessInfo, NetworkInfo, DeviceInfo, UserInfo, AccountInfo?, com.datadog.android.privacy.TrackingConsent, String?, Map<String, Map<String, Any?>>)
-data class com.datadog.android.api.context.DeviceInfo
+data class com.motadata.android.api.context.DatadogContext
+  constructor(com.motadata.android.DatadogSite, String, String, String, String, Int, String, String, String, TimeInfo, ProcessInfo, NetworkInfo, DeviceInfo, UserInfo, AccountInfo?, com.motadata.android.privacy.TrackingConsent, String?, Map<String, Map<String, Any?>>)
+data class com.motadata.android.api.context.DeviceInfo
   constructor(String, String, String, DeviceType, String, String, String, String, String, Int?, LocaleInfo, Int, Int?, Boolean?)
-enum com.datadog.android.api.context.DeviceType
+enum com.motadata.android.api.context.DeviceType
   - MOBILE
   - TABLET
   - TV
@@ -83,9 +83,9 @@ enum com.datadog.android.api.context.DeviceType
   - GAMING_CONSOLE
   - BOT
   - OTHER
-data class com.datadog.android.api.context.LocaleInfo
+data class com.motadata.android.api.context.LocaleInfo
   constructor(List<String>, String, String)
-data class com.datadog.android.api.context.NetworkInfo
+data class com.motadata.android.api.context.NetworkInfo
   constructor(Connectivity = Connectivity.NETWORK_NOT_CONNECTED, kotlin.String? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.String? = null)
   enum Connectivity
     constructor(kotlin.String)
@@ -101,13 +101,13 @@ data class com.datadog.android.api.context.NetworkInfo
     - NETWORK_MOBILE_OTHER
     - NETWORK_CELLULAR
     - NETWORK_OTHER
-data class com.datadog.android.api.context.ProcessInfo
+data class com.motadata.android.api.context.ProcessInfo
   constructor(Boolean)
-data class com.datadog.android.api.context.TimeInfo
+data class com.motadata.android.api.context.TimeInfo
   constructor(Long, Long, Long, Long)
-data class com.datadog.android.api.context.UserInfo
+data class com.motadata.android.api.context.UserInfo
   constructor(kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, kotlin.String? = null, Map<kotlin.String, kotlin.Any?> = emptyMap())
-interface com.datadog.android.api.feature.Feature
+interface com.motadata.android.api.feature.Feature
   val name: String
   fun onInitialize(android.content.Context)
   fun onStop()
@@ -121,23 +121,23 @@ interface com.datadog.android.api.feature.Feature
     const val SESSION_REPLAY_RESOURCES_FEATURE_NAME: String
     const val NDK_CRASH_REPORTS_FEATURE_NAME: String
     const val PROFILING_FEATURE_NAME: String
-interface com.datadog.android.api.feature.FeatureContextUpdateReceiver
+interface com.motadata.android.api.feature.FeatureContextUpdateReceiver
   fun onContextUpdate(String, Map<String, Any?>)
-interface com.datadog.android.api.feature.FeatureEventReceiver
+interface com.motadata.android.api.feature.FeatureEventReceiver
   fun onReceive(Any)
-interface com.datadog.android.api.feature.FeatureScope
-  val dataStore: com.datadog.android.api.storage.datastore.DataStoreHandler
-  fun withWriteContext(Set<String> = emptySet(), (com.datadog.android.api.context.DatadogContext) -> Unit)
-  fun withContext(Set<String> = emptySet(), (com.datadog.android.api.context.DatadogContext) -> Unit)
-  fun getWriteContextSync(Set<String> = emptySet()): Pair<com.datadog.android.api.context.DatadogContext, EventWriteScope>?
+interface com.motadata.android.api.feature.FeatureScope
+  val dataStore: com.motadata.android.api.storage.datastore.DataStoreHandler
+  fun withWriteContext(Set<String> = emptySet(), (com.motadata.android.api.context.DatadogContext) -> Unit)
+  fun withContext(Set<String> = emptySet(), (com.motadata.android.api.context.DatadogContext) -> Unit)
+  fun getWriteContextSync(Set<String> = emptySet()): Pair<com.motadata.android.api.context.DatadogContext, EventWriteScope>?
   fun sendEvent(Any)
   fun <T: Feature> unwrap(): T
-typealias EventWriteScope = ((com.datadog.android.api.storage.EventBatchWriter) -> Unit) -> Unit
-fun <R> com.datadog.android.api.InternalLogger.measureMethodCallPerf(Class<*>, String, Float = 100f, () -> R): R
-fun FeatureScope.getContextFuture(Set<String> = emptySet()): java.util.concurrent.Future<com.datadog.android.api.context.DatadogContext?>?
-interface com.datadog.android.api.feature.FeatureSdkCore : com.datadog.android.api.SdkCore
-  val internalLogger: com.datadog.android.api.InternalLogger
-  val timeProvider: com.datadog.android.internal.time.TimeProvider
+typealias EventWriteScope = ((com.motadata.android.api.storage.EventBatchWriter) -> Unit) -> Unit
+fun <R> com.motadata.android.api.InternalLogger.measureMethodCallPerf(Class<*>, String, Float = 100f, () -> R): R
+fun FeatureScope.getContextFuture(Set<String> = emptySet()): java.util.concurrent.Future<com.motadata.android.api.context.DatadogContext?>?
+interface com.motadata.android.api.feature.FeatureSdkCore : com.motadata.android.api.SdkCore
+  val internalLogger: com.motadata.android.api.InternalLogger
+  val timeProvider: com.motadata.android.internal.time.TimeProvider
   fun registerFeature(Feature)
   fun getFeature(String): FeatureScope?
   fun updateFeatureContext(String, Boolean = true, (MutableMap<String, Any?>) -> Unit)
@@ -150,20 +150,20 @@ interface com.datadog.android.api.feature.FeatureSdkCore : com.datadog.android.a
   fun createScheduledExecutorService(String): java.util.concurrent.ScheduledExecutorService
   fun createOkHttpCallFactory(okhttp3.OkHttpClient.Builder.() -> Unit = {}): okhttp3.Call.Factory
   fun setAnonymousId(java.util.UUID?)
-interface com.datadog.android.api.feature.StorageBackedFeature : Feature
-  val requestFactory: com.datadog.android.api.net.RequestFactory
-  val storageConfiguration: com.datadog.android.api.storage.FeatureStorageConfiguration
-interface com.datadog.android.api.instrumentation.network.ExtendedRequestInfo
+interface com.motadata.android.api.feature.StorageBackedFeature : Feature
+  val requestFactory: com.motadata.android.api.net.RequestFactory
+  val storageConfiguration: com.motadata.android.api.storage.FeatureStorageConfiguration
+interface com.motadata.android.api.instrumentation.network.ExtendedRequestInfo
   fun <T> tag(Class<T>): T?
 fun <T> HttpRequestInfo.tag(Class<T>): T?
-interface com.datadog.android.api.instrumentation.network.HttpRequestBody
-interface com.datadog.android.api.instrumentation.network.HttpRequestInfo
+interface com.motadata.android.api.instrumentation.network.HttpRequestBody
+interface com.motadata.android.api.instrumentation.network.HttpRequestInfo
   val url: String
   val headers: Map<String, List<String>>
   val contentType: String?
   val method: String
   fun contentLength(): Long?
-interface com.datadog.android.api.instrumentation.network.HttpRequestInfoBuilder
+interface com.motadata.android.api.instrumentation.network.HttpRequestInfoBuilder
   fun setUrl(String): HttpRequestInfoBuilder
   fun addHeader(String, String): HttpRequestInfoBuilder
   fun removeHeader(String): HttpRequestInfoBuilder
@@ -171,21 +171,21 @@ interface com.datadog.android.api.instrumentation.network.HttpRequestInfoBuilder
   fun <T> addTag(Class<T>, T?): HttpRequestInfoBuilder
   fun setMethod(String, HttpRequestBody? = null): HttpRequestInfoBuilder
   fun build(): HttpRequestInfo
-interface com.datadog.android.api.instrumentation.network.HttpResponseInfo
+interface com.motadata.android.api.instrumentation.network.HttpResponseInfo
   val url: String
   val statusCode: Int
   val headers: Map<String, List<String>>
   val contentType: String?
   val contentLength: Long?
   val request: HttpRequestInfo?
-interface com.datadog.android.api.instrumentation.network.MutableHttpRequestInfo
+interface com.motadata.android.api.instrumentation.network.MutableHttpRequestInfo
   fun newBuilder(): HttpRequestInfoBuilder
-data class com.datadog.android.api.net.Request
+data class com.motadata.android.api.net.Request
   constructor(String, String, String, Map<String, String>, ByteArray, String? = null)
-data class com.datadog.android.api.net.RequestExecutionContext
+data class com.motadata.android.api.net.RequestExecutionContext
   constructor(Int = 0, Int? = null)
-interface com.datadog.android.api.net.RequestFactory
-  fun create(com.datadog.android.api.context.DatadogContext, RequestExecutionContext, List<com.datadog.android.api.storage.RawBatchEvent>, ByteArray?): Request?
+interface com.motadata.android.api.net.RequestFactory
+  fun create(com.motadata.android.api.context.DatadogContext, RequestExecutionContext, List<com.motadata.android.api.storage.RawBatchEvent>, ByteArray?): Request?
   companion object 
     const val CONTENT_TYPE_JSON: String
     const val CONTENT_TYPE_TEXT_UTF8: String
@@ -196,42 +196,42 @@ interface com.datadog.android.api.net.RequestFactory
     const val QUERY_PARAM_SOURCE: String
     const val QUERY_PARAM_TAGS: String
     const val DD_IDEMPOTENCY_KEY: String
-interface com.datadog.android.api.storage.DataWriter<T>
+interface com.motadata.android.api.storage.DataWriter<T>
   fun write(EventBatchWriter, T, EventType): Boolean
-interface com.datadog.android.api.storage.EventBatchWriter
+interface com.motadata.android.api.storage.EventBatchWriter
   fun currentMetadata(): ByteArray?
   fun write(RawBatchEvent, ByteArray?, EventType): Boolean
-enum com.datadog.android.api.storage.EventType
+enum com.motadata.android.api.storage.EventType
   - DEFAULT
   - CRASH
   - TELEMETRY
-data class com.datadog.android.api.storage.FeatureStorageConfiguration
+data class com.motadata.android.api.storage.FeatureStorageConfiguration
   constructor(Long, Int, Long, Long)
   companion object 
     val DEFAULT: FeatureStorageConfiguration
-data class com.datadog.android.api.storage.RawBatchEvent
+data class com.motadata.android.api.storage.RawBatchEvent
   constructor(ByteArray, ByteArray = EMPTY_BYTE_ARRAY)
   override fun equals(Any?): Boolean
   override fun hashCode(): Int
-interface com.datadog.android.api.storage.datastore.DataStoreHandler
-  fun <T: Any> setValue(String, T, Int = 0, DataStoreWriteCallback? = null, com.datadog.android.core.persistence.Serializer<T>)
-  fun <T: Any> value(String, Int? = null, DataStoreReadCallback<T>, com.datadog.android.core.internal.persistence.Deserializer<String, T>)
+interface com.motadata.android.api.storage.datastore.DataStoreHandler
+  fun <T: Any> setValue(String, T, Int = 0, DataStoreWriteCallback? = null, com.motadata.android.core.persistence.Serializer<T>)
+  fun <T: Any> value(String, Int? = null, DataStoreReadCallback<T>, com.motadata.android.core.internal.persistence.Deserializer<String, T>)
   fun removeValue(String, DataStoreWriteCallback? = null)
   fun clearAllData()
   companion object 
     const val CURRENT_DATASTORE_VERSION: Int
-interface com.datadog.android.api.storage.datastore.DataStoreReadCallback<T: Any>
-  fun onSuccess(com.datadog.android.core.persistence.datastore.DataStoreContent<T>?)
+interface com.motadata.android.api.storage.datastore.DataStoreReadCallback<T: Any>
+  fun onSuccess(com.motadata.android.core.persistence.datastore.DataStoreContent<T>?)
   fun onFailure()
-interface com.datadog.android.api.storage.datastore.DataStoreWriteCallback
+interface com.motadata.android.api.storage.datastore.DataStoreWriteCallback
   fun onSuccess()
   fun onFailure()
-interface com.datadog.android.core.InternalSdkCore : com.datadog.android.api.feature.FeatureSdkCore
-  val networkInfo: com.datadog.android.api.context.NetworkInfo
-  val trackingConsent: com.datadog.android.privacy.TrackingConsent
+interface com.motadata.android.core.InternalSdkCore : com.motadata.android.api.feature.FeatureSdkCore
+  val networkInfo: com.motadata.android.api.context.NetworkInfo
+  val trackingConsent: com.motadata.android.privacy.TrackingConsent
   val rootStorageDir: java.io.File?
   val isDeveloperModeEnabled: Boolean
-  val firstPartyHostResolver: com.datadog.android.core.internal.net.FirstPartyHostHeaderTypeResolver
+  val firstPartyHostResolver: com.motadata.android.core.internal.net.FirstPartyHostHeaderTypeResolver
   val lastViewEvent: com.google.gson.JsonObject?
   val lastFatalAnrSent: Long?
   val appStartTimeNs: Long
@@ -240,110 +240,110 @@ interface com.datadog.android.core.InternalSdkCore : com.datadog.android.api.fea
   fun deleteLastViewEvent()
   fun writeLastFatalAnrSent(Long)
   fun getPersistenceExecutorService(): java.util.concurrent.ExecutorService
-  fun getAllFeatures(): List<com.datadog.android.api.feature.FeatureScope>
-  fun getDatadogContext(Set<String> = emptySet()): com.datadog.android.api.context.DatadogContext?
-class com.datadog.android.core.SdkReference
-  constructor(String? = null, (com.datadog.android.api.SdkCore) -> Unit = {})
-  fun get(): com.datadog.android.api.SdkCore?
-class com.datadog.android.core.UploadWorker : androidx.work.Worker
+  fun getAllFeatures(): List<com.motadata.android.api.feature.FeatureScope>
+  fun getDatadogContext(Set<String> = emptySet()): com.motadata.android.api.context.DatadogContext?
+class com.motadata.android.core.SdkReference
+  constructor(String? = null, (com.motadata.android.api.SdkCore) -> Unit = {})
+  fun get(): com.motadata.android.api.SdkCore?
+class com.motadata.android.core.UploadWorker : androidx.work.Worker
   constructor(android.content.Context, androidx.work.WorkerParameters)
   override fun doWork(): Result
   companion object 
-enum com.datadog.android.core.configuration.BackPressureMitigation
+enum com.motadata.android.core.configuration.BackPressureMitigation
   - DROP_OLDEST
   - IGNORE_NEWEST
-data class com.datadog.android.core.configuration.BackPressureStrategy
+data class com.motadata.android.core.configuration.BackPressureStrategy
   constructor(Int, () -> Unit, (Any) -> Unit, BackPressureMitigation)
-enum com.datadog.android.core.configuration.BatchProcessingLevel
+enum com.motadata.android.core.configuration.BatchProcessingLevel
   constructor(Int)
   - LOW
   - MEDIUM
   - HIGH
-enum com.datadog.android.core.configuration.BatchSize
+enum com.motadata.android.core.configuration.BatchSize
   constructor(Long)
   - SMALL
   - MEDIUM
   - LARGE
-data class com.datadog.android.core.configuration.Configuration
+data class com.motadata.android.core.configuration.Configuration
   class Builder
     constructor(String, String, String = NO_VARIANT, String? = null)
     fun build(): Configuration
     fun setUseDeveloperModeWhenDebuggable(Boolean): Builder
     fun setFirstPartyHosts(List<String>): Builder
-    fun setFirstPartyHostsWithHeaderType(Map<String, Set<com.datadog.android.trace.TracingHeaderType>>): Builder
-    fun useSite(com.datadog.android.DatadogSite): Builder
+    fun setFirstPartyHostsWithHeaderType(Map<String, Set<com.motadata.android.trace.TracingHeaderType>>): Builder
+    fun useSite(com.motadata.android.DatadogSite): Builder
     fun setBatchSize(BatchSize): Builder
     fun setUploadFrequency(UploadFrequency): Builder
     fun setBatchProcessingLevel(BatchProcessingLevel): Builder
     fun setAdditionalConfiguration(Map<String, Any>): Builder
     fun setProxy(java.net.Proxy, okhttp3.Authenticator?): Builder
-    fun setEncryption(com.datadog.android.security.Encryption): Builder
-    fun setPersistenceStrategyFactory(com.datadog.android.core.persistence.PersistenceStrategy.Factory?): Builder
+    fun setEncryption(com.motadata.android.security.Encryption): Builder
+    fun setPersistenceStrategyFactory(com.motadata.android.core.persistence.PersistenceStrategy.Factory?): Builder
     fun setCrashReportsEnabled(Boolean): Builder
     fun setBackpressureStrategy(BackPressureStrategy): Builder
     fun setUploadSchedulerStrategy(UploadSchedulerStrategy?): Builder
     fun setVersion(String): Builder
   companion object 
-class com.datadog.android.core.configuration.HostsSanitizer
+class com.motadata.android.core.configuration.HostsSanitizer
   fun sanitizeHosts(List<String>, String): List<String>
-enum com.datadog.android.core.configuration.UploadFrequency
+enum com.motadata.android.core.configuration.UploadFrequency
   constructor(Long)
   - FREQUENT
   - AVERAGE
   - RARE
-interface com.datadog.android.core.configuration.UploadSchedulerStrategy
+interface com.motadata.android.core.configuration.UploadSchedulerStrategy
   fun getMsDelayUntilNextUpload(String, Int, Int?, Throwable?): Long
-interface com.datadog.android.core.constraints.DataConstraints
+interface com.motadata.android.core.constraints.DataConstraints
   fun <T> validateAttributes(Map<String, T>, String? = null, String? = null, Set<String> = emptySet()): MutableMap<String, T>
   fun validateTags(List<String>): List<String>
   fun validateTimings(Map<String, Long>): MutableMap<String, Long>
-class com.datadog.android.core.constraints.DatadogDataConstraints : DataConstraints
-  constructor(com.datadog.android.api.InternalLogger)
+class com.motadata.android.core.constraints.DatadogDataConstraints : DataConstraints
+  constructor(com.motadata.android.api.InternalLogger)
   override fun validateTags(List<String>): List<String>
   override fun <T> validateAttributes(Map<String, T>, String?, String?, Set<String>): MutableMap<String, T>
   override fun validateTimings(Map<String, Long>): MutableMap<String, Long>
-sealed class com.datadog.android.core.feature.event.JvmCrash
+sealed class com.motadata.android.core.feature.event.JvmCrash
   abstract val throwable: Throwable
   abstract val message: String
   abstract val threads: List<ThreadDump>
   data class Rum : JvmCrash
     constructor(Throwable, String, List<ThreadDump>)
-data class com.datadog.android.core.feature.event.ThreadDump
+data class com.motadata.android.core.feature.event.ThreadDump
   constructor(String, String, String, Boolean)
-class com.datadog.android.core.internal.net.DefaultFirstPartyHostHeaderTypeResolver : FirstPartyHostHeaderTypeResolver
-  constructor(Map<String, Set<com.datadog.android.trace.TracingHeaderType>>)
+class com.motadata.android.core.internal.net.DefaultFirstPartyHostHeaderTypeResolver : FirstPartyHostHeaderTypeResolver
+  constructor(Map<String, Set<com.motadata.android.trace.TracingHeaderType>>)
   override fun isFirstPartyUrl(okhttp3.HttpUrl): Boolean
   override fun isFirstPartyUrl(String): Boolean
-  override fun headerTypesForUrl(String): Set<com.datadog.android.trace.TracingHeaderType>
-  override fun headerTypesForUrl(okhttp3.HttpUrl): Set<com.datadog.android.trace.TracingHeaderType>
-  override fun getAllHeaderTypes(): Set<com.datadog.android.trace.TracingHeaderType>
+  override fun headerTypesForUrl(String): Set<com.motadata.android.trace.TracingHeaderType>
+  override fun headerTypesForUrl(okhttp3.HttpUrl): Set<com.motadata.android.trace.TracingHeaderType>
+  override fun getAllHeaderTypes(): Set<com.motadata.android.trace.TracingHeaderType>
   override fun isEmpty(): Boolean
-interface com.datadog.android.core.internal.net.FirstPartyHostHeaderTypeResolver
+interface com.motadata.android.core.internal.net.FirstPartyHostHeaderTypeResolver
   fun isFirstPartyUrl(okhttp3.HttpUrl): Boolean
   fun isFirstPartyUrl(String): Boolean
-  fun headerTypesForUrl(String): Set<com.datadog.android.trace.TracingHeaderType>
-  fun headerTypesForUrl(okhttp3.HttpUrl): Set<com.datadog.android.trace.TracingHeaderType>
-  fun getAllHeaderTypes(): Set<com.datadog.android.trace.TracingHeaderType>
+  fun headerTypesForUrl(String): Set<com.motadata.android.trace.TracingHeaderType>
+  fun headerTypesForUrl(okhttp3.HttpUrl): Set<com.motadata.android.trace.TracingHeaderType>
+  fun getAllHeaderTypes(): Set<com.motadata.android.trace.TracingHeaderType>
   fun isEmpty(): Boolean
-interface com.datadog.android.core.internal.persistence.Deserializer<P: Any, R: Any>
+interface com.motadata.android.core.internal.persistence.Deserializer<P: Any, R: Any>
   fun deserialize(P): R?
-fun java.io.File.canReadSafe(com.datadog.android.api.InternalLogger): Boolean
-fun java.io.File.existsSafe(com.datadog.android.api.InternalLogger): Boolean
-fun java.io.File.listFilesSafe(com.datadog.android.api.InternalLogger, java.io.FilenameFilter): Array<java.io.File>?
-fun java.io.File.lengthSafe(com.datadog.android.api.InternalLogger): Long
-fun java.io.File.readTextSafe(java.nio.charset.Charset = Charsets.UTF_8, com.datadog.android.api.InternalLogger): String?
-fun java.io.File.readBytesSafe(com.datadog.android.api.InternalLogger): ByteArray?
-fun java.io.File.readLinesSafe(java.nio.charset.Charset = Charsets.UTF_8, com.datadog.android.api.InternalLogger): List<String>?
-fun Collection<ByteArray>.join(ByteArray, ByteArray = ByteArray(0), ByteArray = ByteArray(0), com.datadog.android.api.InternalLogger): ByteArray
-fun java.util.concurrent.Executor.executeSafe(String, com.datadog.android.api.InternalLogger, Runnable)
-fun java.util.concurrent.ScheduledExecutorService.scheduleSafe(String, Long, java.util.concurrent.TimeUnit, com.datadog.android.api.InternalLogger, Runnable): java.util.concurrent.ScheduledFuture<*>?
-fun java.util.concurrent.ExecutorService.submitSafe(String, com.datadog.android.api.InternalLogger, Runnable): java.util.concurrent.Future<*>?
-fun <T> java.util.concurrent.ExecutorService.submitSafe(String, com.datadog.android.api.InternalLogger, java.util.concurrent.Callable<T>): java.util.concurrent.Future<T>?
-fun <T> java.util.concurrent.Future<T>?.getSafe(String, com.datadog.android.api.InternalLogger): T?
-object com.datadog.android.core.internal.utils.JsonSerializer
+fun java.io.File.canReadSafe(com.motadata.android.api.InternalLogger): Boolean
+fun java.io.File.existsSafe(com.motadata.android.api.InternalLogger): Boolean
+fun java.io.File.listFilesSafe(com.motadata.android.api.InternalLogger, java.io.FilenameFilter): Array<java.io.File>?
+fun java.io.File.lengthSafe(com.motadata.android.api.InternalLogger): Long
+fun java.io.File.readTextSafe(java.nio.charset.Charset = Charsets.UTF_8, com.motadata.android.api.InternalLogger): String?
+fun java.io.File.readBytesSafe(com.motadata.android.api.InternalLogger): ByteArray?
+fun java.io.File.readLinesSafe(java.nio.charset.Charset = Charsets.UTF_8, com.motadata.android.api.InternalLogger): List<String>?
+fun Collection<ByteArray>.join(ByteArray, ByteArray = ByteArray(0), ByteArray = ByteArray(0), com.motadata.android.api.InternalLogger): ByteArray
+fun java.util.concurrent.Executor.executeSafe(String, com.motadata.android.api.InternalLogger, Runnable)
+fun java.util.concurrent.ScheduledExecutorService.scheduleSafe(String, Long, java.util.concurrent.TimeUnit, com.motadata.android.api.InternalLogger, Runnable): java.util.concurrent.ScheduledFuture<*>?
+fun java.util.concurrent.ExecutorService.submitSafe(String, com.motadata.android.api.InternalLogger, Runnable): java.util.concurrent.Future<*>?
+fun <T> java.util.concurrent.ExecutorService.submitSafe(String, com.motadata.android.api.InternalLogger, java.util.concurrent.Callable<T>): java.util.concurrent.Future<T>?
+fun <T> java.util.concurrent.Future<T>?.getSafe(String, com.motadata.android.api.InternalLogger): T?
+object com.motadata.android.core.internal.utils.JsonSerializer
   fun toJsonElement(Any?): com.google.gson.JsonElement
-  fun Map<String, Any?>.safeMapValuesToJson(com.datadog.android.api.InternalLogger): Map<String, com.google.gson.JsonElement>
-enum com.datadog.android.core.metrics.MethodCallSamplingRate
+  fun Map<String, Any?>.safeMapValuesToJson(com.motadata.android.api.InternalLogger): Map<String, com.google.gson.JsonElement>
+enum com.motadata.android.core.metrics.MethodCallSamplingRate
   constructor(Float)
   - ALL
   - HIGH
@@ -351,31 +351,31 @@ enum com.datadog.android.core.metrics.MethodCallSamplingRate
   - LOW
   - REDUCED
   - RARE
-interface com.datadog.android.core.metrics.PerformanceMetric
+interface com.motadata.android.core.metrics.PerformanceMetric
   fun stopAndSend(Boolean)
   companion object 
     const val METRIC_TYPE: String
-enum com.datadog.android.core.metrics.TelemetryMetricType
+enum com.motadata.android.core.metrics.TelemetryMetricType
   - MethodCalled
-interface com.datadog.android.core.persistence.PersistenceStrategy
+interface com.motadata.android.core.persistence.PersistenceStrategy
   interface Factory
     fun create(String, Int, Long): PersistenceStrategy
   data class Batch
-    constructor(String, ByteArray? = null, List<com.datadog.android.api.storage.RawBatchEvent> = mutableListOf())
+    constructor(String, ByteArray? = null, List<com.motadata.android.api.storage.RawBatchEvent> = mutableListOf())
   fun currentMetadata(): ByteArray?
-  fun write(com.datadog.android.api.storage.RawBatchEvent, ByteArray?, com.datadog.android.api.storage.EventType): Boolean
+  fun write(com.motadata.android.api.storage.RawBatchEvent, ByteArray?, com.motadata.android.api.storage.EventType): Boolean
   fun lockAndReadNext(): Batch?
   fun unlockAndKeep(String)
   fun unlockAndDelete(String)
   fun dropAll()
   fun migrateData(PersistenceStrategy)
-interface com.datadog.android.core.persistence.Serializer<T: Any>
+interface com.motadata.android.core.persistence.Serializer<T: Any>
   fun serialize(T): String?
   companion object 
-fun <T: Any> Serializer<T>.serializeToByteArray(T, com.datadog.android.api.InternalLogger): ByteArray?
-data class com.datadog.android.core.persistence.datastore.DataStoreContent<T: Any>
+fun <T: Any> Serializer<T>.serializeToByteArray(T, com.motadata.android.api.InternalLogger): ByteArray?
+data class com.motadata.android.core.persistence.datastore.DataStoreContent<T: Any>
   constructor(Int, T?)
-open class com.datadog.android.core.sampling.DeterministicSampler<T: Any> : Sampler<T>
+open class com.motadata.android.core.sampling.DeterministicSampler<T: Any> : Sampler<T>
   constructor((T) -> ULong, () -> Float)
   constructor((T) -> ULong, Float)
   constructor((T) -> ULong, Double)
@@ -385,30 +385,30 @@ open class com.datadog.android.core.sampling.DeterministicSampler<T: Any> : Samp
     const val SAMPLE_ALL_RATE: Float
     const val SAMPLER_HASHER: ULong
     const val MAX_ID: ULong
-open class com.datadog.android.core.sampling.RateBasedSampler<T: Any> : Sampler<T>
+open class com.motadata.android.core.sampling.RateBasedSampler<T: Any> : Sampler<T>
   constructor(() -> Float)
   constructor(Float)
   constructor(Double)
   override fun sample(T): Boolean
   override fun getSampleRate(): Float
-interface com.datadog.android.core.sampling.Sampler<T: Any>
+interface com.motadata.android.core.sampling.Sampler<T: Any>
   fun sample(T): Boolean
   fun getSampleRate(): Float?
-interface com.datadog.android.core.thread.FlushableExecutorService : java.util.concurrent.ExecutorService
+interface com.motadata.android.core.thread.FlushableExecutorService : java.util.concurrent.ExecutorService
   fun drainTo(MutableCollection<Runnable>)
   interface Factory
-    fun create(com.datadog.android.api.InternalLogger, String, com.datadog.android.core.configuration.BackPressureStrategy, com.datadog.android.internal.time.TimeProvider): FlushableExecutorService
-interface com.datadog.android.event.EventMapper<T: Any>
+    fun create(com.motadata.android.api.InternalLogger, String, com.motadata.android.core.configuration.BackPressureStrategy, com.motadata.android.internal.time.TimeProvider): FlushableExecutorService
+interface com.motadata.android.event.EventMapper<T: Any>
   fun map(T): T?
-class com.datadog.android.event.MapperSerializer<T: Any> : com.datadog.android.core.persistence.Serializer<T>
-  constructor(EventMapper<T>, com.datadog.android.core.persistence.Serializer<T>)
+class com.motadata.android.event.MapperSerializer<T: Any> : com.motadata.android.core.persistence.Serializer<T>
+  constructor(EventMapper<T>, com.motadata.android.core.persistence.Serializer<T>)
   override fun serialize(T): String?
-class com.datadog.android.event.NoOpEventMapper<T: Any> : EventMapper<T>
+class com.motadata.android.event.NoOpEventMapper<T: Any> : EventMapper<T>
   override fun map(T): T
   override fun equals(Any?): Boolean
   override fun hashCode(): Int
-annotation com.datadog.android.lint.InternalApi
-object com.datadog.android.log.LogAttributes
+annotation com.motadata.android.lint.InternalApi
+object com.motadata.android.log.LogAttributes
   const val APPLICATION_PACKAGE: String
   const val APPLICATION_VERSION: String
   const val ENV: String
@@ -463,16 +463,16 @@ object com.datadog.android.log.LogAttributes
   const val VARIANT: String
   const val SOURCE_TYPE: String
   const val ERROR_FINGERPRINT: String
-enum com.datadog.android.privacy.TrackingConsent
+enum com.motadata.android.privacy.TrackingConsent
   - GRANTED
   - NOT_GRANTED
   - PENDING
-interface com.datadog.android.privacy.TrackingConsentProviderCallback
+interface com.motadata.android.privacy.TrackingConsentProviderCallback
   fun onConsentUpdated(TrackingConsent, TrackingConsent)
-interface com.datadog.android.security.Encryption
+interface com.motadata.android.security.Encryption
   fun encrypt(ByteArray): ByteArray
   fun decrypt(ByteArray): ByteArray
-enum com.datadog.android.trace.TracingHeaderType
+enum com.motadata.android.trace.TracingHeaderType
   constructor(String)
   - DATADOG
   - B3

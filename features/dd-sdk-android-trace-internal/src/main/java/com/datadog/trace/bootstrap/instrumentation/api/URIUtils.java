@@ -6,7 +6,7 @@ import com.datadog.trace.logger.LoggerFactory;
 import java.net.URI;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import com.datadog.android.trace.internal.compat.function.Supplier;
+import com.motadata.android.trace.internal.compat.function.Supplier;
 
 public class URIUtils {
   private URIUtils() {}

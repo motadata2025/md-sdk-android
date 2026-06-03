@@ -37,7 +37,7 @@ plugins {
 }
 
 android {
-    namespace = "com.datadog.android.okhttp.otel"
+    namespace = "com.motadata.android.okhttp.otel"
 }
 
 dependencies {

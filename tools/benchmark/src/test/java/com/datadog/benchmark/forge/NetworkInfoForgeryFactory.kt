@@ -6,7 +6,7 @@
 
 package com.datadog.benchmark.forge
 
-import com.datadog.android.api.context.NetworkInfo
+import com.motadata.android.api.context.NetworkInfo
 import fr.xgouchet.elmyr.Forge
 import fr.xgouchet.elmyr.ForgeryFactory
 

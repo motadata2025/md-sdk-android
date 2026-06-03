@@ -3,8 +3,8 @@ package com.datadog.trace.api.cache;
 import com.datadog.trace.api.Pair;
 
 import java.util.Arrays;
-import com.datadog.android.trace.internal.compat.function.BiConsumer;
-import com.datadog.android.trace.internal.compat.function.Function;
+import com.motadata.android.trace.internal.compat.function.BiConsumer;
+import com.motadata.android.trace.internal.compat.function.Function;
 
 /**
  * This is a fixed size cache that only has one operation <code>computeIfAbsent</code>, that is used

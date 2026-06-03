@@ -1,0 +1,202 @@
+/*
+ * Unless explicitly stated otherwise all files in this repository are licensed under the Apache License Version 2.0.
+ * This product includes software developed at Datadog (https://www.datadoghq.com/).
+ * Copyright 2016-Present Datadog, Inc.
+ */
+
+package com.motadata.android.core.internal.persistence.file.advanced
+
+import com.motadata.android.api.InternalLogger
+import com.motadata.android.core.internal.persistence.file.FileMover
+import com.motadata.android.internal.time.TimeProvider
+import com.motadata.android.utils.forge.Configurator
+import com.motadata.android.utils.verifyLog
+import fr.xgouchet.elmyr.annotation.LongForgery
+import fr.xgouchet.elmyr.junit5.ForgeConfiguration
+import fr.xgouchet.elmyr.junit5.ForgeExtension
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+import org.junit.jupiter.api.extension.Extensions
+import org.junit.jupiter.api.io.TempDir
+import org.mockito.Mock
+import org.mockito.junit.jupiter.MockitoExtension
+import org.mockito.junit.jupiter.MockitoSettings
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoInteractions
+import org.mockito.kotlin.whenever
+import org.mockito.quality.Strictness
+import java.io.File
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicLong
+import kotlin.system.measureTimeMillis
+
+@Extensions(
+    ExtendWith(MockitoExtension::class),
+    ExtendWith(ForgeExtension::class)
+)
+@MockitoSettings(strictness = Strictness.LENIENT)
+@ForgeConfiguration(Configurator::class)
+internal class MoveDataMigrationOperationTest {
+    lateinit var testedOperation: DataMigrationOperation
+
+    @TempDir
+    lateinit var fakeFromDirectory: File
+
+    @TempDir
+    lateinit var fakeToDirectory: File
+
+    @Mock
+    lateinit var mockFileMover: FileMover
+
+    @Mock
+    lateinit var mockInternalLogger: InternalLogger
+
+    @Mock
+    lateinit var mockTimeProvider: TimeProvider
+
+    @LongForgery(min = 0L)
+    var fakeElapsedTimeNs: Long = 0L
+
+    @BeforeEach
+    fun `set up`() {
+        val currentTime = AtomicLong(fakeElapsedTimeNs)
+        whenever(mockTimeProvider.getDeviceElapsedTimeNanos()).thenAnswer {
+            currentTime.getAndAdd(RETRY_DELAY_NS)
+        }
+
+        testedOperation = MoveDataMigrationOperation(
+            fakeFromDirectory,
+            fakeToDirectory,
+            mockFileMover,
+            mockInternalLogger,
+            mockTimeProvider
+        )
+    }
+
+    @Test
+    fun `M warn W run() {source dir is null}`() {
+        // Given
+        testedOperation = MoveDataMigrationOperation(
+            null,
+            fakeToDirectory,
+            mockFileMover,
+            mockInternalLogger,
+            mockTimeProvider
+        )
+
+        // When
+        testedOperation.run()
+
+        // Then
+        verifyNoInteractions(mockFileMover)
+        mockInternalLogger.verifyLog(
+            InternalLogger.Level.WARN,
+            InternalLogger.Target.MAINTAINER,
+            MoveDataMigrationOperation.WARN_NULL_SOURCE_DIR
+        )
+    }
+
+    @Test
+    fun `M warn W run() {dest dir is null}`() {
+        // Given
+        testedOperation = MoveDataMigrationOperation(
+            fakeFromDirectory,
+            null,
+            mockFileMover,
+            mockInternalLogger,
+            mockTimeProvider
+        )
+        whenever(mockFileMover.delete(fakeFromDirectory)) doReturn true
+
+        // When
+        testedOperation.run()
+
+        // Then
+        verifyNoInteractions(mockFileMover)
+        mockInternalLogger.verifyLog(
+            InternalLogger.Level.WARN,
+            InternalLogger.Target.MAINTAINER,
+            MoveDataMigrationOperation.WARN_NULL_DEST_DIR
+        )
+    }
+
+    @Test
+    fun `M move data W run()`() {
+        // Given
+        whenever(mockFileMover.moveFiles(fakeFromDirectory, fakeToDirectory)) doReturn true
+
+        // When
+        testedOperation.run()
+
+        // Then
+        verify(mockFileMover).moveFiles(fakeFromDirectory, fakeToDirectory)
+    }
+
+    @Test
+    fun `M retry W run() {move fails once}`() {
+        // Given
+        whenever(mockFileMover.moveFiles(fakeFromDirectory, fakeToDirectory))
+            .doReturn(false, true)
+
+        // When
+        testedOperation.run()
+
+        // Then
+        verify(mockFileMover, times(2)).moveFiles(fakeFromDirectory, fakeToDirectory)
+    }
+
+    @Test
+    fun `M retry with 500ms delay W run() {move fails once}`() {
+        // Given
+        whenever(mockTimeProvider.getDeviceElapsedTimeNanos()).thenAnswer { System.nanoTime() }
+        whenever(mockFileMover.moveFiles(fakeFromDirectory, fakeToDirectory))
+            .doReturn(false, true)
+
+        // When
+        val duration = measureTimeMillis {
+            testedOperation.run()
+        }
+
+        // Then
+        verify(mockFileMover, times(2)).moveFiles(fakeFromDirectory, fakeToDirectory)
+        assertThat(duration).isBetween(500L, 550L)
+    }
+
+    @Test
+    fun `M try 3 times maximum W run() {move always fails}`() {
+        // Given
+        whenever(mockFileMover.moveFiles(fakeFromDirectory, fakeToDirectory))
+            .doReturn(false)
+
+        // When
+        testedOperation.run()
+
+        // Then
+        verify(mockFileMover, times(3)).moveFiles(fakeFromDirectory, fakeToDirectory)
+    }
+
+    @Test
+    fun `M retry with 500ms delay W run() {move always fails}`() {
+        // Given
+        whenever(mockTimeProvider.getDeviceElapsedTimeNanos()).thenAnswer { System.nanoTime() }
+        whenever(mockFileMover.moveFiles(fakeFromDirectory, fakeToDirectory))
+            .doReturn(false)
+
+        // When
+        val duration = measureTimeMillis {
+            testedOperation.run()
+        }
+
+        // Then
+        verify(mockFileMover, times(3)).moveFiles(fakeFromDirectory, fakeToDirectory)
+        assertThat(duration).isBetween(1000L, 1100L)
+    }
+
+    companion object {
+        private val RETRY_DELAY_NS = TimeUnit.MILLISECONDS.toNanos(500)
+    }
+}

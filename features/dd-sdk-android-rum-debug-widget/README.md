@@ -19,7 +19,7 @@ dependencies {
 Then enable the widget in your `RumConfiguration.Builder`:
 
 ```kotlin
-import com.datadog.android.insights.enableRumDebugWidget
+import com.motadata.android.insights.enableRumDebugWidget
 
 RumConfiguration.Builder(...)
     .enableRumDebugWidget(application = this)
