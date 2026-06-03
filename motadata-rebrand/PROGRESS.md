@@ -18,7 +18,7 @@ step does = `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`. This file tracks *status onl
 | 2 | Class renames `Datadog`→`Motadata` (`DatadogInterceptor`, `DatadogEventListener`, `DatadogSite`, …) — plan §1A | ✅ | `a30d2fa17` | 26869349974 ✅ |
 | 3 | In-event strings — plan §1B (launch view url/id, `telemetry.service`, flags/meter → `motadata-rum-android`) | ✅ | `f66b053e2` | 26870147865 ✅ |
 | 4 | Thread names `datadog-*` → `motadata-*` — plan §1B.8 / §1E.2-4 | ✅ | `f94c6fd55` | 26874612559 ✅ |
-| 5 | Wire names `DD-*`→`MD-*`, `ddsource`/`ddtags`→`mdsource`/`mdtags`, logcat tags — plan §1C | ⬜ | — | — |
+| 5 | Wire names `DD-*`→`MD-*`, `ddsource`/`ddtags`→`mdsource`/`mdtags`, logcat tags — plan §1C | ✅ | `df3e9c0d9` | 26876753887 ✅ |
 | 6 | Runtime leaks: NTP→`pool.ntp.org`, User-Agent, storage dir, logcat messages — plan §1E | ⬜ | — | — |
 | 7 | Body envelope `_dd`→`_md`, `ddtags`→`mdtags` via JSON-schema edit + codegen regen — plan §2.6 | ⬜ | — | — |
 | 8 | Maven coords + POM: group `com.motadata`, version `1.0.0`, artifact ids — plan §1D | ⬜ | — | — |
@@ -47,6 +47,11 @@ step does = `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`. This file tracks *status onl
   - `group = "datadog"` Gradle task-group labels in `buildSrc` (~10×) — cosmetic, internal-only, not shipped.
   - `MavenConfig.kt` `GROUP_ID = "com.datadoghq"` and AAR/artifact filenames `dd-sdk-android-*` → **step 8**.
 - **Telemetry stays ON** (server ignores it). Ship core + rum + okhttp closure (7 AARs); not session-replay.
+
+### Step-5 detail (for the record)
+- RequestFactory.kt: `DD-API-KEY`/`DD-EVP-ORIGIN`/`DD-REQUEST-ID`/`DD-IDEMPOTENCY-KEY`→`MD-*`; query `ddsource`→`mdsource`, `ddtags`→`mdtags`. SdkInternalLogger `SDK_LOG_TAG` `DD_LOG`→`MD_LOG` (`DEV_LOG_TAG` already `Motadata` from step-2 bare-word pass). SKILL.md logcat tag updated to match.
+- **Decision (agreed w/ user): backend reads `mdsource`/`MD-*`** (mirrors browser-sdk fork) → safe to rename.
+- **Left untouched by design:** `x-datadog-*` trace-propagation headers (TracingInterceptor/DatadogHttpCodec) — user uses **W3C/OTel `traceparent`** for any future RUM-trace correlation, so Datadog-format headers stay dormant; benchmark uploader `DD-API-KEY` (`com.datadog.benchmark` → Datadog's own benchmark intake, not shipped); event-**body** `ddtags` in `log-schema.json`/RUM `_common-schema.json`/webview = **step 7** (`_dd`/`_md` + body `ddtags`→`mdtags`). Internal const *identifier* `DD_IDEMPOTENCY_KEY` left (value is `MD-…`; name not serialized). Future: tiny `dd=` entry in W3C `tracestate` to scrub when trace correlation is turned on.
 
 ### Step-4 detail (for the record)
 - Thread names: `datadog-*-thread-*`→`motadata-*` (DatadogThreadFactory, guarded on `-thread-` so storage `datadog-%s` untouched); `datadog_shutdown`→`motadata_shutdown` (DatadogCore). WorkManager: `DatadogUploadWorker`→`MotadataUploadWorker`, `DatadogBackgroundUpload`→`MotadataBackgroundUpload`. Coupled `DatadogThreadFactoryTest` assertions updated.
