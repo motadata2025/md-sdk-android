@@ -27,6 +27,38 @@ step does = `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`. This file tracks *status onl
 
 **Then:** test Branch 1 end-to-end (deferred until step 9 done) — Path A (CI sample APK → `adb logcat`, CurlInterceptor dumps request) and/or Path B (CI → GitHub Packages → Windows app). No Maven Central needed for testing.
 
+---
+
+## ▶ STEP 9 — EXECUTION PLAN (start here next session)
+
+Step 9 = **verify/finalize**, not new renames. Two phases (9A quick & predictable, 9B iterative & CI-bound). Everything runs on CI (never build locally). All commands target `-R motadata2025/md-sdk-android`, branch `motadata-dev`.
+
+**Pre-flight:** `git -C <repo> pull` first (CI may have pushed regenerated files). Confirm steps 1–8 still green via this table.
+
+### Phase 9A — Regenerate API surface (~20–30 min, 1 CI run)
+*Why:* `api/apiSurface`, `api/<module>.api`, `api/compiler-meta.txt` for the 7 shipped modules are **stale** — still list old `Dd*`/`Datadog*`/`_dd` names from steps 6.5 & 7. Regenerate from the renamed code. (`motadata-build.yml` only does `assembleDebug`, so it never caught this — not a failure, just not checked.)
+*Tasks (per module, no aggregate "generate" task exists):* `:m:generateApiSurface` (→`api/apiSurface`) + `:m:apiDump` (→`api/<module>.api`) + `:m:generateCompilerMetadata` (→`api/compiler-meta.txt`). The 7 modules: `:dd-sdk-android-core :dd-sdk-android-internal :features:dd-sdk-android-rum :features:dd-sdk-android-trace :features:dd-sdk-android-trace-api :features:dd-sdk-android-trace-internal :integrations:dd-sdk-android-okhttp`.
+*Mechanism (can't build locally → CI must produce AND return the files):* add **`.github/workflows/motadata-apidump.yml`** (`on: workflow_dispatch`, **`permissions: contents: write`**) that: checkout (persist-credentials) → JDK21 + Android SDK + Gradle → run the generate/apiDump/compilerMetadata tasks for the 7 modules → `git add **/api/apiSurface **/api/*.api **/api/compiler-meta.txt` → commit `"chore: regenerate api surface [skip ci]"` → `git push`. Trigger: `gh workflow run motadata-apidump.yml -R motadata2025/md-sdk-android --ref motadata-dev`; poll; then `git pull`.
+*Fallback if CI push is blocked (token/branch-protection):* same job but `actions/upload-artifact` the `**/api/**` files → `gh run download <id>` → copy into repo → commit + push locally.
+*Note:* api **filenames** stay `dd-sdk-android-*.api` (derived from gradle module names, which we did NOT rename — only artifact ids changed). That's correct; they're internal repo files, never published.
+
+### Phase 9B — Run unit tests + fix to green (iterative, ~1–3 h, CI-bound)
+*Mechanism:* add a **`unit-test` job** (new `.github/workflows/motadata-test.yml`, `on: workflow_dispatch`) running:
+`./gradlew :dd-sdk-android-core:testDebugUnitTest :dd-sdk-android-internal:testDebugUnitTest :features:dd-sdk-android-rum:testDebugUnitTest :features:dd-sdk-android-trace:testDebugUnitTest :features:dd-sdk-android-trace-api:testDebugUnitTest :features:dd-sdk-android-trace-internal:testDebugUnitTest :integrations:dd-sdk-android-okhttp:testDebugUnitTest --continue`
+with `if: always()` → `actions/upload-artifact` of `**/build/test-results/**/*.xml` + `**/build/reports/tests/**`. `--continue` surfaces ALL failures per run (minimizes iterations).
+*Loop:* `gh workflow run motadata-test.yml` → poll → `gh run download <id>` → `grep -rl '<failure' **/test-results` / read report → fix → commit → re-run. Repeat to green.
+*Likely failure buckets to expect (most are mechanical "update expected value"):*
+  1. **Serializer/forge tests** asserting `_dd`/`ddtags` → `_md`/`mdtags` (partially done in step 7; resource/test-fixture JSON under `src/test/resources/*.json` NOT yet touched — likely the biggest bucket).
+  2. **Version** assertions `3.10.0` → `1.0.0` (step 8 changed `AndroidConfig.VERSION`).
+  3. **String constants** tests assert: telemetry.service/meter `motadata-rum-android`, launch/background view url/id `com/motadata/...`, `MD-*` headers, `mdsource`/`mdtags`, `MD_LOG`, NTP `pool.ntp.org`, storage `motadata-%s`, thread names `motadata-*`, op names `MotadataCore.*`.
+  4. **Class/Forge references** to renamed types (should compile, but fixtures may hardcode names).
+  5. **Binary fixture** `dd-sdk-android-core/src/test/resources/logs-batch-2.2.0-and-earlier` (backward-compat deserialization) — left untouched in step 1; if a test reads it expecting `com.datadog.android`, decide: keep (it tests OLD-format compat) vs regenerate.
+
+### Phase 9C — Done criteria
+All 7 modules: `testDebugUnitTest` green + `assembleDebug` green (7 AARs) + `checkApiSurfaceChangesAll` clean (api matches code). Then mark step 9 ✅ → **Branch 1 COMPLETE** → proceed to end-to-end device test (Path A/B), then cut `motadata-dev-with-functional-changes` for Branch 2.
+
+*Decision for next session:* whether to fold the test job permanently into `motadata-build.yml` (every push runs tests) or keep it a separate `workflow_dispatch`. Recommend: separate dispatch during step 9 (faster iteration), fold in once green.
+
 ## Branch 2 — `motadata-dev-with-functional-changes` (functional additions only, cut after Branch 1)
 
 | # | Step | Status |
