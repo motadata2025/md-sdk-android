@@ -8,10 +8,11 @@ Copied here so we don't go back and forth to the Motadata repo. **Start with the
 > **Plan (single source of truth):** `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md` here. **Loop:** `WORKFLOW.md` here.
 > **Branch model:** `motadata-dev` = ALL debranding/renames only (incl. `_dd`→`_md` via in-repo JSON schemas). `motadata-dev-with-functional-changes` (cut from it) = functional ADDITIONS only (`md-api-key` query, `is_view_completed`, `session.created`, `context._timing`, public `allowClearTextHttp()`, init log).
 > **Builds:** GitHub Actions only (`gh` authed as motadata2025; `gh ... -R motadata2025/md-sdk-android`). NEVER build locally (laptop hangs). Edit → push → CI builds 7-module closure → read logs.
-> **CURRENT STATUS:** ✅ baseline 3.10.0 on `motadata-dev` builds green on CI (all 7 AARs). Branch-1 rename **NOT started yet**. **NEXT STEP:** begin the `com.datadog.android` → `com.motadata.android` package rename (plan §1A) as edits → push → confirm CI green → continue down the scrub list.
+> **CURRENT STATUS / NEXT STEP:** see **`PROGRESS.md`** (the living step-by-step tracker — updated after every step). As of now: step 1/9 (package rename) ✅ CI-green; next is step 2 (class renames, plan §1A).
 
 | File | What it is | Use it for |
 |---|---|---|
+| **`PROGRESS.md`** | 📍 Living progress tracker — status of every step (✅/🔄/⬜), commits, CI runs, decisions | **Where we are right now.** Check/update this first. |
 | **`MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`** | ⭐ The rebrand plan — every change with exact `file:line` | **The checklist we execute.** Part 1 = scrub all `datadog` (imports, in-event strings, wire, Maven); Part 2 = custom use-cases (`md-api-key`, `is_view_completed`, http/https); Parts 3-6 = verify/publish/CI. |
 | `MOTADATA_ANDROID_RUM_ONBOARDING.md` | How a customer installs & uses the rebranded SDK | The **target behavior** — what must work after rebrand (init snippet, `MotadataInterceptor` for resource events, HTTP/HTTPS, verification steps). |
 | `EVENT_TYPES.md` | Field-by-field reference of every RUM event the SDK emits | Verifying the **in-event scrub** (Part 1B) — confirm no `datadog` string lands in `view.url`, `telemetry.service`, etc. |
