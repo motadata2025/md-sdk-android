@@ -42,7 +42,7 @@ abstract class GenerateCompilerMetaTask @Inject constructor(
                 val relativePath = it.relativeTo(classesDir).path
                 it.extension == "class" &&
                     !it.name.contains("$") &&
-                    it.path.contains("datadog") &&
+                    it.path.contains("motadata") &&
                     !relativePath.contains("test", ignoreCase = true)
             }
             .firstOrNull()
