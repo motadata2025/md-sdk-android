@@ -468,7 +468,7 @@ internal class SdkFeature(
         const val NO_EVENT_RECEIVER =
             "Feature \"%s\" has no event receiver registered, ignoring event."
         internal const val TRACK_NAME = "track"
-        internal const val METER_NAME = "dd-sdk-android"
+        internal const val METER_NAME = "motadata-rum-android"
         internal const val BATCH_COUNT_METRIC_NAME = "android.benchmark.batch_count"
     }
 }

@@ -73,7 +73,7 @@ internal class BenchmarkUploads(
 
     internal companion object {
         private const val TRACK_NAME = "track"
-        private const val METER_NAME = "dd-sdk-android"
+        private const val METER_NAME = "motadata-rum-android"
         internal const val BENCHMARK_BYTES_UPLOADED = "android.benchmark.bytes_uploaded"
         internal const val BENCHMARK_UPLOAD_COUNT = "android.benchmark.upload_count"
         internal const val BENCHMARK_BYTES_WRITTEN = "android.benchmark.bytes_written"

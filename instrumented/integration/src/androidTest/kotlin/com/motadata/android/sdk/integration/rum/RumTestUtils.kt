@@ -96,7 +96,7 @@ private fun JsonObject.verifyEventMatches(event: ExpectedApplicationLaunchViewEv
             hasField("id", event.rumContext.sessionId)
         }
         .hasField("view") {
-            hasField("url", "com/datadog/application-launch/view")
+            hasField("url", "com/motadata/application-launch/view")
         }
         .hasField("_dd") {
             hasField("document_version", event.docVersion)

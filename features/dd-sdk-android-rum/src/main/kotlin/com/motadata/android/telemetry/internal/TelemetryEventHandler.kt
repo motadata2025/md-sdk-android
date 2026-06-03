@@ -598,7 +598,7 @@ internal class TelemetryEventHandler(
             "Already seen telemetry event with identity=%s, rejecting."
         const val MAX_EVENT_NUMBER_REACHED_MESSAGE =
             "Max number of telemetry events per session reached, rejecting."
-        const val TELEMETRY_SERVICE_NAME = "dd-sdk-android"
+        const val TELEMETRY_SERVICE_NAME = "motadata-rum-android"
         internal const val IS_OPENTELEMETRY_ENABLED_CONTEXT_KEY = "is_opentelemetry_enabled"
         internal const val OPENTELEMETRY_API_VERSION_CONTEXT_KEY = "opentelemetry_api_version"
         internal const val SESSION_REPLAY_SAMPLE_RATE_KEY = "session_replay_sample_rate"

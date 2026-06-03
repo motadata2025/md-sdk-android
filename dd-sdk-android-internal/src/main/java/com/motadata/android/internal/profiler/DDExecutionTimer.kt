@@ -40,7 +40,7 @@ internal class DDExecutionTimer(
 
     private companion object {
         private const val TRACK_NAME = "track"
-        private const val METER_NAME = "dd-sdk-android"
+        private const val METER_NAME = "motadata-rum-android"
         private const val BENCHMARK_RESPONSE_LATENCY = "android.benchmark.response_latency"
         private const val NANOSECONDS_IN_A_SECOND = 1_000_000_000.0
     }

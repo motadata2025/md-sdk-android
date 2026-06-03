@@ -187,7 +187,7 @@ internal class PrecomputedAssignmentsRequestFactoryTest {
 
         // Validate source
         val source = attributes.getJSONObject("source")
-        assertThat(source.getString("sdk_name")).isEqualTo("dd-sdk-android")
+        assertThat(source.getString("sdk_name")).isEqualTo("motadata-rum-android")
         assertThat(source.getString("sdk_version")).isEqualTo(fakeDatadogContext.sdkVersion)
     }
 

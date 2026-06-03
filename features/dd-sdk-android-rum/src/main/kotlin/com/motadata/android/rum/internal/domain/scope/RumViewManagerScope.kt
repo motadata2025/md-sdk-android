@@ -457,8 +457,8 @@ internal class RumViewManagerScope(
         internal const val RUM_BACKGROUND_VIEW_URL = "com/datadog/background/view"
         internal const val RUM_BACKGROUND_VIEW_NAME = "Background"
 
-        internal const val RUM_APP_LAUNCH_VIEW_ID = "com.datadog.application-launch.view"
-        internal const val RUM_APP_LAUNCH_VIEW_URL = "com/datadog/application-launch/view"
+        internal const val RUM_APP_LAUNCH_VIEW_ID = "com.motadata.application-launch.view"
+        internal const val RUM_APP_LAUNCH_VIEW_URL = "com/motadata/application-launch/view"
         internal const val RUM_APP_LAUNCH_VIEW_NAME = "ApplicationLaunch"
 
         private const val MESSAGE_GAP_BETWEEN_VIEWS = "[Mobile Metric] Gap between views"

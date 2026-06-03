@@ -144,6 +144,6 @@ internal class PrecomputedAssignmentsRequestFactory(
         private const val HEADER_CONTENT_TYPE = "Content-Type"
         private const val CONTENT_TYPE_VND_JSON = "application/vnd.api+json"
         private const val PREVIEW_CUSTOMER_DOMAIN = "preview"
-        private const val SDK_NAME = "dd-sdk-android"
+        private const val SDK_NAME = "motadata-rum-android"
     }
 }
