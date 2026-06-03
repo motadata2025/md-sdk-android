@@ -7,7 +7,7 @@
 package com.motadata.android.core.internal.data.upload
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.net.RequestExecutionContext
 import com.motadata.android.api.net.RequestFactory
 import com.motadata.android.api.storage.RawBatchEvent
@@ -98,7 +98,7 @@ internal class DataOkHttpUploaderTest {
     lateinit var fakeDeviceVersion: String
 
     @Forgery
-    lateinit var fakeContext: DatadogContext
+    lateinit var fakeContext: MotadataContext
 
     @StringForgery(regex = "https://[a-z]+\\.com/api")
     lateinit var fakeEndpoint: String
@@ -175,7 +175,7 @@ internal class DataOkHttpUploaderTest {
         fakeSystemUserAgent = if (forge.aBool()) forge.anAlphaNumericalString() else ""
         System.setProperty("http.agent", fakeSystemUserAgent)
 
-        fakeSdkUserAgent = "Datadog/$fakeSdkVersion " +
+        fakeSdkUserAgent = "Motadata/$fakeSdkVersion " +
             "(Linux; U; Android $fakeDeviceVersion; " +
             "$fakeDeviceModel Build/$fakeDeviceBuildId)"
 

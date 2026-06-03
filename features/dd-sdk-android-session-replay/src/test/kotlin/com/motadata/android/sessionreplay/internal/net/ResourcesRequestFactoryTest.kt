@@ -6,9 +6,9 @@
 
 package com.motadata.android.sessionreplay.internal.net
 
-import com.motadata.android.DatadogSite
+import com.motadata.android.MotadataSite
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.net.Request
 import com.motadata.android.api.net.RequestExecutionContext
@@ -63,13 +63,13 @@ internal class ResourcesRequestFactoryTest {
     private lateinit var fakeMediaType: MediaType
 
     @Mock
-    lateinit var mockDatadogSite: DatadogSite
+    lateinit var mockDatadogSite: MotadataSite
 
     @StringForgery
     lateinit var fakeApplicationId: String
 
     @Mock
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @Forgery
     lateinit var fakeExecutionContext: RequestExecutionContext
@@ -77,7 +77,7 @@ internal class ResourcesRequestFactoryTest {
     @BeforeEach
     fun `set up`(forge: Forge) {
         val fakeRumFeature = mapOf(APPLICATION_ID to fakeApplicationId)
-        whenever(mockDatadogSite.intakeEndpoint).thenReturn(DatadogSite.US1.toString())
+        whenever(mockDatadogSite.intakeEndpoint).thenReturn(MotadataSite.US1.toString())
         whenever(fakeDatadogContext.site).thenReturn(mockDatadogSite)
         val fakeFeaturesContext = mapOf(Feature.RUM_FEATURE_NAME to fakeRumFeature)
         whenever(fakeDatadogContext.featuresContext).thenReturn(fakeFeaturesContext)

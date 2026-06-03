@@ -46,7 +46,7 @@ import java.util.Locale
 )
 @MockitoSettings(strictness = Strictness.LENIENT)
 @ForgeConfiguration(OkHttpConfigurator::class)
-internal class DatadogInterceptorWithoutRumTest : TracingInterceptorTest() {
+internal class MotadataInterceptorWithoutRumTest : TracingInterceptorTest() {
 
     @Mock
     lateinit var mockRumAttributesProvider: RumResourceAttributesProvider
@@ -56,7 +56,7 @@ internal class DatadogInterceptorWithoutRumTest : TracingInterceptorTest() {
         globalTracerProvider: () -> DatadogTracer?,
         localTracerFactory: (SdkCore, Set<TracingHeaderType>) -> DatadogTracer
     ): TracingInterceptor {
-        return DatadogInterceptor(
+        return MotadataInterceptor(
             sdkInstanceName = null,
             tracedHosts = tracedHosts,
             tracedRequestListener = mockRequestListener,
@@ -70,7 +70,7 @@ internal class DatadogInterceptorWithoutRumTest : TracingInterceptorTest() {
     }
 
     override fun getExpectedOrigin(): String {
-        return DatadogInterceptor.ORIGIN_RUM
+        return MotadataInterceptor.ORIGIN_RUM
     }
 
     @Test
@@ -86,7 +86,7 @@ internal class DatadogInterceptorWithoutRumTest : TracingInterceptorTest() {
         mockInternalLogger.verifyLog(
             InternalLogger.Level.INFO,
             InternalLogger.Target.USER,
-            DatadogInterceptor.WARN_RUM_DISABLED.format(Locale.US, "Default SDK instance")
+            MotadataInterceptor.WARN_RUM_DISABLED.format(Locale.US, "Default SDK instance")
         )
     }
 

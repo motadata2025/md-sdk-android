@@ -7,7 +7,7 @@
 package com.motadata.android.core.internal.persistence
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.storage.EventBatchWriter
 import com.motadata.android.api.storage.RawBatchEvent
 import com.motadata.android.core.internal.data.upload.DataOkHttpUploader.Companion.HTTP_ACCEPTED
@@ -95,7 +95,7 @@ internal class ConsentAwareStorageTest {
     lateinit var mockMetricsDispatcher: MetricsDispatcher
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @StringForgery(StringForgeryType.ALPHABETICAL)
     lateinit var fakeRootDirName: String

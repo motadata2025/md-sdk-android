@@ -7,7 +7,7 @@
 package com.motadata.android.log.internal.domain
 
 import com.motadata.android.api.context.AccountInfo
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.NetworkInfo
 import com.motadata.android.api.context.UserInfo
 import com.motadata.android.core.feature.event.ThreadDump
@@ -26,7 +26,7 @@ internal interface LogGenerator {
         tags: Set<String>,
         timestamp: Long,
         threadName: String,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         attachNetworkInfo: Boolean,
         loggerName: String,
         bundleWithTraces: Boolean = true,
@@ -48,7 +48,7 @@ internal interface LogGenerator {
         tags: Set<String>,
         timestamp: Long,
         threadName: String,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         attachNetworkInfo: Boolean,
         loggerName: String,
         bundleWithTraces: Boolean = true,

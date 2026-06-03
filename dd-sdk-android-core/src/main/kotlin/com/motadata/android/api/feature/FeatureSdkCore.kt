@@ -34,7 +34,7 @@ interface FeatureSdkCore : SdkCore {
     val timeProvider: TimeProvider
 
     /**
-     * Registers a feature to this instance of the Datadog SDK.
+     * Registers a feature to this instance of the Motadata SDK.
      *
      * @param feature the feature to be registered.
      */

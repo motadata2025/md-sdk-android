@@ -6,21 +6,21 @@
 
 package com.motadata.android.core.internal
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.DeviceInfo
 import com.motadata.android.api.context.LocaleInfo
 import com.motadata.android.api.context.ProcessInfo
 import com.motadata.android.core.internal.time.composeTimeInfo
 
-internal class DatadogContextProvider(
+internal class MotadataContextProvider(
     private val coreFeature: CoreFeature,
     private val featureContextProvider: FeatureContextProvider
 ) : ContextProvider {
     @Suppress("LongMethod")
-    override fun getContext(withFeatureContexts: Set<String>): DatadogContext {
+    override fun getContext(withFeatureContexts: Set<String>): MotadataContext {
         // IMPORTANT All properties should be immutable and be frozen at the state
         // of the context construction moment
-        return DatadogContext(
+        return MotadataContext(
             site = coreFeature.site,
             clientToken = coreFeature.clientToken,
             service = coreFeature.serviceName,

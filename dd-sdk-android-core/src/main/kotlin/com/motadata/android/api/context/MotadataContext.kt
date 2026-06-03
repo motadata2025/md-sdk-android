@@ -6,14 +6,14 @@
 
 package com.motadata.android.api.context
 
-import com.motadata.android.DatadogSite
+import com.motadata.android.MotadataSite
 import com.motadata.android.privacy.TrackingConsent
 
 /**
  * Contains system information, as well as user-specific and feature specific context info.
- * @property site [Datadog Site](https://docs.datadoghq.com/getting_started/site/) for data uploads.
+ * @property site [Motadata Site](https://docs.datadoghq.com/getting_started/site/) for data uploads.
  * @property clientToken the client token allowing for data uploads to
- * [Datadog Site](https://docs.datadoghq.com/getting_started/site/).
+ * [Motadata Site](https://docs.datadoghq.com/getting_started/site/).
  * @property service the name of the service that data is generated from. Used for
  * [Unified Service Tagging](https://docs.datadoghq.com/getting_started/tagging/unified_service_tagging).
  * @property env the name of the environment that data is generated from. Used for
@@ -23,7 +23,7 @@ import com.motadata.android.privacy.TrackingConsent
  * @property versionCode the version code of the application.
  * @property variant the name of the application variant (if applies).
  * @property source denotes the mobile application's platform, such as "ios" or "flutter" that
- * data is generated from. See: Datadog [Reserved Attributes](https://docs.datadoghq.com/logs/log_configuration/attributes_naming_convention/#reserved-attributes).
+ * data is generated from. See: Motadata [Reserved Attributes](https://docs.datadoghq.com/logs/log_configuration/attributes_naming_convention/#reserved-attributes).
  * @property sdkVersion the version of SDK.
  * @property time the current time (both device and server)
  * @property processInfo information about the current process
@@ -32,12 +32,12 @@ import com.motadata.android.privacy.TrackingConsent
  * @property userInfo information about the current user
  * @property accountInfo information about the current account
  * @property trackingConsent information about the current tracking consent
- * @property appBuildId unique build ID of the running application. Will be missing if Datadog Gradle Plugin is not applied or obfuscation is not enabled for the running build.
+ * @property appBuildId unique build ID of the running application. Will be missing if Motadata Gradle Plugin is not applied or obfuscation is not enabled for the running build.
  * @property featuresContext agnostic dictionary with information from all features registered to
  * the parent SDK instance
  */
-data class DatadogContext(
-    val site: DatadogSite,
+data class MotadataContext(
+    val site: MotadataSite,
     val clientToken: String,
     val service: String,
     val env: String,

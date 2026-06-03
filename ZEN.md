@@ -42,7 +42,7 @@ This SDK lives in our customer’s applications, and is run on end users devices
 - **Start small, extend slowly**
 - **Keep new API consistent**
     - with previous APIs;
-    - with other Datadog products APIs;
+    - with other Motadata products APIs;
     - with Android community's best practices;
 - Keep backward compatibility on minor updates
 

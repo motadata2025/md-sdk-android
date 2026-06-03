@@ -292,6 +292,6 @@ private data class SwipeStartProps(val anchorState: Any, val offset: Int)
 
 private data class ScrollStartProps(val position: Int?)
 
-private const val LOG_TAG = "Datadog-Compose"
+private const val LOG_TAG = "Motadata-Compose"
 
 // endregion

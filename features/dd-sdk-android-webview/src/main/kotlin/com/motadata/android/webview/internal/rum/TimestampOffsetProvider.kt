@@ -7,14 +7,14 @@
 package com.motadata.android.webview.internal.rum
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 
 internal class TimestampOffsetProvider(private val internalLogger: InternalLogger) {
 
     internal val offsets: LinkedHashMap<String, Long> = LinkedHashMap()
 
     @Synchronized
-    internal fun getOffset(viewId: String, datadogContext: DatadogContext): Long {
+    internal fun getOffset(viewId: String, datadogContext: MotadataContext): Long {
         var offset = offsets[viewId]
         if (offset == null) {
             offset = datadogContext.time.serverTimeOffsetMs

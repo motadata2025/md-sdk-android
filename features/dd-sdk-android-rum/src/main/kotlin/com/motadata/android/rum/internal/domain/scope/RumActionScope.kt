@@ -7,7 +7,7 @@
 package com.motadata.android.rum.internal.domain.scope
 
 import androidx.annotation.WorkerThread
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.storage.DataWriter
 import com.motadata.android.core.InternalSdkCore
@@ -76,7 +76,7 @@ internal class RumActionScope(
     @WorkerThread
     override fun handleEvent(
         event: RumRawEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ): RumScope? {
@@ -130,7 +130,7 @@ internal class RumActionScope(
     @WorkerThread
     private fun onStartView(
         now: Long,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -142,7 +142,7 @@ internal class RumActionScope(
     @WorkerThread
     private fun onStopView(
         now: Long,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -153,7 +153,7 @@ internal class RumActionScope(
     @WorkerThread
     private fun onStopSession(
         now: Long,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -197,7 +197,7 @@ internal class RumActionScope(
     private fun onError(
         event: RumRawEvent.AddError,
         now: Long,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -228,7 +228,7 @@ internal class RumActionScope(
     @Suppress("LongMethod", "ComplexMethod")
     private fun sendAction(
         endNanos: Long,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {

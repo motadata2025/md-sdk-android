@@ -99,7 +99,7 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "The Profiling feature to use with the Datadog monitoring " +
+    "The Profiling feature to use with the Motadata monitoring " +
         "library for Android applications."
 )
 detektCustomConfig()

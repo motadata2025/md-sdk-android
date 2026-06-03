@@ -6,7 +6,7 @@
 
 package com.motadata.android.flags
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.flags.internal.EvaluationsFeature
@@ -29,7 +29,7 @@ object Flags {
     @JvmStatic
     fun enable(
         configuration: FlagsConfiguration = FlagsConfiguration.default,
-        sdkCore: SdkCore = Datadog.getInstance()
+        sdkCore: SdkCore = Motadata.getInstance()
     ) {
         if (configuration.trackEvaluations) {
             val evaluationsFeature = EvaluationsFeature(

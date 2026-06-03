@@ -21,7 +21,7 @@ import com.motadata.android.internal.utils.toBase64
 import kotlinx.coroutines.flow.Flow
 
 /**
- * A Datadog Apollo interceptor for GraphQL operations.
+ * A Motadata Apollo interceptor for GraphQL operations.
  * @param sendGraphQLPayloads Should GraphQL payloads be reported or not. This is disabled by default.
  */
 class DatadogApolloInterceptor(

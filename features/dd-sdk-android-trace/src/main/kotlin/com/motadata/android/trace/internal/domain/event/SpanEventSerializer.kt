@@ -7,9 +7,9 @@
 package com.motadata.android.trace.internal.domain.event
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.core.constraints.DataConstraints
-import com.motadata.android.core.constraints.DatadogDataConstraints
+import com.motadata.android.core.constraints.MotadataDataConstraints
 import com.motadata.android.internal.utils.NULL_MAP_VALUE
 import com.motadata.android.trace.internal.storage.ContextAwareSerializer
 import com.motadata.android.trace.model.SpanEvent
@@ -20,12 +20,12 @@ import java.util.Date
 
 internal class SpanEventSerializer(
     private val internalLogger: InternalLogger,
-    private val dataConstraints: DataConstraints = DatadogDataConstraints(internalLogger)
+    private val dataConstraints: DataConstraints = MotadataDataConstraints(internalLogger)
 ) : ContextAwareSerializer<SpanEvent> {
 
     // region Serializer
 
-    override fun serialize(datadogContext: DatadogContext, model: SpanEvent): String {
+    override fun serialize(datadogContext: MotadataContext, model: SpanEvent): String {
         val span = sanitizeKeys(model).toJson()
         val spans = JsonArray(1)
         spans.add(span)

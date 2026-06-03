@@ -36,9 +36,9 @@ import org.mockito.quality.Strictness
 )
 @MockitoSettings(strictness = Strictness.LENIENT)
 @ForgeConfiguration(BaseConfigurator::class)
-internal class DatadogEventListenerFactoryTest {
+internal class MotadataEventListenerFactoryTest {
 
-    lateinit var testedFactory: DatadogEventListener.Factory
+    lateinit var testedFactory: MotadataEventListener.Factory
 
     @Mock
     lateinit var mockCall: Call
@@ -56,7 +56,7 @@ internal class DatadogEventListenerFactoryTest {
 
         whenever(mockCall.request()) doReturn fakeRequest
 
-        testedFactory = DatadogEventListener.Factory()
+        testedFactory = MotadataEventListener.Factory()
     }
 
     @Test
@@ -65,7 +65,7 @@ internal class DatadogEventListenerFactoryTest {
         val result = testedFactory.create(mockCall)
 
         // Then
-        check(result is DatadogEventListener)
+        check(result is MotadataEventListener)
         @Suppress("DEPRECATION")
         assertThat(result.key).isEqualTo(fakeRequest.buildResourceId(false))
     }
@@ -75,11 +75,11 @@ internal class DatadogEventListenerFactoryTest {
         @StringForgery fakeSdkInstanceName: String
     ) {
         // When
-        val factory = DatadogEventListener.Factory(fakeSdkInstanceName)
+        val factory = MotadataEventListener.Factory(fakeSdkInstanceName)
         val result = factory.create(mockCall)
 
         // Then
-        assertThat(result).isSameAs(DatadogEventListener.Factory.NO_OP_EVENT_LISTENER)
+        assertThat(result).isSameAs(MotadataEventListener.Factory.NO_OP_EVENT_LISTENER)
     }
 
     @Test
@@ -88,7 +88,7 @@ internal class DatadogEventListenerFactoryTest {
         val result = testedFactory.create(mockCall)
 
         // Then
-        check(result is DatadogEventListener)
+        check(result is MotadataEventListener)
         assertThat(result.key.uuid).isEqualTo(null)
     }
 

@@ -6,9 +6,9 @@
 
 package com.motadata.android.flags
 
-import com.motadata.android.DatadogSite
+import com.motadata.android.MotadataSite
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.Feature.Companion.FLAGS_EVALUATIONS_FEATURE_NAME
 import com.motadata.android.api.feature.Feature.Companion.FLAGS_FEATURE_NAME
@@ -52,7 +52,7 @@ internal class FlagsTest {
     lateinit var mockInternalLogger: InternalLogger
 
     @Mock
-    lateinit var mockDatadogContext: DatadogContext
+    lateinit var mockDatadogContext: MotadataContext
 
     @StringForgery
     lateinit var fakeClientToken: String
@@ -66,7 +66,7 @@ internal class FlagsTest {
         whenever(mockSdkCore.createSingleThreadExecutorService(any())) doReturn mockExecutorService
 
         whenever(mockDatadogContext.clientToken) doReturn fakeClientToken
-        whenever(mockDatadogContext.site) doReturn DatadogSite.US1
+        whenever(mockDatadogContext.site) doReturn MotadataSite.US1
         whenever(mockDatadogContext.env) doReturn fakeEnv
         whenever(mockSdkCore.getDatadogContext()) doReturn mockDatadogContext
         whenever(mockSdkCore.getFeature(RUM_FEATURE_NAME)) doReturn mock()

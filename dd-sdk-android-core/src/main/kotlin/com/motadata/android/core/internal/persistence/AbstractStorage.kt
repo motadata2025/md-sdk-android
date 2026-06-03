@@ -9,7 +9,7 @@ package com.motadata.android.core.internal.persistence
 import androidx.annotation.AnyThread
 import androidx.annotation.WorkerThread
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.storage.EventBatchWriter
 import com.motadata.android.api.storage.EventType
@@ -63,7 +63,7 @@ internal class AbstractStorage(
 
     @AnyThread
     override fun getEventWriteScope(
-        datadogContext: DatadogContext
+        datadogContext: MotadataContext
     ): EventWriteScope {
         val strategy = resolvePersistenceStrategy(datadogContext)
         val writer = object : EventBatchWriter {
@@ -82,7 +82,7 @@ internal class AbstractStorage(
         return AsyncEventWriteScope(executorService, writer, writeLock, featureName, internalLogger)
     }
 
-    private fun resolvePersistenceStrategy(datadogContext: DatadogContext) =
+    private fun resolvePersistenceStrategy(datadogContext: MotadataContext) =
         when (datadogContext.trackingConsent) {
             TrackingConsent.GRANTED -> grantedPersistenceStrategy
             TrackingConsent.PENDING -> pendingPersistenceStrategy

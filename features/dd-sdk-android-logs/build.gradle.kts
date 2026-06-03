@@ -84,7 +84,7 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "The Logs feature to use with the Datadog monitoring " +
+    "The Logs feature to use with the Motadata monitoring " +
         "library for Android applications."
 )
 detektCustomConfig()

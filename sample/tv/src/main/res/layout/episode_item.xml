@@ -19,6 +19,6 @@
         android:padding="8dp"
         android:textColor="@color/text_default"
         android:textStyle="bold"
-        tools:text="Datadog on Android Layout" />
+        tools:text="Motadata on Android Layout" />
 
 </FrameLayout>

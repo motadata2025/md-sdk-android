@@ -42,7 +42,7 @@ internal class FlagsClientExtTest {
 
         // Then
         assertThat(result).isInstanceOf(DatadogFlagsProvider::class.java)
-        assertThat(result.metadata.name).isEqualTo("Datadog Feature Flags Provider")
+        assertThat(result.metadata.name).isEqualTo("Motadata Feature Flags Provider")
     }
 
     @Test

@@ -143,7 +143,7 @@ internal class DatadogExceptionHandler(
         internal const val MESSAGE = "Application crash detected"
         internal const val MAX_WAIT_FOR_IDLE_TIME_IN_MS = 100L
         internal const val EXECUTOR_NOT_IDLED_WARNING_MESSAGE =
-            "Datadog SDK is in an unexpected state due to an ongoing crash. " +
+            "Motadata SDK is in an unexpected state due to an ongoing crash. " +
                 "Some events could be lost."
         internal const val MISSING_RUM_FEATURE_INFO =
             "RUM feature is not registered, won't report crash as RUM event."

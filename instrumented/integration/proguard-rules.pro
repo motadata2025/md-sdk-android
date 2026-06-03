@@ -6,8 +6,8 @@
 # Required for some Kotlin-jvm implementation using reflection
 -keepnames class kotlin.jvm.** { *; }
 
-# Required because we need access to Datadog.stop() by reflection
--keepnames class com.motadata.android.Datadog {
+# Required because we need access to Motadata.stop() by reflection
+-keepnames class com.motadata.android.Motadata {
     *;
 }
 

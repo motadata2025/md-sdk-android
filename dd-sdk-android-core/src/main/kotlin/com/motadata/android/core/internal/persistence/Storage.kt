@@ -8,7 +8,7 @@ package com.motadata.android.core.internal.persistence
 
 import androidx.annotation.AnyThread
 import androidx.annotation.WorkerThread
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.core.internal.metrics.RemovalReason
 import com.datadog.tools.annotation.NoOpImplementation
@@ -25,7 +25,7 @@ internal interface Storage {
      */
     @AnyThread
     fun getEventWriteScope(
-        datadogContext: DatadogContext
+        datadogContext: MotadataContext
     ): EventWriteScope
 
     /**

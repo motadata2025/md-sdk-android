@@ -336,11 +336,11 @@ public class W3CHttpCodec {
             if ((contextPriority == SAMPLER_DROP && ptagsPriority > 0)
                     || (contextPriority == SAMPLER_KEEP && ptagsPriority <= 0)
                     || ptagsPriority == PrioritySampling.UNSET) {
-                // Override Datadog sampling priority with W3C one
+                // Override Motadata sampling priority with W3C one
                 this.propagationTags.updateTraceSamplingPriority(
                         contextPriority, SamplingMechanism.EXTERNAL_OVERRIDE);
             } else {
-                // Use more detailed Datadog sampling priority in context
+                // Use more detailed Motadata sampling priority in context
                 this.samplingPriority = ptagsPriority;
             }
             // Use the origin

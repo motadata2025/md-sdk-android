@@ -112,7 +112,7 @@ public final class TracerConfig {
       "trace.sampling.mechanism.validation.disabled";
 
   /**
-   * Limit for x-datadog-tags. When exceeded it will stop propagating Datadog tags and will log a
+   * Limit for x-datadog-tags. When exceeded it will stop propagating Motadata tags and will log a
    * warning.
    */
   public static final String TRACE_X_DATADOG_TAGS_MAX_LENGTH = "trace.x-datadog-tags.max.length";

@@ -6,7 +6,7 @@
 
 package com.motadata.android.core
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.core.internal.DatadogCore
 import fr.xgouchet.elmyr.annotation.IntForgery
 import fr.xgouchet.elmyr.annotation.StringForgery
@@ -33,12 +33,12 @@ internal class SdkReferenceTest {
 
     @BeforeEach
     fun `set up`() {
-        Datadog.registry.register(null, mockSdkCore)
+        Motadata.registry.register(null, mockSdkCore)
     }
 
     @AfterEach
     fun `tear down`() {
-        Datadog.registry.clear()
+        Motadata.registry.clear()
     }
 
     @Test

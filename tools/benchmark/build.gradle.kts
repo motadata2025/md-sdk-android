@@ -60,6 +60,6 @@ junitConfig()
 dependencyUpdateConfig()
 androidLibraryConfig()
 publishingConfig(
-    projectDescription = "An internal benchmarking tool to measure the overhead of Datadog SDK",
+    projectDescription = "An internal benchmarking tool to measure the overhead of Motadata SDK",
     customArtifactId = "dd-sdk-android-benchmark-internal"
 )

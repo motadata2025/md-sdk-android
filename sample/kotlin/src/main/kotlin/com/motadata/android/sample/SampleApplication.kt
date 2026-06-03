@@ -13,8 +13,8 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
-import com.motadata.android.Datadog
-import com.motadata.android.DatadogSite
+import com.motadata.android.Motadata
+import com.motadata.android.MotadataSite
 import com.motadata.android.compose.enableComposeActionTracking
 import com.motadata.android.core.configuration.BackPressureMitigation
 import com.motadata.android.core.configuration.BackPressureStrategy
@@ -163,8 +163,8 @@ class SampleApplication : Application() {
 
     private fun initializeDatadog() {
         val preferences = Preferences.defaultPreferences(this)
-        Datadog.setVerbosity(Log.VERBOSE)
-        Datadog.initialize(
+        Motadata.setVerbosity(Log.VERBOSE)
+        Motadata.initialize(
             this,
             createDatadogConfiguration(),
             preferences.getTrackingConsent()
@@ -195,7 +195,7 @@ class SampleApplication : Application() {
     }
 
     private fun initializeUserInfo(preferences: Preferences.DefaultPreferences) {
-        Datadog.setUserInfo(
+        Motadata.setUserInfo(
             id = preferences.getUserId() ?: "unknown",
             name = preferences.getUserName(),
             email = preferences.getUserEmail(),
@@ -208,7 +208,7 @@ class SampleApplication : Application() {
 
     private fun initializeAccountInfo(preferences: Preferences.DefaultPreferences) {
         preferences.getAccountId()?.let { id ->
-            Datadog.setAccountInfo(
+            Motadata.setAccountInfo(
                 id = id,
                 name = preferences.getAccountName(),
                 extraInfo = mapOf(
@@ -239,7 +239,7 @@ class SampleApplication : Application() {
     }
 
     private fun initializeFlags() {
-        // Enable Datadog Flags feature
+        // Enable Motadata Flags feature
         val flagsConfig = FlagsConfiguration.Builder().build()
         Flags.enable(flagsConfig)
 
@@ -442,7 +442,7 @@ class SampleApplication : Application() {
             .setUploadFrequency(UploadFrequency.FREQUENT)
 
         try {
-            configBuilder.useSite(DatadogSite.valueOf(BuildConfig.DD_SITE_NAME))
+            configBuilder.useSite(MotadataSite.valueOf(BuildConfig.DD_SITE_NAME))
         } catch (e: IllegalArgumentException) {
             Timber.e("Error setting site to ${BuildConfig.DD_SITE_NAME}")
         }

@@ -1,4 +1,4 @@
-# Datadog Android Native Crash Collection
+# Motadata Android Native Crash Collection
 
 Send crash report for issues rising from the C/C++ code in your application.
 

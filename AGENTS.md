@@ -91,7 +91,7 @@ Shared factories: `forge.useCoreFactories()` (from `dd-sdk-android-core` testFix
 
 # Sample App Config
 
-The sample app reads credentials from gitignored JSON files in `config/`. Missing files don't break the build (empty strings are used), but the app won't send data to Datadog. Schema (from `buildSrc/.../SampleAppConfig.kt`):
+The sample app reads credentials from gitignored JSON files in `config/`. Missing files don't break the build (empty strings are used), but the app won't send data to Motadata. Schema (from `buildSrc/.../SampleAppConfig.kt`):
 
 ```json
 {
@@ -106,7 +106,7 @@ The sample app reads credentials from gitignored JSON files in `config/`. Missin
 }
 ```
 
-Filename matches the flavor: `config/us1.json`, `config/staging.json`, etc. Get credentials from your Datadog org.
+Filename matches the flavor: `config/us1.json`, `config/staging.json`, etc. Get credentials from your Motadata org.
 
 # Generated Models
 

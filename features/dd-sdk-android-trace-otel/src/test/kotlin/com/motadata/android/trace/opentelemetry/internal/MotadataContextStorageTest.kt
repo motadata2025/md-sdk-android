@@ -25,9 +25,9 @@ import org.mockito.quality.Strictness
     ExtendWith(MockitoExtension::class)
 )
 @MockitoSettings(strictness = Strictness.LENIENT)
-internal class DatadogContextStorageTest {
+internal class MotadataContextStorageTest {
 
-    lateinit var testedStorage: DatadogContextStorage
+    lateinit var testedStorage: MotadataContextStorage
 
     @Mock
     lateinit var mockWrappedStorage: ContextStorage
@@ -38,7 +38,7 @@ internal class DatadogContextStorageTest {
     @BeforeEach
     fun `set up`() {
         whenever(mockWrappedStorage.current()).thenReturn(mockCurrentContext)
-        testedStorage = DatadogContextStorage(mockWrappedStorage)
+        testedStorage = MotadataContextStorage(mockWrappedStorage)
     }
 
     // region current

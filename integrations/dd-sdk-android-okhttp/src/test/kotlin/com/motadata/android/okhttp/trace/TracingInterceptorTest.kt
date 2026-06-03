@@ -7,7 +7,7 @@ package com.motadata.android.okhttp.trace
 
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.core.internal.net.DefaultFirstPartyHostHeaderTypeResolver
 import com.motadata.android.core.sampling.Sampler
@@ -1610,9 +1610,9 @@ internal open class TracingInterceptorTest {
     }
 
     @Test
-    fun `M blocks on DatadogContext future W intercept { new values intersects existing values }`() {
+    fun `M blocks on MotadataContext future W intercept { new values intersects existing values }`() {
         // Given
-        val mockFuture = mock<Future<DatadogContext>>()
+        val mockFuture = mock<Future<MotadataContext>>()
         fakeRequest = forgeRequest()
         whenever(mockSpan.getTag(DATADOG_INITIAL_CONTEXT)).thenReturn(mockFuture)
         whenever(mockResolver.isFirstPartyUrl(fakeUrl.toHttpUrl())).thenReturn(true)

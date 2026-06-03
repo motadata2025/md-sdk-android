@@ -8,7 +8,7 @@ package com.motadata.android.core.internal.data.upload
 
 import androidx.annotation.WorkerThread
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.NetworkInfo
 import com.motadata.android.api.storage.RawBatchEvent
 import com.motadata.android.core.configuration.UploadSchedulerStrategy
@@ -75,7 +75,7 @@ internal class DataUploadRunnable(
 
     @WorkerThread
     @Suppress("UnsafeThirdPartyFunctionCall") // called inside a dedicated executor
-    private fun handleNextBatch(context: DatadogContext): UploadStatus? {
+    private fun handleNextBatch(context: MotadataContext): UploadStatus? {
         var uploadStatus: UploadStatus? = null
         val nextBatchData = storage.readNextBatch()
         if (nextBatchData != null) {
@@ -115,7 +115,7 @@ internal class DataUploadRunnable(
 
     @WorkerThread
     private fun consumeBatch(
-        context: DatadogContext,
+        context: MotadataContext,
         batchId: BatchId,
         batch: List<RawBatchEvent>,
         batchMeta: ByteArray?

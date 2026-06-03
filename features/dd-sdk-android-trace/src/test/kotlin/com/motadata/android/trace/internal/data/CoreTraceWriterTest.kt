@@ -7,7 +7,7 @@
 package com.motadata.android.trace.internal.data
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureScope
@@ -96,7 +96,7 @@ internal class CoreTraceWriterTest {
     lateinit var mockEventWriteScope: EventWriteScope
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     // region Unit Tests
 
@@ -113,7 +113,7 @@ internal class CoreTraceWriterTest {
             callback.invoke(mockEventBatchWriter)
         }
         whenever(mockTracingFeatureScope.withWriteContext(eq(emptySet()), any())) doAnswer {
-            val callback = it.getArgument<(DatadogContext, EventWriteScope) -> Unit>(it.arguments.lastIndex)
+            val callback = it.getArgument<(MotadataContext, EventWriteScope) -> Unit>(it.arguments.lastIndex)
             callback.invoke(fakeDatadogContext, mockEventWriteScope)
         }
 
@@ -203,7 +203,7 @@ internal class CoreTraceWriterTest {
     ) {
         // GIVEN
         val fakeInitialDatadogContext = forge.aDatadogContextWithRumContext(emptyMap())
-        val fakeLazyContext = mock<Future<DatadogContext>> { on { get() } doReturn fakeInitialDatadogContext }
+        val fakeLazyContext = mock<Future<MotadataContext>> { on { get() } doReturn fakeInitialDatadogContext }
         val ddSpans = createNonEmptyDdSpans(forge, includeDropSamplingPriority = false).map { span ->
             span.withLazyContext(fakeLazyContext)
         }
@@ -230,11 +230,11 @@ internal class CoreTraceWriterTest {
     }
 
     @Test
-    fun `M write spans W write() { without RUM context, lazy Datadog context is not complete }`(
+    fun `M write spans W write() { without RUM context, lazy Motadata context is not complete }`(
         forge: Forge
     ) {
         // GIVEN
-        val fakeLazyContext = mock<Future<DatadogContext>> { on { get() } doReturn null }
+        val fakeLazyContext = mock<Future<MotadataContext>> { on { get() } doReturn null }
         val ddSpans = createNonEmptyDdSpans(forge, includeDropSamplingPriority = false).map { span ->
             span.withLazyContext(fakeLazyContext)
         }
@@ -267,7 +267,7 @@ internal class CoreTraceWriterTest {
     }
 
     @Test
-    fun `M write spans W write() { without RUM context, lazy Datadog context is of wrong type }`(
+    fun `M write spans W write() { without RUM context, lazy Motadata context is of wrong type }`(
         forge: Forge
     ) {
         // GIVEN

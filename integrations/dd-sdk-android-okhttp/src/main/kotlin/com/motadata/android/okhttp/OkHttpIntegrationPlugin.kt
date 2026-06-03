@@ -28,8 +28,8 @@ import okhttp3.EventListener
 import okhttp3.OkHttpClient
 
 /**
- * Configures Datadog network instrumentation on this [OkHttpClient.Builder].
- * Returns a [OkHttpIntegrationPlugin] that applies the configured Datadog instrumentation when
+ * Configures Motadata network instrumentation on this [OkHttpClient.Builder].
+ * Returns a [OkHttpIntegrationPlugin] that applies the configured Motadata instrumentation when
  * [OkHttpIntegrationPlugin.build] is called.
  *
  * @param apmInstrumentationConfiguration optional APM tracing configuration. When provided, trace spans
@@ -46,7 +46,7 @@ internal fun OkHttpClient.Builder.configureDatadogInstrumentation(
 ) = OkHttpIntegrationPlugin(this, rumInstrumentationConfiguration, apmInstrumentationConfiguration)
 
 /**
- * Plugin that applies Datadog RUM and APM instrumentation to an [OkHttpClient.Builder].
+ * Plugin that applies Motadata RUM and APM instrumentation to an [OkHttpClient.Builder].
  * Use [OkHttpClient.Builder.configureDatadogInstrumentation] after finishing builder
  * configuration, then call [build] to produce an instrumented [OkHttpClient].
  */
@@ -60,7 +60,7 @@ class OkHttpIntegrationPlugin internal constructor(
     private var builtClient: OkHttpClient? = null
 
     /**
-     * Builds the [OkHttpClient] with Datadog instrumentation applied.
+     * Builds the [OkHttpClient] with Motadata instrumentation applied.
      * @return an instrumented [OkHttpClient] instance.
      */
     @Suppress("ReturnCount")
@@ -74,7 +74,7 @@ class OkHttpIntegrationPlugin internal constructor(
 
         if (apmInstrumentation == null && rumInstrumentation == null) {
             internalLogger.logToUser(InternalLogger.Level.WARN) {
-                "Datadog network instrumentation configuration is incorrect: " +
+                "Motadata network instrumentation configuration is incorrect: " +
                     "both RUM and APM instrumentations are null."
             }
             return delegate.buildIdempotently()

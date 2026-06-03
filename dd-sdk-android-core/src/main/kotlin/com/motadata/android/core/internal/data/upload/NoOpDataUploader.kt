@@ -6,13 +6,13 @@
 
 package com.motadata.android.core.internal.data.upload
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.storage.RawBatchEvent
 import com.motadata.android.core.internal.persistence.BatchId
 
 internal class NoOpDataUploader : DataUploader {
     override fun upload(
-        context: DatadogContext,
+        context: MotadataContext,
         batch: List<RawBatchEvent>,
         batchMeta: ByteArray?,
         batchId: BatchId?

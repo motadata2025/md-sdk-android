@@ -7,7 +7,7 @@
 package com.motadata.android.rum.internal.startup
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.storage.DataWriter
@@ -27,7 +27,7 @@ internal interface RumSessionScopeStartupManager {
 
     fun onTTIDEvent(
         event: RumRawEvent.AppStartTTIDEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>,
         rumContext: RumContext,
@@ -36,7 +36,7 @@ internal interface RumSessionScopeStartupManager {
 
     fun onTTFDEvent(
         event: RumRawEvent.AppStartTTFDEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>,
         rumContext: RumContext,
@@ -85,7 +85,7 @@ internal class RumSessionScopeStartupManagerImpl(
 
     override fun onTTIDEvent(
         event: RumRawEvent.AppStartTTIDEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>,
         rumContext: RumContext,
@@ -157,7 +157,7 @@ internal class RumSessionScopeStartupManagerImpl(
     @Suppress("ReturnCount")
     override fun onTTFDEvent(
         event: RumRawEvent.AppStartTTFDEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>,
         rumContext: RumContext,
@@ -213,7 +213,7 @@ internal class RumSessionScopeStartupManagerImpl(
     }
 
     private fun sendTTFDEvent(
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>,
         rumContext: RumContext,
@@ -252,7 +252,7 @@ internal class RumSessionScopeStartupManagerImpl(
     }
 
     private fun sendTTIDEvent(
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>,
         ttidEvent: VitalAppLaunchEvent
@@ -278,7 +278,7 @@ internal class RumSessionScopeStartupManagerImpl(
         }.submit()
     }
 
-    private fun DatadogContext.getProfilingStatus(): VitalAppLaunchEvent.ProfilingStatus? {
+    private fun MotadataContext.getProfilingStatus(): VitalAppLaunchEvent.ProfilingStatus? {
         val isProfilerRunning = featuresContext[Feature.PROFILING_FEATURE_NAME]
             ?.get(PROFILER_IS_RUNNING)
         return if (isProfilerRunning == true) VitalAppLaunchEvent.ProfilingStatus.RUNNING else null

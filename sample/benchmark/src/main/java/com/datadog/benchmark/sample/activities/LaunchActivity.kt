@@ -44,7 +44,7 @@ internal class LaunchActivity : AppCompatActivity() {
         benchmarkConfigHolder.config = config
 
         /**
-         * The general recommendation is to initialize Datadog SDK at the Application.onCreate
+         * The general recommendation is to initialize Motadata SDK at the Application.onCreate
          * to have all the observability as early as possible. However in the Benchmark app we know what kind of run we
          * have [SyntheticsRun.Instrumented] or [SyntheticsRun.Baseline] only in [LaunchActivity.onCreate].
          * It is derived from intent extras.

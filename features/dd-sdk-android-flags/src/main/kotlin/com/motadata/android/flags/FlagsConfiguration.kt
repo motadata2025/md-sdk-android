@@ -60,7 +60,7 @@ data class FlagsConfiguration internal constructor(
         /**
          * Sets a custom endpoint URL for sending exposure events.
          *
-         * By default, exposure events are sent to the standard Datadog intake endpoint.
+         * By default, exposure events are sent to the standard Motadata intake endpoint.
          * Use this method to override the endpoint URL for testing or proxy purposes.
          *
          * @param endpoint The custom endpoint URL to use for exposure event uploads.
@@ -74,7 +74,7 @@ data class FlagsConfiguration internal constructor(
         /**
          * Sets a custom endpoint URL for sending evaluation events.
          *
-         * By default, evaluation events are sent to the standard Datadog intake endpoint.
+         * By default, evaluation events are sent to the standard Motadata intake endpoint.
          * Use this method to override the endpoint URL for testing or proxy purposes.
          *
          * @param endpoint The custom endpoint URL to use for evaluation event uploads.
@@ -104,7 +104,7 @@ data class FlagsConfiguration internal constructor(
 
         /**
          * Sets a custom endpoint URL for fetching precomputed flag assignments.
-         * If not called, flag assignments will be fetched from Datadog's default endpoint.
+         * If not called, flag assignments will be fetched from Motadata's default endpoint.
          *
          * @param endpoint The full endpoint URL, e.g., https://dd-flags-proxy.example.com/flags.
          *                 If null, the default endpoint will be used.
@@ -179,8 +179,8 @@ data class FlagsConfiguration internal constructor(
          * This configuration has:
          * - Exposure tracking enabled
          * - Evaluation tracking enabled
-         * - No custom endpoint URL (uses standard Datadog intake)
-         * - No custom flag endpoint URL (uses standard Datadog edge assignment endpoint)
+         * - No custom endpoint URL (uses standard Motadata intake)
+         * - No custom flag endpoint URL (uses standard Motadata edge assignment endpoint)
          */
         internal val default = Builder().build()
     }

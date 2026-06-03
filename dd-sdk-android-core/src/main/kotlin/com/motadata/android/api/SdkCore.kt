@@ -12,7 +12,7 @@ import com.motadata.android.api.context.UserInfo
 import com.motadata.android.privacy.TrackingConsent
 
 /**
- * SdkCore is the entry point to register Datadog features to the core registry.
+ * SdkCore is the entry point to register Motadata features to the core registry.
  */
 @Suppress("ComplexInterface", "TooManyFunctions")
 interface SdkCore {
@@ -39,7 +39,7 @@ interface SdkCore {
     fun isCoreActive(): Boolean
 
     /**
-     * Sets the tracking consent regarding the data collection for this instance of the Datadog SDK.
+     * Sets the tracking consent regarding the data collection for this instance of the Motadata SDK.
      *
      * @param consent which can take one of the values
      * ([TrackingConsent.PENDING], [TrackingConsent.GRANTED], [TrackingConsent.NOT_GRANTED])

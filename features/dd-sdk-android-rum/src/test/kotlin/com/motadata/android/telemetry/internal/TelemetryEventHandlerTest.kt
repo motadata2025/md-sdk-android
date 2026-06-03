@@ -7,7 +7,7 @@
 package com.motadata.android.telemetry.internal
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.DeviceInfo
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
@@ -131,7 +131,7 @@ internal class TelemetryEventHandlerTest {
     lateinit var sessionEndedMetricDispatcher: SessionMetricDispatcher
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @Forgery
     lateinit var fakeRumContext: RumContext
@@ -214,7 +214,7 @@ internal class TelemetryEventHandlerTest {
                 any()
             )
         ) doAnswer {
-            val callback = it.getArgument<(DatadogContext, EventWriteScope) -> Unit>(it.arguments.lastIndex)
+            val callback = it.getArgument<(MotadataContext, EventWriteScope) -> Unit>(it.arguments.lastIndex)
             callback.invoke(fakeDatadogContext, mockEventWriteScope)
         }
         whenever(mockSdkCore.internalLogger) doReturn mockInternalLogger

@@ -6,9 +6,9 @@
 
 package com.motadata.android.trace.internal.domain.event
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 
 internal interface ContextAwareMapper<R, T> {
 
-    fun map(datadogContext: DatadogContext, model: R): T
+    fun map(datadogContext: MotadataContext, model: R): T
 }

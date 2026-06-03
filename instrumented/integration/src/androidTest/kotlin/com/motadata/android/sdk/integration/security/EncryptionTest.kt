@@ -9,7 +9,7 @@ package com.motadata.android.sdk.integration.security
 import android.util.Log
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.core.configuration.Configuration
 import com.motadata.android.log.Logger
 import com.motadata.android.log.Logs
@@ -58,9 +58,9 @@ internal class EncryptionTest {
 
         val configuration = createSdkConfiguration()
 
-        Datadog.setVerbosity(Log.VERBOSE)
+        Motadata.setVerbosity(Log.VERBOSE)
         val sdkCore =
-            Datadog.initialize(targetContext, configuration, TrackingConsent.PENDING)
+            Motadata.initialize(targetContext, configuration, TrackingConsent.PENDING)
         checkNotNull(sdkCore)
         val featureActivations = mutableListOf(
             {
@@ -200,7 +200,7 @@ internal class EncryptionTest {
     }
 
     private fun stopSdk() {
-        Datadog.stopInstance()
+        Motadata.stopInstance()
         GlobalDatadogTracer.clear()
     }
 
@@ -209,9 +209,9 @@ internal class EncryptionTest {
     }
 
     private fun invokeDatadogMethod(method: String, vararg arguments: Any?) {
-        val instance = Datadog.javaClass.getDeclaredField("INSTANCE")
+        val instance = Motadata.javaClass.getDeclaredField("INSTANCE")
         instance.isAccessible = true
-        val callMethod = Datadog.javaClass.declaredMethods.first { it.name.startsWith(method) }
+        val callMethod = Motadata.javaClass.declaredMethods.first { it.name.startsWith(method) }
         callMethod.isAccessible = true
         callMethod.invoke(instance.get(null), *arguments)
     }

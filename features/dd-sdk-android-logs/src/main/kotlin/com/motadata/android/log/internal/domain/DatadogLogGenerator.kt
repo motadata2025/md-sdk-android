@@ -8,7 +8,7 @@ package com.motadata.android.log.internal.domain
 
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.context.AccountInfo
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.DeviceInfo
 import com.motadata.android.api.context.DeviceType
 import com.motadata.android.api.context.NetworkInfo
@@ -24,7 +24,7 @@ import java.util.Locale
 @Suppress("TooManyFunctions")
 internal class DatadogLogGenerator(
     /**
-     * Custom service name. If not provided, value will be taken from [DatadogContext].
+     * Custom service name. If not provided, value will be taken from [MotadataContext].
      */
     internal val serviceName: String? = null,
     private val internalLogger: InternalLogger
@@ -41,7 +41,7 @@ internal class DatadogLogGenerator(
         tags: Set<String>,
         timestamp: Long,
         threadName: String,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         attachNetworkInfo: Boolean,
         loggerName: String,
         bundleWithTraces: Boolean,
@@ -99,7 +99,7 @@ internal class DatadogLogGenerator(
         tags: Set<String>,
         timestamp: Long,
         threadName: String,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         attachNetworkInfo: Boolean,
         loggerName: String,
         bundleWithTraces: Boolean,
@@ -152,7 +152,7 @@ internal class DatadogLogGenerator(
         tags: Set<String>,
         timestamp: Long,
         threadName: String,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         attachNetworkInfo: Boolean,
         loggerName: String,
         bundleWithTraces: Boolean,
@@ -240,7 +240,7 @@ internal class DatadogLogGenerator(
         DeviceType.OTHER -> LogEvent.Type.OTHER
     }
 
-    private fun envTag(datadogContext: DatadogContext): String? {
+    private fun envTag(datadogContext: MotadataContext): String? {
         val envName = datadogContext.env
         return if (envName.isNotEmpty()) {
             "${LogAttributes.ENV}:$envName"
@@ -249,7 +249,7 @@ internal class DatadogLogGenerator(
         }
     }
 
-    private fun appVersionTag(datadogContext: DatadogContext): String? {
+    private fun appVersionTag(datadogContext: MotadataContext): String? {
         val appVersion = datadogContext.version
         return if (appVersion.isNotEmpty()) {
             "${LogAttributes.APPLICATION_VERSION}:$appVersion"
@@ -258,7 +258,7 @@ internal class DatadogLogGenerator(
         }
     }
 
-    private fun variantTag(datadogContext: DatadogContext): String? {
+    private fun variantTag(datadogContext: MotadataContext): String? {
         val variant = datadogContext.variant
         return if (variant.isNotEmpty()) {
             "${LogAttributes.VARIANT}:$variant"
@@ -267,7 +267,7 @@ internal class DatadogLogGenerator(
         }
     }
 
-    private fun serviceTag(datadogContext: DatadogContext): String? {
+    private fun serviceTag(datadogContext: MotadataContext): String? {
         val service = serviceName ?: datadogContext.service
         return if (service.isNotEmpty()) {
             "${LogAttributes.SERVICE}:$service"
@@ -277,7 +277,7 @@ internal class DatadogLogGenerator(
     }
 
     private fun resolveNetworkInfo(
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         networkInfo: NetworkInfo?
     ): LogEvent.Network {
         return with(networkInfo ?: datadogContext.networkInfo) {
@@ -293,7 +293,7 @@ internal class DatadogLogGenerator(
         }
     }
 
-    private fun resolveUserInfo(datadogContext: DatadogContext, userInfo: UserInfo?): LogEvent.Usr {
+    private fun resolveUserInfo(datadogContext: MotadataContext, userInfo: UserInfo?): LogEvent.Usr {
         return with(userInfo ?: datadogContext.userInfo) {
             LogEvent.Usr(
                 anonymousId = anonymousId,
@@ -306,7 +306,7 @@ internal class DatadogLogGenerator(
     }
 
     private fun resolveAccountInfo(
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         accountInfo: AccountInfo?
     ): LogEvent.Account? {
         return (accountInfo ?: datadogContext.accountInfo)?.let {
@@ -319,7 +319,7 @@ internal class DatadogLogGenerator(
     }
 
     private fun resolveTags(
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         tags: Set<String>
     ): MutableSet<String> {
         val combinedTags = tags
@@ -339,7 +339,7 @@ internal class DatadogLogGenerator(
             }
             .toMutableSet()
 
-        // when doing changes below check also DatadogDataConstraints.reservedTagKeys
+        // when doing changes below check also MotadataDataConstraints.reservedTagKeys
         envTag(datadogContext)?.let {
             combinedTags.add(it)
         }
@@ -357,7 +357,7 @@ internal class DatadogLogGenerator(
     }
 
     private fun resolveAttributes(
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         attributes: Map<String, Any?>,
         bundleWithTraces: Boolean,
         threadName: String,

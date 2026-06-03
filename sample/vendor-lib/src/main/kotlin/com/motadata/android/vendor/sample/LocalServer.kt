@@ -8,8 +8,8 @@ package com.motadata.android.vendor.sample
 
 import android.content.Context
 import android.util.Log
-import com.motadata.android.Datadog
-import com.motadata.android.DatadogSite
+import com.motadata.android.Motadata
+import com.motadata.android.MotadataSite
 import com.motadata.android.core.configuration.BatchSize
 import com.motadata.android.core.configuration.Configuration
 import com.motadata.android.core.configuration.UploadFrequency
@@ -54,24 +54,24 @@ public class LocalServer {
      * @param context the application context
      */
     fun init(context: Context) {
-        Datadog.setVerbosity(Log.VERBOSE)
+        Motadata.setVerbosity(Log.VERBOSE)
         val configuration = Configuration.Builder(
             clientToken = BuildConfig.DD_CLIENT_TOKEN,
             env = "prod",
             service = SERVICE_NAME
         )
-            .useSite(DatadogSite.US1)
+            .useSite(MotadataSite.US1)
             .setBatchSize(BatchSize.SMALL)
             .setUploadFrequency(UploadFrequency.FREQUENT)
             .build()
 
-        Datadog.initialize(
+        Motadata.initialize(
             DATADOG_INSTANCE_ID,
             context,
             configuration,
             TrackingConsent.GRANTED
         )
-        val instance = Datadog.getInstance(DATADOG_INSTANCE_ID)
+        val instance = Motadata.getInstance(DATADOG_INSTANCE_ID)
         instance.setUserInfo(id = context.packageName)
         instance.setAccountInfo(id = context.packageName)
 

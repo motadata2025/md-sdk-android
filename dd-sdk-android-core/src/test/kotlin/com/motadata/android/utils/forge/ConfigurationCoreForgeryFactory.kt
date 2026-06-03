@@ -6,7 +6,7 @@
 
 package com.motadata.android.utils.forge
 
-import com.motadata.android.DatadogSite
+import com.motadata.android.MotadataSite
 import com.motadata.android.core.configuration.BackPressureMitigation
 import com.motadata.android.core.configuration.BackPressureStrategy
 import com.motadata.android.core.configuration.Configuration
@@ -47,7 +47,7 @@ internal class ConfigurationCoreForgeryFactory :
             proxy = proxy,
             proxyAuth = auth,
             encryption = forge.aNullable { NoOpEncryption() },
-            site = forge.aValueFrom(DatadogSite::class.java),
+            site = forge.aValueFrom(MotadataSite::class.java),
             batchProcessingLevel = forge.getForgery(),
             persistenceStrategyFactory = forge.aNullable {
                 mock<PersistenceStrategy.Factory>().apply {

@@ -7,7 +7,7 @@
 package com.motadata.android.core.internal.data.upload
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.NetworkInfo
 import com.motadata.android.api.storage.RawBatchEvent
 import com.motadata.android.core.configuration.UploadSchedulerStrategy
@@ -91,7 +91,7 @@ internal class DataUploadRunnableTest {
     lateinit var mockUploadSchedulerStrategy: UploadSchedulerStrategy
 
     @Forgery
-    lateinit var fakeContext: DatadogContext
+    lateinit var fakeContext: MotadataContext
 
     @IntForgery(min = 1, max = 4)
     var fakeMaxBatchesPerJob: Int = 0

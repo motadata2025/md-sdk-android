@@ -37,7 +37,7 @@ import java.util.Locale
 )
 @MockitoSettings
 @ForgeConfiguration(Configurator::class)
-internal class DatadogDataConstraintsTest {
+internal class MotadataDataConstraintsTest {
 
     lateinit var testedConstraints: DataConstraints
 
@@ -46,7 +46,7 @@ internal class DatadogDataConstraintsTest {
 
     @BeforeEach
     fun `set up`() {
-        testedConstraints = DatadogDataConstraints(mockInternalLogger)
+        testedConstraints = MotadataDataConstraints(mockInternalLogger)
     }
 
     // region Tags
@@ -376,7 +376,7 @@ internal class DatadogDataConstraintsTest {
             }
         }
         val expectedLogs = badToSanitizedKeys.toList().map {
-            DatadogDataConstraints.CUSTOM_TIMING_KEY_REPLACED_WARNING.format(
+            MotadataDataConstraints.CUSTOM_TIMING_KEY_REPLACED_WARNING.format(
                 Locale.US,
                 it.first,
                 it.second

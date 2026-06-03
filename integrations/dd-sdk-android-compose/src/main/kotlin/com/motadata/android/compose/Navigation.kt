@@ -17,7 +17,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.compose.internal.ComposeNavigationObserver
 import com.motadata.android.compose.internal.InstrumentationType
@@ -43,7 +43,7 @@ fun NavigationViewTrackingEffect(
     navController: NavController,
     trackArguments: Boolean = true,
     destinationPredicate: ComponentPredicate<NavDestination> = AcceptAllNavDestinations(),
-    sdkCore: SdkCore = Datadog.getInstance()
+    sdkCore: SdkCore = Motadata.getInstance()
 ) {
     LaunchedEffect(Unit) {
         sendTelemetry(
@@ -62,7 +62,7 @@ fun NavigationViewTrackingEffect(
 }
 
 /**
- * This is the internal function reserved to Datadog Kotlin Compiler Plugin for auto-instrumentation,
+ * This is the internal function reserved to Motadata Kotlin Compiler Plugin for auto-instrumentation,
  * with telemetry to indicate that the auto-instrumentation is used instead of manual instrumentation.
  *
  * @param navController [NavController] to watch
@@ -77,7 +77,7 @@ internal fun InstrumentedNavigationViewTrackingEffect(
     navController: NavController,
     trackArguments: Boolean = true,
     destinationPredicate: ComponentPredicate<NavDestination> = AcceptAllNavDestinations(),
-    sdkCore: SdkCore = Datadog.getInstance()
+    sdkCore: SdkCore = Motadata.getInstance()
 ) {
     LaunchedEffect(Unit) {
         sendTelemetry(
@@ -101,7 +101,7 @@ private fun InternalNavigationViewTrackingStrategy(
     navController: NavController,
     trackArguments: Boolean = true,
     destinationPredicate: ComponentPredicate<NavDestination> = AcceptAllNavDestinations(),
-    sdkCore: SdkCore = Datadog.getInstance()
+    sdkCore: SdkCore = Motadata.getInstance()
 ) {
     val currentTrackArguments by rememberUpdatedState(newValue = trackArguments)
     val currentDestinationPredicate by rememberUpdatedState(newValue = destinationPredicate)

@@ -140,7 +140,7 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "The RUM feature to use with the Datadog monitoring " +
+    "The RUM feature to use with the Motadata monitoring " +
         "library for Android applications."
 )
 detektCustomConfig()

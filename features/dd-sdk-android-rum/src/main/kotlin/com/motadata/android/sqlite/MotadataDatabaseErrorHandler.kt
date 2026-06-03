@@ -17,8 +17,8 @@ import com.motadata.android.rum.RumErrorSource
 import java.util.Locale
 
 /**
- * Provides an implementation of [DatadogDatabaseErrorHandler] already set up to send
- * relevant information to Datadog.
+ * Provides an implementation of [MotadataDatabaseErrorHandler] already set up to send
+ * relevant information to Motadata.
  *
  * It will automatically send RUM Error events whenever a Database corruption was signaled.
  * For more information [https://www.sqlite.org/howtocorrupt.html]
@@ -27,7 +27,7 @@ import java.util.Locale
  * Instrumentation won't be working until SDK instance is ready.
  * @param defaultErrorHandler the corruption error handler, by default it is [DefaultDatabaseErrorHandler].
  */
-class DatadogDatabaseErrorHandler(
+class MotadataDatabaseErrorHandler(
     private val sdkInstanceName: String? = null,
     internal val defaultErrorHandler: DatabaseErrorHandler = DefaultDatabaseErrorHandler()
 ) : DatabaseErrorHandler {

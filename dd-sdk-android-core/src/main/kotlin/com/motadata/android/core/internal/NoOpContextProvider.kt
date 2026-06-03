@@ -6,8 +6,8 @@
 
 package com.motadata.android.core.internal
 
-import com.motadata.android.DatadogSite
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.MotadataSite
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.DeviceInfo
 import com.motadata.android.api.context.DeviceType
 import com.motadata.android.api.context.LocaleInfo
@@ -19,8 +19,8 @@ import com.motadata.android.privacy.TrackingConsent
 
 internal class NoOpContextProvider : ContextProvider {
     // TODO RUM-3784 this one is quite ugly. Should return type be nullable?
-    override fun getContext(withFeatureContexts: Set<String>) = DatadogContext(
-        site = DatadogSite.US1,
+    override fun getContext(withFeatureContexts: Set<String>) = MotadataContext(
+        site = MotadataSite.US1,
         clientToken = "",
         service = "",
         env = "",

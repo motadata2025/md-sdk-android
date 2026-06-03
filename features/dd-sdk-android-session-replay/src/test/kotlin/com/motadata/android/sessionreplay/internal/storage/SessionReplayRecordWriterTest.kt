@@ -6,7 +6,7 @@
 
 package com.motadata.android.sessionreplay.internal.storage
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureScope
@@ -57,7 +57,7 @@ internal class SessionReplayRecordWriterTest {
     lateinit var mockSessionReplayFeature: FeatureScope
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @Mock
     lateinit var mockEventBatchWriter: EventBatchWriter
@@ -85,7 +85,7 @@ internal class SessionReplayRecordWriterTest {
             callback.invoke(mockEventBatchWriter)
         }
         whenever(mockSessionReplayFeature.withWriteContext(eq(emptySet()), any())) doAnswer {
-            val callback = it.getArgument<(DatadogContext, EventWriteScope) -> Unit>(it.arguments.lastIndex)
+            val callback = it.getArgument<(MotadataContext, EventWriteScope) -> Unit>(it.arguments.lastIndex)
             callback.invoke(fakeDatadogContext, mockEventWriteScope)
         }
 
@@ -131,7 +131,7 @@ internal class SessionReplayRecordWriterTest {
             callback.invoke(mockEventBatchWriter)
         }
         whenever(mockSessionReplayFeature.withWriteContext(any(), any())) doAnswer {
-            val callback = it.getArgument<(DatadogContext, EventWriteScope) -> Unit>(it.arguments.lastIndex)
+            val callback = it.getArgument<(MotadataContext, EventWriteScope) -> Unit>(it.arguments.lastIndex)
             callback.invoke(fakeDatadogContext, mockEventWriteScope)
         }
 

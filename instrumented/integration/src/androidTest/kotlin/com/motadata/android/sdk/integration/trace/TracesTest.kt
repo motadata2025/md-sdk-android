@@ -8,7 +8,7 @@ package com.motadata.android.sdk.integration.trace
 
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.sdk.assertj.HeadersAssert
 import com.motadata.android.sdk.assertj.HeadersAssert.Companion.assertThat
 import com.motadata.android.sdk.integration.RuntimeConfig
@@ -48,7 +48,7 @@ internal abstract class TracesTest {
     }
 
     protected fun verifyExpectedSpans(
-        context: DatadogContext,
+        context: MotadataContext,
         handledRequests: List<HandledRequest>,
         expectedSpans: List<DatadogSpan>
     ) {
@@ -116,7 +116,7 @@ internal abstract class TracesTest {
         }
     }
 
-    private fun assertMatches(jsonObject: JsonObject, span: DatadogSpan, context: DatadogContext) {
+    private fun assertMatches(jsonObject: JsonObject, span: DatadogSpan, context: MotadataContext) {
         assertThat(jsonObject)
             .hasField(SERVICE_NAME_KEY, span.serviceName)
             .hasField(TRACE_ID_KEY, span.leastSignificant64BitsTraceId())

@@ -9,14 +9,14 @@ package com.motadata.android.core
 import android.app.Application
 import android.content.pm.ApplicationInfo
 import android.util.Log
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.core.configuration.BatchProcessingLevel
 import com.motadata.android.core.configuration.BatchSize
 import com.motadata.android.core.configuration.Configuration
 import com.motadata.android.core.configuration.UploadFrequency
 import com.motadata.android.core.internal.CoreFeature
-import com.motadata.android.core.internal.DatadogContextProvider
+import com.motadata.android.core.internal.MotadataContextProvider
 import com.motadata.android.core.internal.DatadogCore
 import com.motadata.android.core.internal.SdkFeature
 import com.motadata.android.core.thread.FlushableExecutorService
@@ -119,7 +119,7 @@ internal class DatadogCoreInitializationTest {
         // Then
         assertThat(testedCore.coreFeature.initialized.get()).isTrue
         assertThat(testedCore.isActive).isTrue
-        assertThat(testedCore.contextProvider).isInstanceOf(DatadogContextProvider::class.java)
+        assertThat(testedCore.contextProvider).isInstanceOf(MotadataContextProvider::class.java)
 
         assertThat(testedCore.getFeature(CrashReportsFeature.CRASH_FEATURE_NAME)).let {
             if (crashReportsEnabled) {
@@ -202,7 +202,7 @@ internal class DatadogCoreInitializationTest {
         @IntForgery fakeFlags: Int
     ) {
         // Given
-        Datadog.setVerbosity(Int.MAX_VALUE)
+        Motadata.setVerbosity(Int.MAX_VALUE)
         appContext.fakeAppInfo.flags = fakeFlags and ApplicationInfo.FLAG_DEBUGGABLE.inv()
 
         // When
@@ -222,7 +222,7 @@ internal class DatadogCoreInitializationTest {
         }
 
         // Then
-        assertThat(Datadog.libraryVerbosity)
+        assertThat(Motadata.libraryVerbosity)
             .isEqualTo(Int.MAX_VALUE)
     }
 
@@ -250,7 +250,7 @@ internal class DatadogCoreInitializationTest {
         }
 
         // Then
-        assertThat(Datadog.libraryVerbosity)
+        assertThat(Motadata.libraryVerbosity)
             .isEqualTo(Log.VERBOSE)
     }
 
@@ -259,7 +259,7 @@ internal class DatadogCoreInitializationTest {
         @IntForgery fakeFlags: Int
     ) {
         // Given
-        Datadog.setVerbosity(Int.MAX_VALUE)
+        Motadata.setVerbosity(Int.MAX_VALUE)
         appContext.fakeAppInfo.flags = fakeFlags and ApplicationInfo.FLAG_DEBUGGABLE.inv()
 
         // When
@@ -404,7 +404,7 @@ internal class DatadogCoreInitializationTest {
             fakeInstanceName,
             executorServiceFactory = { _, _, _, _ -> mockPersistenceExecutorService }
         ).apply {
-            initialize(fakeConfiguration.copy(additionalConfig = mapOf(Datadog.DD_SOURCE_TAG to source)))
+            initialize(fakeConfiguration.copy(additionalConfig = mapOf(Motadata.DD_SOURCE_TAG to source)))
         }
 
         // Then
@@ -423,7 +423,7 @@ internal class DatadogCoreInitializationTest {
             executorServiceFactory = { _, _, _, _ -> mockPersistenceExecutorService }
         ).apply {
             initialize(
-                fakeConfiguration.copy(additionalConfig = mapOf(Datadog.DD_SOURCE_TAG to source))
+                fakeConfiguration.copy(additionalConfig = mapOf(Motadata.DD_SOURCE_TAG to source))
             )
         }
 
@@ -443,7 +443,7 @@ internal class DatadogCoreInitializationTest {
             executorServiceFactory = { _, _, _, _ -> mockPersistenceExecutorService }
         ).apply {
             initialize(
-                fakeConfiguration.copy(additionalConfig = mapOf(Datadog.DD_SOURCE_TAG to source))
+                fakeConfiguration.copy(additionalConfig = mapOf(Motadata.DD_SOURCE_TAG to source))
             )
         }
 
@@ -482,7 +482,7 @@ internal class DatadogCoreInitializationTest {
         ).apply {
             initialize(
                 fakeConfiguration.copy(
-                    additionalConfig = mapOf(Datadog.DD_SDK_VERSION_TAG to sdkVersion)
+                    additionalConfig = mapOf(Motadata.DD_SDK_VERSION_TAG to sdkVersion)
                 )
             )
         }
@@ -504,7 +504,7 @@ internal class DatadogCoreInitializationTest {
         ).apply {
             initialize(
                 fakeConfiguration.copy(
-                    additionalConfig = mapOf(Datadog.DD_SDK_VERSION_TAG to sdkVersion)
+                    additionalConfig = mapOf(Motadata.DD_SDK_VERSION_TAG to sdkVersion)
                 )
             )
         }
@@ -526,7 +526,7 @@ internal class DatadogCoreInitializationTest {
         ).apply {
             initialize(
                 fakeConfiguration.copy(
-                    additionalConfig = mapOf(Datadog.DD_SDK_VERSION_TAG to sdkVersion)
+                    additionalConfig = mapOf(Motadata.DD_SDK_VERSION_TAG to sdkVersion)
                 )
             )
         }
@@ -566,7 +566,7 @@ internal class DatadogCoreInitializationTest {
         ).apply {
             initialize(
                 fakeConfiguration.copy(
-                    additionalConfig = mapOf(Datadog.DD_APP_VERSION_TAG to appVersion)
+                    additionalConfig = mapOf(Motadata.DD_APP_VERSION_TAG to appVersion)
                 )
             )
         }
@@ -589,7 +589,7 @@ internal class DatadogCoreInitializationTest {
             initialize(
                 fakeConfiguration.copy(
                     version = null,
-                    additionalConfig = mapOf(Datadog.DD_APP_VERSION_TAG to forge.aWhitespaceString())
+                    additionalConfig = mapOf(Motadata.DD_APP_VERSION_TAG to forge.aWhitespaceString())
                 )
             )
         }
@@ -614,7 +614,7 @@ internal class DatadogCoreInitializationTest {
             initialize(
                 fakeConfiguration.copy(
                     version = null,
-                    additionalConfig = mapOf(Datadog.DD_APP_VERSION_TAG to forge.anInt())
+                    additionalConfig = mapOf(Motadata.DD_APP_VERSION_TAG to forge.anInt())
                 )
             )
         }

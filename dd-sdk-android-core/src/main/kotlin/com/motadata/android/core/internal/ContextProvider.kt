@@ -6,7 +6,7 @@
 
 package com.motadata.android.core.internal
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 
 internal interface ContextProvider {
@@ -14,9 +14,9 @@ internal interface ContextProvider {
     //  when datadog is not initialized yet/anymore (case of UploadWorker, other calls site
     //  should be in sync with lifecycle)
     /**
-     * @param withFeatureContexts Feature contexts ([DatadogContext.featuresContext] property) to include
-     * in the [DatadogContext] provided. The value should be the feature names as declared by [Feature.name].
+     * @param withFeatureContexts Feature contexts ([MotadataContext.featuresContext] property) to include
+     * in the [MotadataContext] provided. The value should be the feature names as declared by [Feature.name].
      * Default is empty, meaning that no feature contexts will be included.
      */
-    fun getContext(withFeatureContexts: Set<String>): DatadogContext
+    fun getContext(withFeatureContexts: Set<String>): MotadataContext
 }

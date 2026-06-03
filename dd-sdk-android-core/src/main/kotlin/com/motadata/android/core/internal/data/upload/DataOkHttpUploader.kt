@@ -8,7 +8,7 @@ package com.motadata.android.core.internal.data.upload
 
 import android.net.TrafficStats
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.net.RequestExecutionContext
 import com.motadata.android.api.net.RequestFactory
 import com.motadata.android.api.storage.RawBatchEvent
@@ -47,7 +47,7 @@ internal class DataOkHttpUploader(
 
     @Suppress("TooGenericExceptionCaught", "ReturnCount")
     override fun upload(
-        context: DatadogContext,
+        context: MotadataContext,
         batch: List<RawBatchEvent>,
         batchMeta: ByteArray?,
         batchId: BatchId?
@@ -116,7 +116,7 @@ internal class DataOkHttpUploader(
     private val userAgent by lazy {
         sanitizeHeaderValue(System.getProperty(SYSTEM_UA))
             .ifBlank {
-                "Datadog/$sdkVersion " +
+                "Motadata/$sdkVersion " +
                     "(Linux; U; Android ${androidInfoProvider.osVersion}; " +
                     "${androidInfoProvider.deviceModel} " +
                     "Build/${androidInfoProvider.deviceBuildId})"

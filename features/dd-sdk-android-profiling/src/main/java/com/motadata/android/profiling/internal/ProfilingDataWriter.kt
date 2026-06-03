@@ -6,7 +6,7 @@
 
 package com.motadata.android.profiling.internal
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.api.storage.EventType
@@ -47,7 +47,7 @@ internal class ProfilingDataWriter(
     }
 
     private fun buildRawBatchEvent(
-        context: DatadogContext,
+        context: MotadataContext,
         profilingResult: PerfettoResult,
         ttidRumContext: TTIDRumContext
     ): RawBatchEvent? {
@@ -66,7 +66,7 @@ internal class ProfilingDataWriter(
     }
 
     private fun createProfileEvent(
-        context: DatadogContext,
+        context: MotadataContext,
         profilingResult: PerfettoResult,
         ttidRumContext: TTIDRumContext
     ): ProfileEvent {
@@ -99,7 +99,7 @@ internal class ProfilingDataWriter(
     }
 
     private fun buildTags(
-        context: DatadogContext
+        context: MotadataContext
     ): String = buildString {
         append("$TAG_KEY_SERVICE:${context.service}")
         append(",")

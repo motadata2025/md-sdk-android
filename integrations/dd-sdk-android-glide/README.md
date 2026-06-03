@@ -1,8 +1,8 @@
-# Datadog Integration for Glide
+# Motadata Integration for Glide
 
 ## Getting Started 
 
-To include the Datadog integration for [Glide][1] in your project, simply add the
+To include the Motadata integration for [Glide][1] in your project, simply add the
 following to your application's `build.gradle.kts` file.
 
 ```kotlin
@@ -15,9 +15,9 @@ dependencies {
 
 ### Initial Setup
 
-1. Setup RUM monitoring, see the dedicated [Datadog Android RUM Collection documentation][2] to learn how.
-2. Setup Trace monitoring, see the dedicated [Datadog Android Trace Collection documentation][3] to learn how.
-3. Following Glide's [Generated API documentation][4], you then need to create your own `GlideAppModule` with Datadog integrations by extending the `DatadogGlideModule`, as follow.
+1. Setup RUM monitoring, see the dedicated [Motadata Android RUM Collection documentation][2] to learn how.
+2. Setup Trace monitoring, see the dedicated [Motadata Android Trace Collection documentation][3] to learn how.
+3. Following Glide's [Generated API documentation][4], you then need to create your own `GlideAppModule` with Motadata integrations by extending the `DatadogGlideModule`, as follow.
 
 Doing so will automatically track Glide's network requests (creating both APM Traces and RUM Resource events), and will also listen for disk cache and image transformation errors (creating RUM Error events).
 

@@ -1,10 +1,10 @@
-fun <T: java.io.Closeable, R> T.useMonitored(com.motadata.android.api.SdkCore = Datadog.getInstance(), (T) -> R): R
+fun <T: java.io.Closeable, R> T.useMonitored(com.motadata.android.api.SdkCore = Motadata.getInstance(), (T) -> R): R
 annotation com.motadata.android.rum.ExperimentalRumApi
 object com.motadata.android.rum.GlobalRumMonitor
-  fun isRegistered(com.motadata.android.api.SdkCore = Datadog.getInstance()): Boolean
-  fun get(com.motadata.android.api.SdkCore = Datadog.getInstance()): RumMonitor
+  fun isRegistered(com.motadata.android.api.SdkCore = Motadata.getInstance()): Boolean
+  fun get(com.motadata.android.api.SdkCore = Motadata.getInstance()): RumMonitor
 object com.motadata.android.rum.Rum
-  fun enable(RumConfiguration, com.motadata.android.api.SdkCore = Datadog.getInstance())
+  fun enable(RumConfiguration, com.motadata.android.api.SdkCore = Motadata.getInstance())
 enum com.motadata.android.rum.RumActionType
   - TAP
   - SCROLL
@@ -279,9 +279,9 @@ enum com.motadata.android.rum.operations.FailureReason
   - OTHER
 sealed class com.motadata.android.rum.operations.OperationOptions
   object Empty : OperationOptions
-fun android.content.Context.getAssetAsRumResource(String, Int = AssetManager.ACCESS_STREAMING, com.motadata.android.api.SdkCore = Datadog.getInstance()): java.io.InputStream
-fun android.content.Context.getRawResAsRumResource(Int, com.motadata.android.api.SdkCore = Datadog.getInstance()): java.io.InputStream
-fun java.io.InputStream.asRumResource(String, com.motadata.android.api.SdkCore = Datadog.getInstance()): java.io.InputStream
+fun android.content.Context.getAssetAsRumResource(String, Int = AssetManager.ACCESS_STREAMING, com.motadata.android.api.SdkCore = Motadata.getInstance()): java.io.InputStream
+fun android.content.Context.getRawResAsRumResource(Int, com.motadata.android.api.SdkCore = Motadata.getInstance()): java.io.InputStream
+fun java.io.InputStream.asRumResource(String, com.motadata.android.api.SdkCore = Motadata.getInstance()): java.io.InputStream
 class com.motadata.android.rum.resource.ResourceHeadersExtractor
   class Builder
     constructor(Boolean = true)
@@ -292,7 +292,7 @@ class com.motadata.android.rum.resource.ResourceId
   override fun equals(Any?): Boolean
   override fun hashCode(): Int
 class com.motadata.android.rum.resource.RumResourceInputStream : java.io.InputStream
-  constructor(java.io.InputStream, String, com.motadata.android.api.SdkCore = Datadog.getInstance())
+  constructor(java.io.InputStream, String, com.motadata.android.api.SdkCore = Motadata.getInstance())
   override fun read(): Int
   override fun read(ByteArray): Int
   override fun read(ByteArray, Int, Int): Int
@@ -383,7 +383,7 @@ class com.motadata.android.rum.tracking.ViewTarget
 data class com.motadata.android.rum.tracking.Node
   constructor(String, Map<String, Any?> = mapOf())
 interface com.motadata.android.rum.tracking.ViewTrackingStrategy : TrackingStrategy
-class com.motadata.android.sqlite.DatadogDatabaseErrorHandler : android.database.DatabaseErrorHandler
+class com.motadata.android.sqlite.MotadataDatabaseErrorHandler : android.database.DatabaseErrorHandler
   constructor(String? = null, android.database.DatabaseErrorHandler = DefaultDatabaseErrorHandler())
   override fun onCorruption(android.database.sqlite.SQLiteDatabase)
 data class com.motadata.android.rum.model.ActionEvent

@@ -7,7 +7,7 @@
 package com.motadata.android.webview.internal.replay
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.api.storage.DataWriter
@@ -57,7 +57,7 @@ internal class WebViewReplayEventConsumer(
 
     private fun map(
         event: JsonObject,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         rumContext: RumContext
     ): JsonObject? {
         try {

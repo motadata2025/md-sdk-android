@@ -1,6 +1,6 @@
-# Datadog OpenFeature Provider for Android
+# Motadata OpenFeature Provider for Android
 
-The Datadog OpenFeature Provider for Android allows you to use the [OpenFeature](https://openfeature.dev/) standard API with Datadog's Feature Flagging and Experimentation platform.
+The Motadata OpenFeature Provider for Android allows you to use the [OpenFeature](https://openfeature.dev/) standard API with Motadata's Feature Flagging and Experimentation platform.
 
 ## What is OpenFeature?
 
@@ -11,12 +11,12 @@ OpenFeature is a vendor-neutral, community-driven specification and SDK for feat
 ### Prerequisites
 
 Before using the OpenFeature provider, you must:
-1. Set up the core Datadog SDK (see [Datadog Android SDK setup documentation][1])
-2. Enable the Datadog Feature Flags feature (see [dd-sdk-android-flags README](../dd-sdk-android-flags/README.md))
+1. Set up the core Motadata SDK (see [Motadata Android SDK setup documentation][1])
+2. Enable the Motadata Feature Flags feature (see [dd-sdk-android-flags README](../dd-sdk-android-flags/README.md))
 
 ### Add dependencies
 
-Add both the Datadog Feature Flags SDK and OpenFeature Provider to your application's `build.gradle.kts` file:
+Add both the Motadata Feature Flags SDK and OpenFeature Provider to your application's `build.gradle.kts` file:
 
 ```kotlin
 dependencies {
@@ -29,17 +29,17 @@ dependencies {
 
 ### Initial setup
 
-1. Initialize the Datadog SDK and enable the Feature Flags feature:
+1. Initialize the Motadata SDK and enable the Feature Flags feature:
 
 ```kotlin
-// Initialize the core Datadog SDK
+// Initialize the core Motadata SDK
 val coreConfiguration = Configuration.Builder(
     clientToken = "<YOUR_CLIENT_TOKEN>",
     env = "<YOUR_ENVIRONMENT>",
     variant = "<YOUR_APP_VARIANT>"
 ).build()
 
-Datadog.initialize(this, coreConfiguration, trackingConsent)
+Motadata.initialize(this, coreConfiguration, trackingConsent)
 
 // Enable the Feature Flags feature
 val flagsConfig = FlagsConfiguration.Builder().build()
@@ -135,7 +135,7 @@ For complete details on using the OpenFeature API, including flag evaluation met
 
 When RUM is enabled in your application and RUM integration is enabled in the Flags configuration (default), flag evaluations are automatically:
 - Attached to the current RUM view
-- Visible in the Datadog RUM dashboard
+- Visible in the Motadata RUM dashboard
 - Associated with user sessions for analysis
 
 This allows you to correlate feature flag usage with application performance, errors, and user behavior.
@@ -161,10 +161,10 @@ The OpenFeature provider provides a standardized API but has some differences fr
 
 | Feature               | **FlagsClient**                       | **OpenFeature Provider**                  |
 |-----------------------|---------------------------------------|-------------------------------------------|
-| **API Standard**      | Datadog-specific                      | OpenFeature standard                      |
+| **API Standard**      | Motadata-specific                      | OpenFeature standard                      |
 | **Evaluation Context**| Per client instance                   | Global/static context                     |
 | **Structured Flags**  | Returns `JSONObject`                  | Returns `Value.Structure`                 |
-| **Vendor Neutrality** | Datadog-specific                      | Vendor-neutral (easy to swap providers)   |
+| **Vendor Neutrality** | Motadata-specific                      | Vendor-neutral (easy to swap providers)   |
 | **Type Safety**       | Kotlin-native types                   | OpenFeature `Value` types                 |
 | **State Management**  | Manual listener registration          | Flow-based observation                    |
 
@@ -176,7 +176,7 @@ Choose the OpenFeature provider if:
 - You prefer the static-context paradigm
 
 Use `FlagsClient` directly if:
-- You want the most direct integration with Datadog
+- You want the most direct integration with Motadata
 - You prefer instance-based evaluation contexts
 - You want to work with native Kotlin types directly
 - You need fine-grained control over multiple independent contexts
@@ -185,8 +185,8 @@ Use `FlagsClient` directly if:
 
 - [OpenFeature Kotlin SDK documentation](https://openfeature.dev/docs/reference/technologies/client/kotlin/) - Complete API reference and usage guide
 - [OpenFeature Specification](https://openfeature.dev/specification/) - OpenFeature standard specification
-- [Datadog Feature Flags documentation][2] - Datadog Feature Flags platform documentation
-- [Datadog Android SDK setup documentation][1] - Initial setup guide
+- [Motadata Feature Flags documentation][2] - Motadata Feature Flags platform documentation
+- [Motadata Android SDK setup documentation][1] - Initial setup guide
 
 [1]: https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/setup
 [2]: https://docs.datadoghq.com/getting_started/feature_flags/

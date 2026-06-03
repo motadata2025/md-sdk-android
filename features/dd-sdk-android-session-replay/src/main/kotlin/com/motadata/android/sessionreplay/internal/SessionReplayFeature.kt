@@ -42,7 +42,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
 
 /**
- * Session Replay feature class, which needs to be registered with Datadog SDK instance.
+ * Session Replay feature class, which needs to be registered with Motadata SDK instance.
  */
 @Suppress("TooManyFunctions")
 internal class SessionReplayFeature(

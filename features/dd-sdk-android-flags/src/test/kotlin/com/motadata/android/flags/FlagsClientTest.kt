@@ -317,7 +317,7 @@ internal class FlagsClientTest {
             eq(InternalLogger.Target.USER),
             argThat {
                 invoke().startsWith(
-                    "[Datadog Flags] Attempted to create a FlagsClient named 'default', but one already exists."
+                    "[Motadata Flags] Attempted to create a FlagsClient named 'default', but one already exists."
                 )
             },
             eq(null),
@@ -422,7 +422,7 @@ internal class FlagsClientTest {
             eq(InternalLogger.Target.USER),
             argThat {
                 invoke().startsWith(
-                    "[Datadog Flags] No FlagsClient with name 'default' exists for SDK instance 'test-sdk'."
+                    "[Motadata Flags] No FlagsClient with name 'default' exists for SDK instance 'test-sdk'."
                 )
             },
             eq(null),

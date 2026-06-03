@@ -8,7 +8,7 @@ package com.motadata.android.rum.internal.startup
 
 import android.app.Activity
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.TimeInfo
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
@@ -99,7 +99,7 @@ internal class RumSessionScopeStartupManagerTest {
     lateinit var mockEventBatchWriter: EventBatchWriter
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @Forgery
     lateinit var rumContext: RumContext

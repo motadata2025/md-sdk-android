@@ -7,7 +7,7 @@
 package com.motadata.android.rum.internal.net
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.net.RequestExecutionContext
 import com.motadata.android.api.net.RequestFactory
 import com.motadata.android.api.storage.RawBatchEvent
@@ -46,7 +46,7 @@ internal class RumRequestFactoryTest {
     lateinit var mockViewEventFilter: RumViewEventFilter
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @Forgery
     lateinit var fakeExecutionContext: RequestExecutionContext

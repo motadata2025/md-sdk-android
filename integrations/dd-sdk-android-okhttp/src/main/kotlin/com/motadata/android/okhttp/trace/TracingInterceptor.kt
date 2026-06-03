@@ -55,7 +55,7 @@ import com.motadata.android.okhttp.TraceContext as DeprecatedTraceContext
  *
  * If you use multiple Interceptors, make sure that this one is called first.
  * If you also want to track network requests as RUM Resources, use the
- * [com.motadata.android.okhttp.DatadogInterceptor] instead, which combines the RUM and APM integrations.
+ * [com.motadata.android.okhttp.MotadataInterceptor] instead, which combines the RUM and APM integrations.
  *
  * If you want to get more insights on the network requests (e.g.: redirections), you can also add
  * this interceptor as a Network level interceptor.
@@ -120,7 +120,7 @@ internal constructor(
     }
 
     /**
-     * This method is a part of Datadog SDK internal API. It is not meant for public use.
+     * This method is a part of Motadata SDK internal API. It is not meant for public use.
      */
     @InternalApi
     @WorkerThread
@@ -197,7 +197,7 @@ internal constructor(
     }
 
     /**
-     * @return whether the span can be sent to Datadog.
+     * @return whether the span can be sent to Motadata.
      */
     internal open fun canSendSpan(): Boolean {
         return true

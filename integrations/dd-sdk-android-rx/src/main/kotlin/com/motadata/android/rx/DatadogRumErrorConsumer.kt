@@ -6,7 +6,7 @@
 
 package com.motadata.android.rx
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.rum.GlobalRumMonitor
 import com.motadata.android.rum.RumErrorSource
@@ -14,7 +14,7 @@ import io.reactivex.rxjava3.functions.Consumer
 
 /**
  * Provides an implementation of [Consumer<Throwable>] already set up to send relevant information
- * to Datadog.
+ * to Motadata.
  *
  * It will automatically send RUM error events whenever a RxJava Stream throws any [Exception].
  *
@@ -24,7 +24,7 @@ import io.reactivex.rxjava3.functions.Consumer
 class DatadogRumErrorConsumer
 @JvmOverloads
 constructor(
-    private val sdkCore: SdkCore = Datadog.getInstance()
+    private val sdkCore: SdkCore = Motadata.getInstance()
 ) : Consumer<Throwable> {
 
     /** @inheritDoc */

@@ -9,7 +9,7 @@ package com.motadata.android.okhttp
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Optional
 import com.apollographql.apollo.network.okHttpClient
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.apollo.DatadogApolloInterceptor
@@ -104,7 +104,7 @@ class ApolloIntegrationTest {
     @BeforeEach
     fun `set up`(forge: Forge) {
         stubSdkCore = StubSDKCore(forge)
-        val registry: Any = Datadog::class.java.getStaticValue("registry")
+        val registry: Any = Motadata::class.java.getStaticValue("registry")
         val instances: MutableMap<String, SdkCore> = registry.getFieldValue("instances")
         instances += stubSdkCore.name to stubSdkCore
         mockServer = MockWebServer()
@@ -136,8 +136,8 @@ class ApolloIntegrationTest {
         rumMonitor = GlobalRumMonitor.get(stubSdkCore)
     }
 
-    private fun createDatadogInterceptor(): DatadogInterceptor {
-        return DatadogInterceptor
+    private fun createDatadogInterceptor(): MotadataInterceptor {
+        return MotadataInterceptor
             .Builder(tracedHosts = listOf(mockServer.hostName))
             .setSdkInstanceName(stubSdkCore.name)
             .build()
@@ -154,14 +154,14 @@ class ApolloIntegrationTest {
     fun `tear down`() {
         GlobalDatadogTracer.clear()
         unregisterGlobalRumMonitor(stubSdkCore)
-        Datadog.stopInstance(stubSdkCore.name)
+        Motadata.stopInstance(stubSdkCore.name)
         mockServer.shutdown()
     }
 
     // region graphQL headers
 
     @Test
-    fun `M remove GraphQL headers W DatadogInterceptor { with query and Apollo headers }`() = runBlocking {
+    fun `M remove GraphQL headers W MotadataInterceptor { with query and Apollo headers }`() = runBlocking {
         // When
         apolloClient.query(
             FakeQuery(
@@ -179,7 +179,7 @@ class ApolloIntegrationTest {
     }
 
     @Test
-    fun `M remove GraphQL headers W DatadogInterceptor { with mutation and Apollo headers }`() = runBlocking {
+    fun `M remove GraphQL headers W MotadataInterceptor { with mutation and Apollo headers }`() = runBlocking {
         // When
         apolloClient.mutation(FakeMutation(input = UserInput(name = fakeUserName, email = fakeUserEmail))).execute()
 
@@ -192,7 +192,7 @@ class ApolloIntegrationTest {
     }
 
     @Test
-    fun `M not affect regular requests W DatadogInterceptor { without GraphQL headers }`() {
+    fun `M not affect regular requests W MotadataInterceptor { without GraphQL headers }`() {
         // Given
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(createDatadogInterceptor())
@@ -212,7 +212,7 @@ class ApolloIntegrationTest {
     }
 
     @Test
-    fun `M remove partial GraphQL headers W DatadogInterceptor { query, some GraphQL headers }`() = runBlocking {
+    fun `M remove partial GraphQL headers W MotadataInterceptor { query, some GraphQL headers }`() = runBlocking {
         // Given
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(createDatadogInterceptor())
@@ -349,7 +349,7 @@ class ApolloIntegrationTest {
     // region GraphQL errors
 
     @Test
-    fun `M extract GraphQL errors W DatadogInterceptor { response body contains errors }`() {
+    fun `M extract GraphQL errors W MotadataInterceptor { response body contains errors }`() {
         runBlocking {
             // Given
             rumMonitor.startView(fakeViewKey, fakeViewName)
@@ -384,7 +384,7 @@ class ApolloIntegrationTest {
     }
 
     @Test
-    fun `M extract multiple GraphQL errors W DatadogInterceptor { response body contains multiple errors }`() {
+    fun `M extract multiple GraphQL errors W MotadataInterceptor { response body contains multiple errors }`() {
         runBlocking {
             // Given
             rumMonitor.startView(fakeViewKey, fakeViewName)
@@ -419,7 +419,7 @@ class ApolloIntegrationTest {
     }
 
     @Test
-    fun `M not extract GraphQL errors W DatadogInterceptor { response body has no errors }`() {
+    fun `M not extract GraphQL errors W MotadataInterceptor { response body has no errors }`() {
         runBlocking {
             // Given
             rumMonitor.startView(fakeViewKey, fakeViewName)
@@ -451,7 +451,7 @@ class ApolloIntegrationTest {
     // region Base64 encoding/decoding
 
     @Test
-    fun `M correctly decode non-ASCII characters W DatadogInterceptor { base64 encoded GraphQL variables }`(
+    fun `M correctly decode non-ASCII characters W MotadataInterceptor { base64 encoded GraphQL variables }`(
         forge: Forge
     ) {
         runBlocking {
@@ -477,7 +477,7 @@ class ApolloIntegrationTest {
     }
 
     @Test
-    fun `M correctly decode non-ASCII characters W DatadogInterceptor { base64 encoded GraphQL payload }`(
+    fun `M correctly decode non-ASCII characters W MotadataInterceptor { base64 encoded GraphQL payload }`(
         forge: Forge
     ) {
         runBlocking {

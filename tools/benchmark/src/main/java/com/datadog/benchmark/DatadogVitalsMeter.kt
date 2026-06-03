@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit
 /**
  * This class is responsible for managing the performance gauges related to CPU, FPS, and memory usage.
  * It provides functionalities to start and stop monitoring these metrics, which will be uploaded to
- * Datadog metric API.
+ * Motadata metric API.
  */
 class DatadogVitalsMeter private constructor(
     private val meter: Meter,

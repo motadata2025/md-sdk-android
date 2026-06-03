@@ -9,10 +9,10 @@ public final class com/motadata/android/BuildConfig {
 	public fun <init> ()V
 }
 
-public final class com/motadata/android/Datadog {
-	public static final field INSTANCE Lcom/motadata/android/Datadog;
+public final class com/motadata/android/Motadata {
+	public static final field INSTANCE Lcom/motadata/android/Motadata;
 	public final fun _internalProxy (Ljava/lang/String;)Lcom/motadata/android/_InternalProxy;
-	public static synthetic fun _internalProxy$default (Lcom/motadata/android/Datadog;Ljava/lang/String;ILjava/lang/Object;)Lcom/motadata/android/_InternalProxy;
+	public static synthetic fun _internalProxy$default (Lcom/motadata/android/Motadata;Ljava/lang/String;ILjava/lang/Object;)Lcom/motadata/android/_InternalProxy;
 	public static final fun addAccountExtraInfo (Ljava/util/Map;)V
 	public static final fun addAccountExtraInfo (Ljava/util/Map;Lcom/motadata/android/api/SdkCore;)V
 	public static synthetic fun addAccountExtraInfo$default (Ljava/util/Map;Lcom/motadata/android/api/SdkCore;ILjava/lang/Object;)V
@@ -57,19 +57,19 @@ public final class com/motadata/android/Datadog {
 	public static synthetic fun stopInstance$default (Ljava/lang/String;ILjava/lang/Object;)V
 }
 
-public final class com/motadata/android/DatadogSite : java/lang/Enum {
-	public static final field AP1 Lcom/motadata/android/DatadogSite;
-	public static final field AP2 Lcom/motadata/android/DatadogSite;
-	public static final field EU1 Lcom/motadata/android/DatadogSite;
-	public static final field STAGING Lcom/motadata/android/DatadogSite;
-	public static final field US1 Lcom/motadata/android/DatadogSite;
-	public static final field US1_FED Lcom/motadata/android/DatadogSite;
-	public static final field US2_FED Lcom/motadata/android/DatadogSite;
-	public static final field US3 Lcom/motadata/android/DatadogSite;
-	public static final field US5 Lcom/motadata/android/DatadogSite;
+public final class com/motadata/android/MotadataSite : java/lang/Enum {
+	public static final field AP1 Lcom/motadata/android/MotadataSite;
+	public static final field AP2 Lcom/motadata/android/MotadataSite;
+	public static final field EU1 Lcom/motadata/android/MotadataSite;
+	public static final field STAGING Lcom/motadata/android/MotadataSite;
+	public static final field US1 Lcom/motadata/android/MotadataSite;
+	public static final field US1_FED Lcom/motadata/android/MotadataSite;
+	public static final field US2_FED Lcom/motadata/android/MotadataSite;
+	public static final field US3 Lcom/motadata/android/MotadataSite;
+	public static final field US5 Lcom/motadata/android/MotadataSite;
 	public final fun getIntakeEndpoint ()Ljava/lang/String;
-	public static fun valueOf (Ljava/lang/String;)Lcom/motadata/android/DatadogSite;
-	public static fun values ()[Lcom/motadata/android/DatadogSite;
+	public static fun valueOf (Ljava/lang/String;)Lcom/motadata/android/MotadataSite;
+	public static fun values ()[Lcom/motadata/android/MotadataSite;
 }
 
 public final class com/motadata/android/_InternalProxy {
@@ -170,9 +170,9 @@ public final class com/motadata/android/api/context/AccountInfo {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/motadata/android/api/context/DatadogContext {
-	public fun <init> (Lcom/motadata/android/DatadogSite;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/motadata/android/api/context/TimeInfo;Lcom/motadata/android/api/context/ProcessInfo;Lcom/motadata/android/api/context/NetworkInfo;Lcom/motadata/android/api/context/DeviceInfo;Lcom/motadata/android/api/context/UserInfo;Lcom/motadata/android/api/context/AccountInfo;Lcom/motadata/android/privacy/TrackingConsent;Ljava/lang/String;Ljava/util/Map;)V
-	public final fun component1 ()Lcom/motadata/android/DatadogSite;
+public final class com/motadata/android/api/context/MotadataContext {
+	public fun <init> (Lcom/motadata/android/MotadataSite;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/motadata/android/api/context/TimeInfo;Lcom/motadata/android/api/context/ProcessInfo;Lcom/motadata/android/api/context/NetworkInfo;Lcom/motadata/android/api/context/DeviceInfo;Lcom/motadata/android/api/context/UserInfo;Lcom/motadata/android/api/context/AccountInfo;Lcom/motadata/android/privacy/TrackingConsent;Ljava/lang/String;Ljava/util/Map;)V
+	public final fun component1 ()Lcom/motadata/android/MotadataSite;
 	public final fun component10 ()Lcom/motadata/android/api/context/TimeInfo;
 	public final fun component11 ()Lcom/motadata/android/api/context/ProcessInfo;
 	public final fun component12 ()Lcom/motadata/android/api/context/NetworkInfo;
@@ -190,8 +190,8 @@ public final class com/motadata/android/api/context/DatadogContext {
 	public final fun component7 ()Ljava/lang/String;
 	public final fun component8 ()Ljava/lang/String;
 	public final fun component9 ()Ljava/lang/String;
-	public final fun copy (Lcom/motadata/android/DatadogSite;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/motadata/android/api/context/TimeInfo;Lcom/motadata/android/api/context/ProcessInfo;Lcom/motadata/android/api/context/NetworkInfo;Lcom/motadata/android/api/context/DeviceInfo;Lcom/motadata/android/api/context/UserInfo;Lcom/motadata/android/api/context/AccountInfo;Lcom/motadata/android/privacy/TrackingConsent;Ljava/lang/String;Ljava/util/Map;)Lcom/motadata/android/api/context/DatadogContext;
-	public static synthetic fun copy$default (Lcom/motadata/android/api/context/DatadogContext;Lcom/motadata/android/DatadogSite;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/motadata/android/api/context/TimeInfo;Lcom/motadata/android/api/context/ProcessInfo;Lcom/motadata/android/api/context/NetworkInfo;Lcom/motadata/android/api/context/DeviceInfo;Lcom/motadata/android/api/context/UserInfo;Lcom/motadata/android/api/context/AccountInfo;Lcom/motadata/android/privacy/TrackingConsent;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lcom/motadata/android/api/context/DatadogContext;
+	public final fun copy (Lcom/motadata/android/MotadataSite;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/motadata/android/api/context/TimeInfo;Lcom/motadata/android/api/context/ProcessInfo;Lcom/motadata/android/api/context/NetworkInfo;Lcom/motadata/android/api/context/DeviceInfo;Lcom/motadata/android/api/context/UserInfo;Lcom/motadata/android/api/context/AccountInfo;Lcom/motadata/android/privacy/TrackingConsent;Ljava/lang/String;Ljava/util/Map;)Lcom/motadata/android/api/context/MotadataContext;
+	public static synthetic fun copy$default (Lcom/motadata/android/api/context/MotadataContext;Lcom/motadata/android/MotadataSite;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/motadata/android/api/context/TimeInfo;Lcom/motadata/android/api/context/ProcessInfo;Lcom/motadata/android/api/context/NetworkInfo;Lcom/motadata/android/api/context/DeviceInfo;Lcom/motadata/android/api/context/UserInfo;Lcom/motadata/android/api/context/AccountInfo;Lcom/motadata/android/privacy/TrackingConsent;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lcom/motadata/android/api/context/MotadataContext;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAccountInfo ()Lcom/motadata/android/api/context/AccountInfo;
 	public final fun getAppBuildId ()Ljava/lang/String;
@@ -203,7 +203,7 @@ public final class com/motadata/android/api/context/DatadogContext {
 	public final fun getProcessInfo ()Lcom/motadata/android/api/context/ProcessInfo;
 	public final fun getSdkVersion ()Ljava/lang/String;
 	public final fun getService ()Ljava/lang/String;
-	public final fun getSite ()Lcom/motadata/android/DatadogSite;
+	public final fun getSite ()Lcom/motadata/android/MotadataSite;
 	public final fun getSource ()Ljava/lang/String;
 	public final fun getTime ()Lcom/motadata/android/api/context/TimeInfo;
 	public final fun getTrackingConsent ()Lcom/motadata/android/privacy/TrackingConsent;
@@ -556,7 +556,7 @@ public abstract interface class com/motadata/android/api/net/RequestFactory {
 	public static final field HEADER_REQUEST_ID Ljava/lang/String;
 	public static final field QUERY_PARAM_SOURCE Ljava/lang/String;
 	public static final field QUERY_PARAM_TAGS Ljava/lang/String;
-	public abstract fun create (Lcom/motadata/android/api/context/DatadogContext;Lcom/motadata/android/api/net/RequestExecutionContext;Ljava/util/List;[B)Lcom/motadata/android/api/net/Request;
+	public abstract fun create (Lcom/motadata/android/api/context/MotadataContext;Lcom/motadata/android/api/net/RequestExecutionContext;Ljava/util/List;[B)Lcom/motadata/android/api/net/Request;
 }
 
 public final class com/motadata/android/api/net/RequestFactory$Companion {
@@ -663,7 +663,7 @@ public abstract interface class com/motadata/android/core/InternalSdkCore : com/
 	public abstract fun getAllFeatures ()Ljava/util/List;
 	public abstract fun getAppStartTimeNs ()J
 	public abstract fun getAppUptimeNs ()J
-	public abstract fun getDatadogContext (Ljava/util/Set;)Lcom/motadata/android/api/context/DatadogContext;
+	public abstract fun getDatadogContext (Ljava/util/Set;)Lcom/motadata/android/api/context/MotadataContext;
 	public abstract fun getFirstPartyHostResolver ()Lcom/motadata/android/core/internal/net/FirstPartyHostHeaderTypeResolver;
 	public abstract fun getLastFatalAnrSent ()Ljava/lang/Long;
 	public abstract fun getLastViewEvent ()Lcom/google/gson/JsonObject;
@@ -677,7 +677,7 @@ public abstract interface class com/motadata/android/core/InternalSdkCore : com/
 }
 
 public final class com/motadata/android/core/InternalSdkCore$DefaultImpls {
-	public static synthetic fun getDatadogContext$default (Lcom/motadata/android/core/InternalSdkCore;Ljava/util/Set;ILjava/lang/Object;)Lcom/motadata/android/api/context/DatadogContext;
+	public static synthetic fun getDatadogContext$default (Lcom/motadata/android/core/InternalSdkCore;Ljava/util/Set;ILjava/lang/Object;)Lcom/motadata/android/api/context/MotadataContext;
 }
 
 public final class com/motadata/android/core/SdkReference {
@@ -767,7 +767,7 @@ public final class com/motadata/android/core/configuration/Configuration$Builder
 	public final fun setUploadSchedulerStrategy (Lcom/motadata/android/core/configuration/UploadSchedulerStrategy;)Lcom/motadata/android/core/configuration/Configuration$Builder;
 	public final fun setUseDeveloperModeWhenDebuggable (Z)Lcom/motadata/android/core/configuration/Configuration$Builder;
 	public final fun setVersion (Ljava/lang/String;)Lcom/motadata/android/core/configuration/Configuration$Builder;
-	public final fun useSite (Lcom/motadata/android/DatadogSite;)Lcom/motadata/android/core/configuration/Configuration$Builder;
+	public final fun useSite (Lcom/motadata/android/MotadataSite;)Lcom/motadata/android/core/configuration/Configuration$Builder;
 }
 
 public final class com/motadata/android/core/configuration/Configuration$Companion {
@@ -800,7 +800,7 @@ public final class com/motadata/android/core/constraints/DataConstraints$Default
 	public static synthetic fun validateAttributes$default (Lcom/motadata/android/core/constraints/DataConstraints;Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;ILjava/lang/Object;)Ljava/util/Map;
 }
 
-public final class com/motadata/android/core/constraints/DatadogDataConstraints : com/motadata/android/core/constraints/DataConstraints {
+public final class com/motadata/android/core/constraints/MotadataDataConstraints : com/motadata/android/core/constraints/DataConstraints {
 	public fun <init> (Lcom/motadata/android/api/InternalLogger;)V
 	public fun validateAttributes (Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/util/Set;)Ljava/util/Map;
 	public fun validateTags (Ljava/util/List;)Ljava/util/List;

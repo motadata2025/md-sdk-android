@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.sample.Preferences
 import com.motadata.android.sample.R
 import com.motadata.android.trace.withinSpan
@@ -69,8 +69,8 @@ internal class UserFragment : Fragment(), View.OnClickListener {
                     val age: Int = Integer.valueOf(userAgeField.text.toString())
                     Preferences.defaultPreferences(requireContext())
                         .setUserCredentials(id, name, email, gender, age)
-                    Datadog.setUserInfo(id, name, email, emptyMap())
-                    Datadog.addUserProperties(
+                    Motadata.setUserInfo(id, name, email, emptyMap())
+                    Motadata.addUserProperties(
                         mapOf<String, Any>(
                             GENDER_KEY to gender,
                             AGE_KEY to age
@@ -84,8 +84,8 @@ internal class UserFragment : Fragment(), View.OnClickListener {
                 withinSpan("clearUserInfo") {
                     // Clear preferences
                     Preferences.defaultPreferences(requireContext()).clearUserCredentials()
-                    // Clear Datadog user info
-                    Datadog.clearUserInfo()
+                    // Clear Motadata user info
+                    Motadata.clearUserInfo()
                     // Clear UI fields
                     idField.text.clear()
                     nameField.text.clear()

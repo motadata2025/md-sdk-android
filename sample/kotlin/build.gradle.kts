@@ -147,7 +147,7 @@ datadog {
 }
 
 dependencies {
-    // Datadog Libraries
+    // Motadata Libraries
     implementation(project(":features:dd-sdk-android-logs"))
     implementation(project(":features:dd-sdk-android-flags"))
     implementation(project(":features:dd-sdk-android-flags-openfeature"))

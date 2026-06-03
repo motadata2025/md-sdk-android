@@ -15,7 +15,7 @@ import com.motadata.android.lint.InternalApi
 import com.datadog.tools.annotation.NoOpImplementation
 
 /**
- * A Logger used to log messages from the internal implementation of the Datadog SDKs.
+ * A Logger used to log messages from the internal implementation of the Motadata SDKs.
  *
  * Rule of thumb to decide which level and target we're using for the Internal Logger usage:
  *

@@ -67,6 +67,6 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "An OkHttp collection of extensions to be used in conjunction with OpenTelemetry Datadog SDK."
+    "An OkHttp collection of extensions to be used in conjunction with OpenTelemetry Motadata SDK."
 )
 detektCustomConfig()

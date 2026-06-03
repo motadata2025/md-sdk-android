@@ -15,7 +15,7 @@ import com.squareup.sqldelight.Transacter.Transaction
 
 /**
  * Starts a [Transaction] and runs [body] in that transaction.
- * A span will be created around the transaction code and sent to Datadog.
+ * A span will be created around the transaction code and sent to Motadata.
  *
  * @param T the type of the wrapped SQL [Transacter]
  * @param operationName the name of the [Span] created around the coroutine code.
@@ -40,7 +40,7 @@ fun <T : Transacter> T.transactionTraced(
 
 /**
  * Starts a [Transaction] and runs [body] in that transaction.
- * A span will be created around the transaction code and sent to Datadog.
+ * A span will be created around the transaction code and sent to Motadata.
  *
  * @param T the type of the wrapped SQL [Transacter]
  * @param R the type of the data returned by the SQL transaction

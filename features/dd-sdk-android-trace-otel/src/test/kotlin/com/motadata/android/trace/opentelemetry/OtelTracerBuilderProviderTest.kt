@@ -8,7 +8,7 @@ package com.motadata.android.trace.opentelemetry
 
 import android.content.Context
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureScope
 import com.motadata.android.api.feature.FeatureSdkCore
@@ -462,8 +462,8 @@ internal class OtelTracerBuilderProviderTest {
 
     @Suppress("UNCHECKED_CAST")
     @Test
-    fun `M build a Span with lazy Datadog context W startSpan()`(
-        @Forgery fakeInitialDatadogContext: DatadogContext
+    fun `M build a Span with lazy Motadata context W startSpan()`(
+        @Forgery fakeInitialDatadogContext: MotadataContext
     ) {
         // Given
         val tracer = testedOtelTracerProviderBuilder
@@ -492,7 +492,7 @@ internal class OtelTracerBuilderProviderTest {
     }
 
     @Test
-    fun `M build a Span without lazy Datadog context W startSpan() { bundleWithRum = false }`() {
+    fun `M build a Span without lazy Motadata context W startSpan() { bundleWithRum = false }`() {
         // Given
         val tracer = testedOtelTracerProviderBuilder
             .setBundleWithRumEnabled(false)
@@ -514,7 +514,7 @@ internal class OtelTracerBuilderProviderTest {
     }
 
     @Test
-    fun `M build a Span without lazy Datadog context W startSpan() { bundleWithRum = true, RUM not initialized }`() {
+    fun `M build a Span without lazy Motadata context W startSpan() { bundleWithRum = true, RUM not initialized }`() {
         // Given
         val tracer = testedOtelTracerProviderBuilder
             .build()

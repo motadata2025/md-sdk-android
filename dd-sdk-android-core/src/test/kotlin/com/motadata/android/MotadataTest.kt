@@ -67,8 +67,8 @@ import java.util.Locale
 )
 @MockitoSettings(strictness = Strictness.LENIENT)
 @ForgeConfiguration(Configurator::class)
-@ProhibitLeavingStaticMocksIn(Datadog::class)
-internal class DatadogTest {
+@ProhibitLeavingStaticMocksIn(Motadata::class)
+internal class MotadataTest {
 
     @Mock
     lateinit var mockConnectivityMgr: ConnectivityManager
@@ -89,9 +89,9 @@ internal class DatadogTest {
 
     @AfterEach
     fun `tear down`() {
-        Datadog.hashGenerator = Sha256HashGenerator()
-        Datadog.stopInstance()
-        Datadog.registry.clear()
+        Motadata.hashGenerator = Sha256HashGenerator()
+        Motadata.stopInstance()
+        Motadata.registry.clear()
     }
 
     // region initialize
@@ -99,12 +99,12 @@ internal class DatadogTest {
     @Test
     fun `M return sdk instance W initialize() + getInstance()`() {
         // When
-        val initialized = Datadog.initialize(
+        val initialized = Motadata.initialize(
             appContext.mockInstance,
             fakeConfiguration,
             fakeConsent
         )
-        val instance = Datadog.getInstance()
+        val instance = Motadata.getInstance()
 
         // Then
         assertThat(instance).isSameAs(initialized)
@@ -115,13 +115,13 @@ internal class DatadogTest {
         @StringForgery name: String
     ) {
         // When
-        val initialized = Datadog.initialize(
+        val initialized = Motadata.initialize(
             name,
             appContext.mockInstance,
             fakeConfiguration,
             fakeConsent
         )
-        val instance = Datadog.getInstance(name)
+        val instance = Motadata.getInstance(name)
 
         // Then
         assertThat(instance).isSameAs(initialized)
@@ -130,12 +130,12 @@ internal class DatadogTest {
     @Test
     fun `M warn W initialize() + initialize()`() {
         // When
-        val initialized1 = Datadog.initialize(
+        val initialized1 = Motadata.initialize(
             appContext.mockInstance,
             fakeConfiguration,
             fakeConsent
         )
-        val initialized2 = Datadog.initialize(
+        val initialized2 = Motadata.initialize(
             appContext.mockInstance,
             fakeConfiguration,
             fakeConsent
@@ -145,7 +145,7 @@ internal class DatadogTest {
         logger.mockInternalLogger.verifyLog(
             InternalLogger.Level.WARN,
             InternalLogger.Target.USER,
-            Datadog.MESSAGE_ALREADY_INITIALIZED
+            Motadata.MESSAGE_ALREADY_INITIALIZED
         )
         assertThat(initialized2).isSameAs(initialized1)
     }
@@ -155,14 +155,14 @@ internal class DatadogTest {
         @StringForgery name: String
     ) {
         // When
-        Datadog.initialize(name, appContext.mockInstance, fakeConfiguration, fakeConsent)
-        Datadog.initialize(name, appContext.mockInstance, fakeConfiguration, fakeConsent)
+        Motadata.initialize(name, appContext.mockInstance, fakeConfiguration, fakeConsent)
+        Motadata.initialize(name, appContext.mockInstance, fakeConfiguration, fakeConsent)
 
         // Then
         logger.mockInternalLogger.verifyLog(
             InternalLogger.Level.WARN,
             InternalLogger.Target.USER,
-            Datadog.MESSAGE_ALREADY_INITIALIZED
+            Motadata.MESSAGE_ALREADY_INITIALIZED
         )
     }
 
@@ -178,10 +178,10 @@ internal class DatadogTest {
                 "null/${fakeConfiguration.coreConfig.site.siteName}"
             )
         ) doReturn fakeHash
-        Datadog.hashGenerator = mockHashGenerator
+        Motadata.hashGenerator = mockHashGenerator
 
         // When
-        val instance = Datadog.initialize(
+        val instance = Motadata.initialize(
             appContext.mockInstance,
             fakeConfiguration,
             fakeConsent
@@ -205,10 +205,10 @@ internal class DatadogTest {
                 "$instanceName/${fakeConfiguration.coreConfig.site.siteName}"
             )
         ) doReturn fakeHash
-        Datadog.hashGenerator = mockHashGenerator
+        Motadata.hashGenerator = mockHashGenerator
 
         // When
-        val instance = Datadog.initialize(
+        val instance = Motadata.initialize(
             instanceName,
             appContext.mockInstance,
             fakeConfiguration,
@@ -232,10 +232,10 @@ internal class DatadogTest {
                 "null/${fakeConfiguration.coreConfig.site.siteName}"
             )
         ) doReturn fakeHash
-        Datadog.hashGenerator = mockHashGenerator
+        Motadata.hashGenerator = mockHashGenerator
 
         // When
-        val instance = Datadog.initialize(
+        val instance = Motadata.initialize(
             appContext.mockInstance,
             fakeConfiguration,
             fakeConsent
@@ -259,10 +259,10 @@ internal class DatadogTest {
                 "$instanceName/${fakeConfiguration.coreConfig.site.siteName}"
             )
         ) doReturn fakeHash
-        Datadog.hashGenerator = mockHashGenerator
+        Motadata.hashGenerator = mockHashGenerator
 
         // When
-        val instance = Datadog.initialize(
+        val instance = Motadata.initialize(
             instanceName,
             appContext.mockInstance,
             fakeConfiguration,
@@ -277,11 +277,11 @@ internal class DatadogTest {
     @Test
     fun `M warn W initialize() {hash generator fails}`() {
         // Given
-        Datadog.hashGenerator = mock()
-        whenever(Datadog.hashGenerator.generate(any())) doReturn null
+        Motadata.hashGenerator = mock()
+        whenever(Motadata.hashGenerator.generate(any())) doReturn null
 
         // When
-        val instance = Datadog.initialize(
+        val instance = Motadata.initialize(
             appContext.mockInstance,
             fakeConfiguration,
             fakeConsent
@@ -291,7 +291,7 @@ internal class DatadogTest {
         logger.mockInternalLogger.verifyLog(
             InternalLogger.Level.ERROR,
             InternalLogger.Target.USER,
-            Datadog.CANNOT_CREATE_SDK_INSTANCE_ID_ERROR
+            Motadata.CANNOT_CREATE_SDK_INSTANCE_ID_ERROR
         )
         assertThat(instance).isNull()
     }
@@ -301,11 +301,11 @@ internal class DatadogTest {
         @StringForgery name: String
     ) {
         // Given
-        Datadog.hashGenerator = mock()
-        whenever(Datadog.hashGenerator.generate(any())) doReturn null
+        Motadata.hashGenerator = mock()
+        whenever(Motadata.hashGenerator.generate(any())) doReturn null
 
         // When
-        val instance = Datadog.initialize(
+        val instance = Motadata.initialize(
             name,
             appContext.mockInstance,
             fakeConfiguration,
@@ -316,7 +316,7 @@ internal class DatadogTest {
         logger.mockInternalLogger.verifyLog(
             InternalLogger.Level.ERROR,
             InternalLogger.Target.USER,
-            Datadog.CANNOT_CREATE_SDK_INSTANCE_ID_ERROR
+            Motadata.CANNOT_CREATE_SDK_INSTANCE_ID_ERROR
         )
         assertThat(instance).isNull()
     }
@@ -324,7 +324,7 @@ internal class DatadogTest {
     @Test
     fun `M stop specific instance W stopInstance()`() {
         // Given
-        val sdk = Datadog.initialize(
+        val sdk = Motadata.initialize(
             appContext.mockInstance,
             fakeConfiguration,
             fakeConsent
@@ -332,8 +332,8 @@ internal class DatadogTest {
         checkNotNull(sdk)
 
         // When
-        Datadog.stopInstance()
-        val getInstance = Datadog.getInstance()
+        Motadata.stopInstance()
+        val getInstance = Motadata.getInstance()
 
         // Then
         assertThat(getInstance).isInstanceOf(NoOpInternalSdkCore::class.java)
@@ -345,7 +345,7 @@ internal class DatadogTest {
         @StringForgery name: String
     ) {
         // Given
-        val sdk = Datadog.initialize(
+        val sdk = Motadata.initialize(
             name,
             appContext.mockInstance,
             fakeConfiguration,
@@ -354,8 +354,8 @@ internal class DatadogTest {
         checkNotNull(sdk)
 
         // When
-        Datadog.stopInstance(name)
-        val getInstance = Datadog.getInstance(name)
+        Motadata.stopInstance(name)
+        val getInstance = Motadata.getInstance(name)
 
         // Then
         assertThat(getInstance).isInstanceOf(NoOpInternalSdkCore::class.java)
@@ -368,7 +368,7 @@ internal class DatadogTest {
         @StringForgery name2: String
     ) {
         // Given
-        val sdk = Datadog.initialize(
+        val sdk = Motadata.initialize(
             name,
             appContext.mockInstance,
             fakeConfiguration,
@@ -377,8 +377,8 @@ internal class DatadogTest {
         checkNotNull(sdk)
 
         // When
-        Datadog.stopInstance(name2)
-        val getInstance = Datadog.getInstance(name)
+        Motadata.stopInstance(name2)
+        val getInstance = Motadata.getInstance(name)
 
         // Then
         assertThat(getInstance).isSameAs(sdk)
@@ -393,7 +393,7 @@ internal class DatadogTest {
         val fakeInstanceName = forge.aNullable { anAlphabeticalString() }
 
         // When
-        Datadog.getInstance(fakeInstanceName)
+        Motadata.getInstance(fakeInstanceName)
 
         // Then
         val currentMethodName = Thread.currentThread().stackTrace[1].methodName
@@ -420,7 +420,7 @@ internal class DatadogTest {
                 .joinToString(separator = "\n")
             assertThat(filteredActualMessage)
                 .isEqualTo(
-                    Datadog.MESSAGE_SDK_NOT_INITIALIZED.format(
+                    Motadata.MESSAGE_SDK_NOT_INITIALIZED.format(
                         Locale.US,
                         fakeInstanceName ?: SdkCoreRegistry.DEFAULT_INSTANCE_NAME,
                         expectedStacktrace
@@ -437,7 +437,7 @@ internal class DatadogTest {
         val fakeInstanceName = forge.aNullable { anAlphabeticalString() }
 
         // When
-        val result = Datadog.isInitialized(fakeInstanceName)
+        val result = Motadata.isInitialized(fakeInstanceName)
 
         // Then
         assertThat(result).isFalse
@@ -451,7 +451,7 @@ internal class DatadogTest {
         // Given
         val fakeInstanceName = forge.aNullable { anAlphabeticalString() }
 
-        Datadog.initialize(
+        Motadata.initialize(
             fakeInstanceName,
             appContext.mockInstance,
             fakeConfiguration,
@@ -459,7 +459,7 @@ internal class DatadogTest {
         )
 
         // When
-        val result = Datadog.isInitialized(fakeInstanceName)
+        val result = Motadata.isInitialized(fakeInstanceName)
 
         // Then
         assertThat(result).isTrue()
@@ -473,8 +473,8 @@ internal class DatadogTest {
         @IntForgery level: Int
     ) {
         // When
-        Datadog.setVerbosity(level)
-        val result = Datadog.getVerbosity()
+        Motadata.setVerbosity(level)
+        val result = Motadata.getVerbosity()
 
         // Then
         assertThat(result).isEqualTo(level)
@@ -483,7 +483,7 @@ internal class DatadogTest {
     @Test
     fun `M do nothing W stop() without initialize`() {
         // When
-        Datadog.stopInstance()
+        Motadata.stopInstance()
 
         // Then
         verifyNoInteractions(appContext.mockInstance)
@@ -497,7 +497,7 @@ internal class DatadogTest {
         val mockSdkCore = mock<SdkCore>()
 
         // When
-        Datadog.setTrackingConsent(fakeTrackingConsent, mockSdkCore)
+        Motadata.setTrackingConsent(fakeTrackingConsent, mockSdkCore)
 
         // Then
         verify(mockSdkCore).setTrackingConsent(fakeTrackingConsent)
@@ -517,7 +517,7 @@ internal class DatadogTest {
         val mockSdkCore = mock<SdkCore>()
 
         // When
-        Datadog.setUserInfo(id, name, email, fakeUserProperties, mockSdkCore)
+        Motadata.setUserInfo(id, name, email, fakeUserProperties, mockSdkCore)
 
         // Then
         verify(mockSdkCore).setUserInfo(id, name, email, fakeUserProperties)
@@ -534,7 +534,7 @@ internal class DatadogTest {
         val mockSdkCore = mock<SdkCore>()
 
         // When
-        Datadog.addUserProperties(fakeUserProperties, mockSdkCore)
+        Motadata.addUserProperties(fakeUserProperties, mockSdkCore)
 
         // Then
         verify(mockSdkCore).addUserProperties(fakeUserProperties)
@@ -546,7 +546,7 @@ internal class DatadogTest {
         val mockSdkCore = mock<SdkCore>()
 
         // When
-        Datadog.clearUserInfo(mockSdkCore)
+        Motadata.clearUserInfo(mockSdkCore)
 
         // Then
         verify(mockSdkCore).clearUserInfo()
@@ -558,7 +558,7 @@ internal class DatadogTest {
         val mockSdkCore = mock<SdkCore>()
 
         // When
-        Datadog.clearAllData(mockSdkCore)
+        Motadata.clearAllData(mockSdkCore)
 
         // Then
         verify(mockSdkCore).clearAllData()
@@ -577,7 +577,7 @@ internal class DatadogTest {
         val mockSdkCore = mock<SdkCore>()
 
         // When
-        Datadog.setAccountInfo(
+        Motadata.setAccountInfo(
             id = id,
             name = name,
             extraInfo = fakeExtraInfo,
@@ -599,7 +599,7 @@ internal class DatadogTest {
         val mockSdkCore = mock<SdkCore>()
 
         // When
-        Datadog.addAccountExtraInfo(
+        Motadata.addAccountExtraInfo(
             extraInfo = fakeExtraInfo,
             sdkCore = mockSdkCore
         )
@@ -614,7 +614,7 @@ internal class DatadogTest {
         val mockSdkCore = mock<SdkCore>()
 
         // When
-        Datadog.clearAccountInfo(sdkCore = mockSdkCore)
+        Motadata.clearAccountInfo(sdkCore = mockSdkCore)
 
         // Then
         verify(mockSdkCore).clearAccountInfo()

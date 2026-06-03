@@ -6,13 +6,13 @@
 
 package com.motadata.android.trace
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.trace.internal.TracingFeature
 
 /**
- * An entry point to Datadog Traces feature.
+ * An entry point to Motadata Traces feature.
  */
 object Trace {
 
@@ -25,7 +25,7 @@ object Trace {
      */
     @JvmOverloads
     @JvmStatic
-    fun enable(traceConfiguration: TraceConfiguration, sdkCore: SdkCore = Datadog.getInstance()) {
+    fun enable(traceConfiguration: TraceConfiguration, sdkCore: SdkCore = Motadata.getInstance()) {
         val tracingFeature = TracingFeature(
             sdkCore = sdkCore as FeatureSdkCore,
             customEndpointUrl = traceConfiguration.customEndpointUrl,

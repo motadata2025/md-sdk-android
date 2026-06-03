@@ -5,7 +5,7 @@
  */
 package com.motadata.android.okhttp
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.core.stub.StubSDKCore
 import com.motadata.android.okhttp.tests.elmyr.OkHttpConfigurator
@@ -45,7 +45,7 @@ class TracingHeaderTypePropagationTest {
     @BeforeEach
     fun `set up`(forge: Forge) {
         stubSdkCore = StubSDKCore(forge)
-        val registry: Any = Datadog::class.java.getStaticValue("registry")
+        val registry: Any = Motadata::class.java.getStaticValue("registry")
         val instances: MutableMap<String, SdkCore> = registry.getFieldValue("instances")
         instances += stubSdkCore.name to stubSdkCore
 
@@ -57,7 +57,7 @@ class TracingHeaderTypePropagationTest {
     @AfterEach
     fun `tear down`() {
         GlobalDatadogTracer.clear()
-        Datadog.stopInstance(stubSdkCore.name)
+        Motadata.stopInstance(stubSdkCore.name)
         mockServer.shutdown()
     }
 
@@ -80,7 +80,7 @@ class TracingHeaderTypePropagationTest {
     }
 
     @Test
-    fun `M inject Datadog headers W call is made { DATADOG configured }`() {
+    fun `M inject Motadata headers W call is made { DATADOG configured }`() {
         verifyHeadersInjected(
             TracingHeaderType.DATADOG,
             HEADER_DD_TRACE_ID,
@@ -142,7 +142,7 @@ class TracingHeaderTypePropagationTest {
         private const val HEADER_B3_SPAN_ID = "X-B3-SpanId"
         private const val HEADER_B3_SAMPLED = "X-B3-Sampled"
 
-        // Datadog headers
+        // Motadata headers
         private const val HEADER_DD_TRACE_ID = "x-datadog-trace-id"
         private const val HEADER_DD_PARENT_ID = "x-datadog-parent-id"
         private const val HEADER_DD_SAMPLING_PRIORITY = "x-datadog-sampling-priority"

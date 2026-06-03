@@ -1,5 +1,5 @@
 object com.motadata.android.webview.WebViewTracking
-  fun enable(android.webkit.WebView, List<String>, Float = 100f, com.motadata.android.api.SdkCore = Datadog.getInstance())
+  fun enable(android.webkit.WebView, List<String>, Float = 100f, com.motadata.android.api.SdkCore = Motadata.getInstance())
   class _InternalWebViewProxy
     constructor(com.motadata.android.api.SdkCore, String? = null)
     fun consumeWebviewEvent(String)

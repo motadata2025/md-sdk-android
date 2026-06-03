@@ -41,7 +41,7 @@ import org.mockito.quality.Strictness
 )
 @MockitoSettings(strictness = Strictness.LENIENT)
 @ForgeConfiguration(BaseConfigurator::class)
-internal class DatadogInterceptorBuilderTest {
+internal class MotadataInterceptorBuilderTest {
 
     @StringForgery
     lateinit var fakeSdkInstanceName: String
@@ -71,9 +71,9 @@ internal class DatadogInterceptorBuilderTest {
     }
 
     @Test
-    fun `M build a DatadogInterceptor with default values W build { traced hosts with header types provided }`() {
+    fun `M build a MotadataInterceptor with default values W build { traced hosts with header types provided }`() {
         // Given
-        val builder = DatadogInterceptor.Builder(fakeTracedHostsWithHeaderType)
+        val builder = MotadataInterceptor.Builder(fakeTracedHostsWithHeaderType)
 
         // When
         val interceptor = builder.build()
@@ -88,14 +88,14 @@ internal class DatadogInterceptorBuilderTest {
         assertThat(interceptor.tracedRequestListener).isInstanceOf(NoOpTracedRequestListener::class.java)
         assertThat(interceptor.traceSampler).isInstanceOf(DeterministicTraceSampler::class.java)
         assertThat(interceptor.traceSampler.getSampleRate()).isEqualTo(100f)
-        assertThat(interceptor.traceOrigin).isEqualTo(DatadogInterceptor.ORIGIN_RUM)
+        assertThat(interceptor.traceOrigin).isEqualTo(MotadataInterceptor.ORIGIN_RUM)
         assertThat(interceptor.localTracerFactory).isNotNull()
     }
 
     @Test
-    fun `M build a DatadogInterceptor with default values W build { only traced hosts provided }`() {
+    fun `M build a MotadataInterceptor with default values W build { only traced hosts provided }`() {
         // Given
-        val builder = DatadogInterceptor.Builder(fakeTracedHosts)
+        val builder = MotadataInterceptor.Builder(fakeTracedHosts)
 
         // When
         val interceptor = builder.build()
@@ -114,14 +114,14 @@ internal class DatadogInterceptorBuilderTest {
         assertThat(interceptor.tracedRequestListener).isInstanceOf(NoOpTracedRequestListener::class.java)
         assertThat(interceptor.traceSampler).isInstanceOf(DeterministicTraceSampler::class.java)
         assertThat(interceptor.traceSampler.getSampleRate()).isEqualTo(100f)
-        assertThat(interceptor.traceOrigin).isEqualTo(DatadogInterceptor.ORIGIN_RUM)
+        assertThat(interceptor.traceOrigin).isEqualTo(MotadataInterceptor.ORIGIN_RUM)
         assertThat(interceptor.localTracerFactory).isNotNull()
     }
 
     @Test
     fun `M set sdkInstanceName W build { setSdkInstanceName }`() {
         // When
-        val interceptor = DatadogInterceptor.Builder(fakeTracedHostsWithHeaderType)
+        val interceptor = MotadataInterceptor.Builder(fakeTracedHostsWithHeaderType)
             .setSdkInstanceName(fakeSdkInstanceName)
             .build()
 
@@ -135,14 +135,14 @@ internal class DatadogInterceptorBuilderTest {
         assertThat(interceptor.tracedRequestListener).isInstanceOf(NoOpTracedRequestListener::class.java)
         assertThat(interceptor.traceSampler).isInstanceOf(DeterministicTraceSampler::class.java)
         assertThat(interceptor.traceSampler.getSampleRate()).isEqualTo(100f)
-        assertThat(interceptor.traceOrigin).isEqualTo(DatadogInterceptor.ORIGIN_RUM)
+        assertThat(interceptor.traceOrigin).isEqualTo(MotadataInterceptor.ORIGIN_RUM)
         assertThat(interceptor.localTracerFactory).isNotNull()
     }
 
     @Test
     fun `M set traceContextInjection W build { setTraceContextInjection }`() {
         // When
-        val interceptor = DatadogInterceptor.Builder(fakeTracedHostsWithHeaderType)
+        val interceptor = MotadataInterceptor.Builder(fakeTracedHostsWithHeaderType)
             .setTraceContextInjection(fakeTraceContextInjection)
             .build()
 
@@ -156,14 +156,14 @@ internal class DatadogInterceptorBuilderTest {
         assertThat(interceptor.tracedRequestListener).isInstanceOf(NoOpTracedRequestListener::class.java)
         assertThat(interceptor.traceSampler).isInstanceOf(DeterministicTraceSampler::class.java)
         assertThat(interceptor.traceSampler.getSampleRate()).isEqualTo(100f)
-        assertThat(interceptor.traceOrigin).isEqualTo(DatadogInterceptor.ORIGIN_RUM)
+        assertThat(interceptor.traceOrigin).isEqualTo(MotadataInterceptor.ORIGIN_RUM)
         assertThat(interceptor.localTracerFactory).isNotNull()
     }
 
     @Test
     fun `M set traceRequestListener W build { setTraceRequestListener }`() {
         // When
-        val interceptor = DatadogInterceptor.Builder(fakeTracedHostsWithHeaderType)
+        val interceptor = MotadataInterceptor.Builder(fakeTracedHostsWithHeaderType)
             .setTracedRequestListener(mockTracedRequestListener)
             .build()
 
@@ -177,14 +177,14 @@ internal class DatadogInterceptorBuilderTest {
         assertThat(interceptor.tracedRequestListener).isSameAs(mockTracedRequestListener)
         assertThat(interceptor.traceSampler).isInstanceOf(DeterministicTraceSampler::class.java)
         assertThat(interceptor.traceSampler.getSampleRate()).isEqualTo(100f)
-        assertThat(interceptor.traceOrigin).isEqualTo(DatadogInterceptor.ORIGIN_RUM)
+        assertThat(interceptor.traceOrigin).isEqualTo(MotadataInterceptor.ORIGIN_RUM)
         assertThat(interceptor.localTracerFactory).isNotNull()
     }
 
     @Test
     fun `M set rumResourceAttributesProvider W build { setRumResourceAttributesProvider }`() {
         // When
-        val interceptor = DatadogInterceptor.Builder(fakeTracedHostsWithHeaderType)
+        val interceptor = MotadataInterceptor.Builder(fakeTracedHostsWithHeaderType)
             .setRumResourceAttributesProvider(mockRumResourceAttributesProvider)
             .build()
 
@@ -197,7 +197,7 @@ internal class DatadogInterceptorBuilderTest {
         assertThat(interceptor.tracedRequestListener).isInstanceOf(NoOpTracedRequestListener::class.java)
         assertThat(interceptor.traceSampler).isInstanceOf(DeterministicTraceSampler::class.java)
         assertThat(interceptor.traceSampler.getSampleRate()).isEqualTo(100f)
-        assertThat(interceptor.traceOrigin).isEqualTo(DatadogInterceptor.ORIGIN_RUM)
+        assertThat(interceptor.traceOrigin).isEqualTo(MotadataInterceptor.ORIGIN_RUM)
         assertThat(interceptor.localTracerFactory).isNotNull()
     }
 
@@ -206,7 +206,7 @@ internal class DatadogInterceptorBuilderTest {
         @FloatForgery(0f, 100f) fakeSampleRate: Float
     ) {
         // When
-        val interceptor = DatadogInterceptor.Builder(fakeTracedHostsWithHeaderType)
+        val interceptor = MotadataInterceptor.Builder(fakeTracedHostsWithHeaderType)
             .setTraceSampleRate(fakeSampleRate)
             .build()
 
@@ -220,14 +220,14 @@ internal class DatadogInterceptorBuilderTest {
         assertThat(interceptor.tracedRequestListener).isInstanceOf(NoOpTracedRequestListener::class.java)
         assertThat(interceptor.traceSampler).isInstanceOf(DeterministicTraceSampler::class.java)
         assertThat(interceptor.traceSampler.getSampleRate()).isEqualTo(fakeSampleRate)
-        assertThat(interceptor.traceOrigin).isEqualTo(DatadogInterceptor.ORIGIN_RUM)
+        assertThat(interceptor.traceOrigin).isEqualTo(MotadataInterceptor.ORIGIN_RUM)
         assertThat(interceptor.localTracerFactory).isNotNull()
     }
 
     @Test
     fun `M set traceSampler W build { setTraceSampler }`() {
         // When
-        val interceptor = DatadogInterceptor.Builder(fakeTracedHostsWithHeaderType)
+        val interceptor = MotadataInterceptor.Builder(fakeTracedHostsWithHeaderType)
             .setTraceSampler(mockSampler)
             .build()
 
@@ -240,14 +240,14 @@ internal class DatadogInterceptorBuilderTest {
         ).isInstanceOf(NoOpRumResourceAttributesProvider::class.java)
         assertThat(interceptor.tracedRequestListener).isInstanceOf(NoOpTracedRequestListener::class.java)
         assertThat(interceptor.traceSampler).isSameAs(mockSampler)
-        assertThat(interceptor.traceOrigin).isEqualTo(DatadogInterceptor.ORIGIN_RUM)
+        assertThat(interceptor.traceOrigin).isEqualTo(MotadataInterceptor.ORIGIN_RUM)
         assertThat(interceptor.localTracerFactory).isNotNull()
     }
 
     @Test
     fun `M have null resourceHeadersExtractor by default W build()`() {
         // When
-        val interceptor = DatadogInterceptor.Builder(fakeTracedHostsWithHeaderType).build()
+        val interceptor = MotadataInterceptor.Builder(fakeTracedHostsWithHeaderType).build()
 
         // Then
         assertThat(interceptor.resourceHeadersExtractor).isNull()
@@ -256,7 +256,7 @@ internal class DatadogInterceptorBuilderTest {
     @Test
     fun `M store default extractor W build { trackResourceHeaders() }`() {
         // When
-        val interceptor = DatadogInterceptor.Builder(fakeTracedHostsWithHeaderType)
+        val interceptor = MotadataInterceptor.Builder(fakeTracedHostsWithHeaderType)
             .trackResourceHeaders()
             .build()
 
@@ -272,7 +272,7 @@ internal class DatadogInterceptorBuilderTest {
             .build()
 
         // When
-        val interceptor = DatadogInterceptor.Builder(fakeTracedHostsWithHeaderType)
+        val interceptor = MotadataInterceptor.Builder(fakeTracedHostsWithHeaderType)
             .trackResourceHeaders(customExtractor)
             .build()
 

@@ -6,7 +6,7 @@
 
 package com.motadata.android.core.integration.tests.forge.factories
 
-import com.motadata.android.DatadogSite
+import com.motadata.android.MotadataSite
 import com.motadata.android._InternalProxy
 import com.motadata.android.core.configuration.BatchProcessingLevel
 import com.motadata.android.core.configuration.BatchSize
@@ -30,7 +30,7 @@ internal class ConfigurationCoreForgeryFactory :
         )
             .setUseDeveloperModeWhenDebuggable(forge.aBool())
             // this needs to be before allowing the clear text traffic as it invalidates this option
-            .useSite(forge.aValueFrom(DatadogSite::class.java))
+            .useSite(forge.aValueFrom(MotadataSite::class.java))
             .setFirstPartyHostsWithHeaderType(
                 forge.aMap {
                     val fakeUrl = forge.aStringMatching("https://[a-z0-9]+\\.com")

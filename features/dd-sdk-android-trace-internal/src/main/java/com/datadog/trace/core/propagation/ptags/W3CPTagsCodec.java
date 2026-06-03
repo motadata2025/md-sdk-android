@@ -205,7 +205,7 @@ public class W3CPTagsCodec extends PTagsCodec {
             (w3CPTags.tracestate.length() - (w3CPTags.ddMemberValueEnd - w3CPTags.ddMemberStart));
       }
     } else if (pTags.tracestate != null) {
-      // We assume there is no Datadog list-member
+      // We assume there is no Motadata list-member
       size += pTags.tracestate.length();
     }
     return size;
@@ -247,13 +247,13 @@ public class W3CPTagsCodec extends PTagsCodec {
       W3CPTags w3cPTags = (W3CPTags) ptags;
       size = cleanUpAndAppendUnknown(sb, w3cPTags, size);
     }
-    // Check empty Datadog list-member only tracestate
+    // Check empty Motadata list-member only tracestate
     if (size == EMPTY_SIZE) {
       // If we haven't written anything but the 'dd=', then reset the StringBuilder
       sb.setLength(0);
       size = 0;
     }
-    // Append all other non-Datadog list-members
+    // Append all other non-Motadata list-members
     int newSize = cleanUpAndAppendSuffix(sb, ptags, size);
     if (newSize != size) {
       // We don't care about the total size in bytes here, but only the fact that we added something
@@ -645,13 +645,13 @@ public class W3CPTagsCodec extends PTagsCodec {
       if (memberEnd < 0) {
         memberEnd = len;
       }
-      // Try to define Datadog member start if not already found
+      // Try to define Motadata member start if not already found
       if (ddMemberStart == -1) {
         if (original.startsWith(DATADOG_MEMBER_KEY, memberStart)) {
           ddMemberStart = memberStart;
         }
       }
-      // Skip Datadog member (already added with prefix and tags)
+      // Skip Motadata member (already added with prefix and tags)
       if (memberStart != ddMemberStart) {
         if (sb.length() > 0) {
           sb.append(MEMBER_SEPARATOR);
@@ -700,13 +700,13 @@ public class W3CPTagsCodec extends PTagsCodec {
     /** The index of the first tracestate list-member position in {@link #tracestate}. */
     private final int firstMemberStart;
     /**
-     * The index of the Datadog tracestate list-member (dd=) position in {@link #tracestate}, {@code
-     * -1 if Datadog list-member not found}.
+     * The index of the Motadata tracestate list-member (dd=) position in {@link #tracestate}, {@code
+     * -1 if Motadata list-member not found}.
      */
     private final int ddMemberStart;
     /**
-     * The index of the end Datadog tracestate list-member (dd=) in {@link #tracestate}, {@code -1
-     * if Datadog list-member not found}.
+     * The index of the end Motadata tracestate list-member (dd=) in {@link #tracestate}, {@code -1
+     * if Motadata list-member not found}.
      */
     private final int ddMemberValueEnd;
 

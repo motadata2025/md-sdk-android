@@ -9,7 +9,7 @@ package com.motadata.android.api.context
 /**
  * Holds information about the current local and server time.
  * @property deviceTimeNs the current time as known by the System on the device (nanoseconds)
- * @property serverTimeNs the current time synchronized with Datadog's NTP server(s) (nanoseconds)
+ * @property serverTimeNs the current time synchronized with Motadata's NTP server(s) (nanoseconds)
  * @property serverTimeOffsetNs the difference between server time and device time, relative
  * to the device time (nanoseconds)
  * @property serverTimeOffsetMs the difference between server time and device time, relative

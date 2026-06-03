@@ -1,10 +1,10 @@
-# Datadog RUM Debug Widget for Android
+# Motadata RUM Debug Widget for Android
 
 This module can be integrated into your application to help visualize RUM data being collected in **real time**.
 It is intended for debugging and development purposes and **should be removed** before shipping to production.
 As shown in the screenshot below, the widget provides a floating overlay that displays key metrics such as **memory usage**, **CPU load** and **RUM events**.
 
-<img src="images/screenshot_rumdebugwidget.png" width="400" alt="Datadog RUM Debug Widget"/>
+<img src="images/screenshot_rumdebugwidget.png" width="400" alt="Motadata RUM Debug Widget"/>
 
 ## Getting Started
 

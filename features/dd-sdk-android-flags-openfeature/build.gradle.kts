@@ -78,7 +78,7 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "OpenFeature Provider integration for the Datadog Feature Flags " +
+    "OpenFeature Provider integration for the Motadata Feature Flags " +
         "library for Android applications."
 )
 detektCustomConfig()

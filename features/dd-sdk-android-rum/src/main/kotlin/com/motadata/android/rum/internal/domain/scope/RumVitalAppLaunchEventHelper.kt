@@ -7,7 +7,7 @@
 package com.motadata.android.rum.internal.domain.scope
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.rum.RumSessionType
 import com.motadata.android.rum.internal.domain.InfoProvider
 import com.motadata.android.rum.internal.domain.RumContext
@@ -30,7 +30,7 @@ internal class RumVitalAppLaunchEventHelper(
     @Suppress("LongMethod")
     fun newVitalAppLaunchEvent(
         timestampMs: Long,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         eventAttributes: Map<String, Any?>,
         customAttributes: Map<String, Any?>,
         hasReplay: Boolean?,

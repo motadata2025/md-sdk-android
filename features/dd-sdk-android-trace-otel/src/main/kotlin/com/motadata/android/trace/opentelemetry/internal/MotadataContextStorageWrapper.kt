@@ -12,8 +12,8 @@ import io.opentelemetry.context.ContextStorage
 import java.util.function.Function
 
 @RequiresApi(Build.VERSION_CODES.N)
-internal class DatadogContextStorageWrapper : Function<ContextStorage, DatadogContextStorage> {
-    override fun apply(wrapped: ContextStorage): DatadogContextStorage {
-        return if (wrapped is DatadogContextStorage) wrapped else DatadogContextStorage(wrapped)
+internal class MotadataContextStorageWrapper : Function<ContextStorage, MotadataContextStorage> {
+    override fun apply(wrapped: ContextStorage): MotadataContextStorage {
+        return if (wrapped is MotadataContextStorage) wrapped else MotadataContextStorage(wrapped)
     }
 }

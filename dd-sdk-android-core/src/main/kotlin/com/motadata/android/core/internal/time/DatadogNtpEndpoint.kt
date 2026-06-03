@@ -7,7 +7,7 @@
 package com.motadata.android.core.internal.time
 
 /**
- * This object contains constant values for all the Datadog NTP Endpoint urls used in the SDK.
+ * This object contains constant values for all the Motadata NTP Endpoint urls used in the SDK.
  */
 internal enum class DatadogNtpEndpoint(val host: String) {
 

@@ -8,7 +8,7 @@ package com.motadata.android.trace.opentelemetry
 
 import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.Feature
@@ -19,7 +19,7 @@ import com.motadata.android.trace.TracingHeaderType
 import com.motadata.android.trace.api.tracer.DatadogTracer
 import com.motadata.android.trace.internal._TraceInternalProxy
 import com.motadata.android.trace.internal._TraceInternalProxy.setTraceId128BitGenerationEnabled
-import com.motadata.android.trace.opentelemetry.internal.DatadogContextStorageWrapper
+import com.motadata.android.trace.opentelemetry.internal.MotadataContextStorageWrapper
 import com.motadata.android.trace.opentelemetry.internal.executeIfJavaFunctionPackageExists
 import com.datadog.opentelemetry.trace.OtelTracerBuilder
 import io.opentelemetry.api.trace.Tracer
@@ -29,7 +29,7 @@ import io.opentelemetry.context.ContextStorage
 import java.util.Locale
 
 /**
- *  A class enabling Datadog OpenTelemetry features.
+ *  A class enabling Motadata OpenTelemetry features.
  *
  * It allows you to create [TracerProvider].
  *
@@ -121,7 +121,7 @@ class OtelTracerProvider internal constructor(
          * @param sdkCore SDK instance to bind to. If not provided, default instance will be used.
          */
         @JvmOverloads
-        constructor(sdkCore: SdkCore = Datadog.getInstance()) : this(sdkCore as FeatureSdkCore)
+        constructor(sdkCore: SdkCore = Motadata.getInstance()) : this(sdkCore as FeatureSdkCore)
 
         // region Public API
 
@@ -252,7 +252,7 @@ class OtelTracerProvider internal constructor(
 
     internal companion object {
         init {
-            // We need to add the DatadogContextStorageWrapper and this should be executed before
+            // We need to add the MotadataContextStorageWrapper and this should be executed before
             // before io.opentelemetry.context.LazyStorage is loaded in the class loader to take effect.
             // For now we should assume that our users are using `OtelTracerProvider` first in their code.
             // Later on maybe we should consider a method
@@ -263,7 +263,7 @@ class OtelTracerProvider internal constructor(
             ) {
                 // suppressing the lint warning as we call this safely on Android 23 and below
                 @Suppress("NewApi")
-                ContextStorage.addWrapper(DatadogContextStorageWrapper())
+                ContextStorage.addWrapper(MotadataContextStorageWrapper())
             }
         }
 

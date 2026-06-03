@@ -5,7 +5,7 @@ First of all, thanks for contributing!
 This document provides some basic guidelines for contributing to this repository.
 To propose improvements, feel free to submit a PR or open an Issue.
 
-**Note:** Datadog requires that all commits within this repository must be signed, including those within external contribution PRs. Please ensure you have followed GitHub's [Signing Commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits) guide before proposing a contribution. PRs lacking signed commits will not be processed and may be rejected.
+**Note:** Motadata requires that all commits within this repository must be signed, including those within external contribution PRs. Please ensure you have followed GitHub's [Signing Commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits) guide before proposing a contribution. PRs lacking signed commits will not be processed and may be rejected.
 
 ## Setup your developer Environment
 
@@ -25,8 +25,8 @@ This project hosts the following modules:
 
   - `dd-sdk-android-core`: the main library implementing the core functionality of SDK (storage and upload of data, core APIs);
   - `dd-sdk-android-internal`: a library providing internal APIs, classes and utilities shared by the SDK modules;
-  - `features/***`: a set of libraries implementing Datadog products: 
-    - `features/dd-sdk-android-logs`: a library to send logs to Datadog;
+  - `features/***`: a set of libraries implementing Motadata products: 
+    - `features/dd-sdk-android-logs`: a library to send logs to Motadata;
     - `features/dd-sdk-android-rum`: a library to track user navigation and interaction;
     - `features/dd-sdk-android-ndk`: a lightweight library to track crashes from NDK libraries;
     - `features/dd-sdk-android-session-replay`: a library to capture the window content;
@@ -38,31 +38,31 @@ This project hosts the following modules:
     - `features/dd-sdk-android-trace-otel`: an extension of Trace library to integrate with [OpenTelemetry](https://opentelemetry.io/);
     - `features/dd-sdk-android-webview`: a library to forward logs and RUM events captured in a webview to be linked with the mobile session;
     - `features/dd-sdk-android-profiling`: a library to record application performance profiles;
-  - `integrations/***`: a set of libraries integrating Datadog products in third party libraries:
-    - `integrations/dd-sdk-android-apollo`: a lightweight library providing a bridge integration between Datadog SDK and [Apollo Kotlin](https://github.com/apollographql/apollo-kotlin)
-    - `integrations/dd-sdk-android-coil`: a lightweight library providing a bridge integration between Datadog SDK and [Coil](https://coil-kt.github.io/coil/);
-    - `integrations/dd-sdk-android-coil3`: a lightweight library providing a bridge integration between Datadog SDK and [Coil 3](https://coil-kt.github.io/coil/);
-    - `integrations/dd-sdk-android-compose`: a lightweight library providing a bridge integration between Datadog SDK and [Jetpack Compose](https://developer.android.com/jetpack/compose);
-    - `integrations/dd-sdk-android-fresco`: a lightweight library providing a bridge integration between Datadog SDK and [Fresco](https://frescolib.org/);
-    - `integrations/dd-sdk-android-glide`: a lightweight library providing a bridge integration between Datadog SDK and [Glide](https://bumptech.github.io/glide/);
+  - `integrations/***`: a set of libraries integrating Motadata products in third party libraries:
+    - `integrations/dd-sdk-android-apollo`: a lightweight library providing a bridge integration between Motadata SDK and [Apollo Kotlin](https://github.com/apollographql/apollo-kotlin)
+    - `integrations/dd-sdk-android-coil`: a lightweight library providing a bridge integration between Motadata SDK and [Coil](https://coil-kt.github.io/coil/);
+    - `integrations/dd-sdk-android-coil3`: a lightweight library providing a bridge integration between Motadata SDK and [Coil 3](https://coil-kt.github.io/coil/);
+    - `integrations/dd-sdk-android-compose`: a lightweight library providing a bridge integration between Motadata SDK and [Jetpack Compose](https://developer.android.com/jetpack/compose);
+    - `integrations/dd-sdk-android-fresco`: a lightweight library providing a bridge integration between Motadata SDK and [Fresco](https://frescolib.org/);
+    - `integrations/dd-sdk-android-glide`: a lightweight library providing a bridge integration between Motadata SDK and [Glide](https://bumptech.github.io/glide/);
     - `integrations/dd-sdk-android-okhttp`: a lightweight library providing an instrumentation for [OkHttp](https://square.github.io/okhttp/);
     - `integrations/dd-sdk-android-okhttp-otel`: a lightweight library providing a support of [OpenTelemetry](https://opentelemetry.io/) for the [OkHttp](https://square.github.io/okhttp/) instrumentation;
     - `integrations/dd-sdk-android-rum-coroutines`: a set of extensions for Kotlin Coroutines to ease the work with the RUM library;
-    - `integrations/dd-sdk-android-rx`: a lightweight library providing a bridge integration between Datadog SDK and [RxJava](https://github.com/ReactiveX/RxJava);
-    - `integrations/dd-sdk-android-sqldelight`: a lightweight library providing a bridge integration between Datadog SDK and [SQLDelight](https://cashapp.github.io/sqldelight/);
-    - `integrations/dd-sdk-android-timber`: a lightweight library providing a bridge integration between Datadog SDK and [Timber](https://github.com/JakeWharton/timber);
+    - `integrations/dd-sdk-android-rx`: a lightweight library providing a bridge integration between Motadata SDK and [RxJava](https://github.com/ReactiveX/RxJava);
+    - `integrations/dd-sdk-android-sqldelight`: a lightweight library providing a bridge integration between Motadata SDK and [SQLDelight](https://cashapp.github.io/sqldelight/);
+    - `integrations/dd-sdk-android-timber`: a lightweight library providing a bridge integration between Motadata SDK and [Timber](https://github.com/JakeWharton/timber);
     - `integrations/dd-sdk-android-tv`: a lightweight library providing extensions for [Android TV](https://www.android.com/tv/)
     - `integrations/dd-sdk-android-trace-coroutines`: a set of extensions for Kotlin Coroutines to ease the work with the Trace library;
   - `instrumented/***`: a set of modules used to run instrumented tests:
     - `instrumented/integration`: a test module with integration tests using Espresso;
   - `reliability/***`: a set of modules used to run integration tests:
-    - `reliability/core-it`: a set of integration tests for the Datadog SDK core library;
+    - `reliability/core-it`: a set of integration tests for the Motadata SDK core library;
     - `reliability/single-fit/logs`: a set of integration tests for the Logs library;
     - `reliability/single-fit/okhttp`: a set of integration tests for [OkHttp](https://square.github.io/okhttp/) instrumentation;
     - `reliability/single-fit/rum`: a set of integration tests for the RUM library;
     - `reliability/single-fit/trace`: a set of integration tests for the Trace library;
-    - `reliability/stub-core`: a set of stubs for Datadog SDK core;
-    - `reliability/stub-feature`: a set of stubs for Datadog SDK feature APIs;
+    - `reliability/stub-core`: a set of stubs for Motadata SDK core;
+    - `reliability/stub-feature`: a set of stubs for Motadata SDK feature APIs;
   - `tools/***`: a set of modules used to extend the tools we use in our workflow:
     - `tools/benchmark`: a code to benchmark SDK performance;
     - `tools/detekt`: a few custom [Detekt](https://github.com/arturbosch/detekt) static analysis rules;
@@ -71,7 +71,7 @@ This project hosts the following modules:
     - `tools/unit`: a utility library with code to help writing unit tests;
   - `sample/***`: a few sample applications showcasing how to use the library features in production code;
     - `sample/kotlin`: a sample mobile application;
-    - `sample/vendor-lib`: a sample Android library, to showcase vendors using Datadog in a host app also using Datadog;
+    - `sample/vendor-lib`: a sample Android library, to showcase vendors using Motadata in a host app also using Motadata;
     - `sample/wear`: a sample Wear OS application;
     - `sample/automotive`: a sample Automotive OS application;
     - `sample/tv`: a sample Android TV OS application;
@@ -121,11 +121,11 @@ with the details about what you'd like to see. At a minimum, please provide:
 
 ## Found a bug?
 
-For any urgent matters (such as outages) or issues concerning the Datadog service
+For any urgent matters (such as outages) or issues concerning the Motadata service
 or UI, contact our support team via https://docs.datadoghq.com/help/ for direct,
 faster assistance.
 
-You may submit bug reports concerning the Datadog SDK for Android by 
+You may submit bug reports concerning the Motadata SDK for Android by 
 [opening a Github issue](https://github.com/DataDog/dd-sdk-android/issues/new?labels=bug&template=BugReport.yml).
 At a minimum, please provide:
 
@@ -136,7 +136,7 @@ At a minimum, please provide:
  - Errors (with stack traces) or warnings received;
  - Any details you can share about your configuration including:
     - Android API level;
-    - Datadog SDK version;
+    - Motadata SDK version;
     - Versions of any other relevant dependencies (OkHttp, …);
     - Your proguard configuration;
     - The list of Gradle plugins applied to your project.
@@ -253,7 +253,7 @@ ktlint -F "**/*.kt" "**/*.kts" '!**/build/generated/**' '!**/build/kspCaches/**'
 
 It is important to be sure that our library work properly in any scenario. All
 non trivial code must be tested. If you're not used to writing tests, you can
-take a look at the `test` folder to get some ideas on how we write them at Datadog.
+take a look at the `test` folder to get some ideas on how we write them at Motadata.
 
 We use a variety of tools to help us write tests easy to read and maintain:
 

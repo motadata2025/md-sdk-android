@@ -8,8 +8,8 @@ package com.motadata.android.tv.sample
 
 import android.app.Application
 import android.util.Log
-import com.motadata.android.Datadog
-import com.motadata.android.DatadogSite
+import com.motadata.android.Motadata
+import com.motadata.android.MotadataSite
 import com.motadata.android.core.configuration.BatchSize
 import com.motadata.android.core.configuration.Configuration
 import com.motadata.android.core.configuration.UploadFrequency
@@ -17,8 +17,8 @@ import com.motadata.android.core.sampling.RateBasedSampler
 import com.motadata.android.log.Logger
 import com.motadata.android.log.Logs
 import com.motadata.android.log.LogsConfiguration
-import com.motadata.android.okhttp.DatadogEventListener
-import com.motadata.android.okhttp.DatadogInterceptor
+import com.motadata.android.okhttp.MotadataEventListener
+import com.motadata.android.okhttp.MotadataInterceptor
 import com.motadata.android.okhttp.trace.TracingInterceptor
 import com.motadata.android.privacy.TrackingConsent
 import com.motadata.android.rum.GlobalRumMonitor
@@ -54,8 +54,8 @@ class TvSampleApplication : Application() {
     }
 
     private fun initializeDatadog() {
-        Datadog.setVerbosity(Log.VERBOSE)
-        Datadog.initialize(
+        Motadata.setVerbosity(Log.VERBOSE)
+        Motadata.initialize(
             this,
             createDatadogConfiguration(),
             TrackingConsent.GRANTED
@@ -99,7 +99,7 @@ class TvSampleApplication : Application() {
             env = "test",
             variant = ""
         )
-            .useSite(DatadogSite.US1)
+            .useSite(MotadataSite.US1)
             .setBatchSize(BatchSize.SMALL)
             .setUploadFrequency(UploadFrequency.FREQUENT)
             .build()
@@ -119,7 +119,7 @@ class TvSampleApplication : Application() {
     private fun initializeOkHttp() {
         okHttpClient = OkHttpClient.Builder()
             .addInterceptor(
-                DatadogInterceptor.Builder(emptyMap())
+                MotadataInterceptor.Builder(emptyMap())
                     .setTraceSampler(RateBasedSampler(FULL_SAMPLING_RATE))
                     .build()
             )
@@ -128,7 +128,7 @@ class TvSampleApplication : Application() {
                     .setTraceSampler(RateBasedSampler(FULL_SAMPLING_RATE))
                     .build()
             )
-            .eventListenerFactory(DatadogEventListener.Factory())
+            .eventListenerFactory(MotadataEventListener.Factory())
             .build()
     }
 

@@ -1,8 +1,8 @@
-# Datadog benchmark sample application
+# Motadata benchmark sample application
 
 ## Overview
 
-This is a sample application for Datadog internal use to benchmark the overhead of SDK features.
+This is a sample application for Motadata internal use to benchmark the overhead of SDK features.
 The application is uploaded for every commit in `develop` branch to continuously monitor the
 overhead of the SDK in case of any spikes in CPU usage, memory usage, or FPS.
 

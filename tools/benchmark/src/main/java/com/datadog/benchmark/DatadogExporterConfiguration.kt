@@ -7,7 +7,7 @@
 package com.datadog.benchmark
 
 /**
- * Describes the configuration to be used in Datadog open telemetry exporter.
+ * Describes the configuration to be used in Motadata open telemetry exporter.
  * @param serviceName the name of the service.
  * @param resource the name of the resource.
  * @param applicationName the name of the host application.
@@ -34,7 +34,7 @@ data class DatadogExporterConfiguration internal constructor(
     /**
      * A Builder class for a [DatadogExporterConfiguration].
      *
-     * @param apiKey api key to submit metrics to the Datadog endpoint
+     * @param apiKey api key to submit metrics to the Motadata endpoint
      */
     class Builder(private val apiKey: String) {
         private var serviceName: String? = null

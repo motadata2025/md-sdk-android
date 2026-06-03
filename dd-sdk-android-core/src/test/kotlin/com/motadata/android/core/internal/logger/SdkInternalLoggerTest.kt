@@ -7,7 +7,7 @@
 package com.motadata.android.core.internal.logger
 
 import android.util.Log
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureScope
@@ -165,7 +165,7 @@ internal class SdkInternalLoggerTest {
         @IntForgery(min = Log.VERBOSE, max = (Log.ASSERT + 1)) sdkVerbosity: Int
     ) {
         // Given
-        Datadog.setVerbosity(sdkVerbosity)
+        Motadata.setVerbosity(sdkVerbosity)
 
         // When
         testedInternalLogger = SdkInternalLogger(

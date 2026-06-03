@@ -6,32 +6,32 @@
 
 package com.motadata.android.sample.webview
 
-import com.motadata.android.DatadogSite
+import com.motadata.android.MotadataSite
 import com.motadata.android.sample.BuildConfig
 import timber.log.Timber
 
 internal val BROWSER_SITE: String
     get() {
         return try {
-            DatadogSite.valueOf(BuildConfig.DD_SITE_NAME)
+            MotadataSite.valueOf(BuildConfig.DD_SITE_NAME)
         } catch (e: IllegalArgumentException) {
             Timber.e("Error setting site to ${BuildConfig.DD_SITE_NAME}")
             null
         }.browserSite()
     }
 
-private fun DatadogSite?.browserSite(): String {
+private fun MotadataSite?.browserSite(): String {
     return when (this) {
-        DatadogSite.US1,
-        DatadogSite.STAGING,
+        MotadataSite.US1,
+        MotadataSite.STAGING,
         null -> "datadoghq.com"
 
-        DatadogSite.US3 -> "us3.datadoghq.com"
-        DatadogSite.US5 -> "us5.datadoghq.com"
-        DatadogSite.EU1 -> "datadoghq.eu"
-        DatadogSite.AP1 -> "ap1.datadoghq.com"
-        DatadogSite.AP2 -> "ap2.datadoghq.com"
-        DatadogSite.US1_FED -> "ddog-gov.com"
-        DatadogSite.US2_FED -> "us2.ddog-gov.com"
+        MotadataSite.US3 -> "us3.datadoghq.com"
+        MotadataSite.US5 -> "us5.datadoghq.com"
+        MotadataSite.EU1 -> "datadoghq.eu"
+        MotadataSite.AP1 -> "ap1.datadoghq.com"
+        MotadataSite.AP2 -> "ap2.datadoghq.com"
+        MotadataSite.US1_FED -> "ddog-gov.com"
+        MotadataSite.US2_FED -> "us2.ddog-gov.com"
     }
 }

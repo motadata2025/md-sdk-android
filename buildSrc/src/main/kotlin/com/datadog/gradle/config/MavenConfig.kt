@@ -68,23 +68,23 @@ fun Project.publishingConfig(
                     }
 
                     organization {
-                        name.set("Datadog")
+                        name.set("Motadata")
                         url.set("https://www.datadoghq.com/")
                     }
 
                     developers {
                         developer {
-                            name.set("Datadog")
+                            name.set("Motadata")
                             email.set("info@datadoghq.com")
-                            organization.set("Datadog")
+                            organization.set("Motadata")
                             organizationUrl.set("https://www.datadoghq.com/")
                         }
                     }
 
                     scm {
                         url.set("https://github.com/DataDog/dd-sdk-android/")
-                        connection.set("scm:git:git@github.com:Datadog/dd-sdk-android.git")
-                        developerConnection.set("scm:git:git@github.com:Datadog/dd-sdk-android.git")
+                        connection.set("scm:git:git@github.com:Motadata/dd-sdk-android.git")
+                        developerConnection.set("scm:git:git@github.com:Motadata/dd-sdk-android.git")
                     }
                 }
             }

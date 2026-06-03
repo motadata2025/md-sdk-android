@@ -7,7 +7,7 @@
 package com.motadata.android.sessionreplay.compose.internal.reflection
 
 import androidx.compose.ui.text.MultiParagraph
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.feature.FeatureSdkCore
 import java.lang.reflect.Field
@@ -279,7 +279,7 @@ private fun logNoSuchException(name: String, type: String, e: ReflectiveOperatio
 }
 
 private fun logReflectionException(name: String, type: String, reason: String, e: Throwable) {
-    (Datadog.getInstance() as? FeatureSdkCore)?.internalLogger?.log(
+    (Motadata.getInstance() as? FeatureSdkCore)?.internalLogger?.log(
         level = InternalLogger.Level.ERROR,
         targets = listOf(InternalLogger.Target.MAINTAINER, InternalLogger.Target.TELEMETRY),
         messageBuilder = { "Unable to get $type [$name] through reflection: $reason" },

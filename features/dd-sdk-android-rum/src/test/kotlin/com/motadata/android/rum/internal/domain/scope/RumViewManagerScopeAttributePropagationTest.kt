@@ -7,7 +7,7 @@
 package com.motadata.android.rum.internal.domain.scope
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.NetworkInfo
 import com.motadata.android.api.feature.FeatureScope
 import com.motadata.android.api.storage.DataWriter
@@ -129,7 +129,7 @@ internal class RumViewManagerScopeAttributePropagationTest {
     lateinit var fakeNetworkInfoAtScopeStart: NetworkInfo
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @BoolForgery
     var fakeHasReplay: Boolean = false

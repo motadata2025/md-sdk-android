@@ -10,7 +10,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.log.Logs
 import com.motadata.android.privacy.TrackingConsent
 import com.motadata.android.rum.GlobalRumMonitor
@@ -30,7 +30,7 @@ internal class KioskSplashPlaygroundActivity : AppCompatActivity() {
 
         val config = RuntimeConfig.configBuilder().build()
 
-        val sdkCore = Datadog.initialize(
+        val sdkCore = Motadata.initialize(
             this,
             config,
             TrackingConsent.GRANTED

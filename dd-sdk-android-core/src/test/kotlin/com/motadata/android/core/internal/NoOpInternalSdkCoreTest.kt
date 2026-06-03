@@ -7,7 +7,7 @@
 package com.motadata.android.core.internal
 
 import android.util.Log
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.core.internal.logger.SdkInternalLogger
 import com.motadata.android.utils.forge.Configurator
@@ -42,12 +42,12 @@ internal class NoOpInternalSdkCoreTest {
 
     @BeforeEach
     fun setUp() {
-        Datadog.setVerbosity(Log.VERBOSE)
+        Motadata.setVerbosity(Log.VERBOSE)
     }
 
     @AfterEach
     fun tearDown() {
-        Datadog.setVerbosity(Int.MAX_VALUE)
+        Motadata.setVerbosity(Int.MAX_VALUE)
     }
 
     @Test

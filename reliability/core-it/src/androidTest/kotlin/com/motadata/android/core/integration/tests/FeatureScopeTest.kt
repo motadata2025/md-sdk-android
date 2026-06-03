@@ -8,7 +8,7 @@ package com.motadata.android.core.integration.tests
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.stub.StubStorageBackedFeature
 import com.motadata.android.api.storage.EventType
@@ -83,7 +83,7 @@ class FeatureScopeTest : MockServerTest() {
     @After
     fun tearDown() {
         cleanStorage()
-        Datadog.stopInstance()
+        Motadata.stopInstance()
         cleanMockWebServer()
     }
 
@@ -93,7 +93,7 @@ class FeatureScopeTest : MockServerTest() {
     fun mustReceiveTheEvents_whenFeatureWrite_trackingConsentGranted() {
         // Given
         trackingConsent = TrackingConsent.GRANTED
-        testedInternalSdkCore = Datadog.initialize(
+        testedInternalSdkCore = Motadata.initialize(
             context = ApplicationProvider.getApplicationContext(),
             configuration = fakeConfiguration,
             trackingConsent = trackingConsent
@@ -129,7 +129,7 @@ class FeatureScopeTest : MockServerTest() {
     fun mustReceiveTheEvents_whenFeatureWrite_trackingConsentPendingToGranted() {
         // Given
         trackingConsent = TrackingConsent.PENDING
-        testedInternalSdkCore = Datadog.initialize(
+        testedInternalSdkCore = Motadata.initialize(
             context = ApplicationProvider.getApplicationContext(),
             configuration = fakeConfiguration,
             trackingConsent = trackingConsent
@@ -150,7 +150,7 @@ class FeatureScopeTest : MockServerTest() {
         }
 
         // When
-        Datadog.setTrackingConsent(TrackingConsent.GRANTED)
+        Motadata.setTrackingConsent(TrackingConsent.GRANTED)
 
         // Then
         ConditionWatcher {
@@ -166,7 +166,7 @@ class FeatureScopeTest : MockServerTest() {
     fun mustReceiveTheEvents_whenFeatureWrite_trackingConsentGranted_metadataIsNull() {
         // Given
         trackingConsent = TrackingConsent.GRANTED
-        testedInternalSdkCore = Datadog.initialize(
+        testedInternalSdkCore = Motadata.initialize(
             context = ApplicationProvider.getApplicationContext(),
             configuration = fakeConfiguration,
             trackingConsent = trackingConsent
@@ -206,7 +206,7 @@ class FeatureScopeTest : MockServerTest() {
     fun mustNotReceiveAnyEvent_whenFeatureWrite_trackingConsentPending() {
         // Given
         val trackingConsent = TrackingConsent.PENDING
-        testedInternalSdkCore = Datadog.initialize(
+        testedInternalSdkCore = Motadata.initialize(
             context = ApplicationProvider.getApplicationContext(),
             configuration = fakeConfiguration,
             trackingConsent = trackingConsent
@@ -249,7 +249,7 @@ class FeatureScopeTest : MockServerTest() {
     fun mustNotReceiveAnyEvent_whenFeatureWrite_trackingConsentNotGranted() {
         // Given
         val trackingConsent = TrackingConsent.NOT_GRANTED
-        testedInternalSdkCore = Datadog.initialize(
+        testedInternalSdkCore = Motadata.initialize(
             context = ApplicationProvider.getApplicationContext(),
             configuration = fakeConfiguration,
             trackingConsent = trackingConsent
@@ -288,7 +288,7 @@ class FeatureScopeTest : MockServerTest() {
     fun mustNotReceiveAnyEvent_whenFeatureWrite_trackingConsentPendingToNotGranted() {
         // Given
         val trackingConsent = TrackingConsent.PENDING
-        testedInternalSdkCore = Datadog.initialize(
+        testedInternalSdkCore = Motadata.initialize(
             context = ApplicationProvider.getApplicationContext(),
             configuration = fakeConfiguration,
             trackingConsent = trackingConsent
@@ -311,7 +311,7 @@ class FeatureScopeTest : MockServerTest() {
         }
 
         // When
-        Datadog.setTrackingConsent(TrackingConsent.NOT_GRANTED)
+        Motadata.setTrackingConsent(TrackingConsent.NOT_GRANTED)
 
         // Then
         countDownLatch.await(MEDIUM_WAIT_MS, TimeUnit.MILLISECONDS)
@@ -336,7 +336,7 @@ class FeatureScopeTest : MockServerTest() {
     fun mustNotReceiveAnyEvent_whenFeatureWrite_clearDataCalled() {
         // Given
         trackingConsent = TrackingConsent.PENDING
-        testedInternalSdkCore = Datadog.initialize(
+        testedInternalSdkCore = Motadata.initialize(
             context = ApplicationProvider.getApplicationContext(),
             configuration = fakeConfiguration,
             trackingConsent = trackingConsent
@@ -359,8 +359,8 @@ class FeatureScopeTest : MockServerTest() {
         }
 
         // When
-        Datadog.clearAllData()
-        Datadog.setTrackingConsent(TrackingConsent.GRANTED)
+        Motadata.clearAllData()
+        Motadata.setTrackingConsent(TrackingConsent.GRANTED)
 
         // Then
         countDownLatch.await(MEDIUM_WAIT_MS, TimeUnit.MILLISECONDS)
@@ -385,7 +385,7 @@ class FeatureScopeTest : MockServerTest() {
     fun mustNotReceiveAnyEvent_whenFeatureWrite_stopInstanceCalled() {
         // Given
         trackingConsent = TrackingConsent.PENDING
-        testedInternalSdkCore = Datadog.initialize(
+        testedInternalSdkCore = Motadata.initialize(
             context = ApplicationProvider.getApplicationContext(),
             configuration = fakeConfiguration,
             trackingConsent = trackingConsent
@@ -393,7 +393,7 @@ class FeatureScopeTest : MockServerTest() {
         testedInternalSdkCore.registerFeature(stubFeature)
         val featureScope = testedInternalSdkCore.getFeature(fakeFeatureName)
         checkNotNull(featureScope)
-        Datadog.stopInstance()
+        Motadata.stopInstance()
         val countDownLatch = CountDownLatch(fakeBatchData.size)
 
         // When

@@ -1,3 +1,3 @@
 class com.motadata.android.coil3.DatadogCoilRequestListener : coil3.request.ImageRequest.Listener
-  constructor(com.motadata.android.api.SdkCore = Datadog.getInstance())
+  constructor(com.motadata.android.api.SdkCore = Motadata.getInstance())
   override fun onError(coil3.request.ImageRequest, coil3.request.ErrorResult)

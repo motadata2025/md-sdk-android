@@ -73,7 +73,7 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "The RUM Debug Widget feature to use with the Datadog monitoring " +
+    "The RUM Debug Widget feature to use with the Motadata monitoring " +
         "library for Android applications."
 )
 detektCustomConfig()

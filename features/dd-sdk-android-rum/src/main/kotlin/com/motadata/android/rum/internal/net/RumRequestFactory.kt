@@ -7,7 +7,7 @@
 package com.motadata.android.rum.internal.net
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.net.Request
 import com.motadata.android.api.net.RequestExecutionContext
 import com.motadata.android.api.net.RequestFactory
@@ -27,7 +27,7 @@ internal class RumRequestFactory(
 ) : RequestFactory {
 
     override fun create(
-        context: DatadogContext,
+        context: MotadataContext,
         executionContext: RequestExecutionContext,
         batchData: List<RawBatchEvent>,
         batchMetadata: ByteArray?
@@ -54,7 +54,7 @@ internal class RumRequestFactory(
         )
     }
 
-    private fun buildUrl(context: DatadogContext, executionContext: RequestExecutionContext): String {
+    private fun buildUrl(context: MotadataContext, executionContext: RequestExecutionContext): String {
         val queryParams = buildMap {
             put(RequestFactory.QUERY_PARAM_SOURCE, context.source)
 
@@ -72,7 +72,7 @@ internal class RumRequestFactory(
     private fun buildHeaders(
         requestId: String,
         idempotencyKey: String?,
-        context: DatadogContext
+        context: MotadataContext
     ): Map<String, String> {
         val headers = mutableMapOf(
             RequestFactory.HEADER_API_KEY to context.clientToken,

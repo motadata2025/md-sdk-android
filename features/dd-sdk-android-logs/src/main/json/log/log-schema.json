@@ -68,7 +68,7 @@
     },
     "_dd": {
       "type": "object",
-      "description": "Datadog internal information",
+      "description": "Motadata internal information",
       "properties": {
         "device": {
           "type": "object",

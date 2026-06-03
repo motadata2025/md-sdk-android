@@ -24,7 +24,7 @@ import com.datadog.trace.common.writer.Writer
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * Tracing feature class, which needs to be registered with Datadog SDK instance.
+ * Tracing feature class, which needs to be registered with Motadata SDK instance.
  */
 internal class TracingFeature(
     private val sdkCore: FeatureSdkCore,

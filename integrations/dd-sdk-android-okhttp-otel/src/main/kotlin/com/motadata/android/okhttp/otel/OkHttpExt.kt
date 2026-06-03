@@ -19,7 +19,7 @@ import okhttp3.Request
  * @return the modified Request.Builder instance
  */
 fun Request.Builder.addParentSpan(span: Span): Request.Builder = apply {
-    // very fragile and assumes that Datadog Tracer is used
+    // very fragile and assumes that Motadata Tracer is used
     // we need to trigger sampling decision at this point, because we are doing context propagation out of OpenTelemetry
     val builder = OkHttpRequestInfoBuilder(this)
     if (span is OtelSpan) {

@@ -6,7 +6,7 @@
 
 package com.motadata.android.core
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.core.internal.DatadogCore
 import java.util.concurrent.atomic.AtomicReference
@@ -57,8 +57,8 @@ constructor(
             @Suppress("IfThenToElvis") // Less readable
             if (current != null) {
                 current
-            } else if (Datadog.isInitialized(sdkInstanceName)) {
-                val sdkCore = Datadog.getInstance(sdkInstanceName)
+            } else if (Motadata.isInitialized(sdkInstanceName)) {
+                val sdkCore = Motadata.getInstance(sdkInstanceName)
                 reference.set(sdkCore)
                 onSdkInstanceCaptured(sdkCore)
                 sdkCore

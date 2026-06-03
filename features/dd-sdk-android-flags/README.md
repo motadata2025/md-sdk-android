@@ -1,10 +1,10 @@
-# Datadog Feature Flags SDK for Android
+# Motadata Feature Flags SDK for Android
 
-The Datadog Feature Flags SDK for Android allows you to evaluate feature flags and experiments in your Android application and automatically send flag evaluation data to Datadog for monitoring and analysis.
+The Motadata Feature Flags SDK for Android allows you to evaluate feature flags and experiments in your Android application and automatically send flag evaluation data to Motadata for monitoring and analysis.
 
 ## Getting started
 
-Add the Datadog Feature Flags SDK to your application's `build.gradle.kts` file:
+Add the Motadata Feature Flags SDK to your application's `build.gradle.kts` file:
 
 ```kotlin
 dependencies {
@@ -17,10 +17,10 @@ dependencies {
 
 ### Initial setup
 
-Before enabling the Feature Flags feature, you must first initialize the Datadog SDK. See the [Datadog Android SDK setup documentation][1] for details.
+Before enabling the Feature Flags feature, you must first initialize the Motadata SDK. See the [Motadata Android SDK setup documentation][1] for details.
 
 ```kotlin
-// Initialize the core Datadog SDK first
+// Initialize the core Motadata SDK first
 val coreConfiguration = Configuration.Builder(
     clientToken = "<YOUR_CLIENT_TOKEN>",
     env = "<YOUR_ENVIRONMENT>",
@@ -28,7 +28,7 @@ val coreConfiguration = Configuration.Builder(
 )
     .build()
 
-Datadog.initialize(this, coreConfiguration, trackingConsent)
+Motadata.initialize(this, coreConfiguration, trackingConsent)
 ```
 
 ### (Recommended) Enable RUM in your application
@@ -49,7 +49,7 @@ If RUM is not enabled, the Flags SDK works normally but flag evaluations will no
 
 ### Enable the Feature Flags Feature
 
-After initializing the Datadog SDK, enable the Feature Flags feature:
+After initializing the Motadata SDK, enable the Feature Flags feature:
 
 ```kotlin
 val flagsConfig = FlagsConfiguration.Builder().build()
@@ -74,7 +74,7 @@ val flagsConfig = FlagsConfiguration.Builder()
 
 #### Disable exposure tracking
 
-By default, flag evaluations are tracked and sent to Datadog's exposure intake endpoint. You can disable this:
+By default, flag evaluations are tracked and sent to Motadata's exposure intake endpoint. You can disable this:
 
 ```kotlin
 val flagsConfig = FlagsConfiguration.Builder()
@@ -245,7 +245,7 @@ val analyticsClient = FlagsClient.get("analytics")
 
 When RUM is enabled in your application and RUM integration is enabled in the Flags configuration (default), flag evaluations are automatically:
 - Attached to the current RUM view
-- Visible in the Datadog RUM dashboard
+- Visible in the Motadata RUM dashboard
 - Associated with user sessions for analysis
 
 This allows you to correlate feature flag usage with application performance, errors, and user behavior.
@@ -267,7 +267,7 @@ If RUM is not enabled, the Flags SDK will continue to work normally, but flag ev
 
 ## Further reading
 
-For more information on Feature Flags in Datadog, see the [official Feature Flags documentation][2].
+For more information on Feature Flags in Motadata, see the [official Feature Flags documentation][2].
 
 [1]: https://docs.datadoghq.com/real_user_monitoring/application_monitoring/android/setup
 [2]: https://docs.datadoghq.com/getting_started/feature_flags/

@@ -10,7 +10,7 @@ import android.app.ActivityManager
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.rum.DdRumContentProvider
 import com.motadata.android.rum.Rum
 import com.motadata.android.rum.tracking.ActivityViewTrackingStrategy
@@ -29,8 +29,8 @@ internal class ActivityTrackingPlaygroundActivity : AppCompatActivity() {
         val config = RuntimeConfig.configBuilder().build()
         val trackingConsent = intent.getTrackingConsent()
 
-        Datadog.setVerbosity(Log.VERBOSE)
-        val sdkCore = Datadog.initialize(this, config, trackingConsent)
+        Motadata.setVerbosity(Log.VERBOSE)
+        val sdkCore = Motadata.initialize(this, config, trackingConsent)
         checkNotNull(sdkCore)
 
         DdRumContentProvider.processImportance = ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND

@@ -8,13 +8,13 @@ package com.motadata.android.rum
 
 /**
  * An interface to get informed whenever a new session is starting,
- * providing you with Datadog's session id.
+ * providing you with Motadata's session id.
  */
 interface RumSessionListener {
 
     /**
      * Called whenever a new session is started.
-     * @param sessionId the Session's id (matching the `session.id` attribute in Datadog's RUM events)
+     * @param sessionId the Session's id (matching the `session.id` attribute in Motadata's RUM events)
      * @param isDiscarded whether or not the session is discarded by the sample rate
      * (when `true` it means no event in this session will be kept).
      */

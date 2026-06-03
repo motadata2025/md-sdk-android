@@ -6,13 +6,13 @@
 
 package com.motadata.android.ndk
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.ndk.internal.NdkCrashReportsFeature
 
 /**
- * An entry point to Datadog NDK Crash Reports feature.
+ * An entry point to Motadata NDK Crash Reports feature.
  */
 object NdkCrashReports {
 
@@ -24,7 +24,7 @@ object NdkCrashReports {
      */
     @JvmOverloads
     @JvmStatic
-    fun enable(sdkCore: SdkCore = Datadog.getInstance()) {
+    fun enable(sdkCore: SdkCore = Motadata.getInstance()) {
         val ndkCrashReportsFeature = NdkCrashReportsFeature(sdkCore as FeatureSdkCore)
 
         sdkCore.registerFeature(ndkCrashReportsFeature)

@@ -9,7 +9,7 @@ package com.motadata.android.rum.internal.domain.scope
 import android.util.Log
 import androidx.annotation.WorkerThread
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.storage.DataWriter
@@ -193,7 +193,7 @@ internal open class RumViewScope(
     @WorkerThread
     override fun handleEvent(
         event: RumRawEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ): RumScope? {
@@ -258,7 +258,7 @@ internal open class RumViewScope(
 
     private fun onStartOperation(
         event: RumRawEvent.StartOperation,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -280,7 +280,7 @@ internal open class RumViewScope(
 
     private fun onStopOperation(
         event: RumRawEvent.StopOperation,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -303,7 +303,7 @@ internal open class RumViewScope(
     @Suppress("LongMethod")
     private fun newVitalEvent(
         event: RumRawEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         name: String,
         operationKey: String?,
         stepType: VitalOperationStepEvent.StepType,
@@ -483,7 +483,7 @@ internal open class RumViewScope(
     @WorkerThread
     private fun onAddViewLoadingTime(
         event: RumRawEvent.AddViewLoadingTime,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -496,7 +496,7 @@ internal open class RumViewScope(
 
     private fun updateViewLoadingTime(
         event: RumRawEvent.AddViewLoadingTime,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -558,7 +558,7 @@ internal open class RumViewScope(
     @WorkerThread
     private fun onStartView(
         event: RumRawEvent.StartView,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -570,7 +570,7 @@ internal open class RumViewScope(
     @WorkerThread
     private fun onStopView(
         event: RumRawEvent.StopView,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -588,7 +588,7 @@ internal open class RumViewScope(
     @WorkerThread
     private fun onStartAction(
         event: RumRawEvent.StartAction,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -640,7 +640,7 @@ internal open class RumViewScope(
     @WorkerThread
     private fun onStartResource(
         event: RumRawEvent.StartResource,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -666,7 +666,7 @@ internal open class RumViewScope(
     @WorkerThread
     private fun onAddError(
         event: RumRawEvent.AddError,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -838,7 +838,7 @@ internal open class RumViewScope(
     @WorkerThread
     private fun onAddCustomTiming(
         event: RumRawEvent.AddCustomTiming,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -907,7 +907,7 @@ internal open class RumViewScope(
     @WorkerThread
     private fun onStopSession(
         event: RumRawEvent.StopSession,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -917,7 +917,7 @@ internal open class RumViewScope(
     @WorkerThread
     private fun delegateEventToChildren(
         event: RumRawEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -928,7 +928,7 @@ internal open class RumViewScope(
     @WorkerThread
     private fun delegateEventToAction(
         event: RumRawEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -944,7 +944,7 @@ internal open class RumViewScope(
     @WorkerThread
     private fun delegateEventToResources(
         event: RumRawEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -970,7 +970,7 @@ internal open class RumViewScope(
     @WorkerThread
     private fun onResourceSent(
         event: RumRawEvent.ResourceSent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -990,7 +990,7 @@ internal open class RumViewScope(
     @WorkerThread
     private fun onActionSent(
         event: RumRawEvent.ActionSent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -1012,7 +1012,7 @@ internal open class RumViewScope(
     @WorkerThread
     private fun onLongTaskSent(
         event: RumRawEvent.LongTaskSent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -1030,7 +1030,7 @@ internal open class RumViewScope(
     @WorkerThread
     private fun onErrorSent(
         event: RumRawEvent.ErrorSent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -1092,7 +1092,7 @@ internal open class RumViewScope(
     @WorkerThread
     private fun stopScope(
         event: RumRawEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>,
         sideEffect: () -> Unit = {}
@@ -1116,7 +1116,7 @@ internal open class RumViewScope(
     @Suppress("LongMethod", "ComplexMethod")
     internal fun sendViewUpdate(
         event: RumRawEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>,
         eventType: EventType = EventType.DEFAULT
@@ -1421,7 +1421,7 @@ internal open class RumViewScope(
     @WorkerThread
     private fun onAddLongTask(
         event: RumRawEvent.AddLongTask,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -1546,7 +1546,7 @@ internal open class RumViewScope(
 
     private fun onAddFeatureFlagEvaluation(
         event: RumRawEvent.AddFeatureFlagEvaluation,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -1561,7 +1561,7 @@ internal open class RumViewScope(
 
     private fun onAddFeatureFlagEvaluations(
         event: RumRawEvent.AddFeatureFlagEvaluations,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -1613,12 +1613,12 @@ internal open class RumViewScope(
         }
     }
 
-    private fun resolveSessionReplaySampleRate(datadogContext: DatadogContext): Long? {
+    private fun resolveSessionReplaySampleRate(datadogContext: MotadataContext): Long? {
         val srContext = datadogContext.featuresContext[Feature.SESSION_REPLAY_FEATURE_NAME]
         return srContext?.get(SESSION_REPLAY_SAMPLE_RATE_KEY) as? Long
     }
 
-    private fun resolveTraceSampleRate(datadogContext: DatadogContext): Float? {
+    private fun resolveTraceSampleRate(datadogContext: MotadataContext): Float? {
         val tracingContext = datadogContext.featuresContext[Feature.TRACING_FEATURE_NAME]
         return tracingContext?.get(TRACE_SAMPLE_RATE) as? Float
     }
@@ -1626,7 +1626,7 @@ internal open class RumViewScope(
     private fun logSynthetics(key: String, value: String) {
         /**
          * We use [android.util.Log] here instead of [InternalLogger] because we want to log regardless of the
-         * verbosity level set using [com.motadata.android.Datadog.setVerbosity].
+         * verbosity level set using [com.motadata.android.Motadata.setVerbosity].
          */
         Log.i("DatadogSynthetics", "$key=$value")
     }

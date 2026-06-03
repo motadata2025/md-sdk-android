@@ -9,7 +9,7 @@ package com.motadata.android
 import android.content.Context
 import androidx.annotation.AnyThread
 import androidx.annotation.WorkerThread
-import com.motadata.android.Datadog.clearAccountInfo
+import com.motadata.android.Motadata.clearAccountInfo
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.context.UserInfo
@@ -28,10 +28,10 @@ import com.motadata.android.privacy.TrackingConsent
 import java.util.Locale
 
 /**
- * This class initializes the Datadog SDK, and sets up communication with the server.
+ * This class initializes the Motadata SDK, and sets up communication with the server.
  */
 @Suppress("TooManyFunctions")
-object Datadog {
+object Motadata {
 
     internal val registry = SdkCoreRegistry(unboundInternalLogger)
 
@@ -42,7 +42,7 @@ object Datadog {
     // region Initialization
 
     /**
-     * Initializes a named instance of the Datadog SDK.
+     * Initializes a named instance of the Motadata SDK.
      * @param instanceName the name of the instance (or null to initialize the default instance).
      * Note that the instance name should be stable across builds.
      * @param context your application context
@@ -95,7 +95,7 @@ object Datadog {
             ).apply {
                 initialize(configuration)
                 // not pushing to the context thread to have it set already at the
-                // moment Datadog.initialize is completed
+                // moment Motadata.initialize is completed
                 coreFeature.trackingConsentProvider.setConsent(trackingConsent)
             }
             registry.register(sdkInstanceName, sdkCore)
@@ -105,7 +105,7 @@ object Datadog {
     }
 
     /**
-     * Initializes the Datadog SDK.
+     * Initializes the Motadata SDK.
      * @param context your application context
      * @param configuration the configuration for the SDK library
      * @param trackingConsent as the initial state of the tracking consent flag
@@ -198,7 +198,7 @@ object Datadog {
     // region Global methods
 
     /**
-     * Sets the verbosity of this instance of the Datadog SDK.
+     * Sets the verbosity of this instance of the Motadata SDK.
      *
      * Messages with a priority level equal or above the given level will be sent to Android's
      * Logcat.
@@ -213,7 +213,7 @@ object Datadog {
     }
 
     /**
-     * Gets the verbosity of this instance of the Datadog SDK.
+     * Gets the verbosity of this instance of the Motadata SDK.
      *
      * Messages with a priority level equal or above the given level will be sent to Android's
      * Logcat.
@@ -226,7 +226,7 @@ object Datadog {
     fun getVerbosity(): Int = libraryVerbosity
 
     /**
-     * Sets the tracking consent regarding the data collection for this instance of the Datadog SDK.
+     * Sets the tracking consent regarding the data collection for this instance of the Motadata SDK.
      *
      * @param consent which can take one of the values
      * ([TrackingConsent.PENDING], [TrackingConsent.GRANTED], [TrackingConsent.NOT_GRANTED])
@@ -419,7 +419,7 @@ object Datadog {
     }
 
     /**
-     * For Datadog internal use only.
+     * For Motadata internal use only.
      *
      * @see _InternalProxy
      */
@@ -434,11 +434,11 @@ object Datadog {
     // region Constants
 
     internal const val MESSAGE_ALREADY_INITIALIZED =
-        "The Datadog library has already been initialized."
+        "The Motadata library has already been initialized."
 
     internal const val MESSAGE_SDK_NOT_INITIALIZED = "SDK instance with name %s is not found," +
         " returning no-op implementation. Please make sure to call" +
-        " Datadog.initialize([instanceName]) before getting the instance." +
+        " Motadata.initialize([instanceName]) before getting the instance." +
         " SDK instance was requested from:\n%s"
 
     internal const val CANNOT_CREATE_SDK_INSTANCE_ID_ERROR =

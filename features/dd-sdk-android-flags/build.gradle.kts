@@ -85,7 +85,7 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "The Feature Flags integration feature to use with the Datadog monitoring " +
+    "The Feature Flags integration feature to use with the Motadata monitoring " +
         "library for Android applications."
 )
 detektCustomConfig()

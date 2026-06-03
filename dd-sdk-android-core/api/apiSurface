@@ -1,4 +1,4 @@
-object com.motadata.android.Datadog
+object com.motadata.android.Motadata
   fun initialize(String?, android.content.Context, com.motadata.android.core.configuration.Configuration, com.motadata.android.privacy.TrackingConsent): com.motadata.android.api.SdkCore?
   fun initialize(android.content.Context, com.motadata.android.core.configuration.Configuration, com.motadata.android.privacy.TrackingConsent): com.motadata.android.api.SdkCore?
   fun getInstance(String? = null): com.motadata.android.api.SdkCore
@@ -15,7 +15,7 @@ object com.motadata.android.Datadog
   fun addAccountExtraInfo(Map<String, Any?>, com.motadata.android.api.SdkCore = getInstance())
   fun clearAccountInfo(com.motadata.android.api.SdkCore = getInstance())
   fun _internalProxy(String? = null): _InternalProxy
-enum com.motadata.android.DatadogSite
+enum com.motadata.android.MotadataSite
   - US1
   - US3
   - US5
@@ -71,8 +71,8 @@ interface com.motadata.android.api.SdkCore
   fun clearAccountInfo()
 data class com.motadata.android.api.context.AccountInfo
   constructor(String, String? = null, Map<String, Any?> = emptyMap())
-data class com.motadata.android.api.context.DatadogContext
-  constructor(com.motadata.android.DatadogSite, String, String, String, String, Int, String, String, String, TimeInfo, ProcessInfo, NetworkInfo, DeviceInfo, UserInfo, AccountInfo?, com.motadata.android.privacy.TrackingConsent, String?, Map<String, Map<String, Any?>>)
+data class com.motadata.android.api.context.MotadataContext
+  constructor(com.motadata.android.MotadataSite, String, String, String, String, Int, String, String, String, TimeInfo, ProcessInfo, NetworkInfo, DeviceInfo, UserInfo, AccountInfo?, com.motadata.android.privacy.TrackingConsent, String?, Map<String, Map<String, Any?>>)
 data class com.motadata.android.api.context.DeviceInfo
   constructor(String, String, String, DeviceType, String, String, String, String, String, Int?, LocaleInfo, Int, Int?, Boolean?)
 enum com.motadata.android.api.context.DeviceType
@@ -127,14 +127,14 @@ interface com.motadata.android.api.feature.FeatureEventReceiver
   fun onReceive(Any)
 interface com.motadata.android.api.feature.FeatureScope
   val dataStore: com.motadata.android.api.storage.datastore.DataStoreHandler
-  fun withWriteContext(Set<String> = emptySet(), (com.motadata.android.api.context.DatadogContext) -> Unit)
-  fun withContext(Set<String> = emptySet(), (com.motadata.android.api.context.DatadogContext) -> Unit)
-  fun getWriteContextSync(Set<String> = emptySet()): Pair<com.motadata.android.api.context.DatadogContext, EventWriteScope>?
+  fun withWriteContext(Set<String> = emptySet(), (com.motadata.android.api.context.MotadataContext) -> Unit)
+  fun withContext(Set<String> = emptySet(), (com.motadata.android.api.context.MotadataContext) -> Unit)
+  fun getWriteContextSync(Set<String> = emptySet()): Pair<com.motadata.android.api.context.MotadataContext, EventWriteScope>?
   fun sendEvent(Any)
   fun <T: Feature> unwrap(): T
 typealias EventWriteScope = ((com.motadata.android.api.storage.EventBatchWriter) -> Unit) -> Unit
 fun <R> com.motadata.android.api.InternalLogger.measureMethodCallPerf(Class<*>, String, Float = 100f, () -> R): R
-fun FeatureScope.getContextFuture(Set<String> = emptySet()): java.util.concurrent.Future<com.motadata.android.api.context.DatadogContext?>?
+fun FeatureScope.getContextFuture(Set<String> = emptySet()): java.util.concurrent.Future<com.motadata.android.api.context.MotadataContext?>?
 interface com.motadata.android.api.feature.FeatureSdkCore : com.motadata.android.api.SdkCore
   val internalLogger: com.motadata.android.api.InternalLogger
   val timeProvider: com.motadata.android.internal.time.TimeProvider
@@ -185,7 +185,7 @@ data class com.motadata.android.api.net.Request
 data class com.motadata.android.api.net.RequestExecutionContext
   constructor(Int = 0, Int? = null)
 interface com.motadata.android.api.net.RequestFactory
-  fun create(com.motadata.android.api.context.DatadogContext, RequestExecutionContext, List<com.motadata.android.api.storage.RawBatchEvent>, ByteArray?): Request?
+  fun create(com.motadata.android.api.context.MotadataContext, RequestExecutionContext, List<com.motadata.android.api.storage.RawBatchEvent>, ByteArray?): Request?
   companion object 
     const val CONTENT_TYPE_JSON: String
     const val CONTENT_TYPE_TEXT_UTF8: String
@@ -241,7 +241,7 @@ interface com.motadata.android.core.InternalSdkCore : com.motadata.android.api.f
   fun writeLastFatalAnrSent(Long)
   fun getPersistenceExecutorService(): java.util.concurrent.ExecutorService
   fun getAllFeatures(): List<com.motadata.android.api.feature.FeatureScope>
-  fun getDatadogContext(Set<String> = emptySet()): com.motadata.android.api.context.DatadogContext?
+  fun getDatadogContext(Set<String> = emptySet()): com.motadata.android.api.context.MotadataContext?
 class com.motadata.android.core.SdkReference
   constructor(String? = null, (com.motadata.android.api.SdkCore) -> Unit = {})
   fun get(): com.motadata.android.api.SdkCore?
@@ -271,7 +271,7 @@ data class com.motadata.android.core.configuration.Configuration
     fun setUseDeveloperModeWhenDebuggable(Boolean): Builder
     fun setFirstPartyHosts(List<String>): Builder
     fun setFirstPartyHostsWithHeaderType(Map<String, Set<com.motadata.android.trace.TracingHeaderType>>): Builder
-    fun useSite(com.motadata.android.DatadogSite): Builder
+    fun useSite(com.motadata.android.MotadataSite): Builder
     fun setBatchSize(BatchSize): Builder
     fun setUploadFrequency(UploadFrequency): Builder
     fun setBatchProcessingLevel(BatchProcessingLevel): Builder
@@ -297,7 +297,7 @@ interface com.motadata.android.core.constraints.DataConstraints
   fun <T> validateAttributes(Map<String, T>, String? = null, String? = null, Set<String> = emptySet()): MutableMap<String, T>
   fun validateTags(List<String>): List<String>
   fun validateTimings(Map<String, Long>): MutableMap<String, Long>
-class com.motadata.android.core.constraints.DatadogDataConstraints : DataConstraints
+class com.motadata.android.core.constraints.MotadataDataConstraints : DataConstraints
   constructor(com.motadata.android.api.InternalLogger)
   override fun validateTags(List<String>): List<String>
   override fun <T> validateAttributes(Map<String, T>, String?, String?, Set<String>): MutableMap<String, T>

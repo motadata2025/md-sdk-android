@@ -27,7 +27,7 @@ import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 
 /**
- * Configures Datadog network instrumentation on this [CronetEngine.Builder].
+ * Configures Motadata network instrumentation on this [CronetEngine.Builder].
  * Returns a [CronetIntegrationPlugin] that can be further configured before calling [CronetIntegrationPlugin.build].
  *
  * @param rumInstrumentationConfiguration optional RUM configuration. When provided, HTTP requests
@@ -47,7 +47,7 @@ fun CronetEngine.Builder.configureDatadogInstrumentation(
 )
 
 /**
- * Plugin that wraps a [CronetEngine.Builder] with Datadog RUM and APM instrumentation.
+ * Plugin that wraps a [CronetEngine.Builder] with Motadata RUM and APM instrumentation.
  * Use [CronetEngine.Builder.configureDatadogInstrumentation] to create an instance,
  * then call [build] to produce an instrumented [CronetEngine].
  */
@@ -69,7 +69,7 @@ class CronetIntegrationPlugin internal constructor(
     }
 
     /**
-     * Builds the [CronetEngine] with Datadog instrumentation applied.
+     * Builds the [CronetEngine] with Motadata instrumentation applied.
      * @return an instrumented [CronetEngine] instance, or a plain one if no instrumentation was configured.
      */
     fun build(): CronetEngine {
@@ -79,7 +79,7 @@ class CronetIntegrationPlugin internal constructor(
         requireInternalLogger(rumInstrumentation, apmInstrumentation).let { internalLogger ->
             if (apmInstrumentation == null && rumInstrumentation == null) {
                 internalLogger.logToUser(InternalLogger.Level.WARN) {
-                    "Datadog network instrumentation configuration is incorrect:" +
+                    "Motadata network instrumentation configuration is incorrect:" +
                         " both RUM and APM instrumentations are null."
                 }
                 return delegate.build()

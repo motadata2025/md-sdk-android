@@ -8,7 +8,7 @@ class com.motadata.android.profiling.DdProfilingContentProvider : android.conten
   override fun update(android.net.Uri, android.content.ContentValues?, String?, Array<String>?): Int
 annotation com.motadata.android.profiling.ExperimentalProfilingApi
 object com.motadata.android.profiling.Profiling
-  fun enable(ProfilingConfiguration = ProfilingConfiguration.DEFAULT, com.motadata.android.api.SdkCore = Datadog.getInstance())
+  fun enable(ProfilingConfiguration = ProfilingConfiguration.DEFAULT, com.motadata.android.api.SdkCore = Motadata.getInstance())
 data class com.motadata.android.profiling.ProfilingConfiguration
   class Builder
     fun setApplicationLaunchSampleRate(Float): Builder

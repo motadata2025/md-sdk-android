@@ -1,8 +1,8 @@
-# Datadog Integration for Timber
+# Motadata Integration for Timber
 
 ## Getting Started 
 
-To include the Datadog integration for Timber in your project, simply add the
+To include the Motadata integration for Timber in your project, simply add the
 following to your application's `build.gradle.kts` file.
 
 ```kotlin
@@ -14,7 +14,7 @@ dependencies {
 
 ### Initial Setup
 
-1. Setup RUM monitoring, see the dedicated [Datadog Android Log Collection documentation][1] to learn how.
+1. Setup RUM monitoring, see the dedicated [Motadata Android Log Collection documentation][1] to learn how.
 2. Add `DatadogTree` to Timber:
 
    ```kotlin
@@ -29,9 +29,9 @@ dependencies {
    Timber.plant(Timber.DebugTree(), DatadogTree(logger))
    ```
 
-That's it, now all your Timber logs will be sent to Datadog automatically.
+That's it, now all your Timber logs will be sent to Motadata automatically.
 
-You can configure the logger's tags and attributes, as explained in the  [Datadog Android Log Collection documentation][1]
+You can configure the logger's tags and attributes, as explained in the  [Motadata Android Log Collection documentation][1]
 
 ## Contributing
 

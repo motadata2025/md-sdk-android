@@ -2,7 +2,7 @@ interface com.motadata.android.flags.EvaluationContextCallback
   fun onSuccess()
   fun onFailure(Throwable)
 object com.motadata.android.flags.Flags
-  fun enable(FlagsConfiguration = FlagsConfiguration.default, com.motadata.android.api.SdkCore = Datadog.getInstance())
+  fun enable(FlagsConfiguration = FlagsConfiguration.default, com.motadata.android.api.SdkCore = Motadata.getInstance())
 interface com.motadata.android.flags.FlagsClient
   fun setEvaluationContext(com.motadata.android.flags.model.EvaluationContext, EvaluationContextCallback? = null)
   fun resolveBooleanValue(String, Boolean): Boolean
@@ -14,10 +14,10 @@ interface com.motadata.android.flags.FlagsClient
   fun <T: Any> resolve(String, T): com.motadata.android.flags.model.ResolutionDetails<T>
   val state: StateObservable
   class Builder
-    constructor(String = DEFAULT_CLIENT_NAME, com.motadata.android.api.SdkCore = Datadog.getInstance())
+    constructor(String = DEFAULT_CLIENT_NAME, com.motadata.android.api.SdkCore = Motadata.getInstance())
     fun build(): FlagsClient
   companion object 
-    fun get(String = DEFAULT_CLIENT_NAME, com.motadata.android.api.SdkCore = Datadog.getInstance()): FlagsClient
+    fun get(String = DEFAULT_CLIENT_NAME, com.motadata.android.api.SdkCore = Motadata.getInstance()): FlagsClient
 data class com.motadata.android.flags.FlagsConfiguration
   class Builder
     fun trackExposures(Boolean): Builder

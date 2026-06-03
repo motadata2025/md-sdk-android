@@ -46,7 +46,7 @@ object RumAttributes {
     const val VARIANT: String = "variant"
 
     /**
-     * Version of the current Datadog SDK.
+     * Version of the current Motadata SDK.
      */
     const val SDK_VERSION: String = "sdk_version"
 
@@ -106,19 +106,19 @@ object RumAttributes {
 
     /**
      * Trace Id related to the resource loading. (Number)
-     * This value is filled automatically by the [DatadogInterceptor].
+     * This value is filled automatically by the [MotadataInterceptor].
      */
     const val TRACE_ID: String = "_dd.trace_id"
 
     /**
      * Span Id related to the resource loading. (Number)
-     * This value is filled automatically by the [DatadogInterceptor].
+     * This value is filled automatically by the [MotadataInterceptor].
      */
     const val SPAN_ID: String = "_dd.span_id"
 
     /**
      * Tracing Sample Rate for the resource tracking, between zero and one. (Number)
-     * This value is filled automatically by the [DatadogInterceptor].
+     * This value is filled automatically by the [MotadataInterceptor].
      */
     const val RULE_PSR: String = "_dd.rule_psr"
 
@@ -169,21 +169,21 @@ object RumAttributes {
 
     /**
      * Indicates the action performed by the Resource which triggered the error. (String)
-     * This value is filled automatically by the [RumMonitor] and the [DatadogInterceptor].
+     * This value is filled automatically by the [RumMonitor] and the [MotadataInterceptor].
      * @see [RumMonitor.startResource]
      */
     const val ERROR_RESOURCE_METHOD: String = "error.resource.method"
 
     /**
      * The HTTP response status code for the Resource which triggered the error. (Number)
-     * This value is filled automatically by the [DatadogInterceptor].
+     * This value is filled automatically by the [MotadataInterceptor].
      * @see [RumMonitor.stopResourceWithError]
      */
     const val ERROR_RESOURCE_STATUS_CODE: String = "error.resource.status_code"
 
     /**
      * The URL of a loaded Resource which triggered the error. (String)
-     * This value is filled automatically by the [RumMonitor] and the [DatadogInterceptor].
+     * This value is filled automatically by the [RumMonitor] and the [MotadataInterceptor].
      * @see [RumMonitor.stopResourceWithError]
      */
     const val ERROR_RESOURCE_URL: String = "error.resource.url"

@@ -6,7 +6,7 @@
 
 package com.motadata.android.profiling.internal
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.net.RequestExecutionContext
 import com.motadata.android.api.net.RequestFactory
 import com.motadata.android.api.storage.RawBatchEvent
@@ -37,7 +37,7 @@ class ProfilingRequestFactoryTest {
     private lateinit var fakeEndpoint: String
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     private lateinit var testedFactory: ProfilingRequestFactory
 

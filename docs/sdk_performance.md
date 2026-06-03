@@ -2,12 +2,12 @@
 
 ## Methodology
 
-To simulate the typical usage of Datadog SDK it was added to the [Docile-Alligator/Infinity-For-Reddit][1] application and typical user behavior (scrolling the feed, browsing reddits) was simulated for 2 minutes 30 seconds.
+To simulate the typical usage of Motadata SDK it was added to the [Docile-Alligator/Infinity-For-Reddit][1] application and typical user behavior (scrolling the feed, browsing reddits) was simulated for 2 minutes 30 seconds.
 
 Application used: [Docile-Alligator/Infinity-For-Reddit][1] (revision [e8c9915a](https://github.com/Docile-Alligator/Infinity-For-Reddit/tree/e8c9915a))
 Device used: Google Pixel 6
 Android OS: Android 13 (Build Number TQ2A.230505.002)
-Datadog SDK: revision [7f842d343](https://github.com/DataDog/dd-sdk-android/tree/7f842d343)
+Motadata SDK: revision [7f842d343](https://github.com/DataDog/dd-sdk-android/tree/7f842d343)
 
 Network profiling was done using Charles Proxy 4.6.4.
 CPU, Memory, Energy profiling was done using Android Studio Flamingo | 2022.2.1 Patch 1.
@@ -54,7 +54,7 @@ For each measurement round the first request had an initial TLS handshake with c
 
 ### Peak CPU and Memory usage
 
-**Note**: Measurement without SDK means the measurement of the original application without Datadog SDK added as a dependency.
+**Note**: Measurement without SDK means the measurement of the original application without Motadata SDK added as a dependency.
 
 | Measurement | CPU with SDK    | CPU w/o SDK     | Memory with SDK       | Memory w/o SDK     |
 |-------------|-----------------|-----------------|-----------------------|--------------------|
@@ -81,7 +81,7 @@ Janky frames are described in the [official Android documentation][2]
 | #5          | 62/6256 (0.9%)  | 62/6577 (0.9%)  |
 | average     | 0.96% (σ=0.08%) | 0.94% (σ=0.16%) |
 
-Datadog SDK doesn't have any meaningful impact on the amount of janky frames in the app.
+Motadata SDK doesn't have any meaningful impact on the amount of janky frames in the app.
 
 ### Energy consumption
 
@@ -118,12 +118,12 @@ SDK and its initialization has no significant impact on the `Time To Initial Dis
 
 ### Application size impact
 
-The measurement was done for the `2.0.0-beta2` version of Datadog SDK for the `minifiedRelease` application variant.
+The measurement was done for the `2.0.0-beta2` version of Motadata SDK for the `minifiedRelease` application variant.
 
-`apk` size without Datadog SDK: 11044045 bytes
-`apk` size with Datadog SDK: 11566506 bytes
+`apk` size without Motadata SDK: 11044045 bytes
+`apk` size with Motadata SDK: 11566506 bytes
 
-Datadog SDK added 552 KB to the `apk` size.
+Motadata SDK added 552 KB to the `apk` size.
 
 ## SDK behavior in the host application
 
@@ -177,7 +177,7 @@ This section provides detailed performance measurements across different scenari
 
 ### Methodology
 
-To simulate the typical usage of the Datadog SDK with Session Replay enabled, measurements were
+To simulate the typical usage of the Motadata SDK with Session Replay enabled, measurements were
 performed using two applications:
 
 Application used: [Docile-Alligator/Infinity-For-Reddit][1] (
@@ -188,7 +188,7 @@ Android View
 
 Device used: Samsung Galaxy S23
 Android OS: Android 14 (Build Number UP1A.231005.007)
-Datadog SDK: revision [2.17.0](https://github.com/DataDog/dd-sdk-android/tree/2.17.0)
+Motadata SDK: revision [2.17.0](https://github.com/DataDog/dd-sdk-android/tree/2.17.0)
 
 CPU, Memory profiling was done using Android Studio Ladybug | 2024.2.1 Patch 2.
 Device had 3.7 GB memory free on average (out of 8 GB), 110 apps installed and 41.7 GB of storage
@@ -204,7 +204,7 @@ the feed, browsing content).
 ### Scenario configuration
 
 In the following measurements, "Baseline" refers to the scenario where the application integrates
-the Datadog SDK without enabling the Session Replay feature.
+the Motadata SDK without enabling the Session Replay feature.
 
 The table below outlines the detailed masking configurations used in each measurement scenario:
 

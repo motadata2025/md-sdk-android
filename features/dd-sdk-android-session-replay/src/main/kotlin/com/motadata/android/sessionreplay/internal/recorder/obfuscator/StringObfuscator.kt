@@ -12,7 +12,7 @@ import com.motadata.android.lint.InternalApi
 /**
  * Obfuscates string of text in session replay.
  *
- * DO NOT USE this class or its methods if you are not working on the internals of the Datadog SDK
+ * DO NOT USE this class or its methods if you are not working on the internals of the Motadata SDK
  * or one of the cross platform frameworks.
  */
 @InternalApi
@@ -21,7 +21,7 @@ interface StringObfuscator {
     /**
      * Obfuscates string of text in session replay.
      *
-     * For Datadog internal use only.
+     * For Motadata internal use only.
      */
     @InternalApi
     fun obfuscate(stringValue: String): String
@@ -32,7 +32,7 @@ interface StringObfuscator {
         /**
          * Gets the instance of [StringObfuscator].
          *
-         * For Datadog internal use only.
+         * For Motadata internal use only.
          */
         @InternalApi
         fun getStringObfuscator(): StringObfuscator {

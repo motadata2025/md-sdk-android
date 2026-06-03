@@ -92,7 +92,7 @@ internal class DatadogHttpClient(
 
     private fun getUserAgent(): String {
         return sanitizeHeaderValue(System.getProperty(SYSTEM_UA)).ifBlank {
-            "Datadog (Linux; U; Android ${context.osVersion}; " + "${context.deviceModel} "
+            "Motadata (Linux; U; Android ${context.osVersion}; " + "${context.deviceModel} "
         }
     }
 
@@ -160,22 +160,22 @@ internal class DatadogHttpClient(
         private const val OPERATION_NAME_TRACES = "traces"
 
         /**
-         * Datadog API key header.
+         * Motadata API key header.
          */
         private const val HEADER_API_KEY: String = "DD-API-KEY"
 
         /**
-         * Datadog Event Platform Origin header, e.g. android, flutter, etc.
+         * Motadata Event Platform Origin header, e.g. android, flutter, etc.
          */
         private const val HEADER_EVP_ORIGIN: String = "DD-EVP-ORIGIN"
 
         /**
-         * Datadog Event Platform Origin version header, e.g. SDK version.
+         * Motadata Event Platform Origin version header, e.g. SDK version.
          */
         private const val HEADER_EVP_ORIGIN_VERSION: String = "DD-EVP-ORIGIN-VERSION"
 
         /**
-         * Datadog Request ID header, used for debugging purposes.
+         * Motadata Request ID header, used for debugging purposes.
          */
         private const val HEADER_REQUEST_ID: String = "DD-REQUEST-ID"
 

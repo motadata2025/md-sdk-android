@@ -7,13 +7,13 @@
 package com.motadata.android.api.feature
 
 import androidx.annotation.AnyThread
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.storage.EventBatchWriter
 import com.motadata.android.api.storage.datastore.DataStoreHandler
 import com.motadata.android.lint.InternalApi
 
 /**
- * Represents a Datadog feature.
+ * Represents a Motadata feature.
  */
 interface FeatureScope {
 
@@ -24,47 +24,47 @@ interface FeatureScope {
 
     /**
      * Utility to write an event, asynchronously.
-     * @param withFeatureContexts Feature contexts ([DatadogContext.featuresContext] property) to include
-     * in the [DatadogContext] provided. The value should be the feature names as declared by [Feature.name].
+     * @param withFeatureContexts Feature contexts ([MotadataContext.featuresContext] property) to include
+     * in the [MotadataContext] provided. The value should be the feature names as declared by [Feature.name].
      * Default is empty, meaning that no feature contexts will be included.
-     * @param callback an operation called with an up-to-date [DatadogContext]
+     * @param callback an operation called with an up-to-date [MotadataContext]
      * and an [EventWriteScope]. Callback will be executed on a single context processing worker thread. Execution of
      * [EventWriteScope] will be done on a worker thread from I/O pool.
-     * [DatadogContext] will have a state created at the moment this method is called.
+     * [MotadataContext] will have a state created at the moment this method is called.
      */
     @AnyThread
     fun withWriteContext(
         withFeatureContexts: Set<String> = emptySet(),
-        callback: (datadogContext: DatadogContext, write: EventWriteScope) -> Unit
+        callback: (datadogContext: MotadataContext, write: EventWriteScope) -> Unit
     )
 
     /**
-     * Utility to read current [DatadogContext], asynchronously.
-     * @param withFeatureContexts Feature contexts ([DatadogContext.featuresContext] property) to include
-     * in the [DatadogContext] provided. The value should be the feature names as declared by [Feature.name].
+     * Utility to read current [MotadataContext], asynchronously.
+     * @param withFeatureContexts Feature contexts ([MotadataContext.featuresContext] property) to include
+     * in the [MotadataContext] provided. The value should be the feature names as declared by [Feature.name].
      * Default is empty, meaning that no feature contexts will be included.
-     * @param callback an operation called with an up-to-date [DatadogContext].
-     * [DatadogContext] will have a state created at the moment this method is called.
+     * @param callback an operation called with an up-to-date [MotadataContext].
+     * [MotadataContext] will have a state created at the moment this method is called.
      */
     @AnyThread
     fun withContext(
         withFeatureContexts: Set<String> = emptySet(),
-        callback: (datadogContext: DatadogContext) -> Unit
+        callback: (datadogContext: MotadataContext) -> Unit
     )
 
     // TODO RUM-9852 Implement better passthrough mechanism for the JVM crash scenario
     /**
      * Same as [withWriteContext] but will be executed in the blocking manner.
      *
-     * @param withFeatureContexts Feature contexts ([DatadogContext.featuresContext] property) to include
-     * in the [DatadogContext] provided. The value should be the feature names as declared by [Feature.name].
+     * @param withFeatureContexts Feature contexts ([MotadataContext.featuresContext] property) to include
+     * in the [MotadataContext] provided. The value should be the feature names as declared by [Feature.name].
      * Default is empty, meaning that no feature contexts will be included.
      *
      * **NOTE**: This API is for the internal use only and is not guaranteed to be stable.
      */
     @AnyThread
     @InternalApi
-    fun getWriteContextSync(withFeatureContexts: Set<String> = emptySet()): Pair<DatadogContext, EventWriteScope>?
+    fun getWriteContextSync(withFeatureContexts: Set<String> = emptySet()): Pair<MotadataContext, EventWriteScope>?
 
     /**
      * Send event to a given feature. It will be sent in a synchronous way.

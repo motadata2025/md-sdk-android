@@ -6,7 +6,7 @@
 
 package com.motadata.android.webview.internal.replay
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.webview.internal.rum.TimestampOffsetProvider
 import com.motadata.android.webview.internal.rum.domain.RumContext
 import com.google.gson.JsonArray
@@ -29,7 +29,7 @@ internal class WebViewReplayEventMapper(
     fun mapEvent(
         event: JsonObject,
         rumContext: RumContext,
-        datadogContext: DatadogContext
+        datadogContext: MotadataContext
     ): JsonObject {
         val viewDataObject = event.get(VIEW_OBJECT_KEY)?.asJsonObject
         val viewId = viewDataObject?.get(VIEW_ID_KEY)?.asString

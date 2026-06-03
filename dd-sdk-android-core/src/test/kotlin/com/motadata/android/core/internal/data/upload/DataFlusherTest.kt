@@ -7,7 +7,7 @@
 package com.motadata.android.core.internal.data.upload
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.storage.RawBatchEvent
 import com.motadata.android.core.internal.ContextProvider
 import com.motadata.android.core.internal.persistence.file.FileMover
@@ -65,7 +65,7 @@ internal class DataFlusherTest {
     lateinit var mockInternalLogger: InternalLogger
 
     @Forgery
-    lateinit var fakeContext: DatadogContext
+    lateinit var fakeContext: MotadataContext
 
     @BeforeEach
     fun `set up`() {

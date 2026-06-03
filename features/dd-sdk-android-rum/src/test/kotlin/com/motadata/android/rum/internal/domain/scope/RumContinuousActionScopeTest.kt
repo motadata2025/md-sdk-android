@@ -7,7 +7,7 @@
 package com.motadata.android.rum.internal.domain.scope
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.NetworkInfo
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.storage.DataWriter
@@ -106,7 +106,7 @@ internal class RumContinuousActionScopeTest {
     lateinit var fakeNetworkInfoAtScopeStart: NetworkInfo
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     private lateinit var fakeEventTime: Time
 

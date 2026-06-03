@@ -55,7 +55,7 @@ import java.net.Proxy
 )
 @MockitoSettings(strictness = Strictness.LENIENT)
 @ForgeConfiguration(OkHttpIntegrationForgeConfigurator::class)
-internal class DatadogEventListenerTest {
+internal class MotadataEventListenerTest {
 
     private lateinit var testedListener: EventListener
 
@@ -94,7 +94,7 @@ internal class DatadogEventListenerTest {
             }
         )
 
-        testedListener = DatadogEventListener(rumMonitor.mockSdkCore, fakeKey)
+        testedListener = MotadataEventListener(rumMonitor.mockSdkCore, fakeKey)
     }
 
     @Test

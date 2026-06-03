@@ -8,7 +8,7 @@ package com.motadata.android.api.feature
 
 import androidx.annotation.AnyThread
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.core.internal.SdkFeature
 import com.motadata.android.core.metrics.TelemetryMetricType
 import com.motadata.android.lint.InternalApi
@@ -45,18 +45,18 @@ fun <R> InternalLogger.measureMethodCallPerf(
 }
 
 /**
- * Utility to read current [DatadogContext], asynchronously.
- * @param withFeatureContexts Feature contexts ([DatadogContext.featuresContext] property) to include
- * in the [DatadogContext] provided. The value should be the feature names as declared by [Feature.name].
+ * Utility to read current [MotadataContext], asynchronously.
+ * @param withFeatureContexts Feature contexts ([MotadataContext.featuresContext] property) to include
+ * in the [MotadataContext] provided. The value should be the feature names as declared by [Feature.name].
  * Default is empty, meaning that no feature contexts will be included.
  *
- * Returns future that will contain [DatadogContext] in the state that it has at the moment of call.
+ * Returns future that will contain [MotadataContext] in the state that it has at the moment of call.
  */
 @AnyThread
 @InternalApi
 fun FeatureScope.getContextFuture(
     withFeatureContexts: Set<String> = emptySet()
-): Future<DatadogContext?>? {
+): Future<MotadataContext?>? {
     return when (this) {
         is SdkFeature -> getContextFuture(withFeatureContexts)
         else -> null

@@ -9,7 +9,7 @@ package com.motadata.android.internal.telemetry
 @Suppress("UndocumentedPublicClass")
 enum class TracingHeaderType {
     /**
-     * Datadog's [`x-datadog-*` header](https://docs.datadoghq.com/real_user_monitoring/connect_rum_and_traces/?tab=browserrum#how-are-rum-resources-linked-to-traces).
+     * Motadata's [`x-datadog-*` header](https://docs.datadoghq.com/real_user_monitoring/connect_rum_and_traces/?tab=browserrum#how-are-rum-resources-linked-to-traces).
      */
     DATADOG,
 

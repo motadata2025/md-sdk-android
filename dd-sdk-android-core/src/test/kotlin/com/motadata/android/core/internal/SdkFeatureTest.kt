@@ -9,7 +9,7 @@ package com.motadata.android.core.internal
 import android.app.Application
 import android.content.Context
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureEventReceiver
@@ -492,13 +492,13 @@ internal class SdkFeatureTest {
 
     @Test
     fun `M provide write context W withWriteContext(callback)`(
-        @Forgery fakeContext: DatadogContext,
+        @Forgery fakeContext: MotadataContext,
         @StringForgery fakeWithFeatureContexts: Set<String>,
         @Mock mockEventWriteScope: EventWriteScope
     ) {
         // Given
         testedFeature.storage = mockStorage
-        val callback = mock<(DatadogContext, EventWriteScope) -> Unit>()
+        val callback = mock<(MotadataContext, EventWriteScope) -> Unit>()
         whenever(mockContextProvider.getContext(fakeWithFeatureContexts)) doReturn fakeContext
 
         whenever(
@@ -521,7 +521,7 @@ internal class SdkFeatureTest {
     ) {
         // Given
         testedFeature.storage = mockStorage
-        val callback = mock<(DatadogContext, EventWriteScope) -> Unit>()
+        val callback = mock<(MotadataContext, EventWriteScope) -> Unit>()
         whenever(coreFeature.mockInstance.initialized) doReturn AtomicBoolean(false)
 
         // When
@@ -532,13 +532,13 @@ internal class SdkFeatureTest {
     }
 
     @Test
-    fun `M provide Datadog context W withContext(callback)`(
-        @Forgery fakeContext: DatadogContext,
+    fun `M provide Motadata context W withContext(callback)`(
+        @Forgery fakeContext: MotadataContext,
         @StringForgery fakeWithFeatureContexts: Set<String>
     ) {
         // Given
         testedFeature.storage = mockStorage
-        val callback = mock<(DatadogContext) -> Unit>()
+        val callback = mock<(MotadataContext) -> Unit>()
         whenever(mockContextProvider.getContext(fakeWithFeatureContexts)) doReturn fakeContext
 
         // When
@@ -549,12 +549,12 @@ internal class SdkFeatureTest {
     }
 
     @Test
-    fun `M not provide Datadog context W withContext(callback) { CoreFeature is not initialized }`(
+    fun `M not provide Motadata context W withContext(callback) { CoreFeature is not initialized }`(
         @StringForgery fakeWithFeatureContexts: Set<String>
     ) {
         // Given
         testedFeature.storage = mockStorage
-        val callback = mock<(DatadogContext) -> Unit>()
+        val callback = mock<(MotadataContext) -> Unit>()
         whenever(coreFeature.mockInstance.initialized) doReturn AtomicBoolean(false)
 
         // When
@@ -566,7 +566,7 @@ internal class SdkFeatureTest {
 
     @Test
     fun `M provide write context W getWriteContextSync()`(
-        @Forgery fakeContext: DatadogContext,
+        @Forgery fakeContext: MotadataContext,
         @StringForgery fakeWithFeatureContexts: Set<String>,
         @Mock mockEventWriteScope: EventWriteScope
     ) {
@@ -574,7 +574,7 @@ internal class SdkFeatureTest {
         testedFeature.storage = mockStorage
         whenever(mockContextProvider.getContext(fakeWithFeatureContexts)) doReturn fakeContext
         whenever(coreFeature.mockInstance.contextExecutorService.submit(any<Callable<*>>())) doAnswer {
-            val callable = it.getArgument<Callable<Pair<DatadogContext, EventWriteScope>>>(0)
+            val callable = it.getArgument<Callable<Pair<MotadataContext, EventWriteScope>>>(0)
             mock<Future<*>>().apply {
                 whenever(get()) doAnswer { callable.call() }
             }
@@ -595,7 +595,7 @@ internal class SdkFeatureTest {
 
     @Test
     fun `M provide null write context W getWriteContextSync() { task rejected }`(
-        @Forgery fakeContext: DatadogContext,
+        @Forgery fakeContext: MotadataContext,
         @Mock mockEventWriteScope: EventWriteScope
     ) {
         // Given
@@ -617,7 +617,7 @@ internal class SdkFeatureTest {
 
     @Test
     fun `M provide null write context W getWriteContextSync() { failed to get task result }`(
-        @Forgery fakeContext: DatadogContext,
+        @Forgery fakeContext: MotadataContext,
         @Mock mockEventWriteScope: EventWriteScope,
         forge: Forge
     ) {

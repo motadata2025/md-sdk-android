@@ -133,7 +133,7 @@ internal class FlagsFeatureTest {
         verify(mockInternalLogger).log(
             eq(InternalLogger.Level.ERROR),
             eq(InternalLogger.Target.USER),
-            argThat { invoke() == "[Datadog Flags] test message" },
+            argThat { invoke() == "[Motadata Flags] test message" },
             eq(null),
             eq(false),
             eq(null)
@@ -159,7 +159,7 @@ internal class FlagsFeatureTest {
         verify(mockInternalLogger).log(
             eq(InternalLogger.Level.ERROR),
             eq(InternalLogger.Target.USER),
-            argThat { invoke() == "[Datadog Flags] test message" },
+            argThat { invoke() == "[Motadata Flags] test message" },
             eq(null),
             eq(false),
             eq(null)

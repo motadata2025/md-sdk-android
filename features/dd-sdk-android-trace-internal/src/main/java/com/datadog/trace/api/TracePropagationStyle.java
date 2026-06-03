@@ -4,7 +4,7 @@ import java.util.Locale;
 
 /** Trace propagation styles for injecting and extracting trace propagation headers. */
 public enum TracePropagationStyle {
-  // Datadog context propagation style
+  // Motadata context propagation style
   DATADOG,
   // B3 single header context propagation style
   // https://github.com/openzipkin/b3-propagation/tree/master#single-header

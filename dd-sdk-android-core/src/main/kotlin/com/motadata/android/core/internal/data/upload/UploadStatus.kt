@@ -132,7 +132,7 @@ internal sealed class UploadStatus(
             if (this@UploadStatus is InvalidTokenError) {
                 append(
                     " Make sure that the provided token still exists " +
-                        "and you're targeting the relevant Datadog site."
+                        "and you're targeting the relevant Motadata site."
                 )
             }
             append(

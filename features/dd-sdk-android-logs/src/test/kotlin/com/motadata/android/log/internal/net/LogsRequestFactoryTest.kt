@@ -7,7 +7,7 @@
 package com.motadata.android.log.internal.net
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.net.RequestExecutionContext
 import com.motadata.android.api.net.RequestFactory
 import com.motadata.android.api.storage.RawBatchEvent
@@ -38,7 +38,7 @@ internal class LogsRequestFactoryTest {
     private lateinit var testedFactory: LogsRequestFactory
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @BeforeEach
     fun `set up`() {

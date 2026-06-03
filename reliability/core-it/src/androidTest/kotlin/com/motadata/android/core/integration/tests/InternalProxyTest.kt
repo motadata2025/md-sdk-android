@@ -8,7 +8,7 @@ package com.motadata.android.core.integration.tests
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.core.InternalSdkCore
 import com.motadata.android.core.configuration.Configuration
 import com.motadata.android.core.integration.tests.forge.factories.ConfigurationCoreForgeryFactory
@@ -43,7 +43,7 @@ class InternalProxyTest {
 
     @Before
     fun setUp() {
-        testedInternalSdkCore = Datadog.initialize(
+        testedInternalSdkCore = Motadata.initialize(
             ApplicationProvider.getApplicationContext(),
             fakeConfiguration,
             forge.aValueFrom(TrackingConsent::class.java)
@@ -52,7 +52,7 @@ class InternalProxyTest {
 
     @After
     fun tearDown() {
-        Datadog.stopInstance()
+        Motadata.stopInstance()
     }
 
     // region set version
@@ -61,7 +61,7 @@ class InternalProxyTest {
     fun mustSetAppVersion_when_setCustomAppVersion() {
         // Given
         val fakeAppVersion = forge.anAlphabeticalString()
-        val internalProxy = Datadog._internalProxy()
+        val internalProxy = Motadata._internalProxy()
 
         // When
         internalProxy.setCustomAppVersion(fakeAppVersion)

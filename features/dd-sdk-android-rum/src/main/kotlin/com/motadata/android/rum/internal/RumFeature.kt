@@ -128,7 +128,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
 
 /**
- * RUM feature class, which needs to be registered with Datadog SDK instance.
+ * RUM feature class, which needs to be registered with Motadata SDK instance.
  */
 @Suppress("TooManyFunctions")
 internal class RumFeature(
@@ -543,7 +543,7 @@ internal class RumFeature(
 
     /**
      * Enables the tracking of JankStats for the given activity. This should only be necessary for the
-     * initial activity of an application if Datadog is initialized after that activity is created.
+     * initial activity of an application if Motadata is initialized after that activity is created.
      * @param activity the activity to track
      */
     internal fun enableJankStatsTracking(activity: Activity) {

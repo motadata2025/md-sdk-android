@@ -8,7 +8,7 @@ package com.motadata.android.telemetry.internal
 
 import androidx.annotation.AnyThread
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.storage.DataWriter
 import com.motadata.android.api.storage.EventType
@@ -205,7 +205,7 @@ internal class TelemetryEventHandler(
     }
 
     private fun createDebugEvent(
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         timestamp: Long,
         message: String,
         additionalProperties: Map<String, Any?>?,
@@ -253,7 +253,7 @@ internal class TelemetryEventHandler(
 
     @Suppress("LongParameterList")
     private fun createErrorEvent(
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         timestamp: Long,
         message: String,
         stack: String?,
@@ -311,7 +311,7 @@ internal class TelemetryEventHandler(
 
     @Suppress("LongMethod")
     private fun createConfigurationEvent(
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         timestamp: Long,
         event: InternalTelemetryEvent.Configuration,
         effectiveSampleRate: Float
@@ -418,7 +418,7 @@ internal class TelemetryEventHandler(
 
     @Suppress("LongMethod")
     private fun createApiUsageEvent(
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         timestamp: Long,
         event: InternalTelemetryEvent.ApiUsage,
         effectiveSampleRate: Float
@@ -545,7 +545,7 @@ internal class TelemetryEventHandler(
         }
     }
 
-    private fun DatadogContext.rumContext(): RumContext {
+    private fun MotadataContext.rumContext(): RumContext {
         val rumContext = featuresContext[Feature.RUM_FEATURE_NAME].orEmpty()
         return RumContext.fromFeatureContext(rumContext)
     }

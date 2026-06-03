@@ -130,7 +130,7 @@ val span = tracer
 
 span.finish()
 ```
-Refer to the Datadog [documentation](https://docs.datadoghq.com/tracing/trace_collection/automatic_instrumentation/dd_libraries/android?tab=kotlin) for more details.
+Refer to the Motadata [documentation](https://docs.datadoghq.com/tracing/trace_collection/automatic_instrumentation/dd_libraries/android?tab=kotlin) for more details.
 
 API changes:
 
@@ -161,7 +161,7 @@ To keep 20% sampling rate you have to specify it explicitly:
 ```kotlin
 private val okHttpClient = OkHttpClient.Builder()
     .addInterceptor(
-        DatadogInterceptor.Builder(tracedHosts)
+        MotadataInterceptor.Builder(tracedHosts)
             .setTraceSampleRate(20f)
             .build()
     )
@@ -180,9 +180,9 @@ API changes:
 |`TracingInterceptor(String, List<String>, TracedRequestListener,Sampler<Span>)`| Use `TracingInterceptor.Builder()` instead.|
 |`TracingInterceptor(String?,Map<String, Set<TracingHeaderType>>, TracedRequestListener, Sampler<Span>)`| Use `TracingInterceptor.Builder()` instead.|
 |`TracingInterceptor(String?,TracedRequestListener,Sampler<Span>)`|Use `TracingInterceptor.Builder()` instead.|
-|`DatadogInterceptor(String?, Map<String, Set<TracingHeaderType>>,TracedRequestListener, RumResourceAttributesProvider, Sampler<Span>)`|Use `DatadogInterceptor.Builder()` instead. |
-|`DatadogInterceptor(String?,List<String>,TracedRequestListener,RumResourceAttributesProvider,Sampler<Span>)`|Use `DatadogInterceptor.Builder()` instead.|
-| `DatadogInterceptor(String?,TracedRequestListener,RumResourceAttributesProvider,Sampler<Span>) ` | Use `DatadogInterceptor.Builder()` instead. |
+|`MotadataInterceptor(String?, Map<String, Set<TracingHeaderType>>,TracedRequestListener, RumResourceAttributesProvider, Sampler<Span>)`|Use `MotadataInterceptor.Builder()` instead. |
+|`MotadataInterceptor(String?,List<String>,TracedRequestListener,RumResourceAttributesProvider,Sampler<Span>)`|Use `MotadataInterceptor.Builder()` instead.|
+| `MotadataInterceptor(String?,TracedRequestListener,RumResourceAttributesProvider,Sampler<Span>) ` | Use `MotadataInterceptor.Builder()` instead. |
 
 ### Log product changes
 
@@ -202,7 +202,7 @@ API changes:
 
 |`2.x`| `3.0`                                                            |
 |--|------------------------------------------------------------------|
-|`Datadog#setUserInfo(String?, ...)`| User info ID is now mandatory `Datadog.setUserInfo(String, ...)` |
+|`Motadata#setUserInfo(String?, ...)`| User info ID is now mandatory `Motadata.setUserInfo(String, ...)` |
 
 
 ### RUM product changes
@@ -265,7 +265,7 @@ Reference to the `com.datadoghq:dd-sdk-android` artifact should be removed from 
 **Note**: The Maven coordinates of all the other artifacts stay the same.
 
 2. Support for multiple SDK instances (see below).
-3. Unification of the API layout, as well as naming between iOS and Android SDKs with other Datadog products. Datadog SDK v2 is not binary compatible with Datadog SDK v1.
+3. Unification of the API layout, as well as naming between iOS and Android SDKs with other Motadata products. Motadata SDK v2 is not binary compatible with Motadata SDK v1.
 4. Support of Android API 19 (KitKat) was dropped. The minimum SDK supported is now API 21 (Lollipop).
 5. Kotlin 1.7 is required in order to integrate the SDK. SDK itself is compiled with Kotlin 1.8, so compiler of Kotlin 1.6 and below cannot read SDK classes metadata.
 
@@ -305,7 +305,7 @@ Better SDK granularity is achieved with the extraction of different products int
 * `crashReportsEnabled` constructor argument is removed. You can enable/disable JVM crash reporting by using `Configuration.Builder.setCrashReportsEnabled` method, by default JVM crash reporting is enabled.
 * RUM, Logs, Trace products configuration methods are removed from `Configuration.Builder` in favour of the individual products configuration (see below).
 
-`Datadog.initialize` method has `Credentials` class removed from the list of the arguments.
+`Motadata.initialize` method has `Credentials` class removed from the list of the arguments.
 
 `com.motadata.android.plugin` package and all related classes/methods are removed.
 
@@ -341,7 +341,7 @@ API changes:
 |`com.motadata.android.core.configuration.Configuration.Builder.useCustomLogsEndpoint`|`com.motadata.android.log.LogsConfiguration.Builder.useCustomEndpoint`|
 |`com.motadata.android.log.Logger.Builder.setLoggerName`|`com.motadata.android.log.Logger.Builder.setName`|
 |`com.motadata.android.log.Logger.Builder.setSampleRate`|`com.motadata.android.log.Logger.Builder.setRemoteSampleRate`|
-|`com.motadata.android.log.Logger.Builder.setDatadogLogsEnabled`|This method has been removed. Use `com.motadata.android.log.Logger.Builder.setRemoteSampleRate(0f)` instead to disable sending logs to Datadog.|
+|`com.motadata.android.log.Logger.Builder.setDatadogLogsEnabled`|This method has been removed. Use `com.motadata.android.log.Logger.Builder.setRemoteSampleRate(0f)` instead to disable sending logs to Motadata.|
 |`com.motadata.android.log.Logger.Builder.setServiceName`|`com.motadata.android.log.Logger.Builder.setService`|
 |`com.motadata.android.log.Logger.Builder.setDatadogLogsMinPriority`|`com.motadata.android.log.Logger.Builder.setRemoteLogThreshold`|
 
@@ -469,14 +469,14 @@ In order to be able to use OkHttp Tracking you need to import the following arti
 implementation("com.datadoghq:dd-sdk-android-okhttp:x.x.x")
 ```
 
-OkHttp instrumentation now supports the case when Datadog SDK is initialized after the OkHttp client, allowing you to create `com.motadata.android.okhttp.DatadogEventListener`, `com.motadata.android.okhttp.DatadogInterceptor`, and `com.motadata.android.okhttp.trace.TracingInterceptor` before Datadog SDK. OkHttp instrumentation starts reporting events to Datadog once Datadog SDK is initialized.
+OkHttp instrumentation now supports the case when Motadata SDK is initialized after the OkHttp client, allowing you to create `com.motadata.android.okhttp.MotadataEventListener`, `com.motadata.android.okhttp.MotadataInterceptor`, and `com.motadata.android.okhttp.trace.TracingInterceptor` before Motadata SDK. OkHttp instrumentation starts reporting events to Motadata once Motadata SDK is initialized.
 
-Also, both `com.motadata.android.okhttp.DatadogInterceptor` and `com.motadata.android.okhttp.trace.TracingInterceptor` improve the integration with remote configuration, allowing you to control sampling dynamically.
-In order to do that, you need to provide your own implementation of the `com.motadata.android.core.sampling.Sampler` interface in the `com.motadata.android.okhttp.DatadogInterceptor`/`com.motadata.android.okhttp.trace.TracingInterceptor` constructor. It is queried for each request to make the sampling decision.
+Also, both `com.motadata.android.okhttp.MotadataInterceptor` and `com.motadata.android.okhttp.trace.TracingInterceptor` improve the integration with remote configuration, allowing you to control sampling dynamically.
+In order to do that, you need to provide your own implementation of the `com.motadata.android.core.sampling.Sampler` interface in the `com.motadata.android.okhttp.MotadataInterceptor`/`com.motadata.android.okhttp.trace.TracingInterceptor` constructor. It is queried for each request to make the sampling decision.
 
 ### `dd-sdk-android-ktx` module removal
 
-In order to provide the better granularity for the Datadog SDK libraries used, `dd-sdk-android-ktx` module which was containing extension methods for both RUM and Trace features is removed and the code was re-arranged between the other modules:
+In order to provide the better granularity for the Motadata SDK libraries used, `dd-sdk-android-ktx` module which was containing extension methods for both RUM and Trace features is removed and the code was re-arranged between the other modules:
 
 | `1.x`                                                                                     | '2.0'                                                                                       | Module name                       |
 |-------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|-----------------------------------|
@@ -498,7 +498,7 @@ In order to provide the better granularity for the Datadog SDK libraries used, `
 
 ## Using a Secondary Instance of the SDK
 
-Previously, the Datadog SDK implemented a singleton and only one SDK instance could exist in the application process. This created obstacles for use-cases like the usage of the SDK by 3rd party libraries.
+Previously, the Motadata SDK implemented a singleton and only one SDK instance could exist in the application process. This created obstacles for use-cases like the usage of the SDK by 3rd party libraries.
 
 With version 2.0 we addressed this limitation:
 
@@ -508,9 +508,9 @@ With version 2.0 we addressed this limitation:
 Here is an example illustrating how to initialize a secondary core instance and enable products:
 
 ```kotlin
-val namedSdkInstance = Datadog.initialize("myInstance", context, configuration, trackingConsent)
+val namedSdkInstance = Motadata.initialize("myInstance", context, configuration, trackingConsent)
 val userInfo = UserInfo(...)
-Datadog.setUserInfo(userInfo, sdkCore = namedSdkInstance)
+Motadata.setUserInfo(userInfo, sdkCore = namedSdkInstance)
 
 Logs.enable(logsConfig, namedSdkInstance)
 val logger = Logger.Builder(namedSdkInstance)
@@ -532,4 +532,4 @@ WebViewTracking.enable(webView, allowedHosts, namedSdkInstance)
 
 **Note**: The SDK instance name should have the same value between application runs. Storage paths for SDK events are associated with it.
 
-You can retrieve the named SDK instance by calling `Datadog.getInstance(<name>)` and use the `Datadog.isInitialized(<name>)` method to check if the particular SDK instance is initialized.
+You can retrieve the named SDK instance by calling `Motadata.getInstance(<name>)` and use the `Motadata.isInitialized(<name>)` method to check if the particular SDK instance is initialized.

@@ -61,10 +61,10 @@ def github_create_pr(repository: str, branch_name: str, base_name: str, version:
     }
     body = "This PR has been created automatically by the CI"
     if previous_version:
-        diff = "Updating Datadog SDK from version {previous_version} to version {version}: [diff](https://github.com/DataDog/dd-sdk-android/compare/{previous_version}...{version})".format(previous_version=previous_version, version=version)
+        diff = "Updating Motadata SDK from version {previous_version} to version {version}: [diff](https://github.com/DataDog/dd-sdk-android/compare/{previous_version}...{version})".format(previous_version=previous_version, version=version)
         body = "\\n".join([body, diff])
     data = '{"body": "' + body + '", ' \
-           '"title": "Update Datadog SDK to version ' + version + '", ' \
+           '"title": "Update Motadata SDK to version ' + version + '", ' \
            '"base":"' + base_name + '", "head":"' + branch_name + '"}'
 
     url = "https://api.github.com/repos/DataDog/" + repository + "/pulls"
@@ -109,7 +109,7 @@ def git_clone_repository(repo_name: str, gh_token: str, temp_dir_path: str) -> T
 def git_push_changes(repo: Repo, version: str):
     print("Committing changes")
     repo.git.add(update=True)
-    repo.index.commit("Update Datadog SDK to " + version)
+    repo.index.commit("Update Motadata SDK to " + version)
 
     print("Pushing branch")
     origin = repo.remote(name="origin")

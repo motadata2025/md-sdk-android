@@ -9,7 +9,7 @@ package com.motadata.android.rum.internal.domain.scope
 import android.app.ActivityManager
 import androidx.annotation.WorkerThread
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.storage.DataWriter
 import com.motadata.android.core.InternalSdkCore
@@ -95,7 +95,7 @@ internal class RumViewManagerScope(
     @WorkerThread
     override fun handleEvent(
         event: RumRawEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ): RumScope? {
@@ -169,7 +169,7 @@ internal class RumViewManagerScope(
     @WorkerThread
     private fun startApplicationLaunchView(
         event: RumRawEvent.ApplicationStarted,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -181,7 +181,7 @@ internal class RumViewManagerScope(
 
     private fun sendViewUpdateToChildren(
         event: RumRawEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -191,7 +191,7 @@ internal class RumViewManagerScope(
     @WorkerThread
     private fun delegateToChildren(
         event: RumRawEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -232,7 +232,7 @@ internal class RumViewManagerScope(
     @WorkerThread
     private fun handleOrphanEvent(
         event: RumRawEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
@@ -311,7 +311,7 @@ internal class RumViewManagerScope(
     @WorkerThread
     private fun handleBackgroundEvent(
         event: RumRawEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {

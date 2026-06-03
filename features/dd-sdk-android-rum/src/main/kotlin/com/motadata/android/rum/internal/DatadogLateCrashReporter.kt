@@ -11,7 +11,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.annotation.WorkerThread
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.storage.DataWriter
 import com.motadata.android.api.storage.EventType
@@ -171,7 +171,7 @@ internal class DatadogLateCrashReporter(
 
     @Suppress("LongMethod", "LongParameterList")
     private fun resolveErrorEventFromViewEvent(
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         sourceType: ErrorEvent.SourceType,
         category: ErrorEvent.Category,
         errorLogMessage: String,
@@ -362,7 +362,7 @@ internal class DatadogLateCrashReporter(
         }
     }
 
-    private val DatadogContext.rumSessionId: String?
+    private val MotadataContext.rumSessionId: String?
         get() = featuresContext[Feature.RUM_FEATURE_NAME]
             .orEmpty()[RumContext.SESSION_ID] as? String
 

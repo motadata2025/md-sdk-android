@@ -1,6 +1,6 @@
 # Background Threads
 
-This document lists all background threads created by the Datadog SDK (and its features and integrations),
+This document lists all background threads created by the Motadata SDK (and its features and integrations),
 with their purposes, where they are created, and the stress testing done on each of them.
 
 ### `CoreFeature.persistenceExecutorService`: `FlushableExecutorService`

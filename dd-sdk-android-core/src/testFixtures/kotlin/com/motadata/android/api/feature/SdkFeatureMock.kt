@@ -6,7 +6,7 @@
 
 package com.motadata.android.api.feature
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.core.internal.SdkFeature
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
@@ -17,7 +17,7 @@ object SdkFeatureMock {
     /**
      * This method is a trick that allows to mock FeatureScope.getContextFuture extension method.
      */
-    fun create(future: Future<DatadogContext?>? = null): FeatureScope = mock<SdkFeature> {
+    fun create(future: Future<MotadataContext?>? = null): FeatureScope = mock<SdkFeature> {
         on { getContextFuture(any()) } doReturn future
     }
 }

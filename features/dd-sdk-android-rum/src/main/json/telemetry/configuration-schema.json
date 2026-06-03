@@ -423,7 +423,7 @@
                 },
                 "tracer_api": {
                   "type": "string",
-                  "description": "The tracer API used by the SDK. Possible values: 'Datadog', 'OpenTelemetry', 'OpenTracing'",
+                  "description": "The tracer API used by the SDK. Possible values: 'Motadata', 'OpenTelemetry', 'OpenTracing'",
                   "readOnly": false
                 },
                 "tracer_api_version": {

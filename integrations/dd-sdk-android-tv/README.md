@@ -1,8 +1,8 @@
-# Datadog Integration for Android TV applications
+# Motadata Integration for Android TV applications
 
 ## Getting Started 
 
-To include the Datadog integration for Android TV in your project, add the following to your application's `build.gradle.kts` file.
+To include the Motadata integration for Android TV in your project, add the following to your application's `build.gradle.kts` file.
 
 ```kotlin
 dependencies {
@@ -13,7 +13,7 @@ dependencies {
 
 ### Initial Setup
 
-1. Setup RUM monitoring, see the dedicated [Datadog Android RUM Collection documentation][1] to learn how.
+1. Setup RUM monitoring, see the dedicated [Motadata Android RUM Collection documentation][1] to learn how.
 2. To receive more information about RUM action events for Android TV applications, provide the `LeanbackViewAttributesProvider` when configuring RUM.
 
 #### Kotlin Example

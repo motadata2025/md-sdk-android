@@ -9,7 +9,7 @@ package com.motadata.android.sample.image
 import android.content.Context
 import android.widget.ImageView
 import androidx.core.net.toUri
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.fresco.DatadogFrescoCacheListener
 import com.motadata.android.rum.GlobalRumMonitor
 import com.motadata.android.rum.RumErrorSource
@@ -31,7 +31,7 @@ internal class FrescoImageLoader : ImageLoader {
         if (imageView is SimpleDraweeView) {
             imageView.setImageURI(url.toUri())
         } else {
-            GlobalRumMonitor.get(Datadog.getInstance()).addError(
+            GlobalRumMonitor.get(Motadata.getInstance()).addError(
                 "Unable to load Fresco image in non Drawee View",
                 RumErrorSource.SOURCE,
                 null
@@ -47,7 +47,7 @@ internal class FrescoImageLoader : ImageLoader {
 
         fun initialize(context: Context, okHttpClient: OkHttpClient) {
             val diskConfigBuilder = DiskCacheConfig.newBuilder(context)
-                .setCacheEventListener(DatadogFrescoCacheListener(Datadog.getInstance()))
+                .setCacheEventListener(DatadogFrescoCacheListener(Motadata.getInstance()))
                 .setMaxCacheSize(MAX_DISK_CACHE_SIZE)
             val config = OkHttpImagePipelineConfigFactory
                 .newBuilder(context, okHttpClient)

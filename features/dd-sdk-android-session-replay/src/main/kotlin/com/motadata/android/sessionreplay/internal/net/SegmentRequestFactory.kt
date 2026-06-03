@@ -6,7 +6,7 @@
 
 package com.motadata.android.sessionreplay.internal.net
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.net.Request
 import com.motadata.android.api.net.RequestExecutionContext
 import com.motadata.android.api.net.RequestFactory
@@ -23,7 +23,7 @@ internal class SegmentRequestFactory(
 ) : RequestFactory {
 
     override fun create(
-        context: DatadogContext,
+        context: MotadataContext,
         executionContext: RequestExecutionContext,
         batchData: List<RawBatchEvent>,
         batchMetadata: ByteArray?
@@ -40,11 +40,11 @@ internal class SegmentRequestFactory(
         return resolveRequest(context, body)
     }
 
-    private fun buildUrl(datadogContext: DatadogContext): String {
+    private fun buildUrl(datadogContext: MotadataContext): String {
         return customEndpointUrl ?: (datadogContext.site.intakeEndpoint + "/api/v2/replay")
     }
 
-    private fun resolveHeaders(datadogContext: DatadogContext, requestId: String): Map<String, String> {
+    private fun resolveHeaders(datadogContext: MotadataContext, requestId: String): Map<String, String> {
         return mapOf(
             RequestFactory.HEADER_API_KEY to datadogContext.clientToken,
             RequestFactory.HEADER_EVP_ORIGIN to datadogContext.source,
@@ -54,7 +54,7 @@ internal class SegmentRequestFactory(
     }
 
     @Suppress("ReturnCount")
-    private fun resolveRequest(context: DatadogContext, body: RequestBody): Request {
+    private fun resolveRequest(context: MotadataContext, body: RequestBody): Request {
         val bodyAsByteArray = extractByteArrayFromBody(body)
         val requestId = UUID.randomUUID().toString()
         val description = "Session Replay Segment Upload Request"

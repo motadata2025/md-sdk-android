@@ -17,7 +17,7 @@ enum com.motadata.android.trace.ApmNetworkTracingScope
   - ALL
   - EXCLUDE_INTERNAL_REDIRECTS
 object com.motadata.android.trace.DatadogTracing
-  fun newTracerBuilder(com.motadata.android.api.SdkCore = Datadog.getInstance()): com.motadata.android.trace.api.tracer.DatadogTracerBuilder
+  fun newTracerBuilder(com.motadata.android.api.SdkCore = Motadata.getInstance()): com.motadata.android.trace.api.tracer.DatadogTracerBuilder
 open class com.motadata.android.trace.DeterministicTraceSampler : com.motadata.android.core.sampling.DeterministicSampler<com.motadata.android.trace.api.span.DatadogSpan>
   constructor(() -> Float)
   constructor(Float)
@@ -34,7 +34,7 @@ interface com.motadata.android.trace.NetworkTracedRequestListener
   fun onRequestIntercepted(com.motadata.android.api.instrumentation.network.HttpRequestInfo, com.motadata.android.trace.api.span.DatadogSpan, com.motadata.android.api.instrumentation.network.HttpResponseInfo?, Throwable?)
 fun <T: Any?> withinSpan(String, com.motadata.android.trace.api.span.DatadogSpan? = null, Boolean = true, com.motadata.android.trace.api.span.DatadogSpan.() -> T): T
 object com.motadata.android.trace.Trace
-  fun enable(TraceConfiguration, com.motadata.android.api.SdkCore = Datadog.getInstance())
+  fun enable(TraceConfiguration, com.motadata.android.api.SdkCore = Motadata.getInstance())
 data class com.motadata.android.trace.TraceConfiguration
   class Builder
     fun useCustomEndpoint(String): Builder

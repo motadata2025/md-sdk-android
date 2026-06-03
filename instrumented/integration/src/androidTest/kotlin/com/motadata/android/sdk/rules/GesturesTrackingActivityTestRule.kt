@@ -9,7 +9,7 @@ package com.motadata.android.sdk.rules
 import android.app.Activity
 import android.app.ActivityManager
 import androidx.test.platform.app.InstrumentationRegistry
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.privacy.TrackingConsent
 import com.motadata.android.rum.DdRumContentProvider
 import com.motadata.android.rum.Rum
@@ -27,7 +27,7 @@ internal class GesturesTrackingActivityTestRule<T : Activity>(
         val config = RuntimeConfig.configBuilder()
             .build()
 
-        val sdkCore = Datadog.initialize(
+        val sdkCore = Motadata.initialize(
             InstrumentationRegistry.getInstrumentation().targetContext.applicationContext,
             config,
             trackingConsent

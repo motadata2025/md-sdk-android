@@ -71,6 +71,6 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "A RUM Coroutines extension library to use with the Datadog monitoring library for Android applications."
+    "A RUM Coroutines extension library to use with the Motadata monitoring library for Android applications."
 )
 detektCustomConfig()

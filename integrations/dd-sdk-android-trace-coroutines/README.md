@@ -1,8 +1,8 @@
-# Datadog Trace extensions for Kotlin Coroutines
+# Motadata Trace extensions for Kotlin Coroutines
 
 ## Getting started
 
-To include the Datadog Trace extensions for Kotlin Coroutines in your project, simply add the
+To include the Motadata Trace extensions for Kotlin Coroutines in your project, simply add the
 following to your application's `build.gradle.kts` file:
 
 ```kotlin

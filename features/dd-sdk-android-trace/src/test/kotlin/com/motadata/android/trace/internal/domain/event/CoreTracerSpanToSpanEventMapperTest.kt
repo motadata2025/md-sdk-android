@@ -6,7 +6,7 @@
 
 package com.motadata.android.trace.internal.domain.event
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.log.LogAttributes
 import com.motadata.android.trace.assertj.SpanEventAssert.Companion.assertThat
 import com.motadata.android.utils.forge.Configurator
@@ -40,7 +40,7 @@ internal class CoreTracerSpanToSpanEventMapperTest {
     private lateinit var testedMapper: CoreTracerSpanToSpanEventMapper
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @BoolForgery
     var fakeNetworkInfoEnabled: Boolean = false

@@ -20,7 +20,7 @@ internal class Configurator :
         super.configure(forge)
         forge.useCoreFactories()
 
-        // Datadog Core
+        // Motadata Core
         forge.addFactory(CustomAttributesForgeryFactory())
         forge.addFactory(ConfigurationForgeryFactory())
         forge.addFactory(ConfigurationCoreForgeryFactory())
@@ -42,7 +42,7 @@ internal class Configurator :
         forge.addFactory(BigIntegerFactory())
         forge.addFactory(CharsetForgeryFactory())
 
-        // Datadog SDK v2
+        // Motadata SDK v2
         forge.addFactory(DataUploadConfigurationForgeryFactory())
 
         // UploadStatus

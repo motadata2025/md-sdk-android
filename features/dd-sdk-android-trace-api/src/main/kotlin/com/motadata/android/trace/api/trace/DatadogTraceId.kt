@@ -8,7 +8,7 @@ package com.motadata.android.trace.api.trace
 import com.datadog.tools.annotation.NoOpImplementation
 
 /**
- * Represents a Datadog trace ID, which is a unique identifier for a specific trace.
+ * Represents a Motadata trace ID, which is a unique identifier for a specific trace.
  */
 @NoOpImplementation
 interface DatadogTraceId {
@@ -29,7 +29,7 @@ interface DatadogTraceId {
     fun toHexString(): String
 
     /**
-     * Converts the Datadog trace ID to its numeric representation as a `Long`.
+     * Converts the Motadata trace ID to its numeric representation as a `Long`.
      *
      * @return the numeric value of the trace ID as a `Long`.
      */

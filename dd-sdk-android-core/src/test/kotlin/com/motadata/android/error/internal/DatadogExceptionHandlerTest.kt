@@ -10,7 +10,7 @@ import android.content.Context
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequest
 import androidx.work.impl.WorkManagerImpl
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureScope
@@ -132,7 +132,7 @@ internal class DatadogExceptionHandlerTest {
     fun `tear down`() {
         Thread.setDefaultUncaughtExceptionHandler(originalHandler)
         WorkManagerImpl::class.java.setStaticValue("sDefaultInstance", null)
-        Datadog.stopInstance()
+        Motadata.stopInstance()
     }
 
     @Test

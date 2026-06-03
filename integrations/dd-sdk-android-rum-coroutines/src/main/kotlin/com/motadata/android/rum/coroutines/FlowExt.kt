@@ -6,7 +6,7 @@
 
 package com.motadata.android.rum.coroutines
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.rum.GlobalRumMonitor
 import com.motadata.android.rum.RumErrorSource
@@ -27,7 +27,7 @@ internal const val ERROR_FLOW: String = "Coroutine Flow error"
  *  @return the new [Flow] instance.
  */
 @Suppress("TooGenericExceptionCaught")
-fun <T> Flow<T>.sendErrorToDatadog(sdkCore: SdkCore = Datadog.getInstance()): Flow<T> {
+fun <T> Flow<T>.sendErrorToDatadog(sdkCore: SdkCore = Motadata.getInstance()): Flow<T> {
     return flow {
         try {
             collect { value -> emit(value) }

@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.sample.Preferences
 import com.motadata.android.sample.R
 import com.motadata.android.trace.withinSpan
@@ -62,8 +62,8 @@ internal class AccountFragment : Fragment(), View.OnClickListener {
             val age: Int = Integer.valueOf(accountAgeField.text.toString())
             Preferences.defaultPreferences(requireContext())
                 .setAccountInfo(id, name, role, age)
-            Datadog.setAccountInfo(id, name, emptyMap())
-            Datadog.addAccountExtraInfo(
+            Motadata.setAccountInfo(id, name, emptyMap())
+            Motadata.addAccountExtraInfo(
                 mapOf<String, Any>(
                     ROLE_KEY to role,
                     AGE_KEY to age

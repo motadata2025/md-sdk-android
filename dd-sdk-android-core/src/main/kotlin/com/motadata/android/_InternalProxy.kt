@@ -18,14 +18,14 @@ import com.motadata.android.internal.telemetry.InternalTelemetryEvent
 import com.motadata.android.lint.InternalApi
 
 /**
- * This class exposes internal methods that are used by other Datadog modules and cross-platform
+ * This class exposes internal methods that are used by other Motadata modules and cross-platform
  * frameworks. It is not meant for public use.
  *
- * DO NOT USE this class or its methods if you are not working on the internals of the Datadog SDK
+ * DO NOT USE this class or its methods if you are not working on the internals of the Motadata SDK
  * or one of the cross-platform frameworks.
  *
  * Methods, members, and functionality of this class  are subject to change without notice, as they
- * are not considered part of the public interface of the Datadog SDK.
+ * are not considered part of the public interface of the Motadata SDK.
  */
 @InternalApi
 @Suppress(
@@ -89,7 +89,7 @@ class _InternalProxy internal constructor(
 
     @WorkerThread
     fun flushAndShutdownExecutors() {
-        Datadog.flushAndShutdownExecutors()
+        Motadata.flushAndShutdownExecutors()
     }
 
     companion object {

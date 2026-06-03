@@ -7,7 +7,7 @@
 package com.motadata.android.profiling.internal
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureScope
@@ -77,7 +77,7 @@ internal class ProfilingDataWriterTest {
     lateinit var tmp: File
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @BeforeEach
     fun `set up`(forge: Forge) {
@@ -88,7 +88,7 @@ internal class ProfilingDataWriterTest {
         }
         whenever(mockProfilingFeature.withWriteContext(eq(emptySet()), any())) doAnswer {
             val callback =
-                it.getArgument<(DatadogContext, EventWriteScope) -> Unit>(it.arguments.lastIndex)
+                it.getArgument<(MotadataContext, EventWriteScope) -> Unit>(it.arguments.lastIndex)
             callback.invoke(fakeDatadogContext, mockEventWriteScope)
         }
         whenever(mockSdkCore.getFeature(Feature.PROFILING_FEATURE_NAME))

@@ -6,7 +6,7 @@
 package com.motadata.android.trace.internal
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.api.feature.getContextFuture
@@ -41,7 +41,7 @@ class RumContextPropagator(private val sdkCoreProvider: () -> FeatureSdkCore?) {
     }
 
     private fun extractRumContextInternal(instance: Any, block: Boolean = false) {
-        val future = instance.getTag<Future<DatadogContext?>>(DATADOG_INITIAL_CONTEXT)
+        val future = instance.getTag<Future<MotadataContext?>>(DATADOG_INITIAL_CONTEXT)
 
         if (future != null) {
             val datadogContext = when {
@@ -110,23 +110,23 @@ class RumContextPropagator(private val sdkCoreProvider: () -> FeatureSdkCore?) {
     companion object {
         internal const val DATADOG_INITIAL_CONTEXT: String = "_dd.datadog_initial_context"
 
-        internal const val INITIAL_DATADOG_CONTEXT_NOT_AVAILABLE_ERROR = "Initial span creation Datadog context" +
+        internal const val INITIAL_DATADOG_CONTEXT_NOT_AVAILABLE_ERROR = "Initial span creation Motadata context" +
             " is not available at the write time."
 
         internal const val ERROR_FUTURE_GET_FAILED = "Unable to get datadog context."
         internal const val ERROR_DATADOG_CONTEXT_RESOLUTION_TIMEOUT =
-            "Datadog context resolution timeout exceeded."
+            "Motadata context resolution timeout exceeded."
 
         private const val CONTEXT_RESOLUTION_TIMEOUT = 1L
 
         /**
          * For internal usage only.
          *
-         * Check for the Datadog context future and extracts the RUM context from it.
+         * Check for the Motadata context future and extracts the RUM context from it.
          * If RUM context is present - it will be added to the span.
          *
          * @param propagator the [RumContextPropagator] instance to use.
-         * @param block if true, this method will block (1 second max) until the Datadog context is resolved.
+         * @param block if true, this method will block (1 second max) until the Motadata context is resolved.
          */
         @InternalApi
         fun DatadogSpan.extractRumContext(propagator: RumContextPropagator, block: Boolean = false) = apply {

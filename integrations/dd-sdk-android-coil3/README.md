@@ -1,8 +1,8 @@
-# Datadog Integration for Coil 3
+# Motadata Integration for Coil 3
 
 ## Getting Started 
 
-To include the Datadog integration for [Coil 3][1] in your project, add the
+To include the Motadata integration for [Coil 3][1] in your project, add the
 following to your application's `build.gradle.kts` file.
 
 ```kotlin
@@ -15,16 +15,16 @@ dependencies {
 
 ### Initial Setup
 
-1. Setup RUM monitoring, see the dedicated [Datadog Android RUM Collection documentation][2] to learn how.
-2. Setup OkHttp instrumentation with Datadog RUM SDK, see the [dedicated documentation][3] to learn how.
+1. Setup RUM monitoring, see the dedicated [Motadata Android RUM Collection documentation][2] to learn how.
+2. Setup OkHttp instrumentation with Motadata RUM SDK, see the [dedicated documentation][3] to learn how.
 
 Follow Coil 3's [documentation][4] to:
  
- - Create your own `ImageLoader` by providing your own `OkHttpClient` (configured with `DatadogInterceptor`) using `OkHttpNetworkFetcherFactory`.
+ - Create your own `ImageLoader` by providing your own `OkHttpClient` (configured with `MotadataInterceptor`) using `OkHttpNetworkFetcherFactory`.
 
 ```kotlin
     val okHttpClient = OkHttpClient.Builder()
-        .addInterceptor(DatadogInterceptor.Builder(tracedHosts).build())
+        .addInterceptor(MotadataInterceptor.Builder(tracedHosts).build())
         .build()
 
     val imageLoader = ImageLoader.Builder(context)
@@ -45,7 +45,7 @@ Follow Coil 3's [documentation][4] to:
 ```
 
 With this setup:
-- The `DatadogInterceptor` on OkHttpClient automatically tracks Coil's network requests (creating APM Traces and RUM Resource events)
+- The `MotadataInterceptor` on OkHttpClient automatically tracks Coil's network requests (creating APM Traces and RUM Resource events)
 - The `DatadogCoilRequestListener` reports image loading failures (creating RUM Error events)
 
 ## Contributing

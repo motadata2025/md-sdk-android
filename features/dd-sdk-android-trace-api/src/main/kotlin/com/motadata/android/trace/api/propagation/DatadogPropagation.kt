@@ -32,7 +32,7 @@ interface DatadogPropagation {
 
     /**
      * Extracts a [DatadogSpanContext] from the provided carrier using the specified getter function.
-     * This method is used to propagate Datadog span context information across systems by retrieving
+     * This method is used to propagate Motadata span context information across systems by retrieving
      * trace and span information from the carrier.
      *
      * @param C The type of the carrier containing the span context information.

@@ -6,8 +6,8 @@
 
 package com.motadata.android.trace.internal.domain.event
 
-import com.motadata.android.api.context.DatadogContext
-import com.motadata.android.core.constraints.DatadogDataConstraints
+import com.motadata.android.api.context.MotadataContext
+import com.motadata.android.core.constraints.MotadataDataConstraints
 import com.motadata.android.internal.utils.NULL_MAP_VALUE
 import com.motadata.android.trace.model.SpanEvent
 import com.motadata.android.utils.forge.Configurator
@@ -45,10 +45,10 @@ import java.util.Locale
 internal class SpanEventSerializerTest {
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @Mock
-    lateinit var mockDatadogConstraints: DatadogDataConstraints
+    lateinit var mockDatadogConstraints: MotadataDataConstraints
 
     private lateinit var testedSerializer: SpanEventSerializer
 

@@ -13,14 +13,14 @@ import coil3.load
 import coil3.network.okhttp.OkHttpNetworkFetcherFactory
 import coil3.request.error
 import coil3.request.placeholder
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.coil3.DatadogCoilRequestListener
 import com.motadata.android.sample.R
 import okhttp3.OkHttpClient
 
 internal class Coil3ImageLoader : ImageLoader {
 
-    private val listener = DatadogCoilRequestListener(Datadog.getInstance())
+    private val listener = DatadogCoilRequestListener(Motadata.getInstance())
 
     override val type: ImageLoaderType = ImageLoaderType.COIL3
 

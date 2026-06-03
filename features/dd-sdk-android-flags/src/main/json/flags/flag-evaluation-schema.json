@@ -47,7 +47,7 @@
         },
         "dd": {
           "type": "object",
-          "description": "Datadog-specific context",
+          "description": "Motadata-specific context",
           "properties": {
             "service": { "type": "string" },
             "rum": {

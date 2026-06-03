@@ -17,7 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.privacy.TrackingConsent
 import com.motadata.android.rum.ExperimentalRumApi
 import com.motadata.android.rum.GlobalRumMonitor
@@ -122,7 +122,7 @@ class NavActivity : AppCompatActivity(), TrackingConsentChangeListener {
                 // No Op
             }
             .setPositiveButton(android.R.string.ok) { _, _ ->
-                Datadog.getInstance().clearAllData()
+                Motadata.getInstance().clearAllData()
                 Toast.makeText(this, R.string.msg_all_data_cleared, Toast.LENGTH_SHORT).show()
             }
             .create()

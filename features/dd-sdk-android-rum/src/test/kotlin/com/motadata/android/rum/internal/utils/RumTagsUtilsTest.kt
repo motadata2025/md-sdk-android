@@ -6,7 +6,7 @@
 
 package com.motadata.android.rum.internal.utils
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.rum.utils.forge.Configurator
 import com.datadog.tools.unit.extensions.TestConfigurationExtension
 import fr.xgouchet.elmyr.Forge
@@ -35,7 +35,7 @@ internal class RumTagsUtilsTest {
         forge: Forge
     ) {
         // Given
-        val context = forge.getForgery<DatadogContext>()
+        val context = forge.getForgery<MotadataContext>()
 
         // When
         val result = buildDDTagsString(context)
@@ -55,7 +55,7 @@ internal class RumTagsUtilsTest {
 
     @Test
     fun `M build DD tags string without variant W buildDDTagsString() {with empty variant}`(
-        @Forgery fakeContext: DatadogContext
+        @Forgery fakeContext: MotadataContext
     ) {
         // Given
         val context = fakeContext.copy(variant = "")

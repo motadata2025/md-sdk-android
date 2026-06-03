@@ -7,7 +7,7 @@
 package com.motadata.android.log.internal.net
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.net.Request
 import com.motadata.android.api.net.RequestExecutionContext
 import com.motadata.android.api.net.RequestFactory
@@ -28,7 +28,7 @@ internal class LogsRequestFactory(
 
     /** @inheritdoc */
     override fun create(
-        context: DatadogContext,
+        context: MotadataContext,
         executionContext: RequestExecutionContext,
         batchData: List<RawBatchEvent>,
         batchMetadata: ByteArray?
@@ -56,7 +56,7 @@ internal class LogsRequestFactory(
         )
     }
 
-    private fun buildUrl(source: String, context: DatadogContext): String {
+    private fun buildUrl(source: String, context: MotadataContext): String {
         val baseUrl = customEndpointUrl ?: (context.site.intakeEndpoint + "/api/v2/logs")
         return "%s?%s=%s"
             .format(

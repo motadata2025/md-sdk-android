@@ -34,15 +34,15 @@ class HaystackHttpCodec {
   private static final String SPAN_ID_KEY = "Span-ID";
   private static final String PARENT_ID_KEY = "Parent-ID";
 
-  private static final String DD_TRACE_ID_BAGGAGE_KEY = OT_BAGGAGE_PREFIX + "Datadog-Trace-Id";
-  private static final String DD_SPAN_ID_BAGGAGE_KEY = OT_BAGGAGE_PREFIX + "Datadog-Span-Id";
-  private static final String DD_PARENT_ID_BAGGAGE_KEY = OT_BAGGAGE_PREFIX + "Datadog-Parent-Id";
+  private static final String DD_TRACE_ID_BAGGAGE_KEY = OT_BAGGAGE_PREFIX + "Motadata-Trace-Id";
+  private static final String DD_SPAN_ID_BAGGAGE_KEY = OT_BAGGAGE_PREFIX + "Motadata-Span-Id";
+  private static final String DD_PARENT_ID_BAGGAGE_KEY = OT_BAGGAGE_PREFIX + "Motadata-Parent-Id";
 
   private static final String HAYSTACK_TRACE_ID_BAGGAGE_KEY = "Haystack-Trace-ID";
   private static final String HAYSTACK_SPAN_ID_BAGGAGE_KEY = "Haystack-Span-ID";
   private static final String HAYSTACK_PARENT_ID_BAGGAGE_KEY = "Haystack-Parent-ID";
 
-  // public static final long DATADOG = new BigInteger("Datadog!".getBytes()).longValue();
+  // public static final long DATADOG = new BigInteger("Motadata!".getBytes()).longValue();
   public static final String DATADOG = "44617461-646f-6721";
 
   private HaystackHttpCodec() {

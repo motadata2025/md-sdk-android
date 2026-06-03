@@ -7,7 +7,7 @@
 package com.motadata.android.rum.internal.domain.scope
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.NetworkInfo
 import com.motadata.android.api.context.TimeInfo
 import com.motadata.android.api.feature.EventWriteScope
@@ -160,7 +160,7 @@ internal class RumViewScopeAttributePropagationTest {
     lateinit var fakeNetworkInfoAtScopeStart: NetworkInfo
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @BoolForgery
     var fakeHasReplay: Boolean = false
@@ -247,7 +247,7 @@ internal class RumViewScopeAttributePropagationTest {
         whenever(rumMonitor.mockSdkCore.internalLogger) doReturn mockInternalLogger
 
         whenever(mockRumFeatureScope.withWriteContext(any(), any())) doAnswer {
-            val callback = it.getArgument<(DatadogContext, EventWriteScope) -> Unit>(1)
+            val callback = it.getArgument<(MotadataContext, EventWriteScope) -> Unit>(1)
             callback.invoke(fakeDatadogContext, mockEventWriteScope)
         }
         whenever(mockEventWriteScope.invoke(any())) doAnswer {

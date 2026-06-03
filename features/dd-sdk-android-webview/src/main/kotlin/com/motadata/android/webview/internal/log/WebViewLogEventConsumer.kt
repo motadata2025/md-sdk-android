@@ -7,7 +7,7 @@
 package com.motadata.android.webview.internal.log
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.api.storage.DataWriter
@@ -48,7 +48,7 @@ internal class WebViewLogEventConsumer(
 
     private fun map(
         event: JsonObject,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         rumContext: RumContext?
     ): JsonObject {
         addDdTags(event, datadogContext)
@@ -61,14 +61,14 @@ internal class WebViewLogEventConsumer(
         return event
     }
 
-    private fun addAnonymousId(event: JsonObject, datadogContext: DatadogContext) {
+    private fun addAnonymousId(event: JsonObject, datadogContext: MotadataContext) {
         val anonymousId = datadogContext.userInfo.anonymousId ?: return
         val usr = event.getAsJsonObject(USR_KEY_NAME) ?: JsonObject()
         usr.addProperty(ANONYMOUS_ID_KEY_NAME, anonymousId)
         event.add(USR_KEY_NAME, usr)
     }
 
-    private fun correctDate(event: JsonObject, datadogContext: DatadogContext) {
+    private fun correctDate(event: JsonObject, datadogContext: MotadataContext) {
         try {
             event.get(DATE_KEY_NAME)?.asLong?.let {
                 event.addProperty(
@@ -107,7 +107,7 @@ internal class WebViewLogEventConsumer(
         }
     }
 
-    private fun addDdTags(event: JsonObject, datadogContext: DatadogContext) {
+    private fun addDdTags(event: JsonObject, datadogContext: MotadataContext) {
         val sdkDdTags = mapOf(
             LogAttributes.APPLICATION_VERSION to datadogContext.version,
             LogAttributes.ENV to datadogContext.env,

@@ -7,7 +7,7 @@
 package com.datadog.benchmark.internal.model
 
 /**
- * This enumeration corresponds to Datadog submitting metrics API,
+ * This enumeration corresponds to Motadata submitting metrics API,
  * The type of metric. The available types are 0 (unspecified),
  * 1 (count), 2 (rate), and 3 (gauge). Allowed enum values: 0,1,2,3.
  *

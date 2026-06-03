@@ -56,7 +56,7 @@ internal class HeadersAssert(actual: Headers) :
             val vendor = vendorTags[0]
             assertThat(vendor)
                 .overridingErrorMessage(
-                    "We were expecting to have Datadog vendor for" +
+                    "We were expecting to have Motadata vendor for" +
                         " [$TRACESTATE_HEADER_NAME] header, but the actual header value is [$headerValue]"
                 )
                 .startsWith("dd=")
@@ -71,7 +71,7 @@ internal class HeadersAssert(actual: Headers) :
                 assertThat(it.value)
                     .overridingErrorMessage(
                         "We were expecting to not have duplicated or empty tags for" +
-                            " Datadog vendor of [$TRACESTATE_HEADER_NAME] header, but" +
+                            " Motadata vendor of [$TRACESTATE_HEADER_NAME] header, but" +
                             " the actual tags were $vendor"
                     )
                     .hasSize(1)
@@ -89,7 +89,7 @@ internal class HeadersAssert(actual: Headers) :
             assertThat(actualTags)
                 .overridingErrorMessage(
                     "We were expecting to have the following tags for" +
-                        " Datadog vendor of [$TRACESTATE_HEADER_NAME] header [$expectedTags], but" +
+                        " Motadata vendor of [$TRACESTATE_HEADER_NAME] header [$expectedTags], but" +
                         " the actual tags were [$actualTags]"
                 )
                 .isEqualTo(expectedTags)

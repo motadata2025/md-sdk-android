@@ -12,7 +12,7 @@ import dev.openfeature.kotlin.sdk.FeatureProvider
 /**
  * Creates an OpenFeature [FeatureProvider] from this [FlagsClient].
  *
- * This is the recommended way to integrate Datadog Feature Flags with OpenFeature.
+ * This is the recommended way to integrate Motadata Feature Flags with OpenFeature.
  * Use [FlagsClient.Builder] to configure your client (custom endpoints, etc.),
  * then call this extension to get an OpenFeature provider.
  *

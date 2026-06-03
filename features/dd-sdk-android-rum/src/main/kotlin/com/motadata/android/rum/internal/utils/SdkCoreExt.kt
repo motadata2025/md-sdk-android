@@ -7,7 +7,7 @@
 package com.motadata.android.rum.internal.utils
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.api.storage.DataWriter
@@ -20,7 +20,7 @@ internal typealias EventOutcomeAction = (rumMonitor: AdvancedRumMonitor) -> Unit
 
 internal class WriteOperation(
     private val sdkCore: FeatureSdkCore,
-    private val datadogContext: DatadogContext,
+    private val datadogContext: MotadataContext,
     private val writeScope: EventWriteScope,
     private val rumDataWriter: DataWriter<Any>,
     private val eventType: EventType,
@@ -108,7 +108,7 @@ internal class WriteOperation(
 }
 
 internal fun FeatureSdkCore.newRumEventWriteOperation(
-    datadogContext: DatadogContext,
+    datadogContext: MotadataContext,
     writeScope: EventWriteScope,
     rumDataWriter: DataWriter<Any>,
     eventType: EventType = EventType.DEFAULT,

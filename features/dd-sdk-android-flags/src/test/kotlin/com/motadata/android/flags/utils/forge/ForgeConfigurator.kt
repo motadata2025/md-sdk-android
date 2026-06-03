@@ -15,7 +15,7 @@ internal class ForgeConfigurator : BaseConfigurator() {
     override fun configure(forge: Forge) {
         super.configure(forge)
 
-        // so that we can forge DatadogContext
+        // so that we can forge MotadataContext
         forge.useCoreFactories()
 
         forge.addFactory(FlagsConfigurationForgeryFactory())

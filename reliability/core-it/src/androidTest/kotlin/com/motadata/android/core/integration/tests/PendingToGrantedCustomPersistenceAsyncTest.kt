@@ -7,8 +7,8 @@
 package com.motadata.android.core.integration.tests
 
 import androidx.test.core.app.ApplicationProvider
-import com.motadata.android.Datadog
-import com.motadata.android.DatadogSite
+import com.motadata.android.Motadata
+import com.motadata.android.MotadataSite
 import com.motadata.android._InternalProxy
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.stub.StubStorageBackedFeature
@@ -83,7 +83,7 @@ class PendingToGrantedCustomPersistenceAsyncTest(
     @After
     fun tearDown() {
         cleanStorage()
-        Datadog.stopInstance()
+        Motadata.stopInstance()
         cleanMockWebServer()
     }
 
@@ -91,7 +91,7 @@ class PendingToGrantedCustomPersistenceAsyncTest(
     fun mustReceiveTheEvents_whenFeatureWrite_customStorage_asynchronousAccess() {
         // Given
         trackingConsent = TrackingConsent.PENDING
-        testedInternalSdkCore = Datadog.initialize(
+        testedInternalSdkCore = Motadata.initialize(
             context = ApplicationProvider.getApplicationContext(),
             configuration = fakeConfiguration,
             trackingConsent = trackingConsent
@@ -104,7 +104,7 @@ class PendingToGrantedCustomPersistenceAsyncTest(
         // When
         Thread {
             Thread.sleep(200)
-            Datadog.setTrackingConsent(TrackingConsent.GRANTED)
+            Motadata.setTrackingConsent(TrackingConsent.GRANTED)
             countDownLatch.countDown()
         }.start()
         Thread {
@@ -157,7 +157,7 @@ class PendingToGrantedCustomPersistenceAsyncTest(
             )
                 .setUseDeveloperModeWhenDebuggable(aBool())
                 // this needs to be before allowing the clear text traffic as it invalidates this option
-                .useSite(aValueFrom(DatadogSite::class.java))
+                .useSite(aValueFrom(MotadataSite::class.java))
                 .setFirstPartyHostsWithHeaderType(
                     aMap {
                         val fakeUrl = aStringMatching("https://[a-z0-9]+\\.com")

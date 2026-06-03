@@ -10,7 +10,7 @@ import com.motadata.android.trace.api.trace.DatadogTraceId
 import com.datadog.trace.api.DDTraceId
 
 /**
- * For Datadog internal use only.
+ * For Motadata internal use only.
  *
  * Converts a hexadecimal string representation of a trace ID into a [DatadogTraceId] instance.
  *

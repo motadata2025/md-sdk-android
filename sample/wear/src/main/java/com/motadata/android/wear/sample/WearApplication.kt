@@ -8,8 +8,8 @@ package com.motadata.android.wear.sample
 
 import android.app.Application
 import android.util.Log
-import com.motadata.android.Datadog
-import com.motadata.android.DatadogSite
+import com.motadata.android.Motadata
+import com.motadata.android.MotadataSite
 import com.motadata.android.core.configuration.Configuration
 import com.motadata.android.log.Logs
 import com.motadata.android.log.LogsConfiguration
@@ -37,9 +37,9 @@ class WearApplication : Application() {
 
     @Suppress("MagicNumber")
     private fun initializeDatadog() {
-        Datadog.setVerbosity(Log.VERBOSE)
+        Motadata.setVerbosity(Log.VERBOSE)
 
-        val sdkCore = Datadog.initialize(
+        val sdkCore = Motadata.initialize(
             this,
             createDatadogConfiguration(),
             TrackingConsent.GRANTED
@@ -79,7 +79,7 @@ class WearApplication : Application() {
                 .build()
         )
 
-        Datadog.setUserInfo(
+        Motadata.setUserInfo(
             id = "wear 42",
             name = null,
             email = null
@@ -104,7 +104,7 @@ class WearApplication : Application() {
         )
 
         try {
-            configBuilder.useSite(DatadogSite.valueOf(BuildConfig.DD_SITE_NAME))
+            configBuilder.useSite(MotadataSite.valueOf(BuildConfig.DD_SITE_NAME))
         } catch (e: IllegalArgumentException) {
             Timber.e("Error setting site to ${BuildConfig.DD_SITE_NAME}")
         }

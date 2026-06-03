@@ -8,7 +8,7 @@ package com.motadata.android.coil
 
 import android.net.Uri
 import coil.request.ImageRequest
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.rum.GlobalRumMonitor
 import com.motadata.android.rum.RumErrorSource
@@ -17,7 +17,7 @@ import java.io.File
 
 /**
  * Provides an implementation of [coil.request.ImageRequest.Listener] already set up to send relevant information
- * to Datadog.
+ * to Motadata.
  *
  * It will automatically send RUM error events whenever a Coil [ImageRequest]
  * throws any [Exception].
@@ -28,7 +28,7 @@ import java.io.File
 class DatadogCoilRequestListener
 @JvmOverloads
 constructor(
-    private val sdkCore: SdkCore = Datadog.getInstance()
+    private val sdkCore: SdkCore = Motadata.getInstance()
 ) : ImageRequest.Listener {
 
     // region Listener

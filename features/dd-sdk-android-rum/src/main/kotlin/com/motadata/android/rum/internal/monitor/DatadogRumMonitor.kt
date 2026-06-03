@@ -13,7 +13,7 @@ import android.app.ActivityManager
 import android.os.Handler
 import androidx.annotation.WorkerThread
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.measureMethodCallPerf
@@ -907,7 +907,7 @@ internal class DatadogRumMonitor(
     @WorkerThread
     private fun handleEventWithMethodCallPerf(
         event: RumRawEvent,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writeScope: EventWriteScope
     ) {
         sdkCore.internalLogger.measureMethodCallPerf(

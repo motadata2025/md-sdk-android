@@ -7,7 +7,7 @@
 package com.motadata.android.sessionreplay.internal.net
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.sessionreplay.forge.ForgeConfigurator
 import com.motadata.android.sessionreplay.internal.processor.EnrichedRecord
 import com.motadata.android.sessionreplay.internal.utils.SessionReplayRumContext
@@ -43,7 +43,7 @@ internal class BatchesToSegmentsMapperTest {
     lateinit var mockInternalLogger: InternalLogger
 
     @Forgery
-    lateinit var datadogContext: DatadogContext
+    lateinit var datadogContext: MotadataContext
 
     private lateinit var testedMapper: BatchesToSegmentsMapper
 

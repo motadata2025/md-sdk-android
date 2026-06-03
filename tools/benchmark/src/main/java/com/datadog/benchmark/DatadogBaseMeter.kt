@@ -7,17 +7,17 @@
 package com.datadog.benchmark
 
 /**
- * Interface to be used for Datadog SDK meters.
+ * Interface to be used for Motadata SDK meters.
  */
 interface DatadogBaseMeter {
 
     /**
-     * Starts the Datadog SDK meter.
+     * Starts the Motadata SDK meter.
      */
     fun startMeasuring()
 
     /**
-     * Stops the Datadog SDK meter.
+     * Stops the Motadata SDK meter.
      */
     fun stopMeasuring()
 }

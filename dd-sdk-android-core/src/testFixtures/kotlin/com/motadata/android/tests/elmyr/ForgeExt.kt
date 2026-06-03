@@ -48,7 +48,7 @@ fun Forge.exhaustiveAttributes(
 }
 
 fun <T : Forge> T.useCoreFactories(): T {
-    addFactory(DatadogContextForgeryFactory())
+    addFactory(MotadataContextForgeryFactory())
     addFactory(DeviceInfoForgeryFactory())
     addFactory(NetworkInfoForgeryFactory())
     addFactory(LocaleInfoForgeryFactory())

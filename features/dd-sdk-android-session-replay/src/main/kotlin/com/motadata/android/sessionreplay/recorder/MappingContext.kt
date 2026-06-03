@@ -14,7 +14,7 @@ import com.motadata.android.sessionreplay.utils.ImageWireframeHelper
 /**
  * Contains the context information which will be passed from parent to its children when
  * traversing the tree view for masking, as well as utilities and helpers that allow generating the wireframes
- * expected by Datadog.
+ * expected by Motadata.
  * @param systemInformation as [SystemInformation]
  * @param imageWireframeHelper a helper tool to capture images within a View
  * @param textAndInputPrivacy the text and input privacy level to use when building the wireframes

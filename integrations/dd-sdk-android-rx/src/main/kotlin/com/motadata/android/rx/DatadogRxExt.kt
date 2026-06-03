@@ -6,7 +6,7 @@
 
 package com.motadata.android.rx
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
@@ -23,7 +23,7 @@ import io.reactivex.rxjava3.core.Single
  * will be used.
  * @return the new [Observable] instance
  */
-fun <T : Any> Observable<T>.sendErrorToDatadog(sdkCore: SdkCore = Datadog.getInstance()): Observable<T> {
+fun <T : Any> Observable<T>.sendErrorToDatadog(sdkCore: SdkCore = Motadata.getInstance()): Observable<T> {
     return this.doOnError(DatadogRumErrorConsumer(sdkCore))
 }
 
@@ -36,7 +36,7 @@ fun <T : Any> Observable<T>.sendErrorToDatadog(sdkCore: SdkCore = Datadog.getIns
  * will be used.
  * @return the new [Single] instance
  */
-fun <T : Any> Single<T>.sendErrorToDatadog(sdkCore: SdkCore = Datadog.getInstance()): Single<T> {
+fun <T : Any> Single<T>.sendErrorToDatadog(sdkCore: SdkCore = Motadata.getInstance()): Single<T> {
     return this.doOnError(DatadogRumErrorConsumer(sdkCore))
 }
 
@@ -49,7 +49,7 @@ fun <T : Any> Single<T>.sendErrorToDatadog(sdkCore: SdkCore = Datadog.getInstanc
  * will be used.
  * @return the new [Flowable] instance
  */
-fun <T : Any> Flowable<T>.sendErrorToDatadog(sdkCore: SdkCore = Datadog.getInstance()): Flowable<T> {
+fun <T : Any> Flowable<T>.sendErrorToDatadog(sdkCore: SdkCore = Motadata.getInstance()): Flowable<T> {
     return this.doOnError(DatadogRumErrorConsumer(sdkCore))
 }
 
@@ -62,7 +62,7 @@ fun <T : Any> Flowable<T>.sendErrorToDatadog(sdkCore: SdkCore = Datadog.getInsta
  * will be used.
  * @return the new [Maybe] instance
  */
-fun <T> Maybe<T>.sendErrorToDatadog(sdkCore: SdkCore = Datadog.getInstance()): Maybe<T> {
+fun <T> Maybe<T>.sendErrorToDatadog(sdkCore: SdkCore = Motadata.getInstance()): Maybe<T> {
     return this.doOnError(DatadogRumErrorConsumer(sdkCore))
 }
 
@@ -74,6 +74,6 @@ fun <T> Maybe<T>.sendErrorToDatadog(sdkCore: SdkCore = Datadog.getInstance()): M
  * will be used.
  * @return the new [Completable] instance
  */
-fun Completable.sendErrorToDatadog(sdkCore: SdkCore = Datadog.getInstance()): Completable {
+fun Completable.sendErrorToDatadog(sdkCore: SdkCore = Motadata.getInstance()): Completable {
     return this.doOnError(DatadogRumErrorConsumer(sdkCore))
 }

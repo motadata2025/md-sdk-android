@@ -6,7 +6,7 @@
 
 package com.motadata.android.trace.internal.storage
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 
 /**
  * A class which can transform an object of type [T] into a formatted String.
@@ -16,5 +16,5 @@ internal interface ContextAwareSerializer<T : Any> {
      * Serializes the data into a String.
      * @return the String representing the data or null if any exception occurs
      */
-    fun serialize(datadogContext: DatadogContext, model: T): String?
+    fun serialize(datadogContext: MotadataContext, model: T): String?
 }

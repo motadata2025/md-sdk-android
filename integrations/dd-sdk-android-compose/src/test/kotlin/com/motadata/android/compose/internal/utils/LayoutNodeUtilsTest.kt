@@ -25,7 +25,7 @@ import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsConfiguration
 import androidx.compose.ui.semantics.SemanticsModifier
 import androidx.compose.ui.semantics.getOrNull
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.FeatureSdkCore
@@ -84,14 +84,14 @@ class LayoutNodeUtilsTest {
     @BeforeEach
     fun `set up`() {
         whenever(mockSdkCore.internalLogger) doReturn mockInternalLogger
-        val registry: Any = Datadog::class.java.getStaticValue("registry")
+        val registry: Any = Motadata::class.java.getStaticValue("registry")
         val instances: MutableMap<String, SdkCore> = registry.getFieldValue("instances")
         instances += DEFAULT_INSTANCE_NAME to mockSdkCore
     }
 
     @AfterEach
     fun `tear down`() {
-        Datadog.stopInstance(DEFAULT_INSTANCE_NAME)
+        Motadata.stopInstance(DEFAULT_INSTANCE_NAME)
     }
 
     // region Legacy Compose (SemanticsModifier)

@@ -6,7 +6,7 @@
 
 package com.motadata.android.sessionreplay.internal.net
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.net.RequestExecutionContext
 import com.motadata.android.api.net.RequestFactory
 import com.motadata.android.api.storage.RawBatchEvent
@@ -57,7 +57,7 @@ internal class SegmentRequestFactoryTest {
     lateinit var fakeBatchData: List<RawBatchEvent>
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @Forgery
     lateinit var fakeExecutionContext: RequestExecutionContext

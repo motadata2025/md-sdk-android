@@ -10,7 +10,7 @@ import com.datadog.trace.api.DDSpanId
 
 /**
  * For library usage only.
- * Interface for converting Datadog span IDs between hexadecimal and decimal representations.
+ * Interface for converting Motadata span IDs between hexadecimal and decimal representations.
  */
 @InternalApi
 class DatadogSpanIdConverter internal constructor() {

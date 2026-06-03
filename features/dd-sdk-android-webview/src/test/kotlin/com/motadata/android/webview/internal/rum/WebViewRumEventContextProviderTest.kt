@@ -7,7 +7,7 @@
 package com.motadata.android.webview.internal.rum
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.utils.forge.Configurator
 import com.motadata.android.utils.verifyLog
@@ -44,7 +44,7 @@ internal class WebViewRumEventContextProviderTest {
     lateinit var mockInternalLogger: InternalLogger
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @Forgery
     lateinit var fakeApplicationId: UUID

@@ -9,7 +9,7 @@ package com.motadata.android.webview
 import android.webkit.WebSettings
 import android.webkit.WebView
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.UserInfo
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
@@ -655,7 +655,7 @@ internal class WebViewTrackingTest {
                 "session_state" to "TRACKED"
             )
         )
-        val mockDatadogContext = mock<DatadogContext>()
+        val mockDatadogContext = mock<MotadataContext>()
         whenever(mockDatadogContext.featuresContext) doReturn fakeFeaturesContext
         whenever(mockDatadogContext.userInfo) doReturn fakeUserInfo
         val mockEventBatchWriter = mock<EventBatchWriter>()
@@ -671,7 +671,7 @@ internal class WebViewTrackingTest {
 
         // When
         proxy.consumeWebviewEvent(fakeWebEvent.toString())
-        argumentCaptor<(DatadogContext, EventWriteScope) -> Unit> {
+        argumentCaptor<(MotadataContext, EventWriteScope) -> Unit> {
             verify(mockWebViewRumFeature).withWriteContext(
                 eq(setOf(Feature.RUM_FEATURE_NAME, Feature.SESSION_REPLAY_FEATURE_NAME)),
                 capture()

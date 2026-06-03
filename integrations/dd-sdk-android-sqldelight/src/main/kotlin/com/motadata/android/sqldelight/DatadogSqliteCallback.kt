@@ -7,7 +7,7 @@
 package com.motadata.android.sqldelight
 
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.rum.GlobalRumMonitor
 import com.motadata.android.rum.RumAttributes
@@ -29,7 +29,7 @@ class DatadogSqliteCallback
 @JvmOverloads
 constructor(
     schema: SqlDriver.Schema,
-    private val sdkCore: SdkCore = Datadog.getInstance()
+    private val sdkCore: SdkCore = Motadata.getInstance()
 ) : AndroidSqliteDriver.Callback(schema) {
 
     /** @inheritDoc */

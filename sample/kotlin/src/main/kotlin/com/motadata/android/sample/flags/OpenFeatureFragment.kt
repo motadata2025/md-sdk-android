@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 import java.util.Locale
 
 /**
- * Fragment demonstrating OpenFeature SDK integration with Datadog Flags.
+ * Fragment demonstrating OpenFeature SDK integration with Motadata Flags.
  */
 internal class OpenFeatureFragment :
     Fragment(),

@@ -25,7 +25,7 @@ import com.datadog.trace.core.propagation.W3CHttpCodec
 
 /**
  * For internal usage only.
- * Helper class for handling Datadog context propagation.
+ * Helper class for handling Motadata context propagation.
  */
 @InternalApi
 class DatadogPropagationHelper internal constructor() {

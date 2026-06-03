@@ -9,7 +9,7 @@ import io.opentelemetry.context.Context
 import io.opentelemetry.context.ContextStorage
 import io.opentelemetry.context.Scope
 
-internal class DatadogContextStorage(private val wrapped: ContextStorage) : ContextStorage {
+internal class MotadataContextStorage(private val wrapped: ContextStorage) : ContextStorage {
     override fun current(): Context {
         val current = wrapped.current() ?: Context.root()
         return if (current is OtelContext) {

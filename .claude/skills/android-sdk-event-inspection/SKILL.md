@@ -3,7 +3,7 @@ name: android-sdk-event-inspection
 description: Use when verifying SDK event payloads in the Android SDK sandbox, debugging what events are emitted, or validating request bodies via logcat with the sample Kotlin app.
 ---
 
-# Datadog Android SDK — Event Inspection
+# Motadata Android SDK — Event Inspection
 
 ## Overview
 
@@ -15,7 +15,7 @@ The Android SDK uses `CurlInterceptor` to log every outgoing HTTP request as a `
 
 - Verifying a change emits the correct event type or fields
 - Checking custom attributes appear on a log, trace, RUM, Session Replay or Profiling event
-- Debugging why RUM/logs/traces/Session Replay/Profiling are not showing up in Datadog
+- Debugging why RUM/logs/traces/Session Replay/Profiling are not showing up in Motadata
 - Validating SDK behavior with the `sample/kotlin` app
 
 ## Related Tools
@@ -40,7 +40,7 @@ This change is gated by `BuildConfig.DEBUG` — it only runs in debug builds.
 
 ### 2. Configure Build-Time Credentials
 
-Create `config/{flavor}.json` (e.g., `config/us1.json`) — values are injected into `BuildConfig` at compile time. **Fake/placeholder values are fine** — real Datadog credentials are not required for local event inspection:
+Create `config/{flavor}.json` (e.g., `config/us1.json`) — values are injected into `BuildConfig` at compile time. **Fake/placeholder values are fine** — real Motadata credentials are not required for local event inspection:
 
 ```json
 {
@@ -81,14 +81,14 @@ adb shell am start -n com.motadata.android.sample/.NavActivity
 ### 5. Stream Logcat
 
 ```sh
-adb logcat -s "Datadog" "DD_LOG" "Curl" "*:S"
+adb logcat -s "Motadata" "DD_LOG" "Curl" "*:S"
 ```
 
 ## Log Tags Quick Reference
 
 | Tag | What it shows |
 |---|---|
-| `Datadog` | User-facing SDK warnings and info (init, feature flags) |
+| `Motadata` | User-facing SDK warnings and info (init, feature flags) |
 | `DD_LOG` | Internal debug: queue state, upload decisions, errors |
 | `Curl` | Full outgoing HTTP requests including JSON body |
 

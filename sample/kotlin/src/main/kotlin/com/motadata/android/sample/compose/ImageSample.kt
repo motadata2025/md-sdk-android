@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil3.request.ImageRequest
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.coil3.DatadogCoilRequestListener
 import com.motadata.android.sample.R
 import coil3.compose.AsyncImage as AsyncImage3
@@ -152,7 +152,7 @@ private fun CoilImage() {
 @Composable
 private fun Coil3Image() {
     val context = LocalContext.current
-    val listener = remember { DatadogCoilRequestListener(Datadog.getInstance()) }
+    val listener = remember { DatadogCoilRequestListener(Motadata.getInstance()) }
     val imageRequest = remember(context) {
         ImageRequest.Builder(context)
             .data(SMALL_IMAGE_URL)

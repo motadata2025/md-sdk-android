@@ -9,8 +9,8 @@ package com.motadata.android.sdk.integration.trace
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.motadata.android.Datadog
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.Motadata
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.core.InternalSdkCore
 import com.motadata.android.log.Logs
 import com.motadata.android.sdk.integration.R
@@ -43,9 +43,9 @@ internal class ActivityLifecycleTrace : AppCompatActivity() {
         val config = RuntimeConfig.configBuilder().build()
         val trackingConsent = intent.getTrackingConsent()
 
-        Datadog.setVerbosity(Log.VERBOSE)
+        Motadata.setVerbosity(Log.VERBOSE)
         val sdkCore = checkNotNull(
-            Datadog.initialize(this, config, trackingConsent)
+            Motadata.initialize(this, config, trackingConsent)
         )
 
         listOf(
@@ -91,8 +91,8 @@ internal class ActivityLifecycleTrace : AppCompatActivity() {
         return sentLogs
     }
 
-    fun getDatadogContext(): DatadogContext? {
-        return (Datadog.getInstance() as InternalSdkCore).getDatadogContext()
+    fun getDatadogContext(): MotadataContext? {
+        return (Motadata.getInstance() as InternalSdkCore).getDatadogContext()
     }
 
     // endregion

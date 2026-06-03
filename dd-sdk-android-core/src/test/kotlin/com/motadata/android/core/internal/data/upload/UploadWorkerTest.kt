@@ -11,8 +11,8 @@ import androidx.work.Data
 import androidx.work.ListenableWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.motadata.android.Datadog
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.Motadata
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.storage.RawBatchEvent
 import com.motadata.android.core.InternalSdkCore
 import com.motadata.android.core.UploadWorker
@@ -69,7 +69,7 @@ internal class UploadWorkerTest {
     lateinit var mockSdkCore: InternalSdkCore
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @StringForgery
     lateinit var fakeInstanceName: String
@@ -94,7 +94,7 @@ internal class UploadWorkerTest {
     @BeforeEach
     fun `set up`(forge: Forge) {
         whenever(mockSdkCore.getDatadogContext()) doReturn fakeDatadogContext
-        Datadog.registry.register(fakeInstanceName, mockSdkCore)
+        Motadata.registry.register(fakeInstanceName, mockSdkCore)
 
         val fakeData = Data.Builder()
             .putString(UploadWorker.DATADOG_INSTANCE_NAME, fakeInstanceName)
@@ -113,7 +113,7 @@ internal class UploadWorkerTest {
 
     @AfterEach
     fun `tear down`() {
-        Datadog.registry.clear()
+        Motadata.registry.clear()
     }
 
     // region setup
@@ -206,7 +206,7 @@ internal class UploadWorkerTest {
     @Test
     fun `M do nothing W doWork() {no sdk}`() {
         // Given
-        Datadog.registry.unregister(fakeInstanceName)
+        Motadata.registry.unregister(fakeInstanceName)
 
         // When
         val result = testedWorker.doWork()
@@ -220,8 +220,8 @@ internal class UploadWorkerTest {
     @Test
     fun `M do nothing W doWork() {no op sdk}`() {
         // Given
-        Datadog.registry.unregister(fakeInstanceName)
-        Datadog.registry.register(fakeInstanceName, NoOpInternalSdkCore)
+        Motadata.registry.unregister(fakeInstanceName)
+        Motadata.registry.register(fakeInstanceName, NoOpInternalSdkCore)
 
         // When
         val result = testedWorker.doWork()

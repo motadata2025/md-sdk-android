@@ -1,3 +1,3 @@
-# This is needed for the Datadog Error Tracking feature to work reliably,
+# This is needed for the Motadata Error Tracking feature to work reliably,
  # this file is used by Logs and RUM modules
 -keepattributes SourceFile,LineNumberTable

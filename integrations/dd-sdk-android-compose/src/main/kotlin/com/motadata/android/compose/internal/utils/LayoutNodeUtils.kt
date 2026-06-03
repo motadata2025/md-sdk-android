@@ -17,7 +17,7 @@ import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsModifier
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.compose.DatadogSemanticsPropertyKey
@@ -139,7 +139,7 @@ internal class LayoutNodeUtils {
         } catch (@Suppress("TooGenericExceptionCaught") e: Throwable) {
             // We rely on visibility suppression to access internal field,
             // any runtime exception must be caught here.
-            (Datadog.getInstance() as? FeatureSdkCore)?.internalLogger?.log(
+            (Motadata.getInstance() as? FeatureSdkCore)?.internalLogger?.log(
                 level = InternalLogger.Level.WARN,
                 targets = listOf(InternalLogger.Target.MAINTAINER, InternalLogger.Target.TELEMETRY),
                 messageBuilder = { "LayoutNodeUtils execution failure in $callSite." },

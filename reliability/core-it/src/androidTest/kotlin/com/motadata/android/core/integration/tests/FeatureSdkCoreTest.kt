@@ -8,7 +8,7 @@ package com.motadata.android.core.integration.tests
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.api.feature.stub.StubContextUpdateReceiver
@@ -68,7 +68,7 @@ class FeatureSdkCoreTest : MockServerTest() {
             getMockServerWrapper().getServerUrl()
         )
         fakeTrackingConsent = forge.aValueFrom(TrackingConsent::class.java)
-        testedFeatureSdkCore = Datadog.initialize(
+        testedFeatureSdkCore = Motadata.initialize(
             ApplicationProvider.getApplicationContext(),
             fakeConfiguration,
             fakeTrackingConsent
@@ -77,7 +77,7 @@ class FeatureSdkCoreTest : MockServerTest() {
 
     @After
     fun tearDown() {
-        Datadog.stopInstance()
+        Motadata.stopInstance()
     }
 
     // region register/get Feature
@@ -107,8 +107,8 @@ class FeatureSdkCoreTest : MockServerTest() {
 
         // When
         // stop the current instance
-        Datadog.stopInstance()
-        val internalSdkCore = Datadog.initialize(
+        Motadata.stopInstance()
+        val internalSdkCore = Motadata.initialize(
             ApplicationProvider.getApplicationContext(),
             fakeConfigCrashReportsEnabled,
             fakeTrackingConsent
@@ -128,8 +128,8 @@ class FeatureSdkCoreTest : MockServerTest() {
 
         // When
         // stop the current instance
-        Datadog.stopInstance()
-        val internalSdkCore = Datadog.initialize(
+        Motadata.stopInstance()
+        val internalSdkCore = Motadata.initialize(
             ApplicationProvider.getApplicationContext(),
             fakeConfigCrashReportsNotEnabled,
             fakeTrackingConsent

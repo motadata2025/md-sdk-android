@@ -350,7 +350,7 @@ public class Config {
     private final String runtimeVersion;
 
     /**
-     * Note: this has effect only on profiling site. Traces are sent to Datadog agent and are not
+     * Note: this has effect only on profiling site. Traces are sent to Motadata agent and are not
      * affected by this setting.
      */
     private final String site;

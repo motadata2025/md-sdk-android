@@ -6,7 +6,7 @@
 
 package com.motadata.android.okhttp
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.core.stub.StubEvent
@@ -54,7 +54,7 @@ import java.util.concurrent.atomic.AtomicLong
 /**
  * End-to-end integration test for the OkHttp resource timing feature.
  *
- * Wires [DatadogInterceptor] and [DatadogEventListener.Factory] on a real [OkHttpClient]
+ * Wires [MotadataInterceptor] and [MotadataEventListener.Factory] on a real [OkHttpClient]
  * against a [MockWebServer] and asserts that RUM resource events carry the timing
  * breakdown sub-objects (dns / connect / first_byte / download).
  *
@@ -94,7 +94,7 @@ internal class ResourceTimingIntegrationTest {
         val clockNs = AtomicLong(0L)
         whenever(stubSdkCore.time.deviceTimeNs).thenAnswer { clockNs.addAndGet(CLOCK_TICK_NS) }
 
-        val registry: Any = Datadog::class.java.getStaticValue("registry")
+        val registry: Any = Motadata::class.java.getStaticValue("registry")
         val instances: MutableMap<String, SdkCore> = registry.getFieldValue("instances")
         instances += stubSdkCore.name to stubSdkCore
 
@@ -108,11 +108,11 @@ internal class ResourceTimingIntegrationTest {
 
         okHttpClient = OkHttpClient.Builder()
             .addInterceptor(
-                DatadogInterceptor.Builder(tracedHosts = listOf(mockServer.hostName))
+                MotadataInterceptor.Builder(tracedHosts = listOf(mockServer.hostName))
                     .setSdkInstanceName(stubSdkCore.name)
                     .build()
             )
-            .eventListenerFactory(DatadogEventListener.Factory(stubSdkCore.name))
+            .eventListenerFactory(MotadataEventListener.Factory(stubSdkCore.name))
             .build()
 
         rumMonitor = GlobalRumMonitor.get(stubSdkCore)
@@ -121,7 +121,7 @@ internal class ResourceTimingIntegrationTest {
     @AfterEach
     fun `tear down`() {
         unregisterGlobalRumMonitor(stubSdkCore)
-        Datadog.stopInstance(stubSdkCore.name)
+        Motadata.stopInstance(stubSdkCore.name)
         mockServer.shutdown()
     }
 
@@ -190,7 +190,7 @@ internal class ResourceTimingIntegrationTest {
 
         // When
         // The dropped socket causes OkHttp to throw an IOException, which routes through
-        // EventListener.callFailed and DatadogInterceptor's throwable handling.
+        // EventListener.callFailed and MotadataInterceptor's throwable handling.
         @Suppress("SwallowedException")
         try {
             okHttpClient.newCall(

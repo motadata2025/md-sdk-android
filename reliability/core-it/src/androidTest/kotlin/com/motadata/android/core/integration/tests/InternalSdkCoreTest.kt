@@ -14,8 +14,8 @@ import android.os.Build
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.motadata.android.BuildConfig
-import com.motadata.android.Datadog
-import com.motadata.android.DatadogSite
+import com.motadata.android.Motadata
+import com.motadata.android.MotadataSite
 import com.motadata.android._InternalProxy
 import com.motadata.android.api.context.DeviceType
 import com.motadata.android.api.feature.Feature
@@ -110,22 +110,22 @@ class InternalSdkCoreTest : MockServerTest() {
         fakeTrackingConsent = forge.aValueFrom(TrackingConsent::class.java)
         fakeUserAdditionalProperties = forge.exhaustiveAttributes(excludedKeys = setOf("id", "name", "email"))
         fakeAccountExtraInfo = forge.exhaustiveAttributes(excludedKeys = setOf("id", "name"))
-        testedInternalSdkCore = Datadog.initialize(
+        testedInternalSdkCore = Motadata.initialize(
             ApplicationProvider.getApplicationContext(),
             fakeConfiguration,
             fakeTrackingConsent
         ) as InternalSdkCore
-        Datadog.setUserInfo(fakeUserId, fakeUserName, fakeUserEmail, fakeUserAdditionalProperties)
-        Datadog.setAccountInfo(fakeAccountId, fakeAccountName, fakeAccountExtraInfo)
+        Motadata.setUserInfo(fakeUserId, fakeUserName, fakeUserEmail, fakeUserAdditionalProperties)
+        Motadata.setAccountInfo(fakeAccountId, fakeAccountName, fakeAccountExtraInfo)
         testedInternalSdkCore.registerFeature(stubFeature)
     }
 
     @After
     fun tearDown() {
-        Datadog.stopInstance()
+        Motadata.stopInstance()
     }
 
-    // region get Datadog Context
+    // region get Motadata Context
 
     @Test
     fun must_returnCorrectDatadogContext_when_getDatadogContext() {
@@ -357,7 +357,7 @@ class InternalSdkCoreTest : MockServerTest() {
     fun mustReturnTheCorrectTrackingConsent_when_getTrackingConsent_trackingConsentChanged() {
         // Given
         val newFakeTrackingConsent = forge.aValueFrom(TrackingConsent::class.java)
-        Datadog.setTrackingConsent(newFakeTrackingConsent)
+        Motadata.setTrackingConsent(newFakeTrackingConsent)
 
         // When
         val trackingConsent = testedInternalSdkCore.trackingConsent
@@ -431,13 +431,13 @@ class InternalSdkCoreTest : MockServerTest() {
             .setBatchSize(BatchSize.SMALL)
             .setUploadFrequency(UploadFrequency.FREQUENT)
             .setBatchProcessingLevel(BatchProcessingLevel.HIGH)
-            .useSite(forge.aValueFrom(DatadogSite::class.java))
+            .useSite(forge.aValueFrom(MotadataSite::class.java))
             .build()
 
         // When
         // stop the current instance
-        Datadog.stopInstance()
-        Datadog.initialize(
+        Motadata.stopInstance()
+        Motadata.initialize(
             ApplicationProvider.getApplicationContext(),
             fakeConfigDeveloperModeDisabled,
             fakeTrackingConsent
@@ -536,8 +536,8 @@ class InternalSdkCoreTest : MockServerTest() {
 
         // When
         // stop the current instance
-        Datadog.stopInstance()
-        val internalSdkCore = Datadog.initialize(
+        Motadata.stopInstance()
+        val internalSdkCore = Motadata.initialize(
             ApplicationProvider.getApplicationContext(),
             fakeConfigCrashReportsEnabled,
             fakeTrackingConsent
@@ -558,8 +558,8 @@ class InternalSdkCoreTest : MockServerTest() {
 
         // When
         // stop the current instance
-        Datadog.stopInstance()
-        val internalSdkCore = Datadog.initialize(
+        Motadata.stopInstance()
+        val internalSdkCore = Motadata.initialize(
             ApplicationProvider.getApplicationContext(),
             fakeConfigCrashReportsNotEnabled,
             fakeTrackingConsent

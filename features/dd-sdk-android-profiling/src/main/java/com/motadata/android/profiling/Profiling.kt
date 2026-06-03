@@ -9,7 +9,7 @@ package com.motadata.android.profiling
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.internal.time.DefaultTimeProvider
@@ -23,7 +23,7 @@ import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * An entry point to Datadog Profiling feature.
+ * An entry point to Motadata Profiling feature.
  */
 @ExperimentalProfilingApi
 object Profiling {
@@ -44,7 +44,7 @@ object Profiling {
     @RequiresApi(Build.VERSION_CODES.VANILLA_ICE_CREAM)
     fun enable(
         configuration: ProfilingConfiguration = ProfilingConfiguration.DEFAULT,
-        sdkCore: SdkCore = Datadog.getInstance()
+        sdkCore: SdkCore = Motadata.getInstance()
     ) {
         val featureSdkCore = sdkCore as FeatureSdkCore
         initializeProfiler()
@@ -89,7 +89,7 @@ object Profiling {
         context: Context,
         startReason: ProfilingStartReason,
         additionalAttributes: Map<String, String>,
-        sdkCore: SdkCore = Datadog.getInstance()
+        sdkCore: SdkCore = Motadata.getInstance()
     ) {
         start(context, startReason, additionalAttributes, setOf(sdkCore.name))
     }
@@ -99,7 +99,7 @@ object Profiling {
      *
      * @param sdkCore SDK instance to stop profiling. If not provided, default SDK instance.
      */
-    internal fun stop(sdkCore: SdkCore = Datadog.getInstance()) {
+    internal fun stop(sdkCore: SdkCore = Motadata.getInstance()) {
         profiler.stop(sdkCore.name)
     }
 

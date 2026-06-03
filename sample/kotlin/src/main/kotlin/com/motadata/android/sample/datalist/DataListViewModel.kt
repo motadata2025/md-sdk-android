@@ -8,7 +8,7 @@ package com.motadata.android.sample.datalist
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.rx.sendErrorToDatadog
 import com.motadata.android.sample.data.DataRepository
 import com.motadata.android.sample.data.model.Log
@@ -27,7 +27,7 @@ internal class DataListViewModel(val repository: DataRepository) : ViewModel() {
                 when (request) {
                     is UIRequest.FetchData -> {
                         val flowable = repository.getLogs("source:android")
-                        flowable.sendErrorToDatadog(Datadog.getInstance())
+                        flowable.sendErrorToDatadog(Motadata.getInstance())
                         flowable.toObservable()
                             .map<UIResponse> {
                                 UIResponse.Success(it)

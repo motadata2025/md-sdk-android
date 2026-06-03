@@ -8,7 +8,7 @@ package com.motadata.android.sdk.integration.cross
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android._InternalProxy
 import com.motadata.android.core.configuration.BatchProcessingLevel
 import com.motadata.android.core.configuration.Configuration
@@ -91,7 +91,7 @@ class CrossFeatureTest {
                 _InternalProxy.allowClearTextHttp(this)
             }
             .build()
-        Datadog.initialize(
+        Motadata.initialize(
             InstrumentationRegistry.getInstrumentation().targetContext,
             sdkConfig,
             TrackingConsent.GRANTED
@@ -125,7 +125,7 @@ class CrossFeatureTest {
     fun tearDown() {
         mockWebServer.shutdown()
         GlobalRumMonitor.get().stopSession()
-        Datadog.stopInstance()
+        Motadata.stopInstance()
         InstrumentationRegistry
             .getInstrumentation()
             .targetContext

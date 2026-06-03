@@ -93,7 +93,7 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "Internal library to be used by the Datadog SDK modules."
+    "Internal library to be used by the Motadata SDK modules."
 )
 detektCustomConfig()
 

@@ -6,7 +6,7 @@
 
 package com.motadata.android.core.stub
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureScope
@@ -22,7 +22,7 @@ import org.mockito.kotlin.whenever
 @Suppress("CheckInternal", "UnsafeThirdPartyFunctionCall")
 internal class StubFeatureScope(
     private val feature: Feature,
-    private val datadogContextProvider: () -> DatadogContext,
+    private val datadogContextProvider: () -> MotadataContext,
     private val mockFeatureScope: FeatureScope = mock()
 ) : FeatureScope by mockFeatureScope {
 
@@ -59,7 +59,7 @@ internal class StubFeatureScope(
 
     override fun withWriteContext(
         withFeatureContexts: Set<String>,
-        callback: (DatadogContext, EventWriteScope) -> Unit
+        callback: (MotadataContext, EventWriteScope) -> Unit
     ) {
         callback(
             datadogContextProvider(),
@@ -67,11 +67,11 @@ internal class StubFeatureScope(
         )
     }
 
-    override fun withContext(withFeatureContexts: Set<String>, callback: (datadogContext: DatadogContext) -> Unit) {
+    override fun withContext(withFeatureContexts: Set<String>, callback: (datadogContext: MotadataContext) -> Unit) {
         callback(datadogContextProvider())
     }
 
-    override fun getWriteContextSync(withFeatureContexts: Set<String>): Pair<DatadogContext, EventWriteScope>? {
+    override fun getWriteContextSync(withFeatureContexts: Set<String>): Pair<MotadataContext, EventWriteScope>? {
         return datadogContextProvider() to { it.invoke(eventBatchWriter) }
     }
 

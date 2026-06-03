@@ -9,7 +9,7 @@ package com.motadata.android.sdk.integration.sessionreplay
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.rum.Rum
 import com.motadata.android.rum.tracking.ActivityViewTrackingStrategy
 import com.motadata.android.sdk.integration.RuntimeConfig
@@ -30,10 +30,10 @@ internal abstract class BaseSessionReplayActivity : AppCompatActivity() {
         val trackingConsent = intent.getTrackingConsent()
         val sessionReplayPrivacy = intent.getSessionReplayPrivacy()
         val sessionReplaySampleRate = intent.getSrSampleRate()
-        Datadog.setVerbosity(Log.VERBOSE)
+        Motadata.setVerbosity(Log.VERBOSE)
         // make sure the previous instance is stopped
-        Datadog.stopInstance()
-        val sdkCore = Datadog.initialize(this, config, trackingConsent)
+        Motadata.stopInstance()
+        val sdkCore = Motadata.initialize(this, config, trackingConsent)
         checkNotNull(sdkCore)
         val featureActivations = mutableListOf(
             {

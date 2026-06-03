@@ -12,10 +12,10 @@ import android.content.pm.ApplicationInfo
 import android.util.Log
 import androidx.annotation.AnyThread
 import androidx.annotation.WorkerThread
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.NetworkInfo
 import com.motadata.android.api.context.TimeInfo
 import com.motadata.android.api.feature.Feature
@@ -420,7 +420,7 @@ internal class DatadogCore(
         return features.values.toList()
     }
 
-    override fun getDatadogContext(withFeatureContexts: Set<String>): DatadogContext? {
+    override fun getDatadogContext(withFeatureContexts: Set<String>): MotadataContext? {
         return coreFeature.contextExecutorService
             .submitSafe(
                 "getDatadogContext",
@@ -448,7 +448,7 @@ internal class DatadogCore(
         if (isDebug and configuration.coreConfig.enableDeveloperModeWhenDebuggable) {
             mutableConfig = modifyConfigurationForDeveloperDebug(configuration)
             isDeveloperModeEnabled = true
-            Datadog.setVerbosity(Log.VERBOSE)
+            Motadata.setVerbosity(Log.VERBOSE)
         }
 
         // always initialize Core Features first
@@ -467,7 +467,7 @@ internal class DatadogCore(
             TrackingConsent.PENDING
         )
 
-        contextProvider = DatadogContextProvider(coreFeature) {
+        contextProvider = MotadataContextProvider(coreFeature) {
             // useContextThread = false to infer the caller thread (caller is responsible for the thread selection)
             getFeatureContext(it, false)
         }
@@ -506,19 +506,19 @@ internal class DatadogCore(
         // NOTE: be careful with the logic in this method - it is a part of initialization sequence,
         // so some things may yet not be initialized -> not accessible, some things may already be
         // initialized and be not mutable anymore
-        additionalConfiguration[Datadog.DD_SOURCE_TAG]?.let {
+        additionalConfiguration[Motadata.DD_SOURCE_TAG]?.let {
             if (it is String && it.isNotBlank()) {
                 coreFeature.sourceName = it
             }
         }
 
-        additionalConfiguration[Datadog.DD_SDK_VERSION_TAG]?.let {
+        additionalConfiguration[Motadata.DD_SDK_VERSION_TAG]?.let {
             if (it is String && it.isNotBlank()) {
                 coreFeature.sdkVersion = it
             }
         }
 
-        additionalConfiguration[Datadog.DD_APP_VERSION_TAG]?.let {
+        additionalConfiguration[Motadata.DD_APP_VERSION_TAG]?.let {
             if (it is String && it.isNotBlank()) {
                 coreFeature.packageVersionProvider.version = it
             }
@@ -549,7 +549,7 @@ internal class DatadogCore(
 
     private fun setupShutdownHook() {
         // Issue #154 (“Thread starting during runtime shutdown”)
-        // Make sure we stop Datadog when the Runtime shuts down
+        // Make sure we stop Motadata when the Runtime shuts down
         try {
             val hookRunnable = Runnable { stop() }
 
@@ -690,7 +690,7 @@ internal class DatadogCore(
     }
 
     /**
-     * Stops all process for this instance of the Datadog SDK.
+     * Stops all process for this instance of the Motadata SDK.
      */
     internal fun stop() {
         features.keys.forEach {
@@ -731,7 +731,7 @@ internal class DatadogCore(
         internal const val MESSAGE_ENV_NAME_NOT_VALID =
             "The environment name should contain maximum 196 of the following allowed characters " +
                 "[a-zA-Z0-9_:./-] and should never finish with a semicolon." +
-                "In this case the Datadog SDK will not be initialised."
+                "In this case the Motadata SDK will not be initialised."
 
         internal const val MISSING_FEATURE_FOR_EVENT_RECEIVER =
             "Cannot add event receiver for feature \"%s\", it is not registered."

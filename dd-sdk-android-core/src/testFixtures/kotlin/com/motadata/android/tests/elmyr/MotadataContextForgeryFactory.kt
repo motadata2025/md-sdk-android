@@ -6,19 +6,19 @@
 
 package com.motadata.android.tests.elmyr
 
-import com.motadata.android.DatadogSite
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.MotadataSite
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.privacy.TrackingConsent
 import fr.xgouchet.elmyr.Forge
 import fr.xgouchet.elmyr.ForgeryFactory
 import java.util.Locale
 import java.util.UUID
 
-class DatadogContextForgeryFactory : ForgeryFactory<DatadogContext> {
+class MotadataContextForgeryFactory : ForgeryFactory<MotadataContext> {
 
-    override fun getForgery(forge: Forge): DatadogContext {
-        return DatadogContext(
-            site = forge.aValueFrom(DatadogSite::class.java),
+    override fun getForgery(forge: Forge): MotadataContext {
+        return MotadataContext(
+            site = forge.aValueFrom(MotadataSite::class.java),
             clientToken = forge.anHexadecimalString().lowercase(Locale.US),
             service = forge.anAlphabeticalString(),
             version = forge.aStringMatching("[0-9](\\.[0-9]{1,3}){2,3}"),

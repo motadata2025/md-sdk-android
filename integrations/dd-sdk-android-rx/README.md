@@ -1,8 +1,8 @@
-# Datadog Integration for RxJava
+# Motadata Integration for RxJava
 
 ## Getting Started 
 
-To include the Datadog integration for [RxJava][1] in your project, simply add the
+To include the Motadata integration for [RxJava][1] in your project, simply add the
 following to your application's `build.gradle.kts` file.
 
 ```kotlin
@@ -14,7 +14,7 @@ dependencies {
 
 ### Initial Setup
 
-1. Setup RUM monitoring, see the dedicated [Datadog Android RUM Collection documentation][2] to learn how.
+1. Setup RUM monitoring, see the dedicated [Motadata Android RUM Collection documentation][2] to learn how.
 2. Following RxJava's [Generated API documentation][3], you just have to apply the `doOnError` operator on your `Observable`,
 `Flowable`, `Single`, `Maybe` or `Completable` and pass an instance of `DatadogErrorConsumer`.
 

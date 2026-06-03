@@ -7,7 +7,7 @@
 package com.motadata.android.core.internal.metrics
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.DeviceInfo
 import com.motadata.android.core.InternalSdkCore
 import com.motadata.android.core.internal.metrics.MethodCalledTelemetry.Companion.CALLER_CLASS
@@ -58,7 +58,7 @@ internal class MethodCalledTelemetryTest {
     lateinit var mockInternalSdkCore: InternalSdkCore
 
     @Mock
-    lateinit var mockDatadogContext: DatadogContext
+    lateinit var mockDatadogContext: MotadataContext
 
     @Mock
     lateinit var mockDeviceInfo: DeviceInfo

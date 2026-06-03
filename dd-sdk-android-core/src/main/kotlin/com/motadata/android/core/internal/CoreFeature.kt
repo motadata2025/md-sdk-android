@@ -15,8 +15,8 @@ import android.os.Process
 import androidx.annotation.RequiresApi
 import androidx.annotation.WorkerThread
 import com.motadata.android.BuildConfig
-import com.motadata.android.Datadog
-import com.motadata.android.DatadogSite
+import com.motadata.android.Motadata
+import com.motadata.android.MotadataSite
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.storage.RawBatchEvent
 import com.motadata.android.core.configuration.BackPressureStrategy
@@ -194,7 +194,7 @@ internal class CoreFeature(
     internal var ndkCrashHandler: NdkCrashHandler = NoOpNdkCrashHandler()
 
     @Volatile
-    internal var site: DatadogSite = DatadogSite.US1
+    internal var site: MotadataSite = MotadataSite.US1
 
     @Volatile
     internal var appBuildId: String? = null
@@ -283,7 +283,7 @@ internal class CoreFeature(
         // Because all our persisting components are working asynchronously this will avoid
         // having corrupted data (data from previous process over - written in this process into the
         // ndk crash folder before the crash was actually handled)
-        val nativeSourceOverride = configuration.additionalConfig[Datadog.DD_NATIVE_SOURCE_TYPE] as? String
+        val nativeSourceOverride = configuration.additionalConfig[Motadata.DD_NATIVE_SOURCE_TYPE] as? String
         prepareNdkCrashData(nativeSourceOverride)
         setupInfoProviders(appContext, consent)
         initialized.set(true)
@@ -759,7 +759,7 @@ internal class CoreFeature(
 
     companion object {
         internal const val SDK_INITIALIZED_IN_SECONDARY_PROCESS_WARNING_MESSAGE =
-            "Datadog SDK was initialized in a secondary process: although data will still be captured," +
+            "Motadata SDK was initialized in a secondary process: although data will still be captured," +
                 " nothing will be uploaded from this process. Make sure to also initialize the SDK from the main" +
                 " process of your application."
 
@@ -793,7 +793,7 @@ internal class CoreFeature(
         internal const val BUILD_ID_FILE_NAME = "datadog.buildId"
         internal const val BUILD_ID_IS_MISSING_INFO_MESSAGE =
             "Build ID is not found in the application" +
-                " assets. If you are using obfuscation, please use Datadog Gradle Plugin 1.13.0" +
+                " assets. If you are using obfuscation, please use Motadata Gradle Plugin 1.13.0" +
                 " or above to be able to de-obfuscate stacktraces."
         internal const val BUILD_ID_READ_ERROR =
             "Failed to read Build ID information, de-obfuscation may not work properly."

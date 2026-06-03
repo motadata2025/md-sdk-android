@@ -7,7 +7,7 @@
 package com.motadata.android.webview.internal.log
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureScope
@@ -83,7 +83,7 @@ internal class WebViewLogEventConsumerTest {
     lateinit var mockEventWriteScope: EventWriteScope
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     lateinit var fakeWebLogEvent: JsonObject
 
@@ -111,7 +111,7 @@ internal class WebViewLogEventConsumerTest {
             callback.invoke(mockEventBatchWriter)
         }
         whenever(mockWebViewLogsFeatureScope.withWriteContext(eq(setOf(Feature.RUM_FEATURE_NAME)), any())) doAnswer {
-            val callback = it.getArgument<(DatadogContext, EventWriteScope) -> Unit>(it.arguments.lastIndex)
+            val callback = it.getArgument<(MotadataContext, EventWriteScope) -> Unit>(it.arguments.lastIndex)
             callback.invoke(fakeDatadogContext, mockEventWriteScope)
         }
 

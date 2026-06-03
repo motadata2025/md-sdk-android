@@ -75,6 +75,6 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "A Glide integration to use with the Datadog monitoring library for Android applications."
+    "A Glide integration to use with the Motadata monitoring library for Android applications."
 )
 detektCustomConfig()

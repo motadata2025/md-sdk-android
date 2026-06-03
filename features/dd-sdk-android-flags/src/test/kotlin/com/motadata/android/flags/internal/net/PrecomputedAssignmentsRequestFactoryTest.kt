@@ -6,9 +6,9 @@
 
 package com.motadata.android.flags.internal.net
 
-import com.motadata.android.DatadogSite
+import com.motadata.android.MotadataSite
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.flags.model.EvaluationContext
 import com.motadata.android.flags.utils.forge.ForgeConfigurator
@@ -41,7 +41,7 @@ internal class PrecomputedAssignmentsRequestFactoryTest {
     lateinit var mockInternalLogger: InternalLogger
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @Forgery
     lateinit var fakeRumApplicationId: UUID
@@ -52,8 +52,8 @@ internal class PrecomputedAssignmentsRequestFactoryTest {
     fun `set up`(forge: Forge) {
         fakeDatadogContext = fakeDatadogContext.copy(
             site = forge.aValueFrom(
-                DatadogSite::class.java,
-                exclude = listOf(DatadogSite.US1_FED, DatadogSite.US2_FED)
+                MotadataSite::class.java,
+                exclude = listOf(MotadataSite.US1_FED, MotadataSite.US2_FED)
             ),
             featuresContext = fakeDatadogContext.featuresContext +
                 mapOf(Feature.RUM_FEATURE_NAME to mapOf("application_id" to fakeRumApplicationId.toString()))
@@ -74,7 +74,7 @@ internal class PrecomputedAssignmentsRequestFactoryTest {
             attributes = mapOf("attr1" to "value1", "attr2" to "value2")
         )
         fakeDatadogContext = fakeDatadogContext.copy(
-            site = DatadogSite.US1
+            site = MotadataSite.US1
         )
 
         // When
@@ -258,9 +258,9 @@ internal class PrecomputedAssignmentsRequestFactoryTest {
     // region create() - Error cases
 
     @ParameterizedTest
-    @EnumSource(DatadogSite::class, names = ["US1_FED", "US2_FED"])
+    @EnumSource(MotadataSite::class, names = ["US1_FED", "US2_FED"])
     fun `M return null W create() { unsupported site and no custom endpoint }`(
-        site: DatadogSite,
+        site: MotadataSite,
         @StringForgery fakeTargetingKey: String
     ) {
         // Given

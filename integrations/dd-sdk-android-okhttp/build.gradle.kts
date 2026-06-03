@@ -85,6 +85,6 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "An OkHttp monitoring integration to use with the Datadog monitoring library for Android applications."
+    "An OkHttp monitoring integration to use with the Motadata monitoring library for Android applications."
 )
 detektCustomConfig()

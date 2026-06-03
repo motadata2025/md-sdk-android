@@ -23,7 +23,7 @@ class DatadogIssueRegistry : IssueRegistry() {
     )
 
     override val vendor = Vendor(
-        vendorName = "Datadog",
+        vendorName = "Motadata",
         feedbackUrl = "https://github.com/DataDog/dd-sdk-android/"
     )
 

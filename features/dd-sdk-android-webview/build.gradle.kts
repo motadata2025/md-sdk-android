@@ -78,7 +78,7 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "The WebView integration feature to use with the Datadog monitoring " +
+    "The WebView integration feature to use with the Motadata monitoring " +
         "library for Android applications."
 )
 detektCustomConfig()

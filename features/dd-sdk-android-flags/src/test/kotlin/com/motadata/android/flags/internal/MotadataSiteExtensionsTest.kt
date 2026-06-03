@@ -6,7 +6,7 @@
 
 package com.motadata.android.flags.internal
 
-import com.motadata.android.DatadogSite
+import com.motadata.android.MotadataSite
 import fr.xgouchet.elmyr.annotation.StringForgery
 import fr.xgouchet.elmyr.junit5.ForgeExtension
 import org.assertj.core.api.Assertions.assertThat
@@ -17,14 +17,14 @@ import org.junit.jupiter.params.provider.EnumSource
 import org.junit.jupiter.params.provider.MethodSource
 
 @ExtendWith(ForgeExtension::class)
-internal class DatadogSiteExtensionsTest {
+internal class MotadataSiteExtensionsTest {
 
     // region getFlagsEndpoint - With Custom Domain
 
     @ParameterizedTest
     @MethodSource("supportedSitesWithCustomDomain")
     fun `M build flags endpoint W getFlagsEndpoint() { supported sites with custom domain }`(
-        site: DatadogSite,
+        site: MotadataSite,
         expectedHostSuffix: String,
         @StringForgery customerDomain: String
     ) {
@@ -42,7 +42,7 @@ internal class DatadogSiteExtensionsTest {
     @ParameterizedTest
     @MethodSource("supportedSitesWithDefaultDomain")
     fun `M build flags endpoint W getFlagsEndpoint() { supported sites with preview domain }`(
-        site: DatadogSite,
+        site: MotadataSite,
         expectedHost: String
     ) {
         // When
@@ -57,9 +57,9 @@ internal class DatadogSiteExtensionsTest {
     // region getFlagsEndpoint - Error Cases
 
     @ParameterizedTest
-    @EnumSource(DatadogSite::class, names = ["US1_FED", "US2_FED"])
+    @EnumSource(MotadataSite::class, names = ["US1_FED", "US2_FED"])
     fun `M return null W getFlagsEndpoint() { unsupported site }`(
-        site: DatadogSite,
+        site: MotadataSite,
         @StringForgery customerDomain: String
     ) {
         // When
@@ -76,7 +76,7 @@ internal class DatadogSiteExtensionsTest {
     @ParameterizedTest
     @MethodSource("edgeCaseCustomerDomains")
     fun `M handle edge case customer domains W getFlagsEndpoint() { various edge cases }`(
-        site: DatadogSite,
+        site: MotadataSite,
         customerDomain: String,
         expectedHost: String
     ) {
@@ -93,32 +93,32 @@ internal class DatadogSiteExtensionsTest {
         @Suppress("unused")
         @JvmStatic
         fun supportedSitesWithCustomDomain(): List<Arguments> = listOf(
-            Arguments.of(DatadogSite.US1, "ff-cdn.datadoghq.com"),
-            Arguments.of(DatadogSite.US3, "ff-cdn.us3.datadoghq.com"),
-            Arguments.of(DatadogSite.US5, "ff-cdn.us5.datadoghq.com"),
-            Arguments.of(DatadogSite.AP1, "ff-cdn.ap1.datadoghq.com"),
-            Arguments.of(DatadogSite.AP2, "ff-cdn.ap2.datadoghq.com"),
-            Arguments.of(DatadogSite.EU1, "ff-cdn.datadoghq.eu"),
-            Arguments.of(DatadogSite.STAGING, "ff-cdn.datad0g.com")
+            Arguments.of(MotadataSite.US1, "ff-cdn.datadoghq.com"),
+            Arguments.of(MotadataSite.US3, "ff-cdn.us3.datadoghq.com"),
+            Arguments.of(MotadataSite.US5, "ff-cdn.us5.datadoghq.com"),
+            Arguments.of(MotadataSite.AP1, "ff-cdn.ap1.datadoghq.com"),
+            Arguments.of(MotadataSite.AP2, "ff-cdn.ap2.datadoghq.com"),
+            Arguments.of(MotadataSite.EU1, "ff-cdn.datadoghq.eu"),
+            Arguments.of(MotadataSite.STAGING, "ff-cdn.datad0g.com")
         )
 
         @Suppress("unused")
         @JvmStatic
         fun supportedSitesWithDefaultDomain(): List<Arguments> = listOf(
-            Arguments.of(DatadogSite.US1, "preview.ff-cdn.datadoghq.com"),
-            Arguments.of(DatadogSite.EU1, "preview.ff-cdn.datadoghq.eu"),
-            Arguments.of(DatadogSite.STAGING, "preview.ff-cdn.datad0g.com")
+            Arguments.of(MotadataSite.US1, "preview.ff-cdn.datadoghq.com"),
+            Arguments.of(MotadataSite.EU1, "preview.ff-cdn.datadoghq.eu"),
+            Arguments.of(MotadataSite.STAGING, "preview.ff-cdn.datad0g.com")
         )
 
         @Suppress("unused")
         @JvmStatic
         fun edgeCaseCustomerDomains(): List<Arguments> = listOf(
             // Domain with hyphens and underscores (special characters)
-            Arguments.of(DatadogSite.US1, "test-domain_123", "test-domain_123.ff-cdn.datadoghq.com"),
+            Arguments.of(MotadataSite.US1, "test-domain_123", "test-domain_123.ff-cdn.datadoghq.com"),
             // Numeric-only domain
-            Arguments.of(DatadogSite.US3, "12345", "12345.ff-cdn.us3.datadoghq.com"),
+            Arguments.of(MotadataSite.US3, "12345", "12345.ff-cdn.us3.datadoghq.com"),
             // Domain with dots (subdomain-like)
-            Arguments.of(DatadogSite.EU1, "my.customer.domain", "my.customer.domain.ff-cdn.datadoghq.eu")
+            Arguments.of(MotadataSite.EU1, "my.customer.domain", "my.customer.domain.ff-cdn.datadoghq.eu")
         )
     }
 }

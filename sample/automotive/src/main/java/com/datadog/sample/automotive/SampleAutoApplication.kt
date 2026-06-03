@@ -8,8 +8,8 @@ package com.datadog.sample.automotive
 
 import android.app.Application
 import android.util.Log
-import com.motadata.android.Datadog
-import com.motadata.android.DatadogSite
+import com.motadata.android.Motadata
+import com.motadata.android.MotadataSite
 import com.motadata.android.core.configuration.BatchSize
 import com.motadata.android.core.configuration.Configuration
 import com.motadata.android.core.configuration.UploadFrequency
@@ -30,8 +30,8 @@ class SampleAutoApplication : Application() {
     }
 
     private fun initializeDatadog() {
-        Datadog.setVerbosity(Log.VERBOSE)
-        Datadog.initialize(
+        Motadata.setVerbosity(Log.VERBOSE)
+        Motadata.initialize(
             this,
             createDatadogConfiguration(),
             TrackingConsent.GRANTED
@@ -61,7 +61,7 @@ class SampleAutoApplication : Application() {
             env = "test",
             variant = ""
         )
-            .useSite(DatadogSite.US1)
+            .useSite(MotadataSite.US1)
             .setBatchSize(BatchSize.SMALL)
             .setUploadFrequency(UploadFrequency.FREQUENT)
             .build()

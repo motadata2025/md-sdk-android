@@ -67,6 +67,6 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "A SQLDelight integration to use with the Datadog monitoring library for Android applications."
+    "A SQLDelight integration to use with the Motadata monitoring library for Android applications."
 )
 detektCustomConfig()

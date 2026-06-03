@@ -6,7 +6,7 @@
 
 package com.motadata.android.webview.internal.replay
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.utils.forge.Configurator
 import com.motadata.android.webview.internal.rum.TimestampOffsetProvider
 import com.motadata.android.webview.internal.rum.domain.RumContext
@@ -47,7 +47,7 @@ internal class WebViewReplayEventMapperTest {
     lateinit var fakeRumContext: RumContext
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @StringForgery(regex = "^[a-z0-9]{32}$")
     lateinit var fakeWebViewId: String

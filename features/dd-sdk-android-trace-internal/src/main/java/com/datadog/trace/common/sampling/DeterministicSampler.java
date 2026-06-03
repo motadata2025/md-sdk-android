@@ -3,7 +3,7 @@ package com.datadog.trace.common.sampling;
 import com.datadog.trace.core.CoreSpan;
 
 /**
- * This implements the deterministic sampling algorithm used by the Datadog Agent as well as the
+ * This implements the deterministic sampling algorithm used by the Motadata Agent as well as the
  * tracers for other languages
  */
 public abstract class DeterministicSampler implements RateSampler {

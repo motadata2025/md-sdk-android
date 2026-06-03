@@ -6,7 +6,7 @@
 
 package com.motadata.android.rum.resource
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.rum.RumMonitor
 import java.io.InputStream
@@ -17,6 +17,6 @@ import java.io.InputStream
  * @param url the url to be associated with this resource
  * @param sdkCore the SDK instance to use. If not provided, default instance will be used.
  */
-fun InputStream.asRumResource(url: String, sdkCore: SdkCore = Datadog.getInstance()): InputStream {
+fun InputStream.asRumResource(url: String, sdkCore: SdkCore = Motadata.getInstance()): InputStream {
     return RumResourceInputStream(this, url, sdkCore)
 }

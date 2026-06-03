@@ -8,7 +8,7 @@ package com.motadata.android.rum.internal
 
 import android.app.ApplicationExitInfo
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.UserInfo
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
@@ -106,7 +106,7 @@ internal class DatadogLateCrashReporterTest {
     var fakeCurrentTimeMs: Long = 0L
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @BeforeEach
     fun `set up`() {
@@ -120,7 +120,7 @@ internal class DatadogLateCrashReporterTest {
             callback.invoke(mockEventBatchWriter)
         }
         whenever(mockRumFeatureScope.withWriteContext(any(), any())) doAnswer {
-            val callback = it.getArgument<(DatadogContext, EventWriteScope) -> Unit>(it.arguments.lastIndex)
+            val callback = it.getArgument<(MotadataContext, EventWriteScope) -> Unit>(it.arguments.lastIndex)
             callback.invoke(fakeDatadogContext, mockEventWriteScope)
         }
 

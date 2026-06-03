@@ -10,9 +10,9 @@ import android.content.Context
 import androidx.annotation.WorkerThread
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.storage.RawBatchEvent
 import com.motadata.android.core.internal.NoOpInternalSdkCore
 import com.motadata.android.core.internal.SdkFeature
@@ -26,7 +26,7 @@ import java.util.Queue
 
 /**
  * `UploadWorker` is responsible for handling background upload tasks using WorkManager. This
- * worker is designed to process Datadog upload jobs asynchronously.
+ * worker is designed to process Motadata upload jobs asynchronously.
  *
  * ## Important:
  * **This worker must be used only when a custom WorkFactory is implemented.**
@@ -52,7 +52,7 @@ class UploadWorker(
         // be uploaded we put retry task to the end of queue, so that batches of other features
         // have a chance to go.
         val instanceName = inputData.getString(DATADOG_INSTANCE_NAME)
-        val sdkCore = Datadog.getInstance(instanceName) as? InternalSdkCore
+        val sdkCore = Motadata.getInstance(instanceName) as? InternalSdkCore
         if (sdkCore == null || sdkCore is NoOpInternalSdkCore) {
             unboundInternalLogger.log(
                 InternalLogger.Level.ERROR,
@@ -120,7 +120,7 @@ class UploadWorker(
 
         private fun consumeBatch(
             batchId: BatchId,
-            context: DatadogContext,
+            context: MotadataContext,
             batch: List<RawBatchEvent>,
             batchMeta: ByteArray?,
             uploader: DataUploader
@@ -133,7 +133,7 @@ class UploadWorker(
 
     companion object {
 
-        internal const val MESSAGE_NOT_INITIALIZED = "Datadog has not been initialized."
+        internal const val MESSAGE_NOT_INITIALIZED = "Motadata has not been initialized."
 
         internal const val DATADOG_INSTANCE_NAME = "_dd.sdk.instanceName"
     }

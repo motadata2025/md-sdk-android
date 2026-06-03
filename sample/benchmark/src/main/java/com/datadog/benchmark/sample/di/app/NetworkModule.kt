@@ -8,7 +8,7 @@ package com.datadog.benchmark.sample.di.app
 
 import android.content.Context
 import com.motadata.android.api.SdkCore
-import com.motadata.android.okhttp.DatadogInterceptor
+import com.motadata.android.okhttp.MotadataInterceptor
 import com.datadog.benchmark.sample.config.BenchmarkConfig
 import com.datadog.benchmark.sample.config.SyntheticsRun
 import com.datadog.benchmark.sample.config.SyntheticsScenario
@@ -46,7 +46,7 @@ internal interface NetworkModule {
                 cache(Cache(File(context.cacheDir, "okhttp-cache"), OKHTTP_CACHE_SIZE_BYTES))
 
                 if (config.scenario == SyntheticsScenario.RumAuto && config.run == SyntheticsRun.Instrumented) {
-                    val interceptor = DatadogInterceptor.Builder(emptyMap()).apply {
+                    val interceptor = MotadataInterceptor.Builder(emptyMap()).apply {
                         setSdkInstanceName(sdkCore.get().name)
                     }.build()
 

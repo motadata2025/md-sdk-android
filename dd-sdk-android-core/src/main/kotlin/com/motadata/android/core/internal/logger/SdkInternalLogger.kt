@@ -8,7 +8,7 @@ package com.motadata.android.core.internal.logger
 
 import android.util.Log
 import com.motadata.android.BuildConfig
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureSdkCore
@@ -26,7 +26,7 @@ internal class SdkInternalLogger(
     private val sdkCore: FeatureSdkCore?,
     userLogHandlerFactory: () -> LogcatLogHandler = {
         LogcatLogHandler(DEV_LOG_TAG) { level ->
-            level >= Datadog.getVerbosity()
+            level >= Motadata.getVerbosity()
         }
     },
     maintainerLogHandlerFactory: () -> LogcatLogHandler? = {
@@ -40,8 +40,8 @@ internal class SdkInternalLogger(
 
     /**
      * This logger is meant for user's debugging purposes.
-     * Logcat logs are conditioned by the [Datadog.libraryVerbosity].
-     * No Datadog logs should be sent.
+     * Logcat logs are conditioned by the [Motadata.libraryVerbosity].
+     * No Motadata logs should be sent.
      */
     internal val userLogger = userLogHandlerFactory.invoke()
 
@@ -284,7 +284,7 @@ internal class SdkInternalLogger(
 
     companion object {
         internal const val SDK_LOG_TAG = "DD_LOG"
-        internal const val DEV_LOG_TAG = "Datadog"
+        internal const val DEV_LOG_TAG = "Motadata"
     }
 
     // endregion

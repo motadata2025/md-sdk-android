@@ -33,7 +33,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * Logs feature class, which needs to be registered with Datadog SDK instance.
+ * Logs feature class, which needs to be registered with Motadata SDK instance.
  */
 internal class LogsFeature(
     private val sdkCore: FeatureSdkCore,

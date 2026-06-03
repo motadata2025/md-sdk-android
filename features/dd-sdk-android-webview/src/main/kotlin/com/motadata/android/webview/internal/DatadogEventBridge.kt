@@ -11,8 +11,8 @@ import com.motadata.android.core.configuration.HostsSanitizer
 import com.google.gson.JsonArray
 
 /**
- * This [JavascriptInterface] is used to intercept all the Datadog events produced by
- * the displayed web page (if Datadog's browser-sdk is enabled).
+ * This [JavascriptInterface] is used to intercept all the Motadata events produced by
+ * the displayed web page (if Motadata's browser-sdk is enabled).
  * The goal is to make those events part of a unique mobile session.
  * Please note that the WebView events will not be tracked unless the web page's URL Host is part of
  * the list in the constructor.

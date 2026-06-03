@@ -6,7 +6,7 @@
 
 package com.motadata.android.compose.internal
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.FeatureSdkCore
@@ -15,7 +15,7 @@ internal fun sendTelemetry(
     autoInstrumented: Boolean = false,
     instrumentationType: InstrumentationType,
     supportLibrary: SupportLibrary? = null,
-    sdkCore: SdkCore = Datadog.getInstance()
+    sdkCore: SdkCore = Motadata.getInstance()
 ) {
     val message = "$DATADOG_SEMANTICS_TELEMETRY_LOG: ${instrumentationType.value}"
     val attributes = mapOf(
@@ -53,4 +53,4 @@ private const val KEY_SUPPORT_LIBRARY = "support_library"
 private const val KEY_INSTRUMENTATION_TYPE = "instrumentation_type"
 
 private const val DATADOG_SEMANTICS_TELEMETRY_LOG =
-    "Datadog Compose Integration Telemetry"
+    "Motadata Compose Integration Telemetry"

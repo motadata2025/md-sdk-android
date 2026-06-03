@@ -87,7 +87,7 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "The Session Replay feature to use with the Datadog monitoring " +
+    "The Session Replay feature to use with the Motadata monitoring " +
         "library for Android applications."
 )
 detektCustomConfig()

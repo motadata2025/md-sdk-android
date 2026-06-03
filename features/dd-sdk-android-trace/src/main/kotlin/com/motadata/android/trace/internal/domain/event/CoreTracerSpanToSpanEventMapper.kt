@@ -6,7 +6,7 @@
 
 package com.motadata.android.trace.internal.domain.event
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.log.LogAttributes
 import com.motadata.android.trace.model.SpanEvent
 import com.datadog.trace.api.DDSpanId
@@ -25,7 +25,7 @@ internal class CoreTracerSpanToSpanEventMapper(
 
     // region Mapper
 
-    override fun map(datadogContext: DatadogContext, model: DDSpan): SpanEvent {
+    override fun map(datadogContext: MotadataContext, model: DDSpan): SpanEvent {
         val serverOffset = datadogContext.time.serverTimeOffsetNs
         val metrics = resolveMetrics(model)
         val metadata = resolveMeta(datadogContext, model)
@@ -73,7 +73,7 @@ internal class CoreTracerSpanToSpanEventMapper(
         )
     }
 
-    private fun resolveMeta(datadogContext: DatadogContext, event: DDSpan): SpanEvent.Meta {
+    private fun resolveMeta(datadogContext: MotadataContext, event: DDSpan): SpanEvent.Meta {
         val deviceInfo = resolveDeviceInfo(datadogContext.deviceInfo)
         val osInfo = resolveOsInfo(datadogContext.deviceInfo)
         val networkInfoMeta = if (networkInfoEnabled) resolveNetworkInfo(datadogContext.networkInfo) else null

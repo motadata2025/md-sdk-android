@@ -8,7 +8,7 @@ package com.motadata.android.log.internal.domain
 
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.context.AccountInfo
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.NetworkInfo
 import com.motadata.android.api.context.UserInfo
 import com.motadata.android.api.feature.Feature
@@ -70,7 +70,7 @@ internal class DatadogLogGeneratorTest {
     lateinit var fakeTraceId: String
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @Forgery
     lateinit var fakeRumApplicationId: UUID
@@ -198,7 +198,7 @@ internal class DatadogLogGeneratorTest {
     }
 
     @Test
-    fun `M add the service name from Datadog context W creating the Log { no service name }`() {
+    fun `M add the service name from Motadata context W creating the Log { no service name }`() {
         // WHEN
         testedLogGenerator = DatadogLogGenerator(internalLogger = mockInternalLogger)
         val log = testedLogGenerator.generateLog(

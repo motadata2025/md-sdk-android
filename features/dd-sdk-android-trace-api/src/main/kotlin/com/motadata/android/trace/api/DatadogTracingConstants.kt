@@ -6,26 +6,26 @@
 package com.motadata.android.trace.api
 
 /**
- * Contains constants related to Datadog tracing. This object groups constants into several
+ * Contains constants related to Motadata tracing. This object groups constants into several
  * nested objects for better organization, such as [Tags], [PrioritySampling],
  * [TracerConfig], [LogAttributes], and [ErrorPriorities].
  */
 object DatadogTracingConstants {
     /**
      * Represents the default value for enabling or disabling asynchronous context propagation
-     * in Datadog's tracing implementation.
+     * in Motadata's tracing implementation.
      */
     const val DEFAULT_ASYNC_PROPAGATING: Boolean = true
 
     /**
-     * Contains constants used for tagging spans in the Datadog tracer.
+     * Contains constants used for tagging spans in the Motadata tracer.
      */
     object Tags {
         /**  The URL of the HTTP request. */
         const val KEY_HTTP_URL: String = "http.url"
 
         /**
-         * Represents the key used for tagging the kind of a span in the Datadog tracer.
+         * Represents the key used for tagging the kind of a span in the Motadata tracer.
          * It is used to indicate the role or type of a span, such as client, server, producer, or consumer.
          */
         const val KEY_SPAN_KIND: String = "span.kind"
@@ -46,27 +46,27 @@ object DatadogTracingConstants {
         const val KEY_ERROR_STACK: String = "error.stack"
 
         /**
-         * Represents the value used for tagging a span as a "client" in the Datadog tracer with [KEY_SPAN_KIND] key.
+         * Represents the value used for tagging a span as a "client" in the Motadata tracer with [KEY_SPAN_KIND] key.
          */
         const val VALUE_SPAN_KIND_CLIENT: String = "client"
 
         /**
-         * Represents the value used for tagging a span as a "server" in the Datadog tracer with [KEY_SPAN_KIND] key.
+         * Represents the value used for tagging a span as a "server" in the Motadata tracer with [KEY_SPAN_KIND] key.
          */
         const val VALUE_SPAN_KIND_SERVER: String = "server"
 
         /**
-         * Represents the value used for tagging a span as a "producer" in the Datadog tracer.
+         * Represents the value used for tagging a span as a "producer" in the Motadata tracer.
          */
         const val VALUE_SPAN_KIND_PRODUCER: String = "producer"
 
         /**
-         * Represents the value used for tagging a span as a "consumer" in the Datadog tracer.
+         * Represents the value used for tagging a span as a "consumer" in the Motadata tracer.
          */
         const val VALUE_SPAN_KIND_CONSUMER: String = "consumer"
 
         /**
-         * Represents the key used for tagging the analytics sample rate in the Datadog tracer.
+         * Represents the key used for tagging the analytics sample rate in the Motadata tracer.
          */
         const val KEY_ANALYTICS_SAMPLE_RATE: String = "_dd1.sr.eausr"
 
@@ -182,7 +182,7 @@ object DatadogTracingConstants {
     }
 
     /**
-     * Defines a set of constant log attributes used for tracing and error reporting within the Datadog tracing library.
+     * Defines a set of constant log attributes used for tracing and error reporting within the Motadata tracing library.
      */
     object LogAttributes {
         /**
@@ -222,11 +222,11 @@ object DatadogTracingConstants {
     }
 
     /**
-     * Defines constants representing the priorities of error recording in the Datadog tracing library.
+     * Defines constants representing the priorities of error recording in the Motadata tracing library.
      */
     object ErrorPriorities {
         /**
-         * Represents the unset value for error prioritization within the Datadog tracing system.
+         * Represents the unset value for error prioritization within the Motadata tracing system.
          */
         const val UNSET: Byte = Byte.MIN_VALUE
 

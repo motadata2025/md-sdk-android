@@ -10,7 +10,7 @@ import io.opentelemetry.api.trace.TracerProvider
 import io.opentelemetry.context.propagation.ContextPropagators
 
 /**
- * Default implementation of the OpenTelemetry interface that integrates with Datadog.
+ * Default implementation of the OpenTelemetry interface that integrates with Motadata.
  */
 class DatadogOpenTelemetry(serviceName: String) : OpenTelemetry {
 

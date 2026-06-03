@@ -207,7 +207,7 @@ bool override_native_signal_handlers() {
 
     if (sigemptyset((sigset_t *) &datadog_sigaction.sa_mask) != 0) {
         __android_log_write(ANDROID_LOG_ERROR, LOG_TAG,
-                            "Not able to initialize the Datadog signal handler");
+                            "Not able to initialize the Motadata signal handler");
         return false;
     }
     datadog_sigaction.sa_sigaction = handle_signal;
@@ -249,10 +249,10 @@ bool start_monitoring() {
     bool installed = try_to_install_handlers();
     if (installed) {
         __android_log_write(ANDROID_LOG_INFO, LOG_TAG,
-                            "Successfully installed Datadog NDK signal handlers");
+                            "Successfully installed Motadata NDK signal handlers");
     } else {
         __android_log_write(ANDROID_LOG_ERROR, LOG_TAG,
-                            "Unable to install Datadog NDK signal handlers");
+                            "Unable to install Motadata NDK signal handlers");
     }
     pthread_mutex_unlock(&mutex);
     return installed;

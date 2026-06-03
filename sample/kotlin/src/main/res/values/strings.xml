@@ -5,10 +5,10 @@
   -->
 
 <resources>
-    <string name="app_name">Datadog SDK Sample</string>
+    <string name="app_name">Motadata SDK Sample</string>
     <string name="title_main">DD Sample</string>
 
-    <string name="title_home">Datadog Sample</string>
+    <string name="title_home">Motadata Sample</string>
     <string name="title_logs">Logs</string>
     <string name="title_crash">Crash</string>
     <string name="title_webview">WebView</string>
@@ -51,7 +51,7 @@
     <string name="msg_coroutine_operation">Coroutine operations (~5s)</string>
     <string name="msg_rum_use_cases">RUM use cases</string>
     <string name="msg_clear_all_data">Are you sure you want to clear all unsent data. You’ll lose any data still on
-        disk. Note that this won’t delete data already sent to Datadog servers.
+        disk. Note that this won’t delete data already sent to Motadata servers.
     </string>
     <string name="msg_all_data_cleared">All unsent data has been cleared.</string>
 
@@ -127,7 +127,7 @@
     <string name="load_image">Load image</string>
     <string name="cronet_load_button">Load</string>
     <string name="cronet_image_description">Image loaded with Cronet</string>
-    <string name="widget_description">Datadog Sample Widget</string>
+    <string name="widget_description">Motadata Sample Widget</string>
     <string name="add_widget">Add widget</string>
     <string name="legacy_toolbar_title">Legacy toolbar</string>
     <string name="appcompat_toolbar_title">Appcompat toolbar</string>
@@ -217,7 +217,7 @@
     <string name="nav_item_more">More</string>
 
     <string name="title_openfeature">OpenFeature Flags</string>
-    <string name="description_openfeature">Evaluate feature flags using the OpenFeature SDK integrated with Datadog Flags.</string>
+    <string name="description_openfeature">Evaluate feature flags using the OpenFeature SDK integrated with Motadata Flags.</string>
     <string name="hint_flag_key">Flag Key</string>
     <string name="hint_default_value">Default Value</string>
     <string name="button_evaluate_flag">Evaluate Flag</string>

@@ -10,7 +10,7 @@ import com.motadata.android.lint.InternalApi
 
 /**
  * Deprecated. Use com.motadata.android.trace.internal.net.TraceContext instead."
- * The context of a trace to be propagated through the OkHttp requests for Datadog tracing.
+ * The context of a trace to be propagated through the OkHttp requests for Motadata tracing.
  */
 @InternalApi
 @Deprecated(

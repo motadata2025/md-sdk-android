@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/episodes"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Datadog On… Android TV" />
+        tools:text="Motadata On… Android TV" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/episode_description"
@@ -41,7 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/episodes"
         app:layout_constraintTop_toBottomOf="@id/episode_title"
-        tools:text="Datadog On… Android TV" />
+        tools:text="Motadata On… Android TV" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/episode_speakers"
@@ -51,7 +51,7 @@
         app:layout_constraintBottom_toTopOf="@id/play"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/episodes"
-        tools:text="Datadog On… Android TV" />
+        tools:text="Motadata On… Android TV" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/play"

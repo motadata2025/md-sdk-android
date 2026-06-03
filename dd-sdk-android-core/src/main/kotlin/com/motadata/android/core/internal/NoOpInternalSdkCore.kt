@@ -8,7 +8,7 @@ package com.motadata.android.core.internal
 
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.NetworkInfo
 import com.motadata.android.api.context.TimeInfo
 import com.motadata.android.api.feature.Feature
@@ -198,7 +198,7 @@ internal object NoOpInternalSdkCore : InternalSdkCore {
 
     override fun getAllFeatures(): List<FeatureScope> = emptyList()
 
-    override fun getDatadogContext(withFeatureContexts: Set<String>): DatadogContext? = null
+    override fun getDatadogContext(withFeatureContexts: Set<String>): MotadataContext? = null
 
     // endregion
 

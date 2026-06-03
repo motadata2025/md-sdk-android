@@ -73,6 +73,6 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "A Coil integration to use with the Datadog monitoring library for Android applications."
+    "A Coil integration to use with the Motadata monitoring library for Android applications."
 )
 detektCustomConfig()

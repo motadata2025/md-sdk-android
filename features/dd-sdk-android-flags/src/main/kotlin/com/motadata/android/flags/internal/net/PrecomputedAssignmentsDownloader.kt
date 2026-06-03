@@ -8,14 +8,14 @@ package com.motadata.android.flags.internal.net
 
 import androidx.annotation.WorkerThread
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.flags.model.EvaluationContext
 import okhttp3.Call
 import okhttp3.Request
 import okhttp3.Response
 
 /**
- * Downloads precomputed flag assignments from Datadog Feature Flags service.
+ * Downloads precomputed flag assignments from Motadata Feature Flags service.
  *
  * @param callFactory Factory for creating HTTP calls
  * @param internalLogger Logger for error and debug messages
@@ -28,7 +28,7 @@ internal class PrecomputedAssignmentsDownloader(
 ) : PrecomputedAssignmentsReader {
 
     @WorkerThread
-    override fun readPrecomputedFlags(context: EvaluationContext, datadogContext: DatadogContext): String? {
+    override fun readPrecomputedFlags(context: EvaluationContext, datadogContext: MotadataContext): String? {
         val request = requestFactory.create(context, datadogContext) ?: return null
 
         return executeDownloadRequest(request)

@@ -6,7 +6,7 @@
 
 package com.motadata.android.tests.config
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.core.InternalSdkCore
 import com.datadog.tools.unit.extensions.config.MockTestConfiguration
 import fr.xgouchet.elmyr.Forge
@@ -17,7 +17,7 @@ class DatadogSingletonTestConfiguration :
     override fun setUp(forge: Forge) {
         super.setUp(forge)
 
-        Datadog.registry.register(null, mockInstance)
+        Motadata.registry.register(null, mockInstance)
     }
 
     override fun tearDown(forge: Forge) {
@@ -26,6 +26,6 @@ class DatadogSingletonTestConfiguration :
     }
 
     fun clearRegistry() {
-        Datadog.registry.clear()
+        Motadata.registry.clear()
     }
 }

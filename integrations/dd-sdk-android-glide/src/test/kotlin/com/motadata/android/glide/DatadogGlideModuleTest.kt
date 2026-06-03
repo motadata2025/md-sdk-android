@@ -16,7 +16,7 @@ import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.ModelLoaderFactory
 import com.bumptech.glide.module.AppGlideModule
 import com.motadata.android.api.SdkCore
-import com.motadata.android.okhttp.DatadogInterceptor
+import com.motadata.android.okhttp.MotadataInterceptor
 import com.datadog.tools.unit.assertj.containsInstanceOf
 import com.datadog.tools.unit.getFieldValue
 import fr.xgouchet.elmyr.annotation.StringForgery
@@ -88,7 +88,7 @@ internal class DatadogGlideModuleTest {
 
             assertThat(firstValue).isInstanceOf(OkHttpUrlLoader.Factory::class.java)
             val client: OkHttpClient = firstValue.getFieldValue("client")
-            assertThat(client.interceptors).containsInstanceOf(DatadogInterceptor::class.java)
+            assertThat(client.interceptors).containsInstanceOf(MotadataInterceptor::class.java)
         }
     }
 

@@ -197,6 +197,6 @@ internal class FlagsFeature(
     }
 
     internal companion object {
-        private const val LOG_TAG = "[Datadog Flags]"
+        private const val LOG_TAG = "[Motadata Flags]"
     }
 }

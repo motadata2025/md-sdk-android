@@ -10,7 +10,7 @@ import android.app.ActivityManager
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.privacy.TrackingConsent
 import com.motadata.android.rum.DdRumContentProvider
 import com.motadata.android.rum.Rum
@@ -109,7 +109,7 @@ internal class AppStartupMainActivityDirectTest :
             val config = RuntimeConfig.configBuilder()
                 .build()
 
-            val sdkCore = Datadog.initialize(
+            val sdkCore = Motadata.initialize(
                 InstrumentationRegistry.getInstrumentation().targetContext.applicationContext,
                 config,
                 trackingConsent

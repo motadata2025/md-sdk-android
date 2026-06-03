@@ -12,7 +12,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.Window
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.rum.utils.config.GlobalRumMonitorTestConfiguration
 import com.motadata.android.rum.utils.forge.Configurator
@@ -66,13 +66,13 @@ internal abstract class AbstractGesturesListenerTest {
 
     @BeforeEach
     open fun `set up`() {
-        Datadog.setVerbosity(Log.VERBOSE)
+        Motadata.setVerbosity(Log.VERBOSE)
         whenever(mockAppContext.resources).thenReturn(mockResources)
     }
 
     @AfterEach
     fun `tear down`() {
-        Datadog.setVerbosity(Integer.MAX_VALUE)
+        Motadata.setVerbosity(Integer.MAX_VALUE)
     }
 
     // endregion

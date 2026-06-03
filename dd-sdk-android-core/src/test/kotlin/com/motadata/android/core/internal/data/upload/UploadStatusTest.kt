@@ -210,7 +210,7 @@ internal class UploadStatusTest {
             "Batch [$fakeByteSize bytes] ($fakeContext) failed " +
                 "because your token is invalid; the batch was dropped. " +
                 "Make sure that the provided token still " +
-                "exists and you're targeting the relevant Datadog site." +
+                "exists and you're targeting the relevant Motadata site." +
                 " This request was attempted $fakeRequestAttempts time(s)."
         )
         verifyNoMoreInteractions(mockLogger)
@@ -236,7 +236,7 @@ internal class UploadStatusTest {
             "Batch $fakeRequestId [$fakeByteSize bytes] ($fakeContext) failed " +
                 "because your token is invalid; the batch was dropped. " +
                 "Make sure that the provided token still " +
-                "exists and you're targeting the relevant Datadog site." +
+                "exists and you're targeting the relevant Motadata site." +
                 " This request was attempted $fakeRequestAttempts time(s)."
         )
         verifyNoMoreInteractions(mockLogger)

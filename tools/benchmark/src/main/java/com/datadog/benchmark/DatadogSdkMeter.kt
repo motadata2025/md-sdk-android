@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit
 /**
  * This class is responsible for managing the measurements of SDK performance
  * for example, bytes written and bytes deleted.
- * This data will be uploaded to Datadog metric API.
+ * This data will be uploaded to Motadata metric API.
  */
 class DatadogSdkMeter private constructor() : DatadogBaseMeter {
 

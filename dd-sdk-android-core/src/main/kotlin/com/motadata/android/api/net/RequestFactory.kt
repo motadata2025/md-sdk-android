@@ -6,7 +6,7 @@
 
 package com.motadata.android.api.net
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.storage.RawBatchEvent
 
 /**
@@ -16,7 +16,7 @@ fun interface RequestFactory {
 
     /**
      * Creates a request for the given batch.
-     * @param context Datadog SDK context.
+     * @param context Motadata SDK context.
      * @param executionContext Information about the execution context this request in case of a previous retry.
      * This information is specific to a certain batch and will be reset for the next batch in case of a drop or
      * a successful request.
@@ -25,7 +25,7 @@ fun interface RequestFactory {
      * @throws [Exception] in case the request could not be created.
      */
     fun create(
-        context: DatadogContext,
+        context: MotadataContext,
         executionContext: RequestExecutionContext,
         batchData: List<RawBatchEvent>,
         batchMetadata: ByteArray?
@@ -43,37 +43,37 @@ fun interface RequestFactory {
         const val CONTENT_TYPE_TEXT_UTF8: String = "text/plain;charset=UTF-8"
 
         /**
-         * Datadog API key header.
+         * Motadata API key header.
          */
         const val HEADER_API_KEY: String = "DD-API-KEY"
 
         /**
-         * Datadog Event Platform Origin header, e.g. android, flutter, etc.
+         * Motadata Event Platform Origin header, e.g. android, flutter, etc.
          */
         const val HEADER_EVP_ORIGIN: String = "DD-EVP-ORIGIN"
 
         /**
-         * Datadog Event Platform Origin version header, e.g. SDK version.
+         * Motadata Event Platform Origin version header, e.g. SDK version.
          */
         const val HEADER_EVP_ORIGIN_VERSION: String = "DD-EVP-ORIGIN-VERSION"
 
         /**
-         * Datadog Request ID header, used for debugging purposes.
+         * Motadata Request ID header, used for debugging purposes.
          */
         const val HEADER_REQUEST_ID: String = "DD-REQUEST-ID"
 
         /**
-         * Datadog source query parameter name.
+         * Motadata source query parameter name.
          */
         const val QUERY_PARAM_SOURCE: String = "ddsource"
 
         /**
-         * Datadog tags query parameter name.
+         * Motadata tags query parameter name.
          */
         const val QUERY_PARAM_TAGS: String = "ddtags"
 
         /**
-         * Datadog Idempotency key header, used to offer more insight into the request retry statistics.
+         * Motadata Idempotency key header, used to offer more insight into the request retry statistics.
          */
         const val DD_IDEMPOTENCY_KEY: String = "DD-IDEMPOTENCY-KEY"
     }

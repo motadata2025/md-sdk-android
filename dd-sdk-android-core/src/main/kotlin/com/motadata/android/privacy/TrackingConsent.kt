@@ -14,7 +14,7 @@ package com.motadata.android.privacy
  */
 enum class TrackingConsent {
     /**
-     * The permission to persist and dispatch data to the Datadog Endpoints was granted.
+     * The permission to persist and dispatch data to the Motadata Endpoints was granted.
      * Any previously stored pending data will be marked as ready for sent.
      */
     GRANTED,

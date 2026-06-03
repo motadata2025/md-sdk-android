@@ -11,7 +11,7 @@
 * [IMPROVEMENT] Propagate native `anonymousId` to `Webview` events. See [#3306](https://github.com/DataDog/dd-sdk-android/pull/3306)
 * [IMPROVEMENT] Rename `DatadogTracingToolkit` to `_TraceInternalProxy`. See [#3350](https://github.com/DataDog/dd-sdk-android/pull/3350)
 * [IMPROVEMENT] Use `SecureRandom` for Trace/Span ID generation, remove usage of `SecureRandom.getStrongInstance`. See [#3379](https://github.com/DataDog/dd-sdk-android/pull/3379)
-* [IMPROVEMENT] Add `fed2` endpoint to `DatadogSite`. See [#3383](https://github.com/DataDog/dd-sdk-android/pull/3383)
+* [IMPROVEMENT] Add `fed2` endpoint to `MotadataSite`. See [#3383](https://github.com/DataDog/dd-sdk-android/pull/3383)
 * [IMPROVEMENT] Drop word feature from operations APIs. See [#3390](https://github.com/DataDog/dd-sdk-android/pull/3390)
 * [IMPROVEMENT] Make sure `RumAppStartupDetector#destroy` is called on main thread. See [#3397](https://github.com/DataDog/dd-sdk-android/pull/3397)
 * [IMPROVEMENT] Support legacy `OkHttp` network telemetry. See [#3399](https://github.com/DataDog/dd-sdk-android/pull/3399)
@@ -33,7 +33,7 @@
 # 3.9.1 / 2026-04-23
 
 * [BUGFIX] Cache reflection lookups in `LayoutNodeUtils`. See [#3381](https://github.com/DataDog/dd-sdk-android/pull/3381)
-* [IMPROVEMENT] Add `fed2` endpoint to `DatadogSite`. See [#3391](https://github.com/DataDog/dd-sdk-android/pull/3391)
+* [IMPROVEMENT] Add `fed2` endpoint to `MotadataSite`. See [#3391](https://github.com/DataDog/dd-sdk-android/pull/3391)
 
 # 3.9.0 / 2026-04-16
 
@@ -56,7 +56,7 @@
 * [MAINTENANCE] Update RUM schema to include profiling status for RUM errors and operation step vitals. See [#3286](https://github.com/DataDog/dd-sdk-android/pull/3286)
 * [MAINTENANCE] Add Detekt rule to enforce copyright headers on Kotlin source files. See [#3291](https://github.com/DataDog/dd-sdk-android/pull/3291)
 * [MAINTENANCE] Refactor test `Forge` helpers. See [#3288](https://github.com/DataDog/dd-sdk-android/pull/3288)
-* [MAINTENANCE] Add Datadog Test Observability for tests run on macOS runners. See [#3295](https://github.com/DataDog/dd-sdk-android/pull/3295)
+* [MAINTENANCE] Add Motadata Test Observability for tests run on macOS runners. See [#3295](https://github.com/DataDog/dd-sdk-android/pull/3295)
 * [MAINTENANCE] Local CI improvements. See [#3313](https://github.com/DataDog/dd-sdk-android/pull/3313)
 * [MAINTENANCE] Make build tasks compatible with configuration cache. See [#3332](https://github.com/DataDog/dd-sdk-android/pull/3332)
 * [MAINTENANCE] Update `profile-event-schema.json`. See [#3336](https://github.com/DataDog/dd-sdk-android/pull/3336)
@@ -97,7 +97,7 @@
 * [MAINTENANCE] Add Play SDK console verification token to new modules. See [#3217](https://github.com/DataDog/dd-sdk-android/pull/3217)
 * [MAINTENANCE] Only exclude files inside the repo. See [#3246](https://github.com/DataDog/dd-sdk-android/pull/3246)
 * [MAINTENANCE] Remove `:tools:benchmark` module from sample app dependencies. See [#3253](https://github.com/DataDog/dd-sdk-android/pull/3253)
-* [MAINTENANCE] Add Datadog code coverage upload. See [#3255](https://github.com/DataDog/dd-sdk-android/pull/3255)
+* [MAINTENANCE] Add Motadata code coverage upload. See [#3255](https://github.com/DataDog/dd-sdk-android/pull/3255)
 * [MAINTENANCE] Add `TODO` for `getResourceName` inconsistency. See [#3252](https://github.com/DataDog/dd-sdk-android/pull/3252)
 * [MAINTENANCE] Remove FQCN usage. See [#3261](https://github.com/DataDog/dd-sdk-android/pull/3261)
 * [MAINTENANCE] Relax offset for floating point numbers assertions. See [#3262](https://github.com/DataDog/dd-sdk-android/pull/3262)
@@ -153,7 +153,7 @@
 * [MAINTENANCE] Configure JUnit test tasks to log `FAILED` and `STANDARD_ERROR` events. See [#3163](https://github.com/DataDog/dd-sdk-android/pull/3163)
 * [MAINTENANCE] Migrate from slack-notifier v1 to v3-sdm. See [#3165](https://github.com/DataDog/dd-sdk-android/pull/3165)
 * [MAINTENANCE] Update dependencies plugin to version `0.5.0`. See [#3170](https://github.com/DataDog/dd-sdk-android/pull/3170)
-* [MAINTENANCE] Bump Datadog gradle plugin to `1.23.0`. See [#3176](https://github.com/DataDog/dd-sdk-android/pull/3176)
+* [MAINTENANCE] Bump Motadata gradle plugin to `1.23.0`. See [#3176](https://github.com/DataDog/dd-sdk-android/pull/3176)
 * [MAINTENANCE] Merge evaluations into develop. See [#3183](https://github.com/DataDog/dd-sdk-android/pull/3183)
 * [MAINTENANCE] Add detekt-cli jar to `.gitignore`. See [#3185](https://github.com/DataDog/dd-sdk-android/pull/3185)
 
@@ -194,7 +194,7 @@
 * [FEATURE] Flags compatibility with OpenFeature
   - Scaffold OpenFeature provider module. See [#2996](https://github.com/DataDog/dd-sdk-android/pull/2996)
   - Add OpenFeature type conversion utilities. See [#3103](https://github.com/DataDog/dd-sdk-android/pull/3103)
-  - OpenFeature Provider implementation powered by Datadog Flags. See [#2998](https://github.com/DataDog/dd-sdk-android/pull/2998)
+  - OpenFeature Provider implementation powered by Motadata Flags. See [#2998](https://github.com/DataDog/dd-sdk-android/pull/2998)
   - Add OpenFeature Flags to test app. See [#3130](https://github.com/DataDog/dd-sdk-android/pull/3130)
 * [BUGFIX] Mark fatal ANR as processed before RUM events are written. See [#3129](https://github.com/DataDog/dd-sdk-android/pull/3129)
 * [IMPROVEMENT] Flags: State change notification for flags client (for OpenFeature). See [#3042](https://github.com/DataDog/dd-sdk-android/pull/3042)
@@ -233,7 +233,7 @@
 * [IMPROVEMENT] Move RUM Debug Widget code from RUM module to a new separate module. See [#2960](https://github.com/DataDog/dd-sdk-android/pull/2960)
 * [IMPROVEMENT] Refactor the configuration and integration of the RUM Debug Widget. See [#2975](https://github.com/DataDog/dd-sdk-android/pull/2975)
 * [IMPROVEMENT] Add light theme colors to the RUM Debug Widget. See [#3037](https://github.com/DataDog/dd-sdk-android/pull/3037)
-* [IMPROVEMENT] Put Request tag with UUID in `DatadogInterceptor`. See [#3086](https://github.com/DataDog/dd-sdk-android/pull/3086)
+* [IMPROVEMENT] Put Request tag with UUID in `MotadataInterceptor`. See [#3086](https://github.com/DataDog/dd-sdk-android/pull/3086)
 * [IMPROVEMENT] Add IDs to errors and long tasks. See [#3073](https://github.com/DataDog/dd-sdk-android/pull/3073)
 * [IMPROVEMENT] Increase gap threshold for app launch scenario detection heuristic. See [#3105](https://github.com/DataDog/dd-sdk-android/pull/3105)
 * [IMPROVEMENT] Replace System static calls with `TimeProvider`. See [#3011](https://github.com/DataDog/dd-sdk-android/pull/3011)
@@ -246,7 +246,7 @@
 * [MAINTENANCE] Fix GitLab CI Pipeline. See [#2948](https://github.com/DataDog/dd-sdk-android/pull/2948)
 * [MAINTENANCE] Add tests to core RUM Debug Widget components. See [#2971](https://github.com/DataDog/dd-sdk-android/pull/2971)
 * [MAINTENANCE] Update Gradle version to 8.14.3, AGP version to 8.13.2. See [#3089](https://github.com/DataDog/dd-sdk-android/pull/3089)
-* [MAINTENANCE] Update Datadog Gradle Plugin version used to 1.21.0. See [#3090](https://github.com/DataDog/dd-sdk-android/pull/3090)
+* [MAINTENANCE] Update Motadata Gradle Plugin version used to 1.21.0. See [#3090](https://github.com/DataDog/dd-sdk-android/pull/3090)
 * [MAINTENANCE] Bump CodeQL version to 3.31.9. See [#3084](https://github.com/DataDog/dd-sdk-android/pull/3084)
 * [MAINTENANCE] Add scripts to set/get Vault secrets & Migrate CI. See [#2974](https://github.com/DataDog/dd-sdk-android/pull/2974)
 * [MAINTENANCE] Use Gradle lazy APIs in build script files. See [#3106](https://github.com/DataDog/dd-sdk-android/pull/3106)
@@ -285,7 +285,7 @@
 * [FEATURE] Feature flags context management. See [#2886](https://github.com/DataDog/dd-sdk-android/pull/2886)
 * [FEATURE] Feature flags: Send exposures as batches. See [#2895](https://github.com/DataDog/dd-sdk-android/pull/2895)
 * [FEATURE] Feature flags: Add a persistence layer. See [#2898](https://github.com/DataDog/dd-sdk-android/pull/2898)
-* [FEATURE] Feature flags: `DatadogSite` extension for Flags endpoint. See [#2922](https://github.com/DataDog/dd-sdk-android/pull/2922)
+* [FEATURE] Feature flags: `MotadataSite` extension for Flags endpoint. See [#2922](https://github.com/DataDog/dd-sdk-android/pull/2922)
 * [FEATURE] Feature flags: `Flags.enable` and `FlagsClient` APIs. See [#2900](https://github.com/DataDog/dd-sdk-android/pull/2900)
 * [FEATURE] Feature flags: Support custom endpoints for exposures. See [#2942](https://github.com/DataDog/dd-sdk-android/pull/2942)
 * [FEATURE] Feature flags: Custom flagging endpoint and assignment download refactoring. See [#2917](https://github.com/DataDog/dd-sdk-android/pull/2917)
@@ -379,14 +379,14 @@ This is the first official production version of SDK v3 containing the new archi
 * [IMPROVEMENT] Trace: Using session consistent trace sampling. See [#2544](https://github.com/DataDog/dd-sdk-android/pull/2544)
 * [IMPROVEMENT] Core: Resolve batch file only during the actual write call. See [#2619](https://github.com/DataDog/dd-sdk-android/pull/2619)
 * [IMPROVEMENT] Remove `forceNewBatch` API. See [#2621](https://github.com/DataDog/dd-sdk-android/pull/2621)
-* [IMPROVEMENT] Core: Resolve file orchestrator for write operation from `DatadogContext`. See [#2624](https://github.com/DataDog/dd-sdk-android/pull/2624)
+* [IMPROVEMENT] Core: Resolve file orchestrator for write operation from `MotadataContext`. See [#2624](https://github.com/DataDog/dd-sdk-android/pull/2624)
 * [IMPROVEMENT] Introduce event processing thread. See [#2631](https://github.com/DataDog/dd-sdk-android/pull/2631)
 * [IMPROVEMENT] Core: Push context changes from public API to the context thread. See [#2635](https://github.com/DataDog/dd-sdk-android/pull/2635)
 * [IMPROVEMENT] Core: Make `getDatadogContext` read on the context thread. See [#2645](https://github.com/DataDog/dd-sdk-android/pull/2645)
 * [IMPROVEMENT] RUM: Update RUM feature context only after event processing completion. See [#2650](https://github.com/DataDog/dd-sdk-android/pull/2650)
 * [IMPROVEMENT] RUM: Align attribute propagation mechanism. See [#2654](https://github.com/DataDog/dd-sdk-android/pull/2654)
-* [IMPROVEMENT] Trace: Perform lazy capture of `DatadogContext` at the span creation. See [#2662](https://github.com/DataDog/dd-sdk-android/pull/2662)
-* [IMPROVEMENT] Trace: Remove deprecated `DatadogInterceptor` constructors. See [#2665](https://github.com/DataDog/dd-sdk-android/pull/2665)
+* [IMPROVEMENT] Trace: Perform lazy capture of `MotadataContext` at the span creation. See [#2662](https://github.com/DataDog/dd-sdk-android/pull/2662)
+* [IMPROVEMENT] Trace: Remove deprecated `MotadataInterceptor` constructors. See [#2665](https://github.com/DataDog/dd-sdk-android/pull/2665)
 * [IMPROVEMENT] Read RUM context in Session Replay in non-blocking manner. See [#2666](https://github.com/DataDog/dd-sdk-android/pull/2666)
 * [IMPROVEMENT] RUM: Propagate `has_replay` flag to `RumContext` object. See [#2668](https://github.com/DataDog/dd-sdk-android/pull/2668)
 * [IMPROVEMENT] RUM: Remove deprecated `startResource`. See [#2671](https://github.com/DataDog/dd-sdk-android/pull/2671)
@@ -397,8 +397,8 @@ This is the first official production version of SDK v3 containing the new archi
 * [IMPROVEMENT] Read feature context only when explicitly requested by the caller. See [#2716](https://github.com/DataDog/dd-sdk-android/pull/2716)
 * [IMPROVEMENT] Avoid polling for `RumContext` in `VitalReaderRunnable`. See [#2728](https://github.com/DataDog/dd-sdk-android/pull/2728)
 * [IMPROVEMENT] Remove feature name argument from APIs to set/remove feature context update listener. See [#2729](https://github.com/DataDog/dd-sdk-android/pull/2729)
-* [IMPROVEMENT] Core: Mark `CoreFeature` properties used to create `DatadogContext` as volatile. See [#2738](https://github.com/DataDog/dd-sdk-android/pull/2738)
-* [IMPROVEMENT] Core: Handle the case when `DatadogContext` is requested when SDK is getting deinitialized. See [#2740](https://github.com/DataDog/dd-sdk-android/pull/2740)
+* [IMPROVEMENT] Core: Mark `CoreFeature` properties used to create `MotadataContext` as volatile. See [#2738](https://github.com/DataDog/dd-sdk-android/pull/2738)
+* [IMPROVEMENT] Core: Handle the case when `MotadataContext` is requested when SDK is getting deinitialized. See [#2740](https://github.com/DataDog/dd-sdk-android/pull/2740)
 * [IMPROVEMENT] Core: Monitor backpressure of context executor. See [#2745](https://github.com/DataDog/dd-sdk-android/pull/2745)
 * [IMPROVEMENT] Core: Remove default value for the `addAccountExtraInfo` call. See [#2759](https://github.com/DataDog/dd-sdk-android/pull/2759)
 * [IMPROVEMENT] RUM: Make attributes argument optional in the event-related methods of RUM monitor. See [#2760](https://github.com/DataDog/dd-sdk-android/pull/2760)
@@ -467,7 +467,7 @@ This is the first official production version of SDK v3 containing the new archi
 * [MAINTENANCE] Update `CONTRIBUTING` doc with missing modules. See [#2762](https://github.com/DataDog/dd-sdk-android/pull/2762)
 * [MAINTENANCE] Update base Docker image to `Jammy`. See [#2761](https://github.com/DataDog/dd-sdk-android/pull/2761)
 * [MAINTENANCE] Update docker image used in `ci-image` job. See [#2764](https://github.com/DataDog/dd-sdk-android/pull/2764)
-* [MAINTENANCE] Use Datadog Gradle Plugin version 1.18.0. See [#2769](https://github.com/DataDog/dd-sdk-android/pull/2769)
+* [MAINTENANCE] Use Motadata Gradle Plugin version 1.18.0. See [#2769](https://github.com/DataDog/dd-sdk-android/pull/2769)
 * [MAINTENANCE] Migrate publishing from OSSRH to Central Publisher portal. See [#2770](https://github.com/DataDog/dd-sdk-android/pull/2770)
 * [MAINTENANCE] Close Sonatype staging repo after publishing. See [#2774](https://github.com/DataDog/dd-sdk-android/pull/2774)
 * [MAINTENANCE] Run unit tests from samples folder and for `tools:benchmark` module. See [#2777](https://github.com/DataDog/dd-sdk-android/pull/2777)
@@ -477,7 +477,7 @@ This is the first official production version of SDK v3 containing the new archi
 
 * [FEATURE] Global: Add public APIs for set account information. See [#2694](https://github.com/DataDog/dd-sdk-android/pull/2694)
 * [FEATURE] Global: Add `AccountInfo` data class and provider. See [#2696](https://github.com/DataDog/dd-sdk-android/pull/2696)
-* [FEATURE] Global: Add `AccountInfo` into `CoreFeature` and `DatadogContext`. See [#2702](https://github.com/DataDog/dd-sdk-android/pull/2702)
+* [FEATURE] Global: Add `AccountInfo` into `CoreFeature` and `MotadataContext`. See [#2702](https://github.com/DataDog/dd-sdk-android/pull/2702)
 * [FEATURE] RUM: Add account information into RUM events. See [#2706](https://github.com/DataDog/dd-sdk-android/pull/2706)
 * [FEATURE] Logs: Add Account Information in Logs. See [#2710](https://github.com/DataDog/dd-sdk-android/pull/2710)
 * [FEATURE] Traces: Add account information in Trace. See [#2709](https://github.com/DataDog/dd-sdk-android/pull/2709)
@@ -502,7 +502,7 @@ This is the first official production version of SDK v3 containing the new archi
 * [MAINTENANCE] Add BackPressured Dump information into Telemetry log. See [#2673](https://github.com/DataDog/dd-sdk-android/pull/2673)
 * [MAINTENANCE] Change Benchmark artifact Id to `dd-sdk-android-benchmark`. See [#2686](https://github.com/DataDog/dd-sdk-android/pull/2686)
 * [MAINTENANCE] Add Method Called Metric on Rum event handling. See [#2687](https://github.com/DataDog/dd-sdk-android/pull/2687)
-* [MAINTENANCE] Bump Datadog Gradle Plugin to 1.17.0. See [#2693](https://github.com/DataDog/dd-sdk-android/pull/2693)
+* [MAINTENANCE] Bump Motadata Gradle Plugin to 1.17.0. See [#2693](https://github.com/DataDog/dd-sdk-android/pull/2693)
 * [MAINTENANCE] Generate checksum xml. See [#2695](https://github.com/DataDog/dd-sdk-android/pull/2695)
 * [MAINTENANCE] Generate `verification-metadata` with pgp information. See [#2698](https://github.com/DataDog/dd-sdk-android/pull/2698)
 * [MAINTENANCE] Move `LocalAttribute` class and related extension methods to the `internal` module. See [#2705](https://github.com/DataDog/dd-sdk-android/pull/2705)
@@ -535,8 +535,8 @@ This is the first official production version of SDK v3 containing the new archi
 * [IMPROVEMENT] `Trace` scenario for Android benchmark app. See [#2637](https://github.com/DataDog/dd-sdk-android/pull/2637)
 * [IMPROVEMENT] Replace `addFirst` usage in `PendingTrace`. See [#2638](https://github.com/DataDog/dd-sdk-android/pull/2638)
 * [IMPROVEMENT] `RumManual` scenario for Android benchmark app. See [#2644](https://github.com/DataDog/dd-sdk-android/pull/2644)
-* [IMPROVEMENT] Align Datadog initialization with iOS for benchmark app. See [#2647](https://github.com/DataDog/dd-sdk-android/pull/2647)
-* [IMPROVEMENT] Fix Datadog core creation in baseline benchmark run. See [#2649](https://github.com/DataDog/dd-sdk-android/pull/2649)
+* [IMPROVEMENT] Align Motadata initialization with iOS for benchmark app. See [#2647](https://github.com/DataDog/dd-sdk-android/pull/2647)
+* [IMPROVEMENT] Fix Motadata core creation in baseline benchmark run. See [#2649](https://github.com/DataDog/dd-sdk-android/pull/2649)
 * [IMPROVEMENT] RUM: Add Jetpack Compose specific log in gesture listener if target not found. See [#2651](https://github.com/DataDog/dd-sdk-android/pull/2651)
 * [IMPROVEMENT] Add sample screen for Compose image content scale. See [#2659](https://github.com/DataDog/dd-sdk-android/pull/2659)
 * [IMPROVEMENT] Remove `addFirst`, `removeFirst`, `removeLast` usages. See [#2664](https://github.com/DataDog/dd-sdk-android/pull/2664)
@@ -575,7 +575,7 @@ This is the first official production version of SDK v3 containing the new archi
 * [MAINTENANCE] Sample telemetry for `RecordedDataQueueHandler`. See [#2600](https://github.com/DataDog/dd-sdk-android/pull/2600)
 * [MAINTENANCE] Remove the noisy warning log as for some views it is normal to not have ITV. See [#2617](https://github.com/DataDog/dd-sdk-android/pull/2617)
 * [MAINTENANCE] Fix semantics of `ExecutorService.submit` vs `Executor.execute` usage. See [#2616](https://github.com/DataDog/dd-sdk-android/pull/2616)
-* [MAINTENANCE] Integrate Datadog Plugin in benchmark application. See [#2618](https://github.com/DataDog/dd-sdk-android/pull/2618)
+* [MAINTENANCE] Integrate Motadata Plugin in benchmark application. See [#2618](https://github.com/DataDog/dd-sdk-android/pull/2618)
 * [MAINTENANCE] Merge `feature/compose-instrumentation-api` into `feature/actions-tracking`. See [#2583](https://github.com/DataDog/dd-sdk-android/pull/2583)
 * [MAINTENANCE] Merge 2.20.0 into `develop`. See [#2588](https://github.com/DataDog/dd-sdk-android/pull/2588)
 * [MAINTENANCE] Merge `Feature/actions-tracking` into `develop`. See [#2598](https://github.com/DataDog/dd-sdk-android/pull/2598)
@@ -686,7 +686,7 @@ This is the first official production version of SDK v3 containing the new archi
 * [IMPROVEMENT] Improve the log message when exception happen during upload. See [#2411](https://github.com/DataDog/dd-sdk-android/pull/2411) 
 * [IMPROVEMENT] Apply global privacy level to semantics node mappers. See [#2413](https://github.com/DataDog/dd-sdk-android/pull/2413) 
 * [IMPROVEMENT] Apply touch privacy override in `RootSemanticsMapper`. See [#2421](https://github.com/DataDog/dd-sdk-android/pull/2421)
-* [IMPROVEMENT] Get rid of `Thread.sleep(SHORT_SLEEP_MS)` in unit tests at `DatadogEventListenerTest`. See [#2430](https://github.com/DataDog/dd-sdk-android/pull/2430)
+* [IMPROVEMENT] Get rid of `Thread.sleep(SHORT_SLEEP_MS)` in unit tests at `MotadataEventListenerTest`. See [#2430](https://github.com/DataDog/dd-sdk-android/pull/2430)
 * [IMPROVEMENT] Add backwards compatibility for Coil `AsyncImage`. See [#2432](https://github.com/DataDog/dd-sdk-android/pull/2432)
 * [IMPROVEMENT] Change the `logApiUsage` method signature - making event parameter computation lazy. See [#2433](https://github.com/DataDog/dd-sdk-android/pull/2433)
 * [IMPROVEMENT] Apply the `hide` view override on Semantics nodes. See [#2434](https://github.com/DataDog/dd-sdk-android/pull/2434)
@@ -703,7 +703,7 @@ This is the first official production version of SDK v3 containing the new archi
 * [MAINTENANCE] Fix `TextFieldSemanticsNodeMapper` flaky test. See [#2410](https://github.com/DataDog/dd-sdk-android/pull/2410)
 * [MAINTENANCE] Fix potential issues with subdomain host lookups. See [#2436](https://github.com/DataDog/dd-sdk-android/pull/2436)
 * [MAINTENANCE] Fix the way we are recording the last interaction for the `ITNV` metric. See [#2431](https://github.com/DataDog/dd-sdk-android/pull/2431)
-* [MAINTENANCE] Deprecate Datadog `GlobalTracer` class. See [#2438](https://github.com/DataDog/dd-sdk-android/pull/2438)
+* [MAINTENANCE] Deprecate Motadata `GlobalTracer` class. See [#2438](https://github.com/DataDog/dd-sdk-android/pull/2438)
 * [MAINTENANCE] Correct the way we register the initial resources for the `TTNS` metric. See [#2439](https://github.com/DataDog/dd-sdk-android/pull/2439)
 * [MAINTENANCE] Explicit Fragment dependency. See [#2443](https://github.com/DataDog/dd-sdk-android/pull/2443)
 * [MAINTENANCE] Don't warn about missing views on `PerformanceMetric` events. See [#2454](https://github.com/DataDog/dd-sdk-android/pull/2454)
@@ -815,7 +815,7 @@ This is the first official production version of SDK v3 containing the new archi
 * [IMPROVEMENT] Remove batch metrics inner sampler to increase sample rate. See [#2328](https://github.com/DataDog/dd-sdk-android/pull/2328)
 * [IMPROVEMENT] Add missing integration test for Logs. See [#2330](https://github.com/DataDog/dd-sdk-android/pull/2330)
 * [IMPROVEMENT] Update Session Replay integration test payloads. See [#2318](https://github.com/DataDog/dd-sdk-android/pull/2318)
-* [MAINTENANCE] Update Datadog Agent to 1.41.0. See [#2331](https://github.com/DataDog/dd-sdk-android/pull/2331)
+* [MAINTENANCE] Update Motadata Agent to 1.41.0. See [#2331](https://github.com/DataDog/dd-sdk-android/pull/2331)
 * [MAINTENANCE] Fix the decompression in Session Replay instrumented tests for API 21. See [#2341](https://github.com/DataDog/dd-sdk-android/pull/2341)
 * [MAINTENANCE] Reactivate Session Replay instrumented test for API 21. See [#2342](https://github.com/DataDog/dd-sdk-android/pull/2342)
 * [MAINTENANCE] Fix some flaky tests. See [#2281](https://github.com/DataDog/dd-sdk-android/pull/2281)
@@ -855,7 +855,7 @@ This is the first official production version of SDK v3 containing the new archi
 * [MAINTENANCE] Ensure `UploadWorker` uses the SDK instance name. See [#2257](https://github.com/DataDog/dd-sdk-android/pull/2257)
 * [MAINTENANCE] Explicitly set `antlr-runtime` transitive dependency version. See [#2261](https://github.com/DataDog/dd-sdk-android/pull/2261)
 * [MAINTENANCE] Add the integration tests related with `RumMonitor#addViewLoadingTime` API. See [#2268](https://github.com/DataDog/dd-sdk-android/pull/2268)
-* [MAINTENANCE] Fix `DatadogInterceptor` flaky test. See [#2274](https://github.com/DataDog/dd-sdk-android/pull/2274)
+* [MAINTENANCE] Fix `MotadataInterceptor` flaky test. See [#2274](https://github.com/DataDog/dd-sdk-android/pull/2274)
 * [MAINTENANCE] Fix typos and links in Github issue templates. See [#2277](https://github.com/DataDog/dd-sdk-android/pull/2277)
 
 # 2.13.1 / 2024-09-09
@@ -872,7 +872,7 @@ This is the first official production version of SDK v3 containing the new archi
 * [IMPROVEMENT] Remove obsolete nightly test references. See [#2157](https://github.com/DataDog/dd-sdk-android/pull/2157)
 * [IMPROVEMENT] Add the integration tests for the SdkCore APIs. See [#2145](https://github.com/DataDog/dd-sdk-android/pull/2145)
 * [IMPROVEMENT] Update link to troubleshooting documentation. See [#2164](https://github.com/DataDog/dd-sdk-android/pull/2164) (Thanks [@mateo-villa](https://github.com/mateo-villa))
-* [IMPROVEMENT] Reset developerMode status when Datadog stop. See [#2174](https://github.com/DataDog/dd-sdk-android/pull/2174)
+* [IMPROVEMENT] Reset developerMode status when Motadata stop. See [#2174](https://github.com/DataDog/dd-sdk-android/pull/2174)
 * [IMPROVEMENT] Extract logic to pull publishing credentials into a dedicated snippet. See [#2176](https://github.com/DataDog/dd-sdk-android/pull/2176)
 * [IMPROVEMENT] Remove redundant build configuration in new reliability modules. See [#2178](https://github.com/DataDog/dd-sdk-android/pull/2178)
 * [IMPROVEMENT] Remove image property from macOS-based jobs. See [#2181](https://github.com/DataDog/dd-sdk-android/pull/2181)
@@ -924,7 +924,7 @@ This is the first official production version of SDK v3 containing the new archi
 * [FEATURE] Trace: Add the `CoreTracer` tests. See [#1924](https://github.com/DataDog/dd-sdk-android/pull/1924)
 * [FEATURE] Trace: Provide core tracer logger implementation. See [#1953](https://github.com/DataDog/dd-sdk-android/pull/1953)
 * [FEATURE] Trace: Provide the `bundleWithRum` capability for `OtelTracer`. See [#1960](https://github.com/DataDog/dd-sdk-android/pull/1960)
-* [FEATURE] Trace: Provide the `DatadogContextStorage` for OpenTelemetry. See [#1970](https://github.com/DataDog/dd-sdk-android/pull/1970)
+* [FEATURE] Trace: Provide the `MotadataContextStorage` for OpenTelemetry. See [#1970](https://github.com/DataDog/dd-sdk-android/pull/1970)
 * [FEATURE] Trace: Provide Otel bundle with logs feature. See [#1979](https://github.com/DataDog/dd-sdk-android/pull/1979)
 * [FEATURE] Trace: Setup the trace end tests environment for Otel API. See [#1983](https://github.com/DataDog/dd-sdk-android/pull/1983)
 * [FEATURE] Trace: Add the `SpanLink` support for Otel API implementation. See [#1993](https://github.com/DataDog/dd-sdk-android/pull/1993)
@@ -1004,7 +1004,7 @@ This is the first official production version of SDK v3 containing the new archi
 * [IMPROVEMENT] Synchronize SR info with webviews. See [#1990](https://github.com/DataDog/dd-sdk-android/pull/1990)
 * [IMPROVEMENT] Core: Start sending batches immediately after feature is initialized. See [#1991](https://github.com/DataDog/dd-sdk-android/pull/1991)
 * [IMRPOVEMENT] Create RUM Feature Integration Tests. See [#2004](https://github.com/DataDog/dd-sdk-android/pull/2004)
-* [IMRROVEMENT] Make constructors of `DatadogSite` private. See [#2010](https://github.com/DataDog/dd-sdk-android/pull/2010)
+* [IMRROVEMENT] Make constructors of `MotadataSite` private. See [#2010](https://github.com/DataDog/dd-sdk-android/pull/2010)
 * [IMRROVEMENT] Log warning about tag modification only once. See [#2017](https://github.com/DataDog/dd-sdk-android/pull/2017)
 * [IMRROVEMENT] Add status code in user-facing message in case of `UnknownError` during batch upload. See [#2018](https://github.com/DataDog/dd-sdk-android/pull/2018)
 * [MAINTENANCE] Next dev iteration. See [#1972](https://github.com/DataDog/dd-sdk-android/pull/1972)
@@ -1152,7 +1152,7 @@ This is the first official production version of SDK v3 containing the new archi
 * [MAINTENANCE] RUM: Migrate Realm from KAPT to KSP. See [#1794](https://github.com/DataDog/dd-sdk-android/pull/1794)
 * [MAINTENANCE] Fix OOM in CI jobs. See [#1796](https://github.com/DataDog/dd-sdk-android/pull/1796)
 * [MAINTENANCE] Increase wait time in NightlyTestRule. See [#1799](https://github.com/DataDog/dd-sdk-android/pull/1799)
-* [MAINTENANCE] Use Datadog Agent 1.26.1. See [#1800](https://github.com/DataDog/dd-sdk-android/pull/1800)
+* [MAINTENANCE] Use Motadata Agent 1.26.1. See [#1800](https://github.com/DataDog/dd-sdk-android/pull/1800)
 * [MAINTENANCE] Move reading `BUILDENV_HOST_IP` variable to the job script definition. See [#1801](https://github.com/DataDog/dd-sdk-android/pull/1801)
 * [MAINTENANCE] Use automatic Gradle daemon instrumentation with CI Visibility instead of manual test tasks instrumentation. See [#1804](https://github.com/DataDog/dd-sdk-android/pull/1804)
 
@@ -1215,7 +1215,7 @@ This is the first official production version of SDK v3 containing the new archi
 * [IMPROVEMENT] Make NDK stack traces more standard. See [#1683](https://github.com/DataDog/dd-sdk-android/pull/1683)
 * [IMPROVEMENT] Have more consistent results when using the load picture sample screen. See [#1692](https://github.com/DataDog/dd-sdk-android/pull/1692)
 * [IMPROVEMENT] Add the `batchProcessingLevel` value to the Configuration Telemetry. See [#1691](https://github.com/DataDog/dd-sdk-android/pull/1691)
-* [IMPROVEMENT] Tracing: Update default propagation style from `Datadog` to `Datadog`+`TraceContext`. See [#1696](https://github.com/DataDog/dd-sdk-android/pull/1696)
+* [IMPROVEMENT] Tracing: Update default propagation style from `Motadata` to `Motadata`+`TraceContext`. See [#1696](https://github.com/DataDog/dd-sdk-android/pull/1696)
 * [IMPROVEMENT] Tracing: Use `tracestate` header to supply vendor-specific information. See [#1694](https://github.com/DataDog/dd-sdk-android/pull/1694)
 * [IMPROVEMENT] Global: Lower the upload frequency and batch size enum values. See [#1733](https://github.com/DataDog/dd-sdk-android/pull/1733)
 * [MAINTENANCE] Prepare release 2.2.0. See [#1650](https://github.com/DataDog/dd-sdk-android/pull/1650)
@@ -1235,7 +1235,7 @@ This is the first official production version of SDK v3 containing the new archi
 * [MAINTENANCE] Include `rum-mobile-android` as codeowner. See [#1695](https://github.com/DataDog/dd-sdk-android/pull/1695)
 * [MAINTENANCE] Fix flaky test in `WebViewRumEventConsumerTest`. See [#1724](https://github.com/DataDog/dd-sdk-android/pull/1724)
 * [MAINTENANCE] Fix flaky test in RumEventDeserializer. See [#1727](https://github.com/DataDog/dd-sdk-android/pull/1727)
-* [MAINTENANCE] Fix flaky test in DatadogContextProvider. See [#1726](https://github.com/DataDog/dd-sdk-android/pull/1726)
+* [MAINTENANCE] Fix flaky test in MotadataContextProvider. See [#1726](https://github.com/DataDog/dd-sdk-android/pull/1726)
 * [MAINTENANCE] Fix flaky test in `TelemetryEventHandlerTest`. See [#1729](https://github.com/DataDog/dd-sdk-android/pull/1729)
 * [MAINTENANCE] Fix flaky test in `BatchFileOrchestratorTest`. See [#1732](https://github.com/DataDog/dd-sdk-android/pull/1732)
 * [MAINTENANCE] Reduce noise in logs when building the project. See [#1731](https://github.com/DataDog/dd-sdk-android/pull/1731)
@@ -1309,7 +1309,7 @@ This is the first official production version of SDK v3 containing the new archi
 * [IMPROVEMENT] Global: Provide the `inBackground` property for `batch_delete` metric. See [#1588](https://github.com/DataDog/dd-sdk-android/pull/1588)
 * [IMPROVEMENT] Global: Unregister process lifecycle monitor in core instance stop. See [#1589](https://github.com/DataDog/dd-sdk-android/pull/1589)
 * [IMPROVEMENT] Session Replay: Add SR integration tests for `TextView` and `EditText` view type. See [#1593](https://github.com/DataDog/dd-sdk-android/pull/1593)
-* [MAINTENANCE] Mention Datadog SDK explicitly in dogfood script. See [#1557](https://github.com/DataDog/dd-sdk-android/pull/1557)
+* [MAINTENANCE] Mention Motadata SDK explicitly in dogfood script. See [#1557](https://github.com/DataDog/dd-sdk-android/pull/1557)
 * [MAINTENANCE] Remove redundant `sqlite` product flavour folder in the sample app. See [#1559](https://github.com/DataDog/dd-sdk-android/pull/1559)
 * [MAINTENANCE] Next dev cycle 2.1.0. See [#1562](https://github.com/DataDog/dd-sdk-android/pull/1562)
 * [MAINTENANCE] Remove the bridge dogfooding step, bridge repo is archived. See [#1571](https://github.com/DataDog/dd-sdk-android/pull/1571)
@@ -1454,7 +1454,7 @@ Functional changes in comparison with `1.19.2`:
 * [SDK v2] Use message bus to report Java crashes to RUM. See [#1173](https://github.com/DataDog/dd-sdk-android/pull/1173)
 * [SDK v2] Add the `forceNewBatch` option into the `FeatureScope`. See [#1174](https://github.com/DataDog/dd-sdk-android/pull/1174)
 * [SDK v2] Use message bus to report NDK crashes to RUM. See [#1177](https://github.com/DataDog/dd-sdk-android/pull/1177)
-* [SDK v2] Remove site property from `DatadogContext`. See [#1181](https://github.com/DataDog/dd-sdk-android/pull/1181)
+* [SDK v2] Remove site property from `MotadataContext`. See [#1181](https://github.com/DataDog/dd-sdk-android/pull/1181)
 * [SDK v2] Delete obsolete feature-specific uploaders. See [#1199](https://github.com/DataDog/dd-sdk-android/pull/1199)
 * [SDK v2] Use `InternalLogger`. See [#1200](https://github.com/DataDog/dd-sdk-android/pull/1200)
 * [SDK v2] Remove `Companion` objects with non-public member from Public API. See [#1207](https://github.com/DataDog/dd-sdk-android/pull/1207)
@@ -1511,7 +1511,7 @@ Functional changes in comparison with `1.19.2`:
 * [DOCS] Fix sample code in addAction API. See [#1046](https://github.com/DataDog/dd-sdk-android/pull/1046)
 * [DOCS] Fix link to setup facets and measures. See [#1179](https://github.com/DataDog/dd-sdk-android/pull/1179)
 * [DOCS] Fix typo in CONTRIBUTING.md. See [#1188](https://github.com/DataDog/dd-sdk-android/pull/1188)
-* [SDK v2] Datadog singleton. See [#918](https://github.com/DataDog/dd-sdk-android/pull/918)
+* [SDK v2] Motadata singleton. See [#918](https://github.com/DataDog/dd-sdk-android/pull/918)
 * [SDK v2] Make SDK Features simple classes. See [#928](https://github.com/DataDog/dd-sdk-android/pull/928)
 * [SDK v2] Use TLV format for data storage. See [#931](https://github.com/DataDog/dd-sdk-android/pull/931)
 * [SDK v2] Single Storage. See [#932](https://github.com/DataDog/dd-sdk-android/pull/932)
@@ -1727,7 +1727,7 @@ Functional changes in comparison with `1.19.2`:
 * [IMPROVEMENT] RUM: Tag RUM Resources as `native` by default (instead of `xhr`)
 * [IMPROVEMENT] RUM: Sanitize NDK crash stacktraces
 * [IMPROVEMENT] RUM: Enrich RUM Errors with the Throwable's message
-* [IMPROVEMENT] Global: Update the intake request for Datadog's API v2
+* [IMPROVEMENT] Global: Update the intake request for Motadata's API v2
 * [IMPROVEMENT] Global: Add support to US5 endpoint
 * [IMPROVEMENT] RUM: Prevent Get leaking memory with OkHttp ResponseBody objects
 * [IMPROVEMENT] RUM: Add an action predicate to rename the action target
@@ -1788,8 +1788,8 @@ Functional changes in comparison with `1.19.2`:
 * [BUGFIX] RUM: fix RUM Error timestamps
 * [BUGFIX] RUM: calling `GlobalRum.addAttribute()` with a `null` value would make the application crash
 * [BUGFIX] RUM: Actions created with type Custom where sometimes dropped
-* [FEATURE] Global: Add support for GDPR compliance feature (see `Datadog.setTrackingConsent()`)
-* [FEATURE] Global: Allow setting custom user specific attributes (see `Datadog.setUserInfo()`)
+* [FEATURE] Global: Add support for GDPR compliance feature (see `Motadata.setTrackingConsent()`)
+* [FEATURE] Global: Allow setting custom user specific attributes (see `Motadata.setUserInfo()`)
 * [IMPROVEMENT] Crash Report: Handle SIGABRT signal in the NDKCrashReporter
 * [OTHER] Global: Remove deprecated APIs and warn about future deprecations
 * [OTHER] Global: Remove all flavors from sample (allowing to get faster build times)
@@ -1884,9 +1884,9 @@ Functional changes in comparison with `1.19.2`:
 * [FEATURE] Logs: Add the caller class name as a tag in the LogcatLogHandler (only when app is in Debug)
 * [FEATURE] Logs: Allow adding a `JsonElement` as Attribute
 * [FEATURE] CrashReport: Let Crash logs use the EMERGENCY log level
-* [FEATURE] Global: Warn developers on SDK errors in the Logcat (cf `Datadog.setVerbosity()`)
-* [FEATURE] Global: Expose the `Datadog.isInitialized()` method to the public API
-* [OTHER] Deprecate the `Datadog.switchEndpoint()` method
+* [FEATURE] Global: Warn developers on SDK errors in the Logcat (cf `Motadata.setVerbosity()`)
+* [FEATURE] Global: Expose the `Motadata.isInitialized()` method to the public API
+* [OTHER] Deprecate the `Motadata.switchEndpoint()` method
 * [OTHER] Fail silently when the SDK is not initialized
 
 # 1.2.2 / 2020-02-26

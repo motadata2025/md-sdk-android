@@ -5,7 +5,7 @@
  */
 package com.motadata.android.trace
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.Feature
@@ -19,7 +19,7 @@ import com.datadog.trace.common.writer.NoOpWriter
 import com.datadog.trace.core.CoreTracer
 
 /**
- * Object responsible for providing tracing capabilities in the Datadog SDK.
+ * Object responsible for providing tracing capabilities in the Motadata SDK.
  */
 @SuppressWarnings("UndocumentedPublicFunction")
 object DatadogTracing {
@@ -34,7 +34,7 @@ object DatadogTracing {
      * configurations or features are unavailable.
      */
     @JvmStatic
-    fun newTracerBuilder(sdkCore: SdkCore = Datadog.getInstance()): DatadogTracerBuilder = when {
+    fun newTracerBuilder(sdkCore: SdkCore = Motadata.getInstance()): DatadogTracerBuilder = when {
         _TraceInternalProxy.testBuilderProvider != null -> {
             _TraceInternalProxy.testBuilderProvider as DatadogTracerBuilder
         }

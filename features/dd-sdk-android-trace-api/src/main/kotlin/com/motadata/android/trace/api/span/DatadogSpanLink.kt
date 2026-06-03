@@ -9,33 +9,33 @@ import com.motadata.android.trace.api.trace.DatadogTraceId
 import com.datadog.tools.annotation.NoOpImplementation
 
 /**
- * Represents a link to a Datadog span, which contains metadata and identifiers for associating a span
+ * Represents a link to a Motadata span, which contains metadata and identifiers for associating a span
  * with its trace and related details.
  */
 @NoOpImplementation
 interface DatadogSpanLink {
     /**
-     * The unique identifier for a Datadog span.
+     * The unique identifier for a Motadata span.
      */
     val spanId: Long
 
     /**
-     * Indicates whether the Datadog span has been sampled.
+     * Indicates whether the Motadata span has been sampled.
      */
     val sampled: Boolean
 
     /**
-     * The unique identifier for a Datadog trace.
+     * The unique identifier for a Motadata trace.
      */
     val traceId: DatadogTraceId
 
     /**
-     * Represents a string representation of a specific trace related to the Datadog span.
+     * Represents a string representation of a specific trace related to the Motadata span.
      */
     val traceStrace: String
 
     /**
-     * A map containing key-value pairs of additional attributes associated with a Datadog span.
+     * A map containing key-value pairs of additional attributes associated with a Motadata span.
      */
     val attributes: Map<String, String>?
 }

@@ -97,7 +97,7 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "A Jetpack Compose integration to use with the Datadog monitoring library" +
+    "A Jetpack Compose integration to use with the Motadata monitoring library" +
         " for Android applications."
 )
 detektCustomConfig()

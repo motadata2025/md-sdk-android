@@ -1,8 +1,8 @@
-# Datadog Integration for Coil
+# Motadata Integration for Coil
 
 ## Getting Started 
 
-To include the Datadog integration for [Coil][1] in your project, add the
+To include the Motadata integration for [Coil][1] in your project, add the
 following to your application's `build.gradle.kts` file.
 
 ```kotlin
@@ -15,12 +15,12 @@ dependencies {
 
 ### Initial Setup
 
-1. Setup RUM monitoring, see the dedicated [Datadog Android RUM Collection documentation][2] to learn how.
-2. Setup OkHttp instrumentation with Datadog RUM SDK, see the [dedicated documentation][3] to learn how.
+1. Setup RUM monitoring, see the dedicated [Motadata Android RUM Collection documentation][2] to learn how.
+2. Setup OkHttp instrumentation with Motadata RUM SDK, see the [dedicated documentation][3] to learn how.
 
 Follow Coil's [API documentation][4] to:
  
- - Create your own `ImageLoader` by providing your own `OkHttpClient` (configured with `DatadogInterceptor`).
+ - Create your own `ImageLoader` by providing your own `OkHttpClient` (configured with `MotadataInterceptor`).
 
 ```kotlin
     val imageLoader = ImageLoader.Builder(context).okHttpClient(okHttpClient).build()

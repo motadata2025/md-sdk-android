@@ -7,7 +7,7 @@
 package com.motadata.android.sdk.integration.network.rules
 
 import androidx.test.platform.app.InstrumentationRegistry
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android._InternalProxy
 import com.motadata.android.api.SdkCore
 import com.motadata.android.core.configuration.Configuration
@@ -23,7 +23,7 @@ import org.junit.rules.ExternalResource
 /**
  * JUnit Rule for network instrumentation integration tests.
  *
- * Manages [com.motadata.android.sdk.integration.network.utils.TestEchoWebServer] and Datadog SDK initialization.
+ * Manages [com.motadata.android.sdk.integration.network.utils.TestEchoWebServer] and Motadata SDK initialization.
  */
 internal class NetworkInstrumentationTestRule : ExternalResource() {
 
@@ -45,7 +45,7 @@ internal class NetworkInstrumentationTestRule : ExternalResource() {
 
     override fun after() {
         GlobalDatadogTracer.clear()
-        Datadog.stopInstance()
+        Motadata.stopInstance()
         mockWebServer.shutdown()
 
         InstrumentationRegistry
@@ -66,8 +66,8 @@ internal class NetworkInstrumentationTestRule : ExternalResource() {
             .build()
 
         sdkCore = checkNotNull(
-            Datadog.initialize(context, sdkConfig, TrackingConsent.GRANTED)
-        ) { "Failed to initialize Datadog SDK" }
+            Motadata.initialize(context, sdkConfig, TrackingConsent.GRANTED)
+        ) { "Failed to initialize Motadata SDK" }
 
         Trace.enable(
             TraceConfiguration.Builder()

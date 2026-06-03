@@ -8,7 +8,7 @@ package com.motadata.android.rum.internal.domain.event
 
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.core.constraints.DataConstraints
-import com.motadata.android.core.constraints.DatadogDataConstraints
+import com.motadata.android.core.constraints.MotadataDataConstraints
 import com.motadata.android.core.internal.utils.JsonSerializer.safeMapValuesToJson
 import com.motadata.android.core.persistence.Serializer
 import com.motadata.android.rum.RumAttributes
@@ -28,7 +28,7 @@ import com.google.gson.JsonObject
 @Suppress("TooManyFunctions")
 internal class RumEventSerializer(
     private val internalLogger: InternalLogger,
-    private val dataConstraints: DataConstraints = DatadogDataConstraints(internalLogger)
+    private val dataConstraints: DataConstraints = MotadataDataConstraints(internalLogger)
 ) : Serializer<Any> {
 
     // region Serializer

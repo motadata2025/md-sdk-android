@@ -14,7 +14,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.os.Process
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.storage.RawBatchEvent
 import com.motadata.android.core.configuration.Configuration
@@ -935,7 +935,7 @@ internal class CoreFeatureTest {
         // Given
         fakeConfig = fakeConfig.copy(
             additionalConfig = fakeConfig.additionalConfig.toMutableMap().apply {
-                put(Datadog.DD_NATIVE_SOURCE_TYPE, "ndk+il2cpp")
+                put(Motadata.DD_NATIVE_SOURCE_TYPE, "ndk+il2cpp")
             }
         )
         val mockActivityManager = mock<ActivityManager>()

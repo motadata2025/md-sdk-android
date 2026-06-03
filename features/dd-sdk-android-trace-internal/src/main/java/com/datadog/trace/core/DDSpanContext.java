@@ -47,7 +47,7 @@ import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
  * boundaries.
  *
  * <p>SpanContext is logically divided into two pieces: (1) the user-level "Baggage" that propagates
- * across Span boundaries and (2) any Datadog fields that are needed to identify or contextualize
+ * across Span boundaries and (2) any Motadata fields that are needed to identify or contextualize
  * the associated Span instance
  */
 public class DDSpanContext
@@ -104,7 +104,7 @@ public class DDSpanContext
   private volatile byte resourceNamePriority = ResourceNamePriorities.DEFAULT;
   /** Each span have an operation name describing the current span */
   private volatile CharSequence operationName;
-  /** The type of the span. If null, the Datadog Agent will report as a custom */
+  /** The type of the span. If null, the Motadata Agent will report as a custom */
   private volatile CharSequence spanType;
   /** True indicates that the span reports an error */
   private volatile boolean errorFlag;

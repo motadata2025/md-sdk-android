@@ -8,7 +8,7 @@ package com.motadata.android.lint
 
 /**
  * This annotation marks given method or property as internal, meaning it shouldn't be used
- * outside of Datadog modules, and it can be changed at any moment.
+ * outside of Motadata modules, and it can be changed at any moment.
  *
  * This annotation participates in the lint check provided by the [InternalApiUsageDetector].
  *

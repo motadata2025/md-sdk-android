@@ -9,7 +9,7 @@ package com.motadata.android.core.internal.persistence
 import androidx.annotation.AnyThread
 import androidx.annotation.WorkerThread
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.core.internal.data.upload.DataOkHttpUploader.Companion.HTTP_ACCEPTED
 import com.motadata.android.core.internal.metrics.BenchmarkUploads
@@ -52,7 +52,7 @@ internal class ConsentAwareStorage(
     /** @inheritdoc */
     @AnyThread
     override fun getEventWriteScope(
-        datadogContext: DatadogContext
+        datadogContext: MotadataContext
     ): EventWriteScope {
         val orchestrator = resolveOrchestrator(datadogContext)
         // TODO RUM-9712 Put performance metric for event processing + event write measurement
@@ -139,7 +139,7 @@ internal class ConsentAwareStorage(
     }
 
     @AnyThread
-    private fun resolveOrchestrator(datadogContext: DatadogContext): FileOrchestrator? {
+    private fun resolveOrchestrator(datadogContext: MotadataContext): FileOrchestrator? {
         return when (datadogContext.trackingConsent) {
             TrackingConsent.GRANTED -> grantedOrchestrator
             TrackingConsent.PENDING -> pendingOrchestrator

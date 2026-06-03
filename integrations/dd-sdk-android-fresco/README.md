@@ -1,8 +1,8 @@
-# Datadog Integration for Fresco
+# Motadata Integration for Fresco
 
 ## Getting Started 
 
-To include the Datadog integration for [Fresco][1] in your project, simply add the
+To include the Motadata integration for [Fresco][1] in your project, simply add the
 following to your application's `build.gradle.kts` file.
 
 ```kotlin
@@ -15,9 +15,9 @@ dependencies {
 
 ### Initial Setup
 
-1. Setup RUM monitoring, see the dedicated [Datadog Android RUM Collection documentation][2] to learn how.
-2. Setup OkHttp instrumentation with Datadog RUM SDK, see the [dedicated documentation][3] to learn how.
-3. Following Fresco's [Generated API documentation][4], you need to create your own `OkHttpImagePipelineConfigFactory` by providing your own `OkHttpClient` (configured with `DatadogInterceptor`). You can also add an instance of `DatadogFrescoCacheListener` in your `DiskCacheConfig`.
+1. Setup RUM monitoring, see the dedicated [Motadata Android RUM Collection documentation][2] to learn how.
+2. Setup OkHttp instrumentation with Motadata RUM SDK, see the [dedicated documentation][3] to learn how.
+3. Following Fresco's [Generated API documentation][4], you need to create your own `OkHttpImagePipelineConfigFactory` by providing your own `OkHttpClient` (configured with `MotadataInterceptor`). You can also add an instance of `DatadogFrescoCacheListener` in your `DiskCacheConfig`.
 
 Doing so will automatically track Fresco's network requests (creating both APM Traces and RUM Resource events), and will also listen for disk cache errors (creating RUM Error events).
 

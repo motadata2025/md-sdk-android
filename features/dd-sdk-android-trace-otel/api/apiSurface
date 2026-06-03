@@ -7,7 +7,7 @@ class com.motadata.android.trace.opentelemetry.OtelTracerProvider : io.opentelem
   override fun get(String, String): io.opentelemetry.api.trace.Tracer
   override fun tracerBuilder(String): io.opentelemetry.api.trace.TracerBuilder
   class Builder
-    constructor(com.motadata.android.api.SdkCore = Datadog.getInstance())
+    constructor(com.motadata.android.api.SdkCore = Motadata.getInstance())
     fun build(): io.opentelemetry.api.trace.TracerProvider
     fun setTracingHeaderTypes(Set<com.motadata.android.trace.TracingHeaderType>): Builder
     fun setService(String): Builder

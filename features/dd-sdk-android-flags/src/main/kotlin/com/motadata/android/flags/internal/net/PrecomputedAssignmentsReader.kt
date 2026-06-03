@@ -7,12 +7,12 @@
 package com.motadata.android.flags.internal.net
 
 import androidx.annotation.WorkerThread
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.flags.model.EvaluationContext
 import com.datadog.tools.annotation.NoOpImplementation
 
 @NoOpImplementation
 internal interface PrecomputedAssignmentsReader {
     @WorkerThread
-    fun readPrecomputedFlags(context: EvaluationContext, datadogContext: DatadogContext): String?
+    fun readPrecomputedFlags(context: EvaluationContext, datadogContext: MotadataContext): String?
 }

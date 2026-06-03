@@ -8,7 +8,7 @@ package com.motadata.android.log.internal.domain.event
 
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.core.constraints.DataConstraints
-import com.motadata.android.core.constraints.DatadogDataConstraints
+import com.motadata.android.core.constraints.MotadataDataConstraints
 import com.motadata.android.core.internal.utils.JsonSerializer.safeMapValuesToJson
 import com.motadata.android.core.persistence.Serializer
 import com.motadata.android.log.LogAttributes
@@ -16,7 +16,7 @@ import com.motadata.android.log.model.LogEvent
 
 internal class LogEventSerializer(
     private val internalLogger: InternalLogger,
-    private val dataConstraints: DataConstraints = DatadogDataConstraints(internalLogger)
+    private val dataConstraints: DataConstraints = MotadataDataConstraints(internalLogger)
 ) : Serializer<LogEvent> {
 
     override fun serialize(model: LogEvent): String {

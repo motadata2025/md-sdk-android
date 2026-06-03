@@ -7,7 +7,7 @@
 package com.motadata.android.webview.internal.rum
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.webview.internal.rum.domain.RumContext
 
@@ -16,7 +16,7 @@ internal class WebViewRumEventContextProvider(private val internalLogger: Intern
     private var rumFeatureDisabled = false
 
     @Suppress("ComplexCondition")
-    fun getRumContext(datadogContext: DatadogContext): RumContext? {
+    fun getRumContext(datadogContext: MotadataContext): RumContext? {
         if (rumFeatureDisabled) {
             return null
         }

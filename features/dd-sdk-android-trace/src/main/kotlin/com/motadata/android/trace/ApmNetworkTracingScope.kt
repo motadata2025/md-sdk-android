@@ -15,14 +15,14 @@ package com.motadata.android.trace
 enum class ApmNetworkTracingScope {
     /**
      * Default one.
-     * With this scope the Datadog SDK will trace both the application level requests and the network
+     * With this scope the Motadata SDK will trace both the application level requests and the network
      * layer requests (redirect, retries).
      */
     ALL,
 
     /**
      * Only application level request is gonna be traced.
-     * In this mode the Datadog SDK still able to link trace spans to RUM Resources making possible to navigate
+     * In this mode the Motadata SDK still able to link trace spans to RUM Resources making possible to navigate
      * from one to another but the internal requests like redirects and retries ( if networking library allows that)
      * will not be traced.
      */

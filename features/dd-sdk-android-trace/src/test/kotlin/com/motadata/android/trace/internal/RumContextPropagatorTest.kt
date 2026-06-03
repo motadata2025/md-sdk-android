@@ -7,7 +7,7 @@ package com.motadata.android.trace.internal
 
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.context.AccountInfo
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.UserInfo
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureScope
@@ -83,7 +83,7 @@ class RumContextPropagatorTest {
     private var fakeAccountInfo: AccountInfo? = null
 
     @Forgery
-    private lateinit var fakeDatadogContext: DatadogContext
+    private lateinit var fakeDatadogContext: MotadataContext
     private lateinit var fakeRumContext: Map<String, Any?>
 
     private val mockSdkCore = mock<InternalSdkCore> {
@@ -105,7 +105,7 @@ class RumContextPropagatorTest {
     @Test
     fun `M get(Long, TimeUnit) W extractRumContext {DDSpan, block=True}`() {
         // Given
-        val futureMock = incompleteFutureMock<DatadogContext>()
+        val futureMock = incompleteFutureMock<MotadataContext>()
         val span = newDDSpanWithLazyDatadogContext(futureMock)
 
         // When
@@ -118,7 +118,7 @@ class RumContextPropagatorTest {
     @Test
     fun `M get(Long, TimeUnit) W extractRumContext {DatadogSpan, block=True}`() {
         // Given
-        val futureMock = incompleteFutureMock<DatadogContext>()
+        val futureMock = incompleteFutureMock<MotadataContext>()
         val span = newDatadogSpanWithLazyDatadogContext(futureMock)
 
         // When
@@ -131,7 +131,7 @@ class RumContextPropagatorTest {
     @Test
     fun `M not block W extractRumContext {DDSpan, isDone=true, block=False}`() {
         // Given
-        val futureMock = completedFutureMock<DatadogContext?>(null)
+        val futureMock = completedFutureMock<MotadataContext?>(null)
         val span = newDDSpanWithLazyDatadogContext(futureMock)
 
         // When
@@ -148,7 +148,7 @@ class RumContextPropagatorTest {
     @Test
     fun `M not block W extractRumContext {DatadogSpan, isDone=true, block=False}`() {
         // Given
-        val futureMock = completedFutureMock<DatadogContext?>(null)
+        val futureMock = completedFutureMock<MotadataContext?>(null)
         val span = newDatadogSpanWithLazyDatadogContext(futureMock)
 
         // When
@@ -165,7 +165,7 @@ class RumContextPropagatorTest {
     @Test
     fun `M not block W extractRumContext {DDSpan, isDone=false, block=False}`() {
         // Given
-        val futureMock = incompleteFutureMock<DatadogContext>()
+        val futureMock = incompleteFutureMock<MotadataContext>()
         val span = newDDSpanWithLazyDatadogContext(futureMock)
 
         // When
@@ -184,7 +184,7 @@ class RumContextPropagatorTest {
     @Test
     fun `M not block W extractRumContext {DatadogSpan, isDone=false, block=False}`() {
         // Given
-        val futureMock = incompleteFutureMock<DatadogContext>()
+        val futureMock = incompleteFutureMock<MotadataContext>()
         val span = newDatadogSpanWithLazyDatadogContext(futureMock)
 
         // When
@@ -271,7 +271,7 @@ class RumContextPropagatorTest {
         mockSpanBuilder.injectRumContext(testedRumContextPropagator)
 
         // Then
-        argumentCaptor<Future<DatadogContext>> {
+        argumentCaptor<Future<MotadataContext>> {
             verify(mockSpanBuilder).withTag(eq(DATADOG_INITIAL_CONTEXT), capture())
             assertThat(firstValue).isEqualTo(futureMock)
         }
@@ -399,11 +399,11 @@ class RumContextPropagatorTest {
     }
 
     companion object {
-        fun newDDSpanWithLazyDatadogContext(value: Future<DatadogContext?>?) = mock<DDSpan> {
+        fun newDDSpanWithLazyDatadogContext(value: Future<MotadataContext?>?) = mock<DDSpan> {
             on { getTag(DATADOG_INITIAL_CONTEXT) } doAnswer { value }
         }
 
-        fun newDatadogSpanWithLazyDatadogContext(value: Future<DatadogContext?>?) =
+        fun newDatadogSpanWithLazyDatadogContext(value: Future<MotadataContext?>?) =
             mock<DatadogSpan> {
                 on { getTag(DATADOG_INITIAL_CONTEXT) } doAnswer { value }
             }

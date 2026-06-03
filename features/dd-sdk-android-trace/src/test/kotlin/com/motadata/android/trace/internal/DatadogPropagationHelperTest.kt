@@ -300,7 +300,7 @@ internal class DatadogPropagationHelperTest {
     }
 
     @Test
-    fun `M return true W extractSamplingDecision() {Datadog header sampler keep}`() {
+    fun `M return true W extractSamplingDecision() {Motadata header sampler keep}`() {
         // Given
         val headers = mapOf(
             DatadogHttpCodec.SAMPLING_PRIORITY_KEY to listOf(PrioritySampling.SAMPLER_KEEP.toString())
@@ -315,7 +315,7 @@ internal class DatadogPropagationHelperTest {
     }
 
     @Test
-    fun `M return true W extractSamplingDecision() {Datadog header user keep}`() {
+    fun `M return true W extractSamplingDecision() {Motadata header user keep}`() {
         // Given
         val headers = mapOf(
             DatadogHttpCodec.SAMPLING_PRIORITY_KEY to listOf(PrioritySampling.USER_KEEP.toString())
@@ -330,7 +330,7 @@ internal class DatadogPropagationHelperTest {
     }
 
     @Test
-    fun `M return false W extractSamplingDecision() {Datadog header sampler drop}`() {
+    fun `M return false W extractSamplingDecision() {Motadata header sampler drop}`() {
         // Given
         val headers = mapOf(
             DatadogHttpCodec.SAMPLING_PRIORITY_KEY to listOf(PrioritySampling.SAMPLER_DROP.toString())
@@ -345,7 +345,7 @@ internal class DatadogPropagationHelperTest {
     }
 
     @Test
-    fun `M return null W extractSamplingDecision() {Datadog header unset}`() {
+    fun `M return null W extractSamplingDecision() {Motadata header unset}`() {
         // Given
         val headers = mapOf(
             DatadogHttpCodec.SAMPLING_PRIORITY_KEY to listOf(PrioritySampling.UNSET.toString())
@@ -616,7 +616,7 @@ internal class DatadogPropagationHelperTest {
 
     @ParameterizedTest
     @MethodSource("datadogHeaderKeys")
-    fun `M replace Datadog headers W propagateSampledHeaders() {DATADOG header type}`(
+    fun `M replace Motadata headers W propagateSampledHeaders() {DATADOG header type}`(
         headerKey: String
     ) {
         // Given
@@ -633,7 +633,7 @@ internal class DatadogPropagationHelperTest {
 
     @ParameterizedTest
     @MethodSource("datadogHeaderKeys")
-    fun `M remove Datadog headers W propagateSampledHeaders() {no DATADOG header type}`(
+    fun `M remove Motadata headers W propagateSampledHeaders() {no DATADOG header type}`(
         headerKey: String
     ) {
         // Given
@@ -729,7 +729,7 @@ internal class DatadogPropagationHelperTest {
     }
 
     @Test
-    fun `M remove Datadog headers W propagateNotSampledHeaders() {SAMPLED injection type}`() {
+    fun `M remove Motadata headers W propagateNotSampledHeaders() {SAMPLED injection type}`() {
         // Given
         val tracingHeaderTypes = setOf(TracingHeaderType.DATADOG)
 

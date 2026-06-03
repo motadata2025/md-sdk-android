@@ -18,7 +18,7 @@ import com.motadata.android.trace.internal.net.TracerProvider
 /**
  * Configuration for APM distributed tracing of network requests.
  *
- * This class controls how the Datadog SDK instruments outgoing HTTP requests
+ * This class controls how the Motadata SDK instruments outgoing HTTP requests
  * with distributed tracing headers and optional client-side APM spans.
  *
  * At minimum, you must provide a list of first-party hosts (or a map of hosts
@@ -182,7 +182,7 @@ class ApmNetworkInstrumentationConfiguration internal constructor(
      * When called, the SDK will still inject distributed tracing headers
      * (e.g. `x-datadog-trace-id`, `x-datadog-parent-id`) into outgoing requests for
      * first-party hosts, enabling RUM-APM linking and end-to-end distributed traces.
-     * However, no client-side APM spans will be sent to the Datadog backend.
+     * However, no client-side APM spans will be sent to the Motadata backend.
      *
      * This is useful when you want distributed tracing visibility without the overhead
      * of client-side network spans.

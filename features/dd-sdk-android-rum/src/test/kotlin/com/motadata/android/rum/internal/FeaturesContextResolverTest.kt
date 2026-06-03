@@ -6,7 +6,7 @@
 
 package com.motadata.android.rum.internal
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.rum.utils.forge.Configurator
 import fr.xgouchet.elmyr.Forge
@@ -53,7 +53,7 @@ internal class FeaturesContextResolverTest {
                     mapOf(FeaturesContextResolver.HAS_REPLAY_KEY to true)
             )
         )
-        val fakeDatadogContext: DatadogContext = forge.getForgery<DatadogContext>()
+        val fakeDatadogContext: MotadataContext = forge.getForgery<MotadataContext>()
             .copy(featuresContext = fakeFeaturesContext)
 
         // When
@@ -75,7 +75,7 @@ internal class FeaturesContextResolverTest {
                     mapOf(FeaturesContextResolver.HAS_REPLAY_KEY to false)
             )
         )
-        val fakeDatadogContext: DatadogContext = forge.getForgery<DatadogContext>()
+        val fakeDatadogContext: MotadataContext = forge.getForgery<MotadataContext>()
             .copy(featuresContext = fakeFeaturesContext)
 
         // When
@@ -97,7 +97,7 @@ internal class FeaturesContextResolverTest {
                     mapOf(FeaturesContextResolver.HAS_REPLAY_KEY to forge.aString())
             )
         )
-        val fakeDatadogContext: DatadogContext = forge.getForgery<DatadogContext>()
+        val fakeDatadogContext: MotadataContext = forge.getForgery<MotadataContext>()
             .copy(featuresContext = fakeFeaturesContext)
 
         // When
@@ -119,7 +119,7 @@ internal class FeaturesContextResolverTest {
                     mapOf(FeaturesContextResolver.HAS_REPLAY_KEY to forge.aString())
             )
         )
-        val fakeDatadogContext: DatadogContext = forge.getForgery<DatadogContext>()
+        val fakeDatadogContext: MotadataContext = forge.getForgery<MotadataContext>()
             .copy(featuresContext = fakeFeaturesContext)
 
         // When
@@ -135,7 +135,7 @@ internal class FeaturesContextResolverTest {
     @Test
     fun `M return false W resolveHasReplay {no entry for SR feature context}`(forge: Forge) {
         // Given
-        val fakeDatadogContext: DatadogContext = forge.getForgery<DatadogContext>()
+        val fakeDatadogContext: MotadataContext = forge.getForgery<MotadataContext>()
 
         // When
         val hasReplay = testedFeaturesContextResolver.resolveViewHasReplay(
@@ -154,7 +154,7 @@ internal class FeaturesContextResolverTest {
             Feature.SESSION_REPLAY_FEATURE_NAME to
                 forge.aMap { forge.aString() to forge.aString() }
         )
-        val fakeDatadogContext: DatadogContext = forge.getForgery<DatadogContext>()
+        val fakeDatadogContext: MotadataContext = forge.getForgery<MotadataContext>()
             .copy(featuresContext = fakeFeaturesContext)
 
         // When
@@ -176,7 +176,7 @@ internal class FeaturesContextResolverTest {
                     mapOf(FeaturesContextResolver.VIEW_RECORDS_COUNT_KEY to fakeRecordsCount)
             )
         )
-        val fakeDatadogContext: DatadogContext = forge.getForgery<DatadogContext>()
+        val fakeDatadogContext: MotadataContext = forge.getForgery<MotadataContext>()
             .copy(featuresContext = fakeFeaturesContext)
 
         // When
@@ -198,7 +198,7 @@ internal class FeaturesContextResolverTest {
                     mapOf(FeaturesContextResolver.VIEW_RECORDS_COUNT_KEY to forge.aString())
             )
         )
-        val fakeDatadogContext: DatadogContext = forge.getForgery<DatadogContext>()
+        val fakeDatadogContext: MotadataContext = forge.getForgery<MotadataContext>()
             .copy(featuresContext = fakeFeaturesContext)
 
         // When
@@ -218,7 +218,7 @@ internal class FeaturesContextResolverTest {
             Feature.SESSION_REPLAY_FEATURE_NAME to
                 mapOf(fakeViewId to forge.aMap { forge.aString() to forge.aString() })
         )
-        val fakeDatadogContext: DatadogContext = forge.getForgery<DatadogContext>()
+        val fakeDatadogContext: MotadataContext = forge.getForgery<MotadataContext>()
             .copy(featuresContext = fakeFeaturesContext)
 
         // When
@@ -238,7 +238,7 @@ internal class FeaturesContextResolverTest {
             Feature.SESSION_REPLAY_FEATURE_NAME to
                 forge.aMap { forge.aString() to forge.aString() }
         )
-        val fakeDatadogContext: DatadogContext = forge.getForgery<DatadogContext>()
+        val fakeDatadogContext: MotadataContext = forge.getForgery<MotadataContext>()
             .copy(featuresContext = fakeFeaturesContext)
 
         // When
@@ -254,7 +254,7 @@ internal class FeaturesContextResolverTest {
     @Test
     fun `M return 0 W resolveViewRecordsCount {no entry for SR feature context}`(forge: Forge) {
         // Given
-        val fakeDatadogContext: DatadogContext = forge.getForgery()
+        val fakeDatadogContext: MotadataContext = forge.getForgery()
 
         // When
         val viewRecordsCount = testedFeaturesContextResolver.resolveViewRecordsCount(

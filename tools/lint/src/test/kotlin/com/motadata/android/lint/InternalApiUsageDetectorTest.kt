@@ -29,7 +29,7 @@ internal class InternalApiUsageDetectorTest {
     lateinit var datadogPackage: String
 
     @Test
-    fun `M report issue W internal class is used from non-Datadog package { java }`() {
+    fun `M report issue W internal class is used from non-Motadata package { java }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -55,7 +55,7 @@ internal class InternalApiUsageDetectorTest {
             .expectErrorCount(1)
             .expect(
                 """
-                    src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.java:8: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Datadog SDK packages. [DatadogInternalApiUsage]
+                    src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.java:8: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Motadata SDK packages. [DatadogInternalApiUsage]
                            InternalSdkClass instance = new InternalSdkClass();
                                                        ~~~~~~~~~~~~~~~~~~~~~~
                     1 errors, 0 warnings
@@ -64,7 +64,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M report issue W internal method is used from non-Datadog package { java }`() {
+    fun `M report issue W internal method is used from non-Motadata package { java }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -91,7 +91,7 @@ internal class InternalApiUsageDetectorTest {
             .expectErrorCount(1)
             .expect(
                 """
-                    src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.java:9: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Datadog SDK packages. [DatadogInternalApiUsage]
+                    src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.java:9: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Motadata SDK packages. [DatadogInternalApiUsage]
                            instance.internalMethod();
                            ~~~~~~~~~~~~~~~~~~~~~~~~~
                     1 errors, 0 warnings
@@ -100,7 +100,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M report issue W internal property is used from non-Datadog package { java }`() {
+    fun `M report issue W internal property is used from non-Motadata package { java }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -127,7 +127,7 @@ internal class InternalApiUsageDetectorTest {
             .expectErrorCount(1)
             .expect(
                 """
-                    src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.java:9: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Datadog SDK packages. [DatadogInternalApiUsage]
+                    src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.java:9: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Motadata SDK packages. [DatadogInternalApiUsage]
                            instance.getInternalProperty();
                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     1 errors, 0 warnings
@@ -136,7 +136,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M report issue W method of internal interface is used from non-Datadog package { java }`() {
+    fun `M report issue W method of internal interface is used from non-Motadata package { java }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -164,7 +164,7 @@ internal class InternalApiUsageDetectorTest {
             .expectErrorCount(1)
             .expect(
                 """
-                    src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.java:9: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Datadog SDK packages. [DatadogInternalApiUsage]
+                    src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.java:9: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Motadata SDK packages. [DatadogInternalApiUsage]
                            instance.internalMethod();
                            ~~~~~~~~~~~~~~~~~~~~~~~~~
                     1 errors, 0 warnings
@@ -173,7 +173,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M report issue W internal extension method is used from non-Datadog package { java }`() {
+    fun `M report issue W internal extension method is used from non-Motadata package { java }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -199,7 +199,7 @@ internal class InternalApiUsageDetectorTest {
             .expectErrorCount(1)
             .expect(
                 """
-                    src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.java:8: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Datadog SDK packages. [DatadogInternalApiUsage]
+                    src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.java:8: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Motadata SDK packages. [DatadogInternalApiUsage]
                            TestKt.internalMethod("something");
                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                     1 errors, 0 warnings
@@ -208,7 +208,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M report issue W internal method in object class is used from non-Datadog package { java }`() {
+    fun `M report issue W internal method in object class is used from non-Motadata package { java }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -217,12 +217,12 @@ internal class InternalApiUsageDetectorTest {
                     """
                 package $nonDatadogPackage;
                 
-                import com.motadata.android.Datadog;
+                import com.motadata.android.Motadata;
                 
                 public class ClassUnderTest { 
                 
                     public void testMethod() {
-                       Datadog._internalProxy();
+                       Motadata._internalProxy();
                     }
                 
                 }
@@ -234,8 +234,8 @@ internal class InternalApiUsageDetectorTest {
             .expectErrorCount(1)
             .expect(
                 """
-                    src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.java:8: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Datadog SDK packages. [DatadogInternalApiUsage]
-                           Datadog._internalProxy();
+                    src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.java:8: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Motadata SDK packages. [DatadogInternalApiUsage]
+                           Motadata._internalProxy();
                            ~~~~~~~~~~~~~~~~~~~~~~~~
                     1 errors, 0 warnings
                 """
@@ -243,7 +243,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M report issue W internal class is used from non-Datadog package { kotlin }`() {
+    fun `M report issue W internal class is used from non-Motadata package { kotlin }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -269,7 +269,7 @@ internal class InternalApiUsageDetectorTest {
             .expectErrorCount(1)
             .expect(
                 """
-                   src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.kt:8: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Datadog SDK packages. [DatadogInternalApiUsage]
+                   src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.kt:8: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Motadata SDK packages. [DatadogInternalApiUsage]
                           val instance = InternalSdkClass()
                                          ~~~~~~~~~~~~~~~~~~
                    1 errors, 0 warnings
@@ -278,7 +278,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M report issue W internal method is used from non-Datadog package { kotlin }`() {
+    fun `M report issue W internal method is used from non-Motadata package { kotlin }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -305,7 +305,7 @@ internal class InternalApiUsageDetectorTest {
             .expectErrorCount(1)
             .expect(
                 """
-                   src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.kt:9: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Datadog SDK packages. [DatadogInternalApiUsage]
+                   src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.kt:9: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Motadata SDK packages. [DatadogInternalApiUsage]
                           instance.internalMethod()
                           ~~~~~~~~~~~~~~~~~~~~~~~~~
                    1 errors, 0 warnings
@@ -314,7 +314,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M report issue W internal property is used from non-Datadog package { kotlin }`() {
+    fun `M report issue W internal property is used from non-Motadata package { kotlin }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -341,7 +341,7 @@ internal class InternalApiUsageDetectorTest {
             .expectErrorCount(1)
             .expect(
                 """
-                   src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.kt:9: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Datadog SDK packages. [DatadogInternalApiUsage]
+                   src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.kt:9: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Motadata SDK packages. [DatadogInternalApiUsage]
                           instance.internalProperty
                                    ~~~~~~~~~~~~~~~~
                    1 errors, 0 warnings
@@ -350,7 +350,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M report issue W internal extension method is used from non-Datadog package { kotlin }`() {
+    fun `M report issue W internal extension method is used from non-Motadata package { kotlin }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -381,7 +381,7 @@ internal class InternalApiUsageDetectorTest {
             .expectErrorCount(1)
             .expect(
                 """
-                   src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.kt:13: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Datadog SDK packages. [DatadogInternalApiUsage]
+                   src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.kt:13: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Motadata SDK packages. [DatadogInternalApiUsage]
                           literal.internalMethod()
                           ~~~~~~~~~~~~~~~~~~~~~~~~
                    1 errors, 0 warnings
@@ -390,7 +390,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M report issue W internal method in object class is used from non-Datadog package { kotlin }`() {
+    fun `M report issue W internal method in object class is used from non-Motadata package { kotlin }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -399,12 +399,12 @@ internal class InternalApiUsageDetectorTest {
                     """
                 package $nonDatadogPackage
                 
-                import com.motadata.android.Datadog
+                import com.motadata.android.Motadata
                 
                 class ClassUnderTest { 
                 
                     fun testMethod() {
-                       Datadog._internalProxy()
+                       Motadata._internalProxy()
                     }
                 
                 }
@@ -416,8 +416,8 @@ internal class InternalApiUsageDetectorTest {
             .expectErrorCount(1)
             .expect(
                 """
-                   src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.kt:8: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Datadog SDK packages. [DatadogInternalApiUsage]
-                          Datadog._internalProxy()
+                   src/${nonDatadogPackage.packageToPath()}/ClassUnderTest.kt:8: Error: Symbols annotated with com.motadata.android.lint.InternalApi shouldn't be used outside of Motadata SDK packages. [DatadogInternalApiUsage]
+                          Motadata._internalProxy()
                           ~~~~~~~~~~~~~~~~~~~~~~~~
                    1 errors, 0 warnings
                 """
@@ -425,7 +425,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M not report issue W internal method is used from non-Datadog package { kotlin + package-less file }`() {
+    fun `M not report issue W internal method is used from non-Motadata package { kotlin + package-less file }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -451,7 +451,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M not report issue W internal class is used from Datadog package { java }`() {
+    fun `M not report issue W internal class is used from Motadata package { java }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -478,7 +478,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M not report issue W internal method is used from Datadog package { java }`() {
+    fun `M not report issue W internal method is used from Motadata package { java }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -506,7 +506,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M not report issue W internal property is used from Datadog package { java }`() {
+    fun `M not report issue W internal property is used from Motadata package { java }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -534,7 +534,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M not report issue W internal extension method is used from Datadog package { java }`() {
+    fun `M not report issue W internal extension method is used from Motadata package { java }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -561,7 +561,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M not report issue W internal method in object class is used from Datadog package { java }`() {
+    fun `M not report issue W internal method in object class is used from Motadata package { java }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -570,12 +570,12 @@ internal class InternalApiUsageDetectorTest {
                     """
                 package $datadogPackage;
                 
-                import com.motadata.android.Datadog;
+                import com.motadata.android.Motadata;
                 
                 public class ClassUnderTest { 
                 
                     public void testMethod() {
-                       Datadog._internalProxy();
+                       Motadata._internalProxy();
                     }
                 
                 }
@@ -588,7 +588,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M not report issue W non-int method called from int interface impl from non-Datadog package { java }`() {
+    fun `M not report issue W non-int method called from int interface impl from non-Motadata package { java }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -617,7 +617,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M not report issue W internal class is used from Datadog package { kotlin }`() {
+    fun `M not report issue W internal class is used from Motadata package { kotlin }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -644,7 +644,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M not report issue W internal method is used from Datadog package { kotlin }`() {
+    fun `M not report issue W internal method is used from Motadata package { kotlin }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -672,7 +672,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M not report issue W internal property is used from Datadog package { kotlin }`() {
+    fun `M not report issue W internal property is used from Motadata package { kotlin }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -700,7 +700,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M not report issue W internal extension method is used from Datadog package { kotlin }`() {
+    fun `M not report issue W internal extension method is used from Motadata package { kotlin }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -727,7 +727,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M not report issue W internal method in object class is used from Datadog package { kotlin }`() {
+    fun `M not report issue W internal method in object class is used from Motadata package { kotlin }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -736,12 +736,12 @@ internal class InternalApiUsageDetectorTest {
                     """
                 package $datadogPackage
                 
-                import com.motadata.android.Datadog
+                import com.motadata.android.Motadata
                 
                 class ClassUnderTest { 
                 
                     fun testMethod() {
-                       Datadog._internalProxy()
+                       Motadata._internalProxy()
                     }
                 
                 }
@@ -754,7 +754,7 @@ internal class InternalApiUsageDetectorTest {
     }
 
     @Test
-    fun `M not report issue W non-int method called from int interface impl from non-Datadog package { kotlin }`() {
+    fun `M not report issue W non-int method called from int interface impl from non-Motadata package { kotlin }`() {
         lint()
             .files(
                 internalApiAnnotationStub,
@@ -825,7 +825,7 @@ internal class InternalApiUsageDetectorTest {
                 import com.motadata.android.lint.InternalApi;
                 import kotlin.jvm.JvmStatic;
 
-                object Datadog {
+                object Motadata {
 
                   @JvmStatic
                   @InternalApi

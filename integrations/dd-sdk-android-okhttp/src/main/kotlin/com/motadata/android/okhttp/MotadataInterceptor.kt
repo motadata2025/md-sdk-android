@@ -72,14 +72,14 @@ import java.util.UUID
  *                 TracingHeaderType.DATADOG,
  *                 TracingHeaderType.TRACECONTEXT))
  *     val client = OkHttpClient.Builder()
- *         .addInterceptor(DatadogInterceptor.Builder(tracedHostsWithHeaderType).build())
+ *         .addInterceptor(MotadataInterceptor.Builder(tracedHostsWithHeaderType).build())
  *         // Optionally to get information about redirections and retries
  *         // .addNetworkInterceptor(TracingInterceptor.Builder(tracedHostsWithHeaderType).build())
  *         .build()
  * ```
  */
 @Suppress("TooManyFunctions")
-open class DatadogInterceptor internal constructor(
+open class MotadataInterceptor internal constructor(
     sdkInstanceName: String?,
     tracedHosts: Map<String, Set<TracingHeaderType>>,
     tracedRequestListener: TracedRequestListener,
@@ -358,7 +358,7 @@ open class DatadogInterceptor internal constructor(
     // region Builder
 
     /**
-     * A Builder for the [DatadogInterceptor].
+     * A Builder for the [MotadataInterceptor].
      * @param tracedHostsWithHeaderType a list of all the hosts and header types that you want to
      * be automatically tracked by this interceptor. If registering a [com.motadata.android.trace.GlobalDatadogTracer],
      * the tracer must be configured with [com.motadata.android.trace.api.tracer.DatadogTracerBuilder.withTracingHeadersTypes] containing all the necessary
@@ -368,7 +368,7 @@ open class DatadogInterceptor internal constructor(
      * the interceptor won't trace any OkHttp [Request], nor propagate tracing information to the backend.
      */
     class Builder(tracedHostsWithHeaderType: Map<String, Set<TracingHeaderType>>) :
-        BaseBuilder<DatadogInterceptor, Builder>(tracedHostsWithHeaderType) {
+        BaseBuilder<MotadataInterceptor, Builder>(tracedHostsWithHeaderType) {
 
         private var rumResourceAttributesProvider: RumResourceAttributesProvider = NoOpRumResourceAttributesProvider()
         private var resourceHeadersExtractor: ResourceHeadersExtractor? = null
@@ -387,10 +387,10 @@ open class DatadogInterceptor internal constructor(
         }
 
         /**
-         * Builds the [DatadogInterceptor].
+         * Builds the [MotadataInterceptor].
          */
-        override fun build(): DatadogInterceptor {
-            return DatadogInterceptor(
+        override fun build(): MotadataInterceptor {
+            return MotadataInterceptor(
                 sdkInstanceName,
                 tracedHostsWithHeaderType,
                 tracedRequestListener,
@@ -432,8 +432,8 @@ open class DatadogInterceptor internal constructor(
 
     internal companion object {
         internal const val WARN_RUM_DISABLED =
-            "You set up a DatadogInterceptor for %s, but RUM features are disabled. " +
-                "Make sure you initialized the Datadog SDK with a valid Application Id, " +
+            "You set up a MotadataInterceptor for %s, but RUM features are disabled. " +
+                "Make sure you initialized the Motadata SDK with a valid Application Id, " +
                 "and that RUM features are enabled."
 
         internal const val ERROR_NO_RESPONSE =

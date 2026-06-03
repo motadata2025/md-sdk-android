@@ -6,7 +6,7 @@
 
 package com.motadata.android.flags.internal.aggregation
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.flags.model.EvaluationContext
 import com.motadata.android.flags.model.FlagEvaluation
 
@@ -33,8 +33,8 @@ internal data class EvaluationAggregationStats(
     /**
      * Converts the aggregated statistics to a [FlagEvaluation].
      */
-    fun toEvaluationEvent(datadogContext: DatadogContext): FlagEvaluation {
-        // Build context with Datadog-specific information
+    fun toEvaluationEvent(datadogContext: MotadataContext): FlagEvaluation {
+        // Build context with Motadata-specific information
         val eventContext = FlagEvaluation.Context(
             evaluation = null, // Evaluation context reserved for future use
             dd = FlagEvaluation.Dd(

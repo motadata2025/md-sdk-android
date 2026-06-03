@@ -7,7 +7,7 @@
 
 package com.motadata.android.okhttp
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.core.stub.StubSDKCore
@@ -68,7 +68,7 @@ class HeadBasedSamplingTest {
     @BeforeEach
     fun `set up`(forge: Forge) {
         stubSdkCore = StubSDKCore(forge)
-        val registry: Any = Datadog::class.java.getStaticValue("registry")
+        val registry: Any = Motadata::class.java.getStaticValue("registry")
         val instances: MutableMap<String, SdkCore> = registry.getFieldValue("instances")
         instances += stubSdkCore.name to stubSdkCore
         mockServer = MockWebServer()
@@ -80,7 +80,7 @@ class HeadBasedSamplingTest {
     @AfterEach
     fun `tear down`() {
         unregisterGlobalTracer()
-        Datadog.stopInstance(stubSdkCore.name)
+        Motadata.stopInstance(stubSdkCore.name)
         mockServer.shutdown()
     }
 

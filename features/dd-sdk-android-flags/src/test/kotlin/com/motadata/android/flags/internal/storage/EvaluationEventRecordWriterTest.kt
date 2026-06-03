@@ -6,7 +6,7 @@
 
 package com.motadata.android.flags.internal.storage
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureScope
@@ -48,7 +48,7 @@ internal class EvaluationEventRecordWriterTest {
     lateinit var mockEventBatchWriter: EventBatchWriter
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     private lateinit var testedWriter: EvaluationEventRecordWriter
 
@@ -67,7 +67,7 @@ internal class EvaluationEventRecordWriterTest {
         whenever(mockSdkCore.getFeature(Feature.FLAGS_EVALUATIONS_FEATURE_NAME)).thenReturn(mockFeature)
         whenever(mockFeature.withWriteContext(any(), any()))
             .thenAnswer { invocation ->
-                val callback = invocation.getArgument<(DatadogContext, EventWriteScope) -> Unit>(1)
+                val callback = invocation.getArgument<(MotadataContext, EventWriteScope) -> Unit>(1)
                 callback.invoke(fakeDatadogContext) { writerScope ->
                     writerScope.invoke(mockEventBatchWriter)
                 }

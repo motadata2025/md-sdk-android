@@ -11,7 +11,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.motadata.android.api.instrumentation.network.HttpRequestInfo
 import com.motadata.android.api.instrumentation.network.HttpResponseInfo
-import com.motadata.android.okhttp.DatadogInterceptor
+import com.motadata.android.okhttp.MotadataInterceptor
 import com.motadata.android.privacy.TrackingConsent
 import com.motadata.android.rum.RumResourceAttributesProvider
 import com.motadata.android.sdk.integration.RuntimeConfig
@@ -52,7 +52,7 @@ internal class ResourceTrackingTest {
         extraAttributes = mockServerRule.forge.exhaustiveAttributes()
         okHttpClient = OkHttpClient.Builder()
             .addInterceptor(
-                DatadogInterceptor.Builder(emptyMap())
+                MotadataInterceptor.Builder(emptyMap())
                     .setRumResourceAttributesProvider(object : RumResourceAttributesProvider {
                         @Deprecated("Use the variant with HttpRequestInfo/HttpResponseInfo instead")
                         override fun onProvideAttributes(

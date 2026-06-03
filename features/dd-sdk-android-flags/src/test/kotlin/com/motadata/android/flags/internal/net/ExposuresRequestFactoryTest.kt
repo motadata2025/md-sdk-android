@@ -7,7 +7,7 @@
 package com.motadata.android.flags.internal.net
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.net.RequestExecutionContext
 import com.motadata.android.api.net.RequestFactory
 import com.motadata.android.api.storage.RawBatchEvent
@@ -32,7 +32,7 @@ internal class ExposuresRequestFactoryTest {
     private lateinit var testedFactory: ExposuresRequestFactory
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @Mock
     lateinit var mockInternalLogger: InternalLogger

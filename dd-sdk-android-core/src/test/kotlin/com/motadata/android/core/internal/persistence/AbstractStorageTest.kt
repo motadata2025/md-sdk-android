@@ -7,7 +7,7 @@
 package com.motadata.android.core.internal.persistence
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.storage.EventBatchWriter
 import com.motadata.android.api.storage.EventType
 import com.motadata.android.api.storage.FeatureStorageConfiguration
@@ -77,7 +77,7 @@ internal class AbstractStorageTest {
     lateinit var fakeStorageConfiguration: FeatureStorageConfiguration
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @Forgery
     lateinit var fakeEventType: EventType

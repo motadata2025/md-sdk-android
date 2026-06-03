@@ -7,7 +7,7 @@
 package com.motadata.android.trace.internal.net
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.net.Request
 import com.motadata.android.api.net.RequestExecutionContext
 import com.motadata.android.api.net.RequestFactory
@@ -21,7 +21,7 @@ internal class TracesRequestFactory(
 ) : RequestFactory {
 
     override fun create(
-        context: DatadogContext,
+        context: MotadataContext,
         executionContext: RequestExecutionContext,
         batchData: List<RawBatchEvent>,
         batchMetadata: ByteArray?

@@ -8,7 +8,7 @@ package com.motadata.android.core.integration.tests
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.context.AccountInfo
 import com.motadata.android.api.context.UserInfo
@@ -85,7 +85,7 @@ class SdkCoreTest : MockServerTest() {
         fakeAccountExtraInfo = forge.exhaustiveAttributes(excludedKeys = setOf("id", "name"))
         val configuration: Configuration = forge.getForgery()
         testedSdkCore = checkNotNull(
-            Datadog.initialize(
+            Motadata.initialize(
                 ApplicationProvider.getApplicationContext(),
                 configuration,
                 fakeTrackingConsent
@@ -97,7 +97,7 @@ class SdkCoreTest : MockServerTest() {
 
     @After
     fun tearDown() {
-        Datadog.stopInstance()
+        Motadata.stopInstance()
     }
 
     // region set UserInfo

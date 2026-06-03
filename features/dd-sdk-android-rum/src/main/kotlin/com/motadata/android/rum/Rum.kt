@@ -9,7 +9,7 @@ package com.motadata.android.rum
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.Feature
@@ -28,7 +28,7 @@ import com.motadata.android.rum.internal.startup.RumSessionScopeStartupManager
 import com.motadata.android.telemetry.internal.TelemetryEventHandler
 
 /**
- * An entry point to Datadog RUM feature.
+ * An entry point to Motadata RUM feature.
  */
 object Rum {
 
@@ -42,7 +42,7 @@ object Rum {
     @Suppress("ReturnCount")
     @JvmOverloads
     @JvmStatic
-    fun enable(rumConfiguration: RumConfiguration, sdkCore: SdkCore = Datadog.getInstance()) {
+    fun enable(rumConfiguration: RumConfiguration, sdkCore: SdkCore = Motadata.getInstance()) {
         if (sdkCore !is InternalSdkCore) {
             val logger = (sdkCore as? FeatureSdkCore)?.internalLogger ?: InternalLogger.UNBOUND
             logger.log(

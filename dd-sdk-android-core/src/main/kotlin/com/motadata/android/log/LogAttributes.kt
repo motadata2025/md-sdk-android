@@ -16,7 +16,7 @@ import com.motadata.android.log.LogAttributes.USR_NAME
 /**
  * This class holds constant log attribute keys.
  *
- * You can find more information on Datadog's log attributes at
+ * You can find more information on Motadata's log attributes at
  * https://docs.datadoghq.com/logs/processing/attributes_naming_convention/ .
  */
 @Suppress("unused")
@@ -123,7 +123,7 @@ object LogAttributes {
 
     /**
      * The name of the originating host as defined in metrics. (String)
-     * This value is automatically filled by the Datadog framework.
+     * This value is automatically filled by the Motadata framework.
      */
     const val HOST: String = "host"
 
@@ -155,7 +155,7 @@ object LogAttributes {
 
     /**
      * The User-Agent as it is sent (raw format). (String)
-     * This value is automatically filled by the Datadog framework, using the System's "http.agent" property.
+     * This value is automatically filled by the Motadata framework, using the System's "http.agent" property.
      */
     const val HTTP_USERAGENT: String = "http.useragent"
 
@@ -210,7 +210,7 @@ object LogAttributes {
 
     /**
      * The IP address of the client that initiated the TCP connection. (String)
-     * This value is automatically filled by the Datadog framework.
+     * This value is automatically filled by the Motadata framework.
      */
     const val NETWORK_CLIENT_IP: String = "network.client.ip"
 

@@ -7,7 +7,7 @@
 package com.motadata.android.log
 
 import androidx.annotation.FloatRange
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.Feature
@@ -26,7 +26,7 @@ import java.util.concurrent.CopyOnWriteArraySet
 import android.util.Log as AndroidLog
 
 /**
- * A class enabling Datadog logging features.
+ * A class enabling Motadata logging features.
  *
  * It allows you to create a specific context (automatic information, custom attributes, tags) that
  * will be embedded in all logs sent through this logger.
@@ -167,7 +167,7 @@ internal constructor(internal var handler: LogHandler) {
      * Sends a log message with strings for error information.
      *
      * This method is meant for non-native or cross platform frameworks (such as React Native or
-     * Flutter) to send error information to Datadog. Although it can be used directly, it is
+     * Flutter) to send error information to Motadata. Although it can be used directly, it is
      * recommended to use other methods declared on `Logger`.
      *
      * @param priority the priority level (must be one of the Android Log.* constants)
@@ -202,7 +202,7 @@ internal constructor(internal var handler: LogHandler) {
      */
     class Builder
     @JvmOverloads
-    constructor(sdkCore: SdkCore = Datadog.getInstance()) {
+    constructor(sdkCore: SdkCore = Motadata.getInstance()) {
 
         private val sdkCore: FeatureSdkCore = sdkCore as FeatureSdkCore
 
@@ -249,9 +249,9 @@ internal constructor(internal var handler: LogHandler) {
         }
 
         /**
-         * Sets a minimum threshold (priority) for the log to be sent to the Datadog servers. If log priority
+         * Sets a minimum threshold (priority) for the log to be sent to the Motadata servers. If log priority
          * is below this one, then it won't be sent. Default value is -1 (allow all).
-         * @param minLogThreshold Minimum log threshold to be sent to the Datadog servers.
+         * @param minLogThreshold Minimum log threshold to be sent to the Motadata servers.
          */
         fun setRemoteLogThreshold(minLogThreshold: Int): Builder {
             minDatadogLogsPriority = minLogThreshold
@@ -311,7 +311,7 @@ internal constructor(internal var handler: LogHandler) {
          * Sets the sample rate for this Logger.
          * @param sampleRate the sample rate, in percent.
          * A value of `30` means we'll send 30% of the logs. If value is `0`, no logs will be sent
-         * to Datadog.
+         * to Motadata.
          * Default is 100.0 (ie: all logs are sent).
          */
         fun setRemoteSampleRate(@FloatRange(from = 0.0, to = 100.0) sampleRate: Float): Builder {
@@ -518,7 +518,7 @@ internal constructor(internal var handler: LogHandler) {
         internal const val SDK_NOT_INITIALIZED_WARNING_MESSAGE =
             "You're trying to create a Logger instance, but the SDK was not yet initialized. " +
                 "This Logger will not be able to send any messages. " +
-                "Please initialize the Datadog SDK first before" +
+                "Please initialize the Motadata SDK first before" +
                 " creating a new Logger instance."
     }
 }

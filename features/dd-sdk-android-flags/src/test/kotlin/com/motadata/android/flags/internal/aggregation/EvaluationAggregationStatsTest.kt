@@ -6,7 +6,7 @@
 
 package com.motadata.android.flags.internal.aggregation
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.flags.model.EvaluationContext
 import com.motadata.android.flags.utils.forge.ForgeConfigurator
 import fr.xgouchet.elmyr.Forge
@@ -53,7 +53,7 @@ internal class EvaluationAggregationStatsTest {
     lateinit var fakeViewName: String
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     private lateinit var fakeContext: EvaluationContext
     private lateinit var fakeEvaluationAggregationKey: EvaluationAggregationKey

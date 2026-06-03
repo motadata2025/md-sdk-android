@@ -7,7 +7,7 @@
 package com.motadata.android.sessionreplay
 
 import androidx.annotation.VisibleForTesting
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.Feature
@@ -17,7 +17,7 @@ import com.motadata.android.sessionreplay.internal.TouchPrivacyManager
 import java.lang.ref.WeakReference
 
 /**
- * An entry point to Datadog Session Replay feature.
+ * An entry point to Motadata Session Replay feature.
  */
 object SessionReplay {
 
@@ -40,7 +40,7 @@ object SessionReplay {
     @JvmStatic
     fun enable(
         sessionReplayConfiguration: SessionReplayConfiguration,
-        sdkCore: SdkCore = Datadog.getInstance()
+        sdkCore: SdkCore = Motadata.getInstance()
     ) {
         val featureSdkCore = sdkCore as FeatureSdkCore
         sessionReplayConfiguration.systemRequirementsConfiguration
@@ -78,7 +78,7 @@ object SessionReplay {
      * will be used.
      */
     fun startRecording(
-        sdkCore: SdkCore = Datadog.getInstance()
+        sdkCore: SdkCore = Motadata.getInstance()
     ) {
         val sessionReplayFeature = (sdkCore as? FeatureSdkCore)
             ?.getFeature(Feature.SESSION_REPLAY_FEATURE_NAME)?.let {
@@ -94,7 +94,7 @@ object SessionReplay {
      * will be used.
      */
     fun stopRecording(
-        sdkCore: SdkCore = Datadog.getInstance()
+        sdkCore: SdkCore = Motadata.getInstance()
     ) {
         val sessionReplayFeature = (sdkCore as? FeatureSdkCore)
             ?.getFeature(Feature.SESSION_REPLAY_FEATURE_NAME)?.let {

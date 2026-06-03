@@ -81,7 +81,7 @@ import java.util.UUID
 )
 @MockitoSettings(strictness = Strictness.LENIENT)
 @ForgeConfiguration(BaseConfigurator::class)
-internal class DatadogInterceptorTest : TracingInterceptorNotSendingSpanTest() {
+internal class MotadataInterceptorTest : TracingInterceptorNotSendingSpanTest() {
 
     @Mock
     lateinit var mockRumAttributesProvider: RumResourceAttributesProvider
@@ -100,7 +100,7 @@ internal class DatadogInterceptorTest : TracingInterceptorNotSendingSpanTest() {
     ): TracingInterceptor {
         whenever(rumMonitor.mockSdkCore.getFeature(Feature.RUM_FEATURE_NAME)) doReturn mock()
         whenever(rumMonitor.mockSdkCore.firstPartyHostResolver) doReturn mockResolver
-        return DatadogInterceptor(
+        return MotadataInterceptor(
             sdkInstanceName = null,
             tracedHosts = tracedHosts,
             tracedRequestListener = mockRequestListener,
@@ -115,7 +115,7 @@ internal class DatadogInterceptorTest : TracingInterceptorNotSendingSpanTest() {
     }
 
     override fun getExpectedOrigin(): String {
-        return DatadogInterceptor.ORIGIN_RUM
+        return MotadataInterceptor.ORIGIN_RUM
     }
 
     @BeforeEach
@@ -164,7 +164,7 @@ internal class DatadogInterceptorTest : TracingInterceptorNotSendingSpanTest() {
         testedInterceptor = instantiateTestedInterceptor(fakeLocalHosts) { _, _ -> mockLocalTracer }
 
         // When
-        (testedInterceptor as DatadogInterceptor).onSdkInstanceReady(rumMonitor.mockSdkCore)
+        (testedInterceptor as MotadataInterceptor).onSdkInstanceReady(rumMonitor.mockSdkCore)
 
         // Then
         verify(rumMonitor.mockInstance).notifyResourceHeadersTrackingConfigured(
@@ -181,7 +181,7 @@ internal class DatadogInterceptorTest : TracingInterceptorNotSendingSpanTest() {
         testedInterceptor = instantiateTestedInterceptor(fakeLocalHosts) { _, _ -> mockLocalTracer }
 
         // When
-        (testedInterceptor as DatadogInterceptor).onSdkInstanceReady(rumMonitor.mockSdkCore)
+        (testedInterceptor as MotadataInterceptor).onSdkInstanceReady(rumMonitor.mockSdkCore)
 
         // Then
         verify(rumMonitor.mockInstance).notifyResourceHeadersTrackingConfigured(
@@ -216,7 +216,7 @@ internal class DatadogInterceptorTest : TracingInterceptorNotSendingSpanTest() {
     @Test
     fun `M instantiate with default values W init() { no tracing hosts specified }`() {
         // When
-        val interceptor = DatadogInterceptor.Builder(emptyMap()).build()
+        val interceptor = MotadataInterceptor.Builder(emptyMap()).build()
 
         // Then
         assertThat(interceptor.tracedHosts).isEmpty()
@@ -236,7 +236,7 @@ internal class DatadogInterceptorTest : TracingInterceptorNotSendingSpanTest() {
         @StringForgery(regex = "[a-z]+\\.[a-z]{3}") hosts: List<String>
     ) {
         // When
-        val interceptor = DatadogInterceptor.Builder(hosts).build()
+        val interceptor = MotadataInterceptor.Builder(hosts).build()
 
         // Then
         assertThat(interceptor.tracedHosts.keys).containsAll(hosts)
@@ -575,7 +575,7 @@ internal class DatadogInterceptorTest : TracingInterceptorNotSendingSpanTest() {
         mockInternalLogger.verifyLog(
             InternalLogger.Level.WARN,
             targets = listOf(InternalLogger.Target.USER, InternalLogger.Target.TELEMETRY),
-            DatadogInterceptor.UNSUPPORTED_HTTP_METHOD.format(Locale.US, fakeMethod)
+            MotadataInterceptor.UNSUPPORTED_HTTP_METHOD.format(Locale.US, fakeMethod)
         )
     }
 

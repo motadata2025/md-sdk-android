@@ -7,7 +7,7 @@
 package com.motadata.android.core.integration.tests
 
 import androidx.test.core.app.ApplicationProvider
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.stub.StubStorageBackedFeature
 import com.motadata.android.api.storage.EventType
@@ -73,7 +73,7 @@ class PendingToGrantedAsyncTest(
     @After
     fun tearDown() {
         cleanStorage()
-        Datadog.stopInstance()
+        Motadata.stopInstance()
         cleanMockWebServer()
     }
 
@@ -81,7 +81,7 @@ class PendingToGrantedAsyncTest(
     fun mustReceiveTheEvents_whenFeatureWrite_asynchronousAccess() {
         // Given
         trackingConsent = TrackingConsent.PENDING
-        testedInternalSdkCore = Datadog.initialize(
+        testedInternalSdkCore = Motadata.initialize(
             context = ApplicationProvider.getApplicationContext(),
             configuration = fakeConfiguration,
             trackingConsent = trackingConsent
@@ -94,7 +94,7 @@ class PendingToGrantedAsyncTest(
         // When
         Thread {
             Thread.sleep(200)
-            Datadog.setTrackingConsent(TrackingConsent.GRANTED)
+            Motadata.setTrackingConsent(TrackingConsent.GRANTED)
             countDownLatch.countDown()
         }.start()
         Thread {

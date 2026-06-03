@@ -6,13 +6,13 @@
 
 package com.motadata.android.rum.internal
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 
 internal class FeaturesContextResolver {
 
     @Suppress("UNCHECKED_CAST")
-    fun resolveViewHasReplay(datadogContext: DatadogContext, viewId: String): Boolean {
+    fun resolveViewHasReplay(datadogContext: MotadataContext, viewId: String): Boolean {
         val sessionReplayContext =
             datadogContext.featuresContext[Feature.SESSION_REPLAY_FEATURE_NAME] ?: return false
         val sessionReplayMetadata = sessionReplayContext[viewId] as? Map<String, Any?>
@@ -20,7 +20,7 @@ internal class FeaturesContextResolver {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun resolveViewRecordsCount(datadogContext: DatadogContext, viewId: String): Long {
+    fun resolveViewRecordsCount(datadogContext: MotadataContext, viewId: String): Long {
         val sessionReplayContext =
             datadogContext.featuresContext[Feature.SESSION_REPLAY_FEATURE_NAME] ?: return 0L
         val sessionReplayMetadata = sessionReplayContext[viewId] as? Map<String, Any?>

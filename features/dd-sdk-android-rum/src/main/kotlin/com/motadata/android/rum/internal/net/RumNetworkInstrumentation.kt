@@ -179,7 +179,7 @@ class RumNetworkInstrumentation internal constructor(
 
         internal const val WARN_RUM_DISABLED =
             "You set up a %s instrumentation for %s, but RUM feature is disabled. " +
-                "Make sure you initialized the Datadog SDK with a valid Application ID, " +
+                "Make sure you initialized the Motadata SDK with a valid Application ID, " +
                 "and that RUM feature is enabled."
 
         /**

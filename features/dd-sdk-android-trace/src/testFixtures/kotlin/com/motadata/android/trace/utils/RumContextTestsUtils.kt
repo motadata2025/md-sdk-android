@@ -7,7 +7,7 @@
 package com.motadata.android.trace.utils
 
 import com.motadata.android.api.context.AccountInfo
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.UserInfo
 import com.motadata.android.api.feature.Feature
 import fr.xgouchet.elmyr.Forge
@@ -37,7 +37,7 @@ object RumContextTestsUtils {
         rumContext: Map<String, Any?>,
         accountInfo: AccountInfo? = null,
         userInfo: UserInfo = UserInfo()
-    ): DatadogContext = getForgery<DatadogContext>().let {
+    ): MotadataContext = getForgery<MotadataContext>().let {
         it.copy(
             featuresContext = it.featuresContext + mapOf(Feature.Companion.RUM_FEATURE_NAME to rumContext),
             accountInfo = accountInfo,

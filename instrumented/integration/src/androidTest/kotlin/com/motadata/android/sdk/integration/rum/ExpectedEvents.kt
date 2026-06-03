@@ -6,7 +6,7 @@
 
 package com.motadata.android.sdk.integration.rum
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.google.gson.JsonElement
 
@@ -83,7 +83,7 @@ internal enum class AppLaunchMetric(val metric: String) {
     TTFD("ttfd")
 }
 
-private val registryField = Datadog::class.java.getDeclaredField("registry").apply {
+private val registryField = Motadata::class.java.getDeclaredField("registry").apply {
     isAccessible = true
 }
 private val registryGetInstanceMethod = registryField.type.getMethod(

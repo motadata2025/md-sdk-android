@@ -1,8 +1,8 @@
-# Datadog SDK for Android - core library
+# Motadata SDK for Android - core library
 
 ## Getting started
 
-To include the Datadog SDK for Android in your project, simply add any product you want to use to your application's `build.gradle.kts` file.
+To include the Motadata SDK for Android in your project, simply add any product you want to use to your application's `build.gradle.kts` file.
 
 For example, in case of RUM:
 
@@ -16,7 +16,7 @@ dependencies {
 
 Before you can use the SDK, you need to set up the library with your application
 context and your API token. You can create a token from the Integrations > API
-in Datadog. **Make sure you create a key of type `Client Token`.**
+in Motadata. **Make sure you create a key of type `Client Token`.**
 
 ```kotlin
 class SampleApplication : Application() {
@@ -27,9 +27,9 @@ class SampleApplication : Application() {
             env = ENV_NAME,
             variant = APP_VARIANT_NAME
         )
-            .useSite(DatadogSite.US1) // replace with the site you're targeting (e.g.: US3, EU1, …)
+            .useSite(MotadataSite.US1) // replace with the site you're targeting (e.g.: US3, EU1, …)
             .build()
-        Datadog.initialize(this, configuration, trackingConsent)
+        Motadata.initialize(this, configuration, trackingConsent)
     }
 }
 ```
@@ -41,26 +41,26 @@ It is possible to initialize multiple instances of the SDK by associating them w
 Here is an example illustrating how to initialize a secondary core instance and use it:
 
 ```kotlin
-val namedSdkInstance = Datadog.initialize("myInstance", context, configuration, trackingConsent)
+val namedSdkInstance = Motadata.initialize("myInstance", context, configuration, trackingConsent)
 val userInfo = UserInfo(...)
-Datadog.setUserInfo(userInfo, sdkCore = namedSdkInstance)
+Motadata.setUserInfo(userInfo, sdkCore = namedSdkInstance)
 ```
 
 **Note**: The SDK instance name should have the same value between application runs. Storage paths for SDK events are associated with it.
 
-You can retrieve the named SDK instance by calling `Datadog.getInstance(<name>)` and use the `Datadog.isInitialized(<name>)` method to check if the particular SDK instance is initialized.
+You can retrieve the named SDK instance by calling `Motadata.getInstance(<name>)` and use the `Motadata.isInitialized(<name>)` method to check if the particular SDK instance is initialized.
 
-## Setting up Datadog RUM SDK
+## Setting up Motadata RUM SDK
 
-See the dedicated [Datadog Android RUM Collection documentation][1] to learn how to send RUM data from your Android or Android TV application to Datadog.
+See the dedicated [Motadata Android RUM Collection documentation][1] to learn how to send RUM data from your Android or Android TV application to Motadata.
 
-## Setting up the Datadog Logs SDK
+## Setting up the Motadata Logs SDK
 
-See the dedicated [Datadog Android Log Collection documentation][2] to learn how to forward logs from your Android or Android TV application to Datadog.
+See the dedicated [Motadata Android Log Collection documentation][2] to learn how to forward logs from your Android or Android TV application to Motadata.
 
-## Setting up Datadog Trace SDK
+## Setting up Motadata Trace SDK
 
-See the dedicated [Datadog Android Trace Collection documentation][3] to learn how to send traces from your Android or Android TV application to Datadog.
+See the dedicated [Motadata Android Trace Collection documentation][3] to learn how to send traces from your Android or Android TV application to Motadata.
 
 ## Setting the Library's verbosity
 
@@ -68,7 +68,7 @@ If you need to get information about the Library, you can set the verbosity
 level as follows: 
 
 ```kotlin
-    Datadog.setVerbosity(Log.INFO)
+    Motadata.setVerbosity(Log.INFO)
 ```
 
 All the internal messages in the library with a priority equal or higher than

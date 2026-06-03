@@ -7,7 +7,7 @@
 package com.motadata.android.flags.internal.net
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.flags.model.EvaluationContext
 import com.motadata.android.flags.utils.forge.ForgeConfigurator
@@ -68,7 +68,7 @@ internal class PrecomputedAssignmentsDownloaderTest {
     private lateinit var testedDownloader: PrecomputedAssignmentsDownloader
 
     @Forgery
-    private lateinit var fakeDatadogContext: DatadogContext
+    private lateinit var fakeDatadogContext: MotadataContext
 
     @Forgery
     private lateinit var fakeRumApplicationId: UUID

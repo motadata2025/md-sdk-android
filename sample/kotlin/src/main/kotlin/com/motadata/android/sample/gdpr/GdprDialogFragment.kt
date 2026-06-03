@@ -13,7 +13,7 @@ import android.view.ViewGroup
 import android.widget.RadioGroup
 import androidx.annotation.IdRes
 import androidx.fragment.app.DialogFragment
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.privacy.TrackingConsent
 import com.motadata.android.sample.Preferences
 import com.motadata.android.sample.R
@@ -40,7 +40,7 @@ internal class GdprDialogFragment : DialogFragment() {
                 R.id.granted -> TrackingConsent.GRANTED
                 else -> TrackingConsent.NOT_GRANTED
             }
-            Datadog.setTrackingConsent(trackingConsent)
+            Motadata.setTrackingConsent(trackingConsent)
             Preferences.defaultPreferences(requireContext()).setTrackingConsent(trackingConsent)
             (activity as? TrackingConsentChangeListener)?.onTrackingConsentChanged(trackingConsent)
         }

@@ -9,7 +9,7 @@ package com.motadata.android.webview
 import android.webkit.WebView
 import androidx.annotation.FloatRange
 import androidx.annotation.MainThread
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.Feature
@@ -36,7 +36,7 @@ import com.motadata.android.webview.internal.rum.domain.NoOpNativeRumViewsCache
 import java.util.Locale
 
 /**
- * An entry point to Datadog WebView Tracking feature.
+ * An entry point to Motadata WebView Tracking feature.
  */
 object WebViewTracking {
 
@@ -50,7 +50,7 @@ object WebViewTracking {
      * webView.settings.javaScriptEnabled = true
      * ```
      * - by default, navigation will happen outside of your application (in a browser or a different app). To prevent
-     * that and ensure Datadog can track the full WebView user journey, attach a [android.webkit.WebViewClient] to your
+     * that and ensure Motadata can track the full WebView user journey, attach a [android.webkit.WebViewClient] to your
      * WebView, as following:
      * ```
      * webView.webViewClient = WebViewClient()
@@ -62,7 +62,7 @@ object WebViewTracking {
      * @param allowedHosts a list of all the hosts that you want to track when loaded in the
      * WebView (e.g.: `listOf("example.com", "example.net")`).
      * @param logsSampleRate the sample rate for logs coming from the WebView, in percent. A value of `30` means we'll
-     * send 30% of the logs. If value is `0`, no logs will be sent to Datadog. Default is 100.0 (ie: all logs are sent).
+     * send 30% of the logs. If value is `0`, no logs will be sent to Motadata. Default is 100.0 (ie: all logs are sent).
      * @param sdkCore SDK instance on which to attach the bridge.
      * [More here](https://developer.android.com/guide/webapps/webview#HandlingNavigation).
      */
@@ -73,7 +73,7 @@ object WebViewTracking {
         webView: WebView,
         allowedHosts: List<String>,
         @FloatRange(from = 0.0, to = 100.0) logsSampleRate: Float = 100f,
-        sdkCore: SdkCore = Datadog.getInstance()
+        sdkCore: SdkCore = Motadata.getInstance()
     ) {
         val featureSdkCore = sdkCore as FeatureSdkCore
         if (!webView.settings.javaScriptEnabled) {

@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
 import com.motadata.android.sample.data.db.DatadogDbContract
-import com.motadata.android.sqlite.DatadogDatabaseErrorHandler
+import com.motadata.android.sqlite.MotadataDatabaseErrorHandler
 
 internal class DatadogSqliteHelper(context: Context) :
     SQLiteOpenHelper(
@@ -19,7 +19,7 @@ internal class DatadogSqliteHelper(context: Context) :
         DatadogDbContract.DB_NAME,
         null,
         DatadogDbContract.DB_VERSION,
-        DatadogDatabaseErrorHandler()
+        MotadataDatabaseErrorHandler()
     ) {
 
     override fun onCreate(db: SQLiteDatabase) {

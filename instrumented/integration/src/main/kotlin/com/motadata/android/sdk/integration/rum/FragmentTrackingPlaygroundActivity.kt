@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.rum.Rum
 import com.motadata.android.rum.tracking.FragmentViewTrackingStrategy
 import com.motadata.android.sdk.integration.R
@@ -35,8 +35,8 @@ internal class FragmentTrackingPlaygroundActivity : AppCompatActivity() {
             .build()
         val trackingConsent = intent.getTrackingConsent()
 
-        Datadog.setVerbosity(Log.VERBOSE)
-        val sdkCore = Datadog.initialize(this, config, trackingConsent)
+        Motadata.setVerbosity(Log.VERBOSE)
+        val sdkCore = Motadata.initialize(this, config, trackingConsent)
         checkNotNull(sdkCore)
 
         val rumConfig = RuntimeConfig.rumConfigBuilder()

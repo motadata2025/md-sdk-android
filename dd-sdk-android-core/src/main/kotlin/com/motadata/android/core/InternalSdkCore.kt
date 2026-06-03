@@ -8,7 +8,7 @@ package com.motadata.android.core
 
 import androidx.annotation.AnyThread
 import androidx.annotation.WorkerThread
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.NetworkInfo
 import com.motadata.android.api.feature.FeatureScope
 import com.motadata.android.api.feature.FeatureSdkCore
@@ -125,11 +125,11 @@ interface InternalSdkCore : FeatureSdkCore {
     fun getAllFeatures(): List<FeatureScope>
 
     /**
-     * @param withFeatureContexts Feature contexts ([DatadogContext.featuresContext] property) to include
-     * in the [DatadogContext] provided. The value should be the feature names as declared by [Feature.name].
+     * @param withFeatureContexts Feature contexts ([MotadataContext.featuresContext] property) to include
+     * in the [MotadataContext] provided. The value should be the feature names as declared by [Feature.name].
      * Default is empty, meaning that no feature contexts will be included.
-     * @return the current [DatadogContext], or null
+     * @return the current [MotadataContext], or null
      */
     @InternalApi
-    fun getDatadogContext(withFeatureContexts: Set<String> = emptySet()): DatadogContext?
+    fun getDatadogContext(withFeatureContexts: Set<String> = emptySet()): MotadataContext?
 }

@@ -14,12 +14,12 @@ import com.datadog.tools.annotation.NoOpImplementation
 @NoOpImplementation
 interface DatadogSpanContext {
     /**
-     * Represents the unique identifier for a Datadog trace.
+     * Represents the unique identifier for a Motadata trace.
      */
     val traceId: DatadogTraceId
 
     /**
-     * Represents the unique identifier for a Datadog span.
+     * Represents the unique identifier for a Motadata span.
      */
     val spanId: Long
 

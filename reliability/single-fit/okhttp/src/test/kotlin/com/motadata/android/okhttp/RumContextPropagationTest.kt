@@ -6,10 +6,10 @@
 package com.motadata.android.okhttp
 
 import android.content.Context
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.context.AccountInfo
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.UserInfo
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.SdkFeatureMock
@@ -77,7 +77,7 @@ class RumContextPropagationTest {
     @AfterEach
     fun `tear down`() {
         unregisterGlobalRumMonitor(stubSdkCore)
-        Datadog.stopInstance(stubSdkCore.name)
+        Motadata.stopInstance(stubSdkCore.name)
         mockServer.shutdown()
     }
 
@@ -245,11 +245,11 @@ class RumContextPropagationTest {
             block(mockServer.takeRequest())
         }
 
-        private fun Forge.prepareStubSdkCore(datadogContext: DatadogContext): StubSDKCore {
+        private fun Forge.prepareStubSdkCore(datadogContext: MotadataContext): StubSDKCore {
             val sdkCoreStub = StubSDKCore(this, datadogContext = datadogContext)
 
-            Datadog::class.java
-                .getStaticValue<Datadog, Any>("registry")
+            Motadata::class.java
+                .getStaticValue<Motadata, Any>("registry")
                 .getFieldValue<MutableMap<String, SdkCore>, Any>("instances")
                 .also { instances -> instances += sdkCoreStub.name to sdkCoreStub }
 

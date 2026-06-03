@@ -23,50 +23,50 @@ import org.mockito.quality.Strictness
 )
 @MockitoSettings(strictness = Strictness.LENIENT)
 @ForgeConfiguration(Configurator::class)
-internal class DatadogSiteTest {
+internal class MotadataSiteTest {
 
     @Test
     fun `M return intake endpoint W intakeEndpoint {US1}`() {
-        assertThat(DatadogSite.US1.intakeEndpoint).isEqualTo("https://browser-intake-datadoghq.com")
+        assertThat(MotadataSite.US1.intakeEndpoint).isEqualTo("https://browser-intake-datadoghq.com")
     }
 
     @Test
     fun `M return intake endpoint W intakeEndpoint {US3}`() {
-        assertThat(DatadogSite.US3.intakeEndpoint).isEqualTo("https://browser-intake-us3-datadoghq.com")
+        assertThat(MotadataSite.US3.intakeEndpoint).isEqualTo("https://browser-intake-us3-datadoghq.com")
     }
 
     @Test
     fun `M return intake endpoint W intakeEndpoint {US5}`() {
-        assertThat(DatadogSite.US5.intakeEndpoint).isEqualTo("https://browser-intake-us5-datadoghq.com")
+        assertThat(MotadataSite.US5.intakeEndpoint).isEqualTo("https://browser-intake-us5-datadoghq.com")
     }
 
     @Test
     fun `M return intake endpoint W intakeEndpoint {US1-FED}`() {
-        assertThat(DatadogSite.US1_FED.intakeEndpoint).isEqualTo("https://browser-intake-ddog-gov.com")
+        assertThat(MotadataSite.US1_FED.intakeEndpoint).isEqualTo("https://browser-intake-ddog-gov.com")
     }
 
     @Test
     fun `M return intake endpoint W intakeEndpoint {US2-FED}`() {
-        assertThat(DatadogSite.US2_FED.intakeEndpoint).isEqualTo("https://browser-intake-us2-ddog-gov.com")
+        assertThat(MotadataSite.US2_FED.intakeEndpoint).isEqualTo("https://browser-intake-us2-ddog-gov.com")
     }
 
     @Test
     fun `M return intake endpoint W intakeEndpoint {EU1}`() {
-        assertThat(DatadogSite.EU1.intakeEndpoint).isEqualTo("https://browser-intake-datadoghq.eu")
+        assertThat(MotadataSite.EU1.intakeEndpoint).isEqualTo("https://browser-intake-datadoghq.eu")
     }
 
     @Test
     fun `M return intake endpoint W intakeEndpoint {AP1}`() {
-        assertThat(DatadogSite.AP1.intakeEndpoint).isEqualTo("https://browser-intake-ap1-datadoghq.com")
+        assertThat(MotadataSite.AP1.intakeEndpoint).isEqualTo("https://browser-intake-ap1-datadoghq.com")
     }
 
     @Test
     fun `M return intake endpoint W intakeEndpoint {AP2}`() {
-        assertThat(DatadogSite.AP2.intakeEndpoint).isEqualTo("https://browser-intake-ap2-datadoghq.com")
+        assertThat(MotadataSite.AP2.intakeEndpoint).isEqualTo("https://browser-intake-ap2-datadoghq.com")
     }
 
     @Test
     fun `M return intake endpoint W intakeEndpoint {STAGING}`() {
-        assertThat(DatadogSite.STAGING.intakeEndpoint).isEqualTo("https://browser-intake-datad0g.com")
+        assertThat(MotadataSite.STAGING.intakeEndpoint).isEqualTo("https://browser-intake-datad0g.com")
     }
 }

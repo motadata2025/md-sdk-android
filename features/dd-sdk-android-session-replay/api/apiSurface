@@ -31,9 +31,9 @@ fun android.view.View.setSessionReplayImagePrivacy(ImagePrivacy?)
 fun android.view.View.setSessionReplayTextAndInputPrivacy(TextAndInputPrivacy?)
 fun android.view.View.setSessionReplayTouchPrivacy(TouchPrivacy?)
 object com.motadata.android.sessionreplay.SessionReplay
-  fun enable(SessionReplayConfiguration, com.motadata.android.api.SdkCore = Datadog.getInstance())
-  fun startRecording(com.motadata.android.api.SdkCore = Datadog.getInstance())
-  fun stopRecording(com.motadata.android.api.SdkCore = Datadog.getInstance())
+  fun enable(SessionReplayConfiguration, com.motadata.android.api.SdkCore = Motadata.getInstance())
+  fun startRecording(com.motadata.android.api.SdkCore = Motadata.getInstance())
+  fun stopRecording(com.motadata.android.api.SdkCore = Motadata.getInstance())
 data class com.motadata.android.sessionreplay.SessionReplayConfiguration
   class Builder
     constructor()

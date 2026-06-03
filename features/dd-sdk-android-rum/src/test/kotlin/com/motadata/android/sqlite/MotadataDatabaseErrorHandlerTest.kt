@@ -46,9 +46,9 @@ import java.util.Locale
 )
 @MockitoSettings(strictness = Strictness.LENIENT)
 @ForgeConfiguration(Configurator::class)
-internal class DatadogDatabaseErrorHandlerTest {
+internal class MotadataDatabaseErrorHandlerTest {
 
-    lateinit var testedHandler: DatadogDatabaseErrorHandler
+    lateinit var testedHandler: MotadataDatabaseErrorHandler
 
     @Mock
     lateinit var mockDefaultHandler: DatabaseErrorHandler
@@ -67,7 +67,7 @@ internal class DatadogDatabaseErrorHandlerTest {
 
     @BeforeEach
     fun `set up`() {
-        testedHandler = DatadogDatabaseErrorHandler(defaultErrorHandler = mockDefaultHandler)
+        testedHandler = MotadataDatabaseErrorHandler(defaultErrorHandler = mockDefaultHandler)
         whenever(mockSqliteDatabase.path).thenReturn(fakeDbPath)
         whenever(mockSqliteDatabase.version).thenReturn(fakeDbVersion)
         GlobalRumMonitor.registerIfAbsent(mockRumMonitor, datadog.mockInstance)
@@ -89,7 +89,7 @@ internal class DatadogDatabaseErrorHandlerTest {
             eq(
                 String.format(
                     Locale.US,
-                    DatadogDatabaseErrorHandler.DATABASE_CORRUPTION_ERROR_MESSAGE,
+                    MotadataDatabaseErrorHandler.DATABASE_CORRUPTION_ERROR_MESSAGE,
                     fakeDbPath
                 )
             ),
@@ -118,7 +118,7 @@ internal class DatadogDatabaseErrorHandlerTest {
     @Test
     fun `M initialise with DefaultDatabaseHandler instance W none provided`() {
         // WHEN
-        testedHandler = DatadogDatabaseErrorHandler()
+        testedHandler = MotadataDatabaseErrorHandler()
 
         // THEN
         assertThat(testedHandler.defaultErrorHandler)

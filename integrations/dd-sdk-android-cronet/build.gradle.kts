@@ -86,6 +86,6 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "A Cronet monitoring integration to use with the Datadog monitoring library for Android applications."
+    "A Cronet monitoring integration to use with the Motadata monitoring library for Android applications."
 )
 detektCustomConfig()

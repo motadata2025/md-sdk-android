@@ -23,7 +23,7 @@ import com.motadata.android.flags.model.UnparsedFlag
 import org.json.JSONObject
 
 /**
- * Production implementation of [FlagsClient] that integrates with Datadog's flag evaluation system.
+ * Production implementation of [FlagsClient] that integrates with Motadata's flag evaluation system.
  *
  * This implementation fetches precomputed flag values from the local repository and handles
  * type conversion with appropriate fallback to default values.
@@ -62,7 +62,7 @@ internal class DatadogFlagsClient(
      *
      * This method converts the public [EvaluationContext] to an internal format,
      * validates the context data, and asynchronously fetches updated flag evaluations
-     * from the Datadog service. If context validation fails, the operation is logged
+     * from the Motadata service. If context validation fails, the operation is logged
      * and silently ignored.
      *
      * This method is thread-safe and non-blocking. Flag updates will be available
@@ -503,7 +503,7 @@ internal class DatadogFlagsClient(
     /**
      * Retrieves a snapshot of all flag assignments.
      *
-     * Explicitly for use by the Datadog React Native SDK to get flags state snapshot for a given evaluation context.
+     * Explicitly for use by the Motadata React Native SDK to get flags state snapshot for a given evaluation context.
      *
      * @return A map of flag key to an unparsed flag, or an empty map if no flags are available or the client is not ready.
      */
@@ -512,7 +512,7 @@ internal class DatadogFlagsClient(
     /**
      * Tracks the evaluation of a flag from an exact flags state snapshot.
      *
-     * Supposed to be used by internal Datadog packages to track flag evaluations from an exact flags state snapshot.
+     * Supposed to be used by internal Motadata packages to track flag evaluations from an exact flags state snapshot.
      */
     internal fun trackFlagSnapshotEvaluation(flagKey: String, flag: UnparsedFlag, context: EvaluationContext) {
         trackResolution(flagKey, flag, context)

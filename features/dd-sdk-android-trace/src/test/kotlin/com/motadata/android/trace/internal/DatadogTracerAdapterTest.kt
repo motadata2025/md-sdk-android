@@ -5,7 +5,7 @@
  */
 package com.motadata.android.trace.internal
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureScope
 import com.motadata.android.api.feature.SdkFeatureMock
@@ -85,7 +85,7 @@ internal class DatadogTracerAdapterTest {
     lateinit var fakeRumContext: Map<String, Any?>
 
     @Mock
-    private lateinit var mockContextFuture: Future<DatadogContext?>
+    private lateinit var mockContextFuture: Future<MotadataContext?>
 
     @BeforeEach
     fun `set up`(forge: Forge) {
@@ -197,7 +197,7 @@ internal class DatadogTracerAdapterTest {
         // Then
         verify(mockSpanBuilderDelegate).withTag(
             eq(RumContextPropagator.DATADOG_INITIAL_CONTEXT),
-            any<Future<DatadogContext>>()
+            any<Future<MotadataContext>>()
         )
 
         verifyNoMoreInteractions(mockSpanBuilderDelegate)

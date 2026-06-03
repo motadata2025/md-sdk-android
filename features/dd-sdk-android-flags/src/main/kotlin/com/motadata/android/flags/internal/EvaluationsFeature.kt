@@ -34,7 +34,7 @@ internal class EvaluationsFeature(
     FeatureContextUpdateReceiver {
 
     /**
-     * Cached Datadog context information for evaluation events.
+     * Cached Motadata context information for evaluation events.
      */
     private data class RumContext(val rumApplicationId: String?, val rumViewName: String?)
 

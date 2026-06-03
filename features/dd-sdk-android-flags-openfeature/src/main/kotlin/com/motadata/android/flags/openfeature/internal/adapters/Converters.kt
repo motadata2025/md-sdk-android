@@ -14,7 +14,7 @@ import dev.openfeature.kotlin.sdk.EvaluationContext as OpenFeatureEvaluationCont
 import dev.openfeature.kotlin.sdk.exceptions.ErrorCode as OpenFeatureErrorCode
 
 /**
- * Converts an OpenFeature [EvaluationContext] to a Datadog [EvaluationContext].
+ * Converts an OpenFeature [EvaluationContext] to a Motadata [EvaluationContext].
  */
 internal fun OpenFeatureEvaluationContext.toDatadogEvaluationContext(): EvaluationContext {
     val targetingKey = this.getTargetingKey()
@@ -31,7 +31,7 @@ internal fun OpenFeatureEvaluationContext.toDatadogEvaluationContext(): Evaluati
 }
 
 /**
- * Converts a Datadog [ResolutionDetails] to an OpenFeature [ProviderEvaluation].
+ * Converts a Motadata [ResolutionDetails] to an OpenFeature [ProviderEvaluation].
  */
 internal fun <T : Any> ResolutionDetails<T>.toProviderEvaluation(): ProviderEvaluation<T> = ProviderEvaluation(
     value = this.value,
@@ -42,7 +42,7 @@ internal fun <T : Any> ResolutionDetails<T>.toProviderEvaluation(): ProviderEval
 )
 
 /**
- * Converts a Datadog [ErrorCode] to an OpenFeature [ErrorCode].
+ * Converts a Motadata [ErrorCode] to an OpenFeature [ErrorCode].
  */
 internal fun ErrorCode.toOpenFeatureErrorCode(): OpenFeatureErrorCode = when (this) {
     ErrorCode.PROVIDER_NOT_READY ->

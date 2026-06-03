@@ -8,7 +8,7 @@ package com.motadata.android.sample.data.db
 
 internal object DatadogDbContract {
 
-    const val DB_NAME = "Datadog.db"
+    const val DB_NAME = "Motadata.db"
     const val DB_VERSION = 1
 
     object Logs {

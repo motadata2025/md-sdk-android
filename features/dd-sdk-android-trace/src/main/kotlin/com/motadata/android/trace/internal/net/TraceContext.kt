@@ -9,7 +9,7 @@ package com.motadata.android.trace.internal.net
 import com.motadata.android.lint.InternalApi
 
 /**
- * The context of a trace to be propagated through HTTP requests for Datadog tracing.
+ * The context of a trace to be propagated through HTTP requests for Motadata tracing.
  */
 @InternalApi
 // TODO RUM-13441: this class should be internal after refactor of TracingInterceptor.

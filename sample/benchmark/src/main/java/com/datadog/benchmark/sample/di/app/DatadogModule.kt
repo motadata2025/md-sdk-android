@@ -9,7 +9,7 @@ package com.datadog.benchmark.sample.di.app
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.core.configuration.BackPressureMitigation
 import com.motadata.android.core.configuration.BackPressureStrategy
@@ -42,10 +42,10 @@ internal interface DatadogModule {
             config: BenchmarkConfig
         ): SdkCore {
             if (config.run == SyntheticsRun.Baseline) {
-                return Datadog.getInstance() // returns NoOpInternalSdkCore under the hood
+                return Motadata.getInstance() // returns NoOpInternalSdkCore under the hood
             }
 
-            return Datadog.initialize(
+            return Motadata.initialize(
                 context,
                 createDatadogConfiguration(),
                 TrackingConsent.GRANTED

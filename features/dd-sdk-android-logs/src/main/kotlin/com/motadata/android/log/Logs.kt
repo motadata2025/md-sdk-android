@@ -6,7 +6,7 @@
 
 package com.motadata.android.log
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.Feature
@@ -14,7 +14,7 @@ import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.log.internal.LogsFeature
 
 /**
- * An entry point to Datadog Logs feature.
+ * An entry point to Motadata Logs feature.
  */
 object Logs {
 
@@ -27,7 +27,7 @@ object Logs {
      */
     @JvmOverloads
     @JvmStatic
-    fun enable(logsConfiguration: LogsConfiguration, sdkCore: SdkCore = Datadog.getInstance()) {
+    fun enable(logsConfiguration: LogsConfiguration, sdkCore: SdkCore = Motadata.getInstance()) {
         val logsFeature = LogsFeature(
             sdkCore = sdkCore as FeatureSdkCore,
             customEndpointUrl = logsConfiguration.customEndpointUrl,
@@ -49,7 +49,7 @@ object Logs {
      */
     @JvmOverloads
     @JvmStatic
-    fun isEnabled(sdkCore: SdkCore = Datadog.getInstance()): Boolean {
+    fun isEnabled(sdkCore: SdkCore = Motadata.getInstance()): Boolean {
         return (sdkCore as FeatureSdkCore).getFeature(Feature.LOGS_FEATURE_NAME) != null
     }
 
@@ -66,7 +66,7 @@ object Logs {
      */
     @JvmOverloads
     @JvmStatic
-    fun addAttribute(key: String, value: Any?, sdkCore: SdkCore = Datadog.getInstance()) {
+    fun addAttribute(key: String, value: Any?, sdkCore: SdkCore = Motadata.getInstance()) {
         val featureCore = sdkCore as FeatureSdkCore
         val logsFeature = featureCore.getFeature(Feature.LOGS_FEATURE_NAME)?.unwrap<LogsFeature>()
         if (logsFeature == null) {
@@ -93,7 +93,7 @@ object Logs {
      */
     @JvmOverloads
     @JvmStatic
-    fun removeAttribute(key: String, sdkCore: SdkCore = Datadog.getInstance()) {
+    fun removeAttribute(key: String, sdkCore: SdkCore = Motadata.getInstance()) {
         val featureCore = sdkCore as FeatureSdkCore
         val logsFeature = featureCore.getFeature(Feature.LOGS_FEATURE_NAME)?.unwrap<LogsFeature>()
         if (logsFeature == null) {

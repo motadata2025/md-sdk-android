@@ -13,7 +13,7 @@ package com.motadata.android.trace
  */
 enum class TracingHeaderType(val headerType: String) {
     /**
-     * Datadog's [`x-datadog-*` header](https://docs.datadoghq.com/real_user_monitoring/connect_rum_and_traces/?tab=browserrum#how-are-rum-resources-linked-to-traces).
+     * Motadata's [`x-datadog-*` header](https://docs.datadoghq.com/real_user_monitoring/connect_rum_and_traces/?tab=browserrum#how-are-rum-resources-linked-to-traces).
      */
     DATADOG("DATADOG"),
 

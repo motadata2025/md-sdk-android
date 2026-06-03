@@ -8,7 +8,7 @@ package com.motadata.android.webview.internal.rum
 
 import androidx.annotation.WorkerThread
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.api.storage.DataWriter
@@ -58,7 +58,7 @@ internal class WebViewRumEventConsumer(
 
     private fun map(
         event: JsonObject,
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         rumContext: RumContext?,
         sessionReplayEnabled: Boolean
     ): JsonObject {

@@ -17,7 +17,7 @@ import com.motadata.android.compose.internal.InstrumentationType
 import com.motadata.android.compose.internal.sendTelemetry
 
 /**
- * Adds Datadog-specific semantic information to the layout node for the Session Replay feature.
+ * Adds Motadata-specific semantic information to the layout node for the Session Replay feature.
  *
  * This modifier ensures that the component is included in the semantics tree, allowing
  * Session Replay to identify and interpret it correctly during recording.
@@ -32,7 +32,7 @@ fun Modifier.datadog(name: String, isImage: Boolean = false): Modifier {
 }
 
 /**
- * This is the internal function reserved to Datadog Kotlin Compiler Plugin for auto instrumentation,
+ * This is the internal function reserved to Motadata Kotlin Compiler Plugin for auto instrumentation,
  * with telemetry to indicate that the auto-instrumentation is used instead of manual instrumentation.
  */
 internal fun Modifier.instrumentedDatadog(name: String, isImage: Boolean): Modifier {

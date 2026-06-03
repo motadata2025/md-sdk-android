@@ -1,4 +1,4 @@
-# Datadog Integration for Apollo Kotlin
+# Motadata Integration for Apollo Kotlin
 
 ## Getting started
 
@@ -17,10 +17,10 @@ dependencies {
 
 ### Initial setup
 
-1. Set up RUM monitoring with [Datadog Android RUM][2].
-2. Set up OkHttp instrumentation with the [Datadog RUM SDK][3].
+1. Set up RUM monitoring with [Motadata Android RUM][2].
+2. Set up OkHttp instrumentation with the [Motadata RUM SDK][3].
 
-Add the Datadog interceptor to your Apollo Client setup:
+Add the Motadata interceptor to your Apollo Client setup:
  
 ```kotlin
 val apolloClient = ApolloClient.Builder()
@@ -30,8 +30,8 @@ val apolloClient = ApolloClient.Builder()
     .build()
 ```
 
-This automatically adds Datadog headers to your GraphQL requests, allowing them to be tracked
-by Datadog. Note that while `query` and `mutation` type operations are tracked, `subscription` operations are not.
+This automatically adds Motadata headers to your GraphQL requests, allowing them to be tracked
+by Motadata. Note that while `query` and `mutation` type operations are tracked, `subscription` operations are not.
 
 #### Sending GraphQL payloads
 

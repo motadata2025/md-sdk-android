@@ -6,7 +6,7 @@
 
 package com.motadata.android.sessionreplay.internal.storage
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.api.storage.EventType
@@ -38,6 +38,6 @@ internal class SessionReplayResourcesWriter(
             }
     }
 
-    private val DatadogContext.rumApplicationId: String
+    private val MotadataContext.rumApplicationId: String
         get() = (featuresContext[Feature.RUM_FEATURE_NAME]?.get("application_id") as? String).orEmpty()
 }

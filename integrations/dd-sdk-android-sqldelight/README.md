@@ -1,8 +1,8 @@
-# Datadog Integration for SQLDelight
+# Motadata Integration for SQLDelight
 
 ## Getting Started 
 
-To include the Datadog integration for [SQLDelight][1] in your project, simply add the
+To include the Motadata integration for [SQLDelight][1] in your project, simply add the
 following to your application's `build.gradle.kts` file.
 
 ```kotlin
@@ -15,8 +15,8 @@ dependencies {
 
 ### Initial Setup
 
-1. Setup RUM monitoring, see the dedicated [Datadog Android RUM Collection documentation][2] to learn how.
-2. Setup Trace monitoring, see the dedicated [Datadog Android Trace Collection documentation][3] to learn how.
+1. Setup RUM monitoring, see the dedicated [Motadata Android RUM Collection documentation][2] to learn how.
+2. Setup Trace monitoring, see the dedicated [Motadata Android Trace Collection documentation][3] to learn how.
 3. Following SQLDelight's [Generated API documentation][1], you just have to provide the `DatadogSqliteCallback` in the 
 `AndroidSqliteDriver` constructor.
 

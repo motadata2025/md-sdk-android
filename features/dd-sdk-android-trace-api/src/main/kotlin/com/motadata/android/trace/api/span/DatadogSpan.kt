@@ -9,7 +9,7 @@ import com.motadata.android.trace.api.trace.DatadogTraceId
 import com.datadog.tools.annotation.NoOpImplementation
 
 /**
- * Represents an interface for a Datadog span, which encapsulates information about a single span within a trace.
+ * Represents an interface for a Motadata span, which encapsulates information about a single span within a trace.
  * This includes span metadata, error handling, timing, and tag/metric management.
  */
 @NoOpImplementation
@@ -32,7 +32,7 @@ interface DatadogSpan {
     val samplingPriority: Int?
 
     /**
-     * Represents the unique identifier for a trace in the Datadog tracing system.
+     * Represents the unique identifier for a trace in the Motadata tracing system.
      */
     val traceId: DatadogTraceId
 
@@ -72,7 +72,7 @@ interface DatadogSpan {
     val localRootSpan: DatadogSpan?
 
     /**
-     * Retrieves the context associated with this Datadog span.
+     * Retrieves the context associated with this Motadata span.
      *
      * @return The [DatadogSpanContext] containing trace and span-specific information such as identifiers, sampling priority, and tags.
      */

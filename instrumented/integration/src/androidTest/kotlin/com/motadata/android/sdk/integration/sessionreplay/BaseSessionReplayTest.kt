@@ -10,7 +10,7 @@ import android.app.Activity
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.platform.app.InstrumentationRegistry
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.rum.GlobalRumMonitor
 import com.motadata.android.sdk.integration.sessionreplay.SessionReplaySegmentUtils.extractSrSegmentAsJson
 import com.motadata.android.sdk.rules.HandledRequest
@@ -49,7 +49,7 @@ internal abstract class BaseSessionReplayTest<R : Activity> {
             // Activity may already be finished or not available
         }
         GlobalRumMonitor.get().stopSession()
-        Datadog.stopInstance()
+        Motadata.stopInstance()
     }
 
     protected fun extractRecordsFromRequests(handledRequests: List<HandledRequest>): List<JsonObject> {

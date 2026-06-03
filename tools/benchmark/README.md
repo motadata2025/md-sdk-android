@@ -1,13 +1,13 @@
-# Datadog benchmark module
+# Motadata benchmark module
 
 ## Overview
 
-This is a module for Datadog internal use to benchmark the overhead of SDK features.
+This is a module for Motadata internal use to benchmark the overhead of SDK features.
 It measures gauges that include CPU ticks, memory usage, and FPS of the application.
 
 ## Getting started
 
-1. Build the Datadog exporter configuration:
+1. Build the Motadata exporter configuration:
 
 ```kotlin
 val configuration = DatadogExporterConfiguration.Builder("API_KEY")
@@ -40,7 +40,7 @@ meter.stopGauges()
 ## Observe Metrics
 
 All the metrics are uploaded
-through the [Datadog metric submission API](https://docs.datadoghq.com/api/latest/metrics/#submit-metrics).
+through the [Motadata metric submission API](https://docs.datadoghq.com/api/latest/metrics/#submit-metrics).
 The metric names for each gauge:
 
 * [android.benchmark.cpu]: CPU ticks

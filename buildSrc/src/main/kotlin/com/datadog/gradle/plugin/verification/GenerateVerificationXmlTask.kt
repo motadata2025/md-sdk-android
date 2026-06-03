@@ -134,6 +134,6 @@ abstract class GenerateVerificationXmlTask : DefaultTask() {
         private const val ATTR_VALUE = "value"
         private const val ATTR_ORIGIN = "origin"
 
-        private const val ORIGIN = "Datadog official GitHub release"
+        private const val ORIGIN = "Motadata official GitHub release"
     }
 }

@@ -9,7 +9,7 @@ import com.datadog.tools.annotation.NoOpImplementation
 
 /**
  * Builder interface for creating instances of [DatadogSpan].
- * Provides methods to configure various attributes and context of a Datadog span
+ * Provides methods to configure various attributes and context of a Motadata span
  * before initializing it.
  */
 @NoOpImplementation

@@ -8,7 +8,7 @@ package com.motadata.android.trace.internal.data
 
 import androidx.annotation.WorkerThread
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.api.storage.EventBatchWriter
@@ -74,7 +74,7 @@ internal class CoreTraceWriter(
 
     @WorkerThread
     private fun writeSpan(
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         writer: EventBatchWriter,
         span: DDSpan
     ) {

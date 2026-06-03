@@ -16,7 +16,7 @@ import androidx.compose.runtime.produceState
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.FeatureSdkCore
@@ -49,7 +49,7 @@ fun <T : Any> Navigation3TrackingEffect(
     keyPredicate: ComponentPredicate<T> = AcceptAllNavKeyPredicate(),
     backStackKeyResolver: BackStackKeyResolver<T> = HashcodeBackStackKeyResolver(),
     attributesResolver: AttributesResolver<T>? = null,
-    sdkCore: SdkCore = Datadog.getInstance()
+    sdkCore: SdkCore = Motadata.getInstance()
 ) {
     LaunchedEffect(Unit) {
         sendTelemetry(
@@ -75,7 +75,7 @@ internal fun <T : Any> InstrumentedNavigation3TrackingEffect(
     keyPredicate: ComponentPredicate<T> = AcceptAllNavKeyPredicate(),
     backStackKeyResolver: BackStackKeyResolver<T> = HashcodeBackStackKeyResolver(),
     attributesResolver: AttributesResolver<T>? = null,
-    sdkCore: SdkCore = Datadog.getInstance()
+    sdkCore: SdkCore = Motadata.getInstance()
 ) {
     LaunchedEffect(Unit) {
         sendTelemetry(
@@ -101,7 +101,7 @@ private fun <T : Any> InternalNavigation3TrackingStrategy(
     destinationPredicate: ComponentPredicate<T> = AcceptAllNavKeyPredicate(),
     backStackKeyResolver: BackStackKeyResolver<T> = HashcodeBackStackKeyResolver(),
     attributesResolver: AttributesResolver<T>? = null,
-    sdkCore: SdkCore = Datadog.getInstance()
+    sdkCore: SdkCore = Motadata.getInstance()
 ) {
     val topKey = backStack.lastOrNull() ?: return
     val isResumed by rememberIsResumed()

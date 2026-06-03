@@ -9,7 +9,7 @@ package com.motadata.android.sdk.integration.trace
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.privacy.TrackingConsent
 import com.motadata.android.sdk.rules.MockServerActivityTestRule
 import com.datadog.tools.unit.ConditionWatcher
@@ -33,7 +33,7 @@ internal class ConsentPendingGrantedTracesTest : TracesTest() {
         runInstrumentationScenario(mockServerRule)
 
         // update the tracking consent
-        Datadog.setTrackingConsent(TrackingConsent.GRANTED)
+        Motadata.setTrackingConsent(TrackingConsent.GRANTED)
 
         // Wait to make sure all batches are consumed
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()

@@ -25,7 +25,7 @@ import com.datadog.trace.logger.LoggerFactory;
 import java.util.Map;
 import java.util.TreeMap;
 
-/** A codec designed for HTTP transport via headers using Datadog headers */
+/** A codec designed for HTTP transport via headers using Motadata headers */
 public class DatadogHttpCodec {
   private static final Logger log = LoggerFactory.getLogger(DatadogHttpCodec.class);
 
@@ -95,10 +95,10 @@ public class DatadogHttpCodec {
   public static HttpCodec.Extractor newExtractor(
       Config config, Supplier<TraceConfig> traceConfigSupplier) {
     return new TagContextExtractor(
-        traceConfigSupplier, () -> new DatadogContextInterpreter(config));
+        traceConfigSupplier, () -> new MotadataContextInterpreter(config));
   }
 
-  private static class DatadogContextInterpreter extends ContextInterpreter {
+  private static class MotadataContextInterpreter extends ContextInterpreter {
 
     private static final int TRACE_ID = 0;
     private static final int SPAN_ID = 1;
@@ -111,7 +111,7 @@ public class DatadogHttpCodec {
 
     private final boolean isAwsPropagationEnabled;
 
-    private DatadogContextInterpreter(Config config) {
+    private MotadataContextInterpreter(Config config) {
       super(config);
       isAwsPropagationEnabled = config.isAwsPropagationEnabled();
     }

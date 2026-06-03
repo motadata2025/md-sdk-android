@@ -13,7 +13,7 @@ import android.content.res.Resources
 import android.os.SystemClock
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.context.AccountInfo
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.NetworkInfo
 import com.motadata.android.api.context.TimeInfo
 import com.motadata.android.api.context.UserInfo
@@ -42,7 +42,7 @@ class StubSDKCore(
     private val forge: Forge,
     private val mockContext: Application = mock(),
     private val mockSdkCore: InternalSdkCore = kmock { on { name } doReturn toString() },
-    private var datadogContext: DatadogContext = forge.getForgery<DatadogContext>().copy(source = "android")
+    private var datadogContext: MotadataContext = forge.getForgery<MotadataContext>().copy(source = "android")
 ) : InternalSdkCore by mockSdkCore {
 
     private val featureScopes = mutableMapOf<String, FeatureScope>()
@@ -141,7 +141,7 @@ class StubSDKCore(
     /**
      * Stubs a feature and its corresponding feature scope with a mock.
      *
-     * @param feature The Datadog feature being used in core.
+     * @param feature The Motadata feature being used in core.
      * @param featureScope The feature scope that will be returned by the [getFeature] method.
      */
     fun stubFeatureScope(feature: Feature, featureScope: FeatureScope) {
@@ -161,7 +161,7 @@ class StubSDKCore(
     override val firstPartyHostResolver: FirstPartyHostHeaderTypeResolver =
         StubFirstPartyHostHeaderTypeResolver()
 
-    override fun getDatadogContext(withFeatureContexts: Set<String>): DatadogContext {
+    override fun getDatadogContext(withFeatureContexts: Set<String>): MotadataContext {
         return datadogContext
     }
 

@@ -7,7 +7,7 @@
 
 package com.motadata.android.okhttp
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.core.stub.StubEvent
@@ -84,7 +84,7 @@ class CustomInterceptorPreservationTest {
     @BeforeEach
     fun `set up`(forge: Forge) {
         stubSdkCore = StubSDKCore(forge)
-        val registry: Any = Datadog::class.java.getStaticValue("registry")
+        val registry: Any = Motadata::class.java.getStaticValue("registry")
         val instances: MutableMap<String, SdkCore> = registry.getFieldValue("instances")
         instances += stubSdkCore.name to stubSdkCore
 
@@ -117,7 +117,7 @@ class CustomInterceptorPreservationTest {
     fun `tear down`() {
         GlobalDatadogTracer.clear()
         unregisterGlobalRumMonitor(stubSdkCore)
-        Datadog.stopInstance(stubSdkCore.name)
+        Motadata.stopInstance(stubSdkCore.name)
         mockServer.shutdown()
     }
 
@@ -160,7 +160,7 @@ class CustomInterceptorPreservationTest {
     }
 
     @Test
-    fun `M preserve both custom and Datadog tracing headers W call is made`() {
+    fun `M preserve both custom and Motadata tracing headers W call is made`() {
         // Given
         mockServer.enqueue(MockResponse())
         val client = OkHttpClient.Builder()

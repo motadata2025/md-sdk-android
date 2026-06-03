@@ -6,7 +6,7 @@
 
 package com.motadata.android.timber
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.log.Logger
 import timber.log.Timber
@@ -22,16 +22,16 @@ class DatadogTree(
 
     /**
      * Creates a [Timber.Tree] with a default [Logger] having a minimum log priority
-     * for Datadog logs set to specified value.
+     * for Motadata logs set to specified value.
      *
      * See [Logger.Builder.setRemoteLogThreshold] for details.
      *
-     * @param minLogPriority Minimum log threshold (priority) to be sent to the Datadog servers.
+     * @param minLogPriority Minimum log threshold (priority) to be sent to the Motadata servers.
      * @param sdkCore SDK instance to bind to. If not provided, default instance will be used.
      */
     @Suppress("unused")
     @JvmOverloads
-    constructor(minLogPriority: Int, sdkCore: SdkCore = Datadog.getInstance()) :
+    constructor(minLogPriority: Int, sdkCore: SdkCore = Motadata.getInstance()) :
         this(
             Logger.Builder(sdkCore)
                 .setRemoteLogThreshold(minLogPriority)

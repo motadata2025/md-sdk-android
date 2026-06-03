@@ -21,7 +21,7 @@ import io.gitlab.arturbosch.detekt.api.RuleSet
 import io.gitlab.arturbosch.detekt.api.RuleSetProvider
 
 /**
- * The [RuleSetProvider] for Datadog's SDK for Android.
+ * The [RuleSetProvider] for Motadata's SDK for Android.
  */
 class DatadogProvider : RuleSetProvider {
 

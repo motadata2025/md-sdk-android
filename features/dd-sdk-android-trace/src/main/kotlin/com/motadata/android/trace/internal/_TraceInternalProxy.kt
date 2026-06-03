@@ -23,10 +23,10 @@ import com.datadog.trace.core.propagation.Baggage
 @Suppress("ClassName")
 object _TraceInternalProxy {
     /**
-     * Provides a mechanism for converting Datadog span IDs between decimal and hexadecimal representations.
+     * Provides a mechanism for converting Motadata span IDs between decimal and hexadecimal representations.
      *
      * This converter is utilized to ensure span ID consistency and proper formatting for distributed tracing
-     * when working with the Datadog SDK.
+     * when working with the Motadata SDK.
      */
     @JvmField
     val spanIdConverter: DatadogSpanIdConverter = DatadogSpanIdConverter()
@@ -50,7 +50,7 @@ object _TraceInternalProxy {
     }
 
     /**
-     * Enables 128-bit trace ID generation for the provided Datadog tracer builder.
+     * Enables 128-bit trace ID generation for the provided Motadata tracer builder.
      */
     fun setTraceId128BitGenerationEnabled(builder: DatadogTracerBuilder): DatadogTracerBuilder {
         (builder as? DatadogTracerBuilderAdapter)?.setTraceId128BitGenerationEnabled(true)

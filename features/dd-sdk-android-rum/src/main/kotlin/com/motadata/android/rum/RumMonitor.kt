@@ -16,9 +16,9 @@ import com.datadog.tools.annotation.NoOpImplementation
 import com.motadata.android.rum.featureoperations.FailureReason as DeprecatedFailureReason
 
 /**
- *  A class enabling Datadog RUM features.
+ *  A class enabling Motadata RUM features.
  *
- *  It allows you to record User events that can be explored and analyzed in Datadog Dashboards.
+ *  It allows you to record User events that can be explored and analyzed in Motadata Dashboards.
  *
  *  You can only have one active RumMonitor, and should retrieve it from the [GlobalRumMonitor] object.
  */
@@ -228,7 +228,7 @@ interface RumMonitor {
      * Notifies that an error occurred in the active View.
      *
      * This method is meant for non-native or cross platform frameworks (such as React Native or
-     * Flutter) to send error information to Datadog. Although it can be used directly, it is
+     * Flutter) to send error information to Motadata. Although it can be used directly, it is
      * recommended to pass a Throwable instead.
      *
      * @param message a message explaining the error
@@ -452,7 +452,7 @@ interface RumMonitor {
     var debug: Boolean
 
     /**
-     * For Datadog internal use only.
+     * For Motadata internal use only.
      *
      * @see _RumInternalProxy
      */

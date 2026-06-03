@@ -6,7 +6,7 @@
 
 package com.motadata.android.flags.openfeature
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.flags.FlagsClient
@@ -31,10 +31,10 @@ import com.motadata.android.flags.model.EvaluationContext as DatadogEvaluationCo
 import dev.openfeature.kotlin.sdk.EvaluationContext as OpenFeatureEvaluationContext
 
 /**
- * OpenFeature [FeatureProvider] implementation backed by Datadog Feature Flags.
+ * OpenFeature [FeatureProvider] implementation backed by Motadata Feature Flags.
  *
- * This provider bridges the OpenFeature API with Datadog's Feature Flags SDK, enabling
- * standardized feature flag management while leveraging Datadog's observability platform.
+ * This provider bridges the OpenFeature API with Motadata's Feature Flags SDK, enabling
+ * standardized feature flag management while leveraging Motadata's observability platform.
  *
  * ## Usage
  *
@@ -236,7 +236,7 @@ class DatadogFlagsProvider private constructor(private val flagsClient: FlagsCli
     }
 
     companion object {
-        private const val PROVIDER_NAME = "Datadog Feature Flags Provider"
+        private const val PROVIDER_NAME = "Motadata Feature Flags Provider"
 
         /**
          * Sentinel default value used to avoid unnecessary Value-to-Map conversion.
@@ -250,7 +250,7 @@ class DatadogFlagsProvider private constructor(private val flagsClient: FlagsCli
 
         internal fun wrap(
             flagsClient: FlagsClient,
-            sdkCore: FeatureSdkCore = Datadog.getInstance() as FeatureSdkCore
+            sdkCore: FeatureSdkCore = Motadata.getInstance() as FeatureSdkCore
         ): DatadogFlagsProvider = DatadogFlagsProvider(flagsClient, sdkCore)
     }
 }

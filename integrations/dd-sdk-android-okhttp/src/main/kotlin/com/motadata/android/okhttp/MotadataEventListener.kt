@@ -27,7 +27,7 @@ import java.net.InetSocketAddress
 import java.net.Proxy
 
 /**
- * Datadog's RUM implementation of OkHttp [EventListener].
+ * Motadata's RUM implementation of OkHttp [EventListener].
  *
  * This will track requests timing information (TTFB, DNS resolution, …) and append it
  * to RUM Resource events.
@@ -35,8 +35,8 @@ import java.net.Proxy
  * To use:
  * ```
  *   OkHttpClient client = new OkHttpClient.Builder()
- *       .addInterceptor(new DatadogInterceptor())
- *       .eventListenerFactory(new DatadogEventListener.Factory())
+ *       .addInterceptor(new MotadataInterceptor())
+ *       .eventListenerFactory(new MotadataEventListener.Factory())
  *       .build();
  * ```
  *
@@ -44,7 +44,7 @@ import java.net.Proxy
  * @param key Call identity.
  * @see [Factory]
  */
-class DatadogEventListener
+class MotadataEventListener
 internal constructor(
     internal val sdkCore: SdkCore,
     internal val key: ResourceId
@@ -218,8 +218,8 @@ internal constructor(
     // endregion
 
     /**
-     * Datadog's RUM implementation of OkHttp [EventListener.Factory].
-     * Adding this Factory to your [OkHttpClient] will allow Datadog to monitor
+     * Motadata's RUM implementation of OkHttp [EventListener.Factory].
+     * Adding this Factory to your [OkHttpClient] will allow Motadata to monitor
      * timing information for your requests (DNS resolution, TTFB, …).
      *
      * The timing information will be appended to the relevant RUM Resource events.
@@ -227,8 +227,8 @@ internal constructor(
      * To use:
      * ```
      *   OkHttpClient client = new OkHttpClient.Builder()
-     *       .addInterceptor(new DatadogInterceptor())
-     *       .eventListenerFactory(new DatadogEventListener.Factory())
+     *       .addInterceptor(new MotadataInterceptor())
+     *       .eventListenerFactory(new MotadataEventListener.Factory())
      *       .build();
      * ```
      *
@@ -247,7 +247,7 @@ internal constructor(
             val resourceId = call.request().buildResourceId(generateUuid = false)
             val sdkCore = sdkCoreReference.get()
             return if (sdkCore != null) {
-                DatadogEventListener(sdkCore, resourceId)
+                MotadataEventListener(sdkCore, resourceId)
             } else {
                 InternalLogger.UNBOUND.log(
                     InternalLogger.Level.INFO,

@@ -16,15 +16,15 @@ import com.bumptech.glide.load.engine.executor.GlideExecutor.newSourceBuilder
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.module.AppGlideModule
 import com.motadata.android.core.sampling.RateBasedSampler
-import com.motadata.android.okhttp.DatadogEventListener
-import com.motadata.android.okhttp.DatadogInterceptor
+import com.motadata.android.okhttp.MotadataEventListener
+import com.motadata.android.okhttp.MotadataInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.InputStream
 
 /**
  * Provides a basic implementation of [AppGlideModule] already set up to send relevant information
- * to Datadog.
+ * to Motadata.
  *
  * This sets up an OkHttp based downloader that will send Traces and RUM Resource events.
  * Also, any Glide related error (Disk cache, source transformation, …) will be sent as RUM Errors.
@@ -79,16 +79,16 @@ constructor(
 
     /**
      * Creates the [OkHttpClient.Builder].
-     * The default implementation returns a builder already setup with a [DatadogInterceptor]
-     * and [DatadogEventListener.Factory].
+     * The default implementation returns a builder already setup with a [MotadataInterceptor]
+     * and [MotadataEventListener.Factory].
      * @return the builder for the [OkHttpClient] to be used by Glide
      */
     @Suppress("UnsafeThirdPartyFunctionCall") // NPE cannot happen here
     open fun getClientBuilder(): OkHttpClient.Builder {
         val builder = OkHttpClient.Builder()
 
-        builder.eventListenerFactory(DatadogEventListener.Factory(sdkInstanceName))
-        val interceptorBuilder = DatadogInterceptor.Builder(firstPartyHosts)
+        builder.eventListenerFactory(MotadataEventListener.Factory(sdkInstanceName))
+        val interceptorBuilder = MotadataInterceptor.Builder(firstPartyHosts)
             .setTraceSampler(RateBasedSampler(sampleRate))
         sdkInstanceName?.let { interceptorBuilder.setSdkInstanceName(it) }
         builder.addInterceptor(interceptorBuilder.build())

@@ -8,7 +8,7 @@ package com.motadata.android.sdk.integration.rum
 
 import android.app.Activity
 import androidx.test.platform.app.InstrumentationRegistry
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.rum.GlobalRumMonitor
 import com.motadata.android.sdk.assertj.HeadersAssert
 import com.motadata.android.sdk.integration.RuntimeConfig
@@ -29,7 +29,7 @@ internal abstract class RumTest<R : Activity, T : MockServerActivityTestRule<R>>
     @After
     fun tearDown() {
         // Ensure SDK is stopped and wait for cleanup to complete
-        Datadog.stopInstance()
+        Motadata.stopInstance()
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
     }
 
@@ -107,7 +107,7 @@ internal abstract class RumTest<R : Activity, T : MockServerActivityTestRule<R>>
     }
 
     protected fun waitForPendingRUMEvents() {
-        val sdkCore = Datadog.getInstance()
+        val sdkCore = Motadata.getInstance()
         val rum = GlobalRumMonitor.get(sdkCore)
         val callMethod = rum.javaClass.declaredMethods.first { it.name.startsWith("waitForPendingEvents") }
         callMethod.isAccessible = true

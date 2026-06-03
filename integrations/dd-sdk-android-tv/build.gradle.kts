@@ -63,6 +63,6 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "An Android TV integration to use with the Datadog monitoring library for Android applications."
+    "An Android TV integration to use with the Motadata monitoring library for Android applications."
 )
 detektCustomConfig()

@@ -136,7 +136,7 @@ data class RumConfiguration internal constructor(
 
         /**
          * Enable long operations on the main thread to be tracked automatically.
-         * Any long running operation on the main thread will appear as Long Tasks in Datadog
+         * Any long running operation on the main thread will appear as Long Tasks in Motadata
          * RUM Explorer
          * @param longTaskThresholdMs the threshold in milliseconds above which a task running on
          * the Main thread [Looper] is considered as a long task (default 100ms). Setting a

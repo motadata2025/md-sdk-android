@@ -12,11 +12,11 @@ import com.motadata.android.core.internal.utils.toMutableMap
 import java.util.Locale
 
 /**
- * Data constraints validator per Datadog requirements.
+ * Data constraints validator per Motadata requirements.
  *
  * @param internalLogger Internal logger.
  */
-class DatadogDataConstraints(private val internalLogger: InternalLogger) : DataConstraints {
+class MotadataDataConstraints(private val internalLogger: InternalLogger) : DataConstraints {
 
     // region DataConstraints
 

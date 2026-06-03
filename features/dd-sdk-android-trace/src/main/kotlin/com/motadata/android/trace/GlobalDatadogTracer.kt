@@ -31,7 +31,7 @@ object GlobalDatadogTracer {
     }
 
     /**
-     * Retrieves the current active tracer for Datadog, or a no-operation tracer if none is active.
+     * Retrieves the current active tracer for Motadata, or a no-operation tracer if none is active.
      *
      * @return The current instance of [DatadogTracer] if available. Otherwise, an instance of
      * [NoOpDatadogTracer] that performs no operations.
@@ -47,7 +47,7 @@ object GlobalDatadogTracer {
     fun getOrNull(): DatadogTracer? = instance.get()
 
     /**
-     * Clears the current instance of the global Datadog tracer.
+     * Clears the current instance of the global Motadata tracer.
      *
      * This method sets the internal tracer instance to null, effectively
      * removing any active tracer currently held in the global state.

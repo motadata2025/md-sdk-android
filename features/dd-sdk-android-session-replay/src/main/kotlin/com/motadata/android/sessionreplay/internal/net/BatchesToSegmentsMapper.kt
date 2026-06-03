@@ -7,7 +7,7 @@
 package com.motadata.android.sessionreplay.internal.net
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.sessionreplay.RECORD_TYPE_FULL_SNAPSHOT
 import com.motadata.android.sessionreplay.internal.gson.safeGetAsJsonArray
 import com.motadata.android.sessionreplay.internal.gson.safeGetAsJsonObject
@@ -27,14 +27,14 @@ import com.google.gson.JsonParser
  */
 internal class BatchesToSegmentsMapper(private val internalLogger: InternalLogger) {
 
-    fun map(datadogContext: DatadogContext, batchData: List<ByteArray>): List<Pair<MobileSegment, JsonObject>> {
+    fun map(datadogContext: MotadataContext, batchData: List<ByteArray>): List<Pair<MobileSegment, JsonObject>> {
         return groupBatchDataIntoSegments(datadogContext, batchData)
     }
 
     // region Internal
 
     private fun groupBatchDataIntoSegments(
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         batchData: List<ByteArray>
     ): List<Pair<MobileSegment, JsonObject>> {
         return batchData
@@ -85,7 +85,7 @@ internal class BatchesToSegmentsMapper(private val internalLogger: InternalLogge
 
     @Suppress("ReturnCount")
     private fun mapToSegment(
-        datadogContext: DatadogContext,
+        datadogContext: MotadataContext,
         rumContext: SessionReplayRumContext,
         records: JsonArray
     ): Pair<MobileSegment, JsonObject>? {

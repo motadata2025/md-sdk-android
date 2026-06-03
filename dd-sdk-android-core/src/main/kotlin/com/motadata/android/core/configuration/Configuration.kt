@@ -6,8 +6,8 @@
 
 package com.motadata.android.core.configuration
 
-import com.motadata.android.Datadog
-import com.motadata.android.DatadogSite
+import com.motadata.android.Motadata
+import com.motadata.android.MotadataSite
 import com.motadata.android.core.persistence.PersistenceStrategy
 import com.motadata.android.security.Encryption
 import com.motadata.android.trace.TracingHeaderType
@@ -15,9 +15,9 @@ import okhttp3.Authenticator
 import java.net.Proxy
 
 /**
- * An object describing the configuration of the Datadog SDK.
+ * An object describing the configuration of the Motadata SDK.
  *
- * This is necessary to initialize the SDK with the [Datadog.initialize] method.
+ * This is necessary to initialize the SDK with the [Motadata.initialize] method.
  */
 data class Configuration
 internal constructor(
@@ -40,7 +40,7 @@ internal constructor(
         val proxy: Proxy?,
         val proxyAuth: Authenticator,
         val encryption: Encryption?,
-        val site: DatadogSite,
+        val site: MotadataSite,
         val batchProcessingLevel: BatchProcessingLevel,
         val persistenceStrategyFactory: PersistenceStrategy.Factory?,
         val backpressureStrategy: BackPressureStrategy,
@@ -100,7 +100,7 @@ internal constructor(
          *   setSessionSampleRate(100)
          *   setBatchSize(BatchSize.SMALL)
          *   setUploadFrequency(UploadFrequency.FREQUENT)
-         *   Datadog.setVerbosity(Log.VERBOSE)
+         *   Motadata.setVerbosity(Log.VERBOSE)
          * These settings will override your configuration, but only when the application is `debuggable`
          * @param developerModeEnabled Enable or disable extra debug info when an app is debuggable
          */
@@ -143,7 +143,7 @@ internal constructor(
          * full flame-graph in APM. Multiple header types are supported for each host.
          * @param hostsWithHeaderType a list of all the hosts that you own and the tracing headers
          * to be used for each host.
-         * See [DatadogInterceptor]
+         * See [MotadataInterceptor]
          */
         fun setFirstPartyHostsWithHeaderType(hostsWithHeaderType: Map<String, Set<TracingHeaderType>>): Builder {
             val sanitizedHosts = hostsSanitizer.sanitizeHosts(
@@ -157,15 +157,15 @@ internal constructor(
         }
 
         /**
-         * Let the SDK target your preferred Datadog's site.
+         * Let the SDK target your preferred Motadata's site.
          */
-        fun useSite(site: DatadogSite): Builder {
+        fun useSite(site: MotadataSite): Builder {
             coreConfig = coreConfig.copy(needsClearTextHttp = false, site = site)
             return this
         }
 
         /**
-         * Defines the batch size (impacts the size and number of requests performed by Datadog).
+         * Defines the batch size (impacts the size and number of requests performed by Motadata).
          * @param batchSize the desired batch size
          */
         fun setBatchSize(batchSize: BatchSize): Builder {
@@ -205,7 +205,7 @@ internal constructor(
         }
 
         /**
-         * Enables a custom proxy for uploading tracked data to Datadog's intake.
+         * Enables a custom proxy for uploading tracked data to Motadata's intake.
          * @param proxy the [Proxy] configuration
          * @param authenticator the optional [Authenticator] for the proxy
          */
@@ -244,7 +244,7 @@ internal constructor(
         /**
          * Allows to control if JVM crashes are tracked or not. Default value is `true`.
          *
-         * @param crashReportsEnabled whether crashes are tracked and sent to Datadog
+         * @param crashReportsEnabled whether crashes are tracked and sent to Motadata
          */
         fun setCrashReportsEnabled(crashReportsEnabled: Boolean): Builder {
             this.crashReportsEnabled = crashReportsEnabled
@@ -275,7 +275,7 @@ internal constructor(
         }
 
         /**
-         * Sets the version name that will be used for all events sent to Datadog.
+         * Sets the version name that will be used for all events sent to Motadata.
          * If not provided, the SDK will use the version from the application's package info.
          *
          * @param version the version name to use
@@ -320,7 +320,7 @@ internal constructor(
             proxy = null,
             proxyAuth = Authenticator.NONE,
             encryption = null,
-            site = DatadogSite.US1,
+            site = MotadataSite.US1,
             batchProcessingLevel = BatchProcessingLevel.MEDIUM,
             persistenceStrategyFactory = null,
             backpressureStrategy = DEFAULT_BACKPRESSURE_STRATEGY,

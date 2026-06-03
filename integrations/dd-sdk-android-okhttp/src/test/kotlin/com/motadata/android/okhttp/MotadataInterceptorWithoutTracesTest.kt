@@ -86,7 +86,7 @@ import java.util.Locale
 )
 @MockitoSettings(strictness = Strictness.LENIENT)
 @ForgeConfiguration(value = BaseConfigurator::class)
-internal class DatadogInterceptorWithoutTracesTest {
+internal class MotadataInterceptorWithoutTracesTest {
 
     lateinit var testedInterceptor: TracingInterceptor
 
@@ -171,7 +171,7 @@ internal class DatadogInterceptorWithoutTracesTest {
             "/" + forge.anAlphabeticalString()
         fakeMediaType = mediaType.toMediaTypeOrNull()
         fakeRequest = forgeRequest()
-        testedInterceptor = DatadogInterceptor(
+        testedInterceptor = MotadataInterceptor(
             sdkInstanceName = null,
             tracedHosts = emptyMap(),
             tracedRequestListener = mockRequestListener,
@@ -280,7 +280,7 @@ internal class DatadogInterceptorWithoutTracesTest {
         mockInternalLogger.verifyLog(
             InternalLogger.Level.WARN,
             targets = listOf(InternalLogger.Target.USER, InternalLogger.Target.TELEMETRY),
-            DatadogInterceptor.UNSUPPORTED_HTTP_METHOD.format(Locale.US, fakeMethod)
+            MotadataInterceptor.UNSUPPORTED_HTTP_METHOD.format(Locale.US, fakeMethod)
         )
     }
 
@@ -368,7 +368,7 @@ internal class DatadogInterceptorWithoutTracesTest {
 
         val response = testedInterceptor.intercept(mockChain)
 
-        verify(mockSpanBuilder).withOrigin(DatadogInterceptor.ORIGIN_RUM)
+        verify(mockSpanBuilder).withOrigin(MotadataInterceptor.ORIGIN_RUM)
         verify(fakeSpan).drop()
         assertThat(response).isSameAs(fakeResponse)
     }
@@ -382,7 +382,7 @@ internal class DatadogInterceptorWithoutTracesTest {
 
         val response = testedInterceptor.intercept(mockChain)
 
-        verify(mockSpanBuilder).withOrigin(DatadogInterceptor.ORIGIN_RUM)
+        verify(mockSpanBuilder).withOrigin(MotadataInterceptor.ORIGIN_RUM)
         verify(fakeSpan).resourceName = fakeUrl.lowercase(Locale.US)
         verify(fakeSpan).isError = true
         verify(fakeSpan).drop()

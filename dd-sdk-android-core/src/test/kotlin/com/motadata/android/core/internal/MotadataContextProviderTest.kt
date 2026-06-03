@@ -46,7 +46,7 @@ import java.util.concurrent.TimeUnit
 )
 @MockitoSettings(strictness = Strictness.LENIENT)
 @ForgeConfiguration(Configurator::class)
-internal class DatadogContextProviderTest {
+internal class MotadataContextProviderTest {
 
     private lateinit var testedProvider: ContextProvider
 
@@ -78,7 +78,7 @@ internal class DatadogContextProviderTest {
 
     @BeforeEach
     fun setUp(forge: Forge) {
-        testedProvider = DatadogContextProvider(coreFeature.mockInstance, mockFeatureContextProvider)
+        testedProvider = MotadataContextProvider(coreFeature.mockInstance, mockFeatureContextProvider)
 
         whenever(coreFeature.mockInstance.userInfoProvider.getUserInfo()) doReturn fakeUserInfo
         whenever(coreFeature.mockInstance.accountInfoProvider.getAccountInfo()) doReturn fakeAccountInfo

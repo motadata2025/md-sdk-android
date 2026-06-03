@@ -10,7 +10,7 @@ import android.app.Activity
 import android.app.ActivityManager
 import android.os.Handler
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.TimeInfo
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
@@ -221,7 +221,7 @@ internal class DatadogRumMonitorTest {
     lateinit var fakeViewUIPerformanceReport: ViewUIPerformanceReport
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     private var fakeRumSessionType: RumSessionType? = null
 
@@ -262,7 +262,7 @@ internal class DatadogRumMonitorTest {
                 any()
             )
         ) doAnswer {
-            val callback = it.getArgument<(DatadogContext, EventWriteScope) -> Unit>(it.arguments.lastIndex)
+            val callback = it.getArgument<(MotadataContext, EventWriteScope) -> Unit>(it.arguments.lastIndex)
             callback.invoke(fakeDatadogContext, mockEventWriteScope)
         }
         whenever(

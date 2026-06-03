@@ -221,7 +221,7 @@ internal class DatadogSpanAdapterTest {
     }
 
     @Test
-    fun `M return DatadogContext instance W context() is called`() {
+    fun `M return MotadataContext instance W context() is called`() {
         // When
         val context = testedSpanAdapter.context()
 
@@ -287,7 +287,7 @@ internal class DatadogSpanAdapterTest {
     }
 
     @Test
-    fun `M return DatadogContext instance W localRootSpan is called`() {
+    fun `M return MotadataContext instance W localRootSpan is called`() {
         // Given
         val expected = mock<AgentSpan>()
         whenever(mockAgentSpan.localRootSpan).thenReturn(expected)

@@ -6,7 +6,7 @@
 
 package com.motadata.android.flags.internal.storage
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureScope
@@ -104,8 +104,8 @@ internal class ExposureEventRecordWriterTest {
             )
         )
             .thenAnswer { invocation ->
-                val callback = invocation.getArgument<(DatadogContext, EventWriteScope) -> Unit>(1)
-                val mockContext = mock<DatadogContext>()
+                val callback = invocation.getArgument<(MotadataContext, EventWriteScope) -> Unit>(1)
+                val mockContext = mock<MotadataContext>()
                 callback.invoke(mockContext) { writerScope ->
                     writerScope.invoke(mockEventBatchWriter)
                 }
@@ -180,8 +180,8 @@ internal class ExposureEventRecordWriterTest {
         )
             .thenAnswer { invocation ->
                 @Suppress("UNCHECKED_CAST")
-                val callback = invocation.arguments[1] as (DatadogContext, ((EventBatchWriter) -> Unit) -> Unit) -> Unit
-                val mockContext = mock<DatadogContext>()
+                val callback = invocation.arguments[1] as (MotadataContext, ((EventBatchWriter) -> Unit) -> Unit) -> Unit
+                val mockContext = mock<MotadataContext>()
                 callback.invoke(mockContext) { writerScope ->
                     writerScope.invoke(mockEventBatchWriter)
                 }
@@ -235,8 +235,8 @@ internal class ExposureEventRecordWriterTest {
         )
             .thenAnswer { invocation ->
                 @Suppress("UNCHECKED_CAST")
-                val callback = invocation.arguments[1] as (DatadogContext, ((EventBatchWriter) -> Unit) -> Unit) -> Unit
-                val mockContext = mock<DatadogContext>()
+                val callback = invocation.arguments[1] as (MotadataContext, ((EventBatchWriter) -> Unit) -> Unit) -> Unit
+                val mockContext = mock<MotadataContext>()
                 callback.invoke(mockContext) { writerScope ->
                     writerScope.invoke(mockEventBatchWriter)
                 }
@@ -285,8 +285,8 @@ internal class ExposureEventRecordWriterTest {
         )
             .thenAnswer { invocation ->
                 @Suppress("UNCHECKED_CAST")
-                val callback = invocation.arguments[1] as (DatadogContext, ((EventBatchWriter) -> Unit) -> Unit) -> Unit
-                val mockContext = mock<DatadogContext>()
+                val callback = invocation.arguments[1] as (MotadataContext, ((EventBatchWriter) -> Unit) -> Unit) -> Unit
+                val mockContext = mock<MotadataContext>()
                 callback.invoke(mockContext) { writerScope ->
                     writerScope.invoke(mockEventBatchWriter)
                 }

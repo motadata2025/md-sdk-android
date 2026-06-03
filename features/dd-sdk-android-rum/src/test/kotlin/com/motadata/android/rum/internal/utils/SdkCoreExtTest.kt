@@ -7,7 +7,7 @@
 package com.motadata.android.rum.internal.utils
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.storage.DataWriter
 import com.motadata.android.api.storage.EventBatchWriter
@@ -68,7 +68,7 @@ internal class SdkCoreExtTest {
         get() = rumMonitor.mockSdkCore
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @Forgery
     lateinit var fakeEventType: EventType

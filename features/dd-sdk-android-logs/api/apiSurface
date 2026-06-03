@@ -8,7 +8,7 @@ class com.motadata.android.log.Logger
   fun log(Int, String, Throwable? = null, Map<String, Any?> = emptyMap())
   fun log(Int, String, String?, String?, String?, Map<String, Any?> = emptyMap())
   class Builder
-    constructor(com.motadata.android.api.SdkCore = Datadog.getInstance())
+    constructor(com.motadata.android.api.SdkCore = Motadata.getInstance())
     fun build(): Logger
     fun setService(String): Builder
     fun setRemoteLogThreshold(Int): Builder
@@ -25,10 +25,10 @@ class com.motadata.android.log.Logger
   fun removeTag(String)
   fun removeTagsWithKey(String)
 object com.motadata.android.log.Logs
-  fun enable(LogsConfiguration, com.motadata.android.api.SdkCore = Datadog.getInstance())
-  fun isEnabled(com.motadata.android.api.SdkCore = Datadog.getInstance()): Boolean
-  fun addAttribute(String, Any?, com.motadata.android.api.SdkCore = Datadog.getInstance())
-  fun removeAttribute(String, com.motadata.android.api.SdkCore = Datadog.getInstance())
+  fun enable(LogsConfiguration, com.motadata.android.api.SdkCore = Motadata.getInstance())
+  fun isEnabled(com.motadata.android.api.SdkCore = Motadata.getInstance()): Boolean
+  fun addAttribute(String, Any?, com.motadata.android.api.SdkCore = Motadata.getInstance())
+  fun removeAttribute(String, com.motadata.android.api.SdkCore = Motadata.getInstance())
 data class com.motadata.android.log.LogsConfiguration
   class Builder
     fun useCustomEndpoint(String): Builder

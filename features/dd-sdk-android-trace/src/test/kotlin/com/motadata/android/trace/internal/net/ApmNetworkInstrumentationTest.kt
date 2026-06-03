@@ -6,7 +6,7 @@
 
 package com.motadata.android.trace.internal.net
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.Feature
@@ -951,7 +951,7 @@ internal class ApmNetworkInstrumentationTest {
     )
 
     companion object {
-        private val datadogRegistryField = Datadog::class.java.getDeclaredField("registry").apply {
+        private val datadogRegistryField = Motadata::class.java.getDeclaredField("registry").apply {
             isAccessible = true
         }
         private val datadogRegistryRegisterMethod = datadogRegistryField.type.getMethod(

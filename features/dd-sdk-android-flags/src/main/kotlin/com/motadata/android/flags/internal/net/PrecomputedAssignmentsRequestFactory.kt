@@ -7,7 +7,7 @@
 package com.motadata.android.flags.internal.net
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.flags.internal.getFlagsEndpoint
 import com.motadata.android.flags.model.EvaluationContext
@@ -36,12 +36,12 @@ internal class PrecomputedAssignmentsRequestFactory(
      *
      * @param context The evaluation context containing targeting key and custom attributes
      *                for flag evaluation
-     * @param datadogContext The [DatadogContext] holding common information about SDK
+     * @param datadogContext The [MotadataContext] holding common information about SDK
      * @return A fully-formed OkHttp Request ready for execution, or null if the request
      *         cannot be constructed (e.g., invalid endpoint, JSON serialization error)
      */
     @Suppress("ReturnCount")
-    fun create(context: EvaluationContext, datadogContext: DatadogContext): Request? {
+    fun create(context: EvaluationContext, datadogContext: MotadataContext): Request? {
         val url = customFlagEndpoint
             ?: datadogContext.site.getFlagsEndpoint(PREVIEW_CUSTOMER_DOMAIN)
             ?: return null
@@ -58,7 +58,7 @@ internal class PrecomputedAssignmentsRequestFactory(
             .build()
     }
 
-    private fun buildHeaders(datadogContext: DatadogContext): Headers? {
+    private fun buildHeaders(datadogContext: MotadataContext): Headers? {
         val headersBuilder = Headers.Builder()
 
         try {
@@ -82,7 +82,7 @@ internal class PrecomputedAssignmentsRequestFactory(
         return headersBuilder.build()
     }
 
-    private fun buildRequestBody(context: EvaluationContext, datadogContext: DatadogContext): RequestBody? = try {
+    private fun buildRequestBody(context: EvaluationContext, datadogContext: MotadataContext): RequestBody? = try {
         val attributeObj = buildStringifiedAttributes(context)
 
         val subject = JSONObject()
@@ -124,17 +124,17 @@ internal class PrecomputedAssignmentsRequestFactory(
     }
 
     @Suppress("UnsafeThirdPartyFunctionCall") // call wrapped in try/catch
-    private fun buildEnvPayload(datadogContext: DatadogContext): JSONObject =
+    private fun buildEnvPayload(datadogContext: MotadataContext): JSONObject =
         JSONObject()
             .put("dd_env", datadogContext.env)
 
     @Suppress("UnsafeThirdPartyFunctionCall") // call wrapped in try/catch
-    private fun buildSourcePayload(datadogContext: DatadogContext): JSONObject =
+    private fun buildSourcePayload(datadogContext: MotadataContext): JSONObject =
         JSONObject()
             .put("sdk_name", SDK_NAME)
             .put("sdk_version", datadogContext.sdkVersion)
 
-    private val DatadogContext.rumApplicationId: String?
+    private val MotadataContext.rumApplicationId: String?
         get() = featuresContext.get(Feature.RUM_FEATURE_NAME)
             ?.get("application_id") as? String
 

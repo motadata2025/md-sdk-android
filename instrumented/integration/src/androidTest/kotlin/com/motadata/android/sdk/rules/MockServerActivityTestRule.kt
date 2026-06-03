@@ -13,7 +13,7 @@ import android.content.Intent
 import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.privacy.TrackingConsent
 import com.motadata.android.rum.GlobalRumMonitor
 import com.motadata.android.sdk.integration.RuntimeConfig
@@ -89,7 +89,7 @@ internal open class MockServerActivityTestRule<T : Activity>(
             .targetContext
             .cacheDir.deleteRecursively()
         GlobalRumMonitor.get().stopSession()
-        Datadog.stopInstance()
+        Motadata.stopInstance()
 
         super.afterActivityFinished()
     }

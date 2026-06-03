@@ -22,7 +22,7 @@ import kotlin.coroutines.EmptyCoroutineContext
 
 /**
  * Launches a new coroutine without blocking the current thread and returns a reference to the
- * coroutine as a [Job]. A span will be created around the coroutine code and sent to Datadog.
+ * coroutine as a [Job]. A span will be created around the coroutine code and sent to Motadata.
  *
  * See [launch] to learn more about launching a new coroutine.
  *
@@ -45,7 +45,7 @@ fun CoroutineScope.launchTraced(
 
 /**
  * Runs a new coroutine and **blocks** the current thread _interruptibly_ until its completion.
- * A span will be created around the coroutine code and sent to Datadog.
+ * A span will be created around the coroutine code and sent to Motadata.
  *
  * This function should not be used from a coroutine. It is designed to bridge regular blocking code
  * to libraries that are written in suspending style, to be used in `main` functions and in tests.
@@ -72,7 +72,7 @@ fun <T> runBlockingTraced(
 
 /**
  * Creates a coroutine and returns its future result as an implementation of [Deferred].
- * A span will be created around the coroutine code and sent to Datadog.
+ * A span will be created around the coroutine code and sent to Motadata.
  *
  * See [async] to learn more about using deferred coroutine results.
  *
@@ -100,7 +100,7 @@ fun <T : Any?> CoroutineScope.asyncTraced(
  * Awaits for completion of this value without blocking a thread and resumes when deferred
  * computation is complete, returning the resulting value or throwing the corresponding exception if
  * the deferred was cancelled.
- * A span will be created around the completion and sent to Datadog.
+ * A span will be created around the completion and sent to Motadata.
  *
  * See [Deferred.await] to learn more about awaiting completion on a Deferred result.
  *
@@ -118,7 +118,7 @@ suspend fun <T : Any?> Deferred<T>.awaitTraced(operationName: String): T {
 /**
  * Calls the specified suspending block with a given coroutine context, suspends until it completes,
  * and returns the result.
- * A span will be created around the coroutine code and sent to Datadog.
+ * A span will be created around the coroutine code and sent to Motadata.
  *
  * See [withContext] to learn more about running a coroutine within a specific [CoroutineContext].
  *

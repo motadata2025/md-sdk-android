@@ -6,7 +6,7 @@
 
 package com.motadata.android.flags
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.Feature.Companion.FLAGS_EVALUATIONS_FEATURE_NAME
@@ -226,7 +226,7 @@ interface FlagsClient {
          * @param name the client name. Must be non-empty.
          * @param sdkCore the SDK instance to associate with this client. Defaults to main instance.
          */
-        constructor(name: String = DEFAULT_CLIENT_NAME, sdkCore: SdkCore = Datadog.getInstance()) {
+        constructor(name: String = DEFAULT_CLIENT_NAME, sdkCore: SdkCore = Motadata.getInstance()) {
             this.name = name.ifBlank {
                 val flagsFeature = (sdkCore as FeatureSdkCore)
                     .getFeature(FLAGS_FEATURE_NAME)
@@ -318,14 +318,14 @@ interface FlagsClient {
          * errors according to the graceful mode policy.
          *
          * @param name the [FlagsClient] name. Defaults to "default".
-         * @param sdkCore the SDK instance. Defaults to the default Datadog instance.
+         * @param sdkCore the SDK instance. Defaults to the default Motadata instance.
          * @return the [FlagsClient] with the specified name, or [NoOpFlagsClient] if not found.
          * @throws IllegalStateException in strict mode (debug builds with gracefulModeEnabled=false)
          *         if the client doesn't exist. This helps catch configuration errors during development.
          */
         @JvmOverloads
         @JvmStatic
-        fun get(name: String = DEFAULT_CLIENT_NAME, sdkCore: SdkCore = Datadog.getInstance()): FlagsClient {
+        fun get(name: String = DEFAULT_CLIENT_NAME, sdkCore: SdkCore = Motadata.getInstance()): FlagsClient {
             val featureCore = sdkCore as FeatureSdkCore
             val logger = featureCore.internalLogger
 

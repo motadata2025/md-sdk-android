@@ -16,7 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.compose.internal.TapActionTracker
 import com.motadata.android.compose.internal.trackScroll
@@ -25,7 +25,7 @@ import com.motadata.android.rum.GlobalRumMonitor
 import kotlin.coroutines.CoroutineContext
 
 /**
- * Creates a proxy around click listener, which will report clicks to Datadog.
+ * Creates a proxy around click listener, which will report clicks to Motadata.
  *
  * @param targetName Name of the click target.
  * @param attributes Additional custom attributes to attach to the action. Attributes can be
@@ -37,7 +37,7 @@ import kotlin.coroutines.CoroutineContext
 fun trackClick(
     targetName: String,
     attributes: Map<String, Any?> = remember { emptyMap() },
-    sdkCore: SdkCore = Datadog.getInstance(),
+    sdkCore: SdkCore = Motadata.getInstance(),
     onClick: () -> Unit
 ): () -> Unit {
     val onTapState = rememberUpdatedState(newValue = onClick)
@@ -67,7 +67,7 @@ fun TrackInteractionEffect(
     interactionSource: InteractionSource,
     interactionType: InteractionType,
     attributes: Map<String, Any?> = emptyMap(),
-    sdkCore: SdkCore = Datadog.getInstance()
+    sdkCore: SdkCore = Motadata.getInstance()
 ) {
     val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
 

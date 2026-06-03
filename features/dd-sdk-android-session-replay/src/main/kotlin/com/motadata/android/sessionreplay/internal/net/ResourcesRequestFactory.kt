@@ -7,7 +7,7 @@
 package com.motadata.android.sessionreplay.internal.net
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.net.Request
 import com.motadata.android.api.net.RequestExecutionContext
 import com.motadata.android.api.net.RequestFactory
@@ -27,7 +27,7 @@ internal class ResourcesRequestFactory(
 
     @Suppress("ThrowingInternalException")
     override fun create(
-        context: DatadogContext,
+        context: MotadataContext,
         executionContext: RequestExecutionContext,
         batchData: List<RawBatchEvent>,
         batchMetadata: ByteArray?
@@ -38,7 +38,7 @@ internal class ResourcesRequestFactory(
         return resolveRequest(context, requestBody)
     }
 
-    private fun resolveRequest(context: DatadogContext, body: RequestBody): Request? {
+    private fun resolveRequest(context: MotadataContext, body: RequestBody): Request? {
         val bodyAsByteArray = convertBodyToByteArray(body) ?: return null
         val requestId = UUID.randomUUID().toString()
         val description = UPLOAD_DESCRIPTION
@@ -83,7 +83,7 @@ internal class ResourcesRequestFactory(
         return result
     }
 
-    private fun resolveHeaders(datadogContext: DatadogContext, requestId: String): Map<String, String> {
+    private fun resolveHeaders(datadogContext: MotadataContext, requestId: String): Map<String, String> {
         return mapOf(
             RequestFactory.HEADER_API_KEY to datadogContext.clientToken,
             RequestFactory.HEADER_EVP_ORIGIN to datadogContext.source,
@@ -92,7 +92,7 @@ internal class ResourcesRequestFactory(
         )
     }
 
-    private fun buildUrl(datadogContext: DatadogContext): String {
+    private fun buildUrl(datadogContext: MotadataContext): String {
         return customEndpointUrl ?: (datadogContext.site.intakeEndpoint + "/api/v2/replay")
     }
 

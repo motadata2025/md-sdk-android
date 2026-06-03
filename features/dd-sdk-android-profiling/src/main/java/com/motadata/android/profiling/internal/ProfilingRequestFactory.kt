@@ -6,7 +6,7 @@
 
 package com.motadata.android.profiling.internal
 
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.net.Request
 import com.motadata.android.api.net.RequestExecutionContext
 import com.motadata.android.api.net.RequestFactory
@@ -25,7 +25,7 @@ internal class ProfilingRequestFactory(
 
     @Throws(IOException::class)
     override fun create(
-        context: DatadogContext,
+        context: MotadataContext,
         executionContext: RequestExecutionContext,
         batchData: List<RawBatchEvent>,
         batchMetadata: ByteArray?
@@ -44,7 +44,7 @@ internal class ProfilingRequestFactory(
 
     private fun buildHeaders(
         requestId: String,
-        context: DatadogContext
+        context: MotadataContext
     ): Map<String, String> {
         return mapOf(
             RequestFactory.HEADER_API_KEY to context.clientToken,
@@ -55,7 +55,7 @@ internal class ProfilingRequestFactory(
     }
 
     private fun buildUrl(
-        context: DatadogContext
+        context: MotadataContext
     ): String {
         return customEndpointUrl ?: (context.site.intakeEndpoint + "/api/v2/profile")
     }

@@ -72,6 +72,6 @@ junitConfig()
 javadocConfig()
 dependencyUpdateConfig()
 publishingConfig(
-    "A Trace Coroutines extension library to use with the Datadog monitoring library for Android applications."
+    "A Trace Coroutines extension library to use with the Motadata monitoring library for Android applications."
 )
 detektCustomConfig()

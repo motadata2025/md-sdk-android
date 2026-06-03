@@ -25,7 +25,7 @@ import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.text.TextLayoutInput
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.unit.Density
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.core.sampling.RateBasedSampler
@@ -320,7 +320,7 @@ internal class SemanticsUtils(
 
     private fun sendBitmapInfoTelemetry(bitmap: Bitmap, isContextual: Boolean) {
         if (sampler.sample(Unit)) {
-            (Datadog.getInstance() as? FeatureSdkCore)?.internalLogger?.log(
+            (Motadata.getInstance() as? FeatureSdkCore)?.internalLogger?.log(
                 level = InternalLogger.Level.INFO,
                 target = InternalLogger.Target.TELEMETRY,
                 messageBuilder = { "Resolved the bitmap from semantics node with id:${bitmap.generationId}" },
@@ -338,7 +338,7 @@ internal class SemanticsUtils(
 
     private fun logUnsupportedPainter(painter: Painter?) {
         val painterType = painter?.javaClass?.simpleName ?: "null"
-        (Datadog.getInstance() as? FeatureSdkCore)?.internalLogger?.log(
+        (Motadata.getInstance() as? FeatureSdkCore)?.internalLogger?.log(
             level = InternalLogger.Level.ERROR,
             targets = listOf(
                 InternalLogger.Target.MAINTAINER,
@@ -419,7 +419,7 @@ internal class SemanticsUtils(
     }
 
     private fun logReflectionExtractionFailure(overflowValue: Any, e: Throwable) {
-        (Datadog.getInstance() as? FeatureSdkCore)?.internalLogger?.log(
+        (Motadata.getInstance() as? FeatureSdkCore)?.internalLogger?.log(
             level = InternalLogger.Level.WARN,
             targets = listOf(InternalLogger.Target.MAINTAINER),
             messageBuilder = {
@@ -437,7 +437,7 @@ internal class SemanticsUtils(
     }
 
     private fun logUnknownOverflowOrdinal(ordinal: Int) {
-        (Datadog.getInstance() as? FeatureSdkCore)?.internalLogger?.log(
+        (Motadata.getInstance() as? FeatureSdkCore)?.internalLogger?.log(
             level = InternalLogger.Level.WARN,
             targets = listOf(InternalLogger.Target.MAINTAINER, InternalLogger.Target.TELEMETRY),
             messageBuilder = {
@@ -453,7 +453,7 @@ internal class SemanticsUtils(
     }
 
     private fun logUnknownOverflowType(overflowValue: Any) {
-        (Datadog.getInstance() as? FeatureSdkCore)?.internalLogger?.log(
+        (Motadata.getInstance() as? FeatureSdkCore)?.internalLogger?.log(
             level = InternalLogger.Level.WARN,
             targets = listOf(InternalLogger.Target.MAINTAINER, InternalLogger.Target.TELEMETRY),
             messageBuilder = {

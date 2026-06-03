@@ -6,7 +6,7 @@
 
 package com.motadata.android.core.configuration
 
-import com.motadata.android.DatadogSite
+import com.motadata.android.MotadataSite
 import com.motadata.android.core.persistence.PersistenceStrategy
 import com.motadata.android.security.Encryption
 import com.motadata.android.trace.TracingHeaderType
@@ -71,7 +71,7 @@ internal class ConfigurationBuilderTest {
         assertThat(config.coreConfig.proxy).isNull()
         assertThat(config.coreConfig.proxyAuth).isEqualTo(Authenticator.NONE)
         assertThat(config.coreConfig.encryption).isNull()
-        assertThat(config.coreConfig.site).isEqualTo(DatadogSite.US1)
+        assertThat(config.coreConfig.site).isEqualTo(MotadataSite.US1)
         assertThat(config.coreConfig.batchProcessingLevel).isEqualTo(BatchProcessingLevel.MEDIUM)
         assertThat(config.coreConfig.persistenceStrategyFactory).isNull()
         assertThat(config.coreConfig.backpressureStrategy.backpressureMitigation)
@@ -120,7 +120,7 @@ internal class ConfigurationBuilderTest {
 
     @Test
     fun `M build config with custom site W useSite() and build()`(
-        @Forgery site: DatadogSite
+        @Forgery site: MotadataSite
     ) {
         // When
         val config = testedBuilder.useSite(site).build()

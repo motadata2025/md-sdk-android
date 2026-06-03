@@ -101,7 +101,7 @@ internal class DatadogFlagsProviderTest {
         val metadata = provider.metadata
 
         // Then
-        assertThat(metadata.name).isEqualTo("Datadog Feature Flags Provider")
+        assertThat(metadata.name).isEqualTo("Motadata Feature Flags Provider")
     }
 
     @Test

@@ -7,7 +7,7 @@
 package com.motadata.android.flags.internal.evaluation
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureScope
 import com.motadata.android.api.feature.FeatureSdkCore
@@ -96,7 +96,7 @@ internal class EvaluationsManagerTest {
     lateinit var fakeAttributeValue: String
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     private lateinit var mockWebServer: MockWebServer
     private lateinit var evaluationsManager: EvaluationsManager
@@ -120,7 +120,7 @@ internal class EvaluationsManagerTest {
         whenever(
             mockFlagsFeatureScope.withContext(eq(setOf(Feature.RUM_FEATURE_NAME)), any())
         ) doAnswer {
-            it.getArgument<(DatadogContext) -> Unit>(1).invoke(fakeDatadogContext)
+            it.getArgument<(MotadataContext) -> Unit>(1).invoke(fakeDatadogContext)
         }
 
         // Mock executor to run tasks synchronously for testing

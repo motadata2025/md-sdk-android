@@ -6,12 +6,12 @@
 
 package com.motadata.android.core.integration.tests.utils
 
-import com.motadata.android.DatadogSite
+import com.motadata.android.MotadataSite
 import com.motadata.android.core.configuration.Configuration
 import com.motadata.android.trace.TracingHeaderType
 import com.datadog.tools.unit.getFieldValue
 
-fun Configuration.site(): DatadogSite {
+fun Configuration.site(): MotadataSite {
     return this.getFieldValue<Any, Configuration>("coreConfig").getFieldValue("site")
 }
 

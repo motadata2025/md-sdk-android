@@ -6,7 +6,7 @@
 
 package com.motadata.android.rum.resource
 
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.internal.time.TimeProvider
@@ -22,7 +22,7 @@ import java.io.InputStream
  * An [InputStream] wrapper that will report the stream read as a RUM Resource.
  *
  * @param delegate the actual [InputStream] to wrap
- * @param url the URL associated with the underlying resource, as you want it displayed in Datadog
+ * @param url the URL associated with the underlying resource, as you want it displayed in Motadata
  * @param sdkCore the [SdkCore] instance to report resources to. If not provided, default
  * instance will be used.
  */
@@ -32,7 +32,7 @@ class RumResourceInputStream
 constructor(
     val delegate: InputStream,
     val url: String,
-    val sdkCore: SdkCore = Datadog.getInstance()
+    val sdkCore: SdkCore = Motadata.getInstance()
 ) : InputStream() {
 
     internal val key: String = delegate.javaClass.simpleName +

@@ -8,7 +8,7 @@ package com.motadata.android.rum.internal.domain.scope
 
 import android.app.ActivityManager
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.context.TimeInfo
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
@@ -155,7 +155,7 @@ internal class RumApplicationScopeTest {
     lateinit var fakeTimeInfoAtScopeStart: TimeInfo
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @Forgery
     lateinit var viewUIPerformanceReport: ViewUIPerformanceReport

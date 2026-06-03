@@ -11,7 +11,7 @@ import android.content.Context
 import androidx.annotation.AnyThread
 import androidx.annotation.WorkerThread
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.api.feature.EventWriteScope
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureEventReceiver
@@ -174,7 +174,7 @@ internal class SdkFeature(
 
     override fun withWriteContext(
         withFeatureContexts: Set<String>,
-        callback: (DatadogContext, EventWriteScope) -> Unit
+        callback: (MotadataContext, EventWriteScope) -> Unit
     ) {
         coreFeature.contextExecutorService
             .executeSafe("withWriteContext-${wrappedFeature.name}", internalLogger) {
@@ -187,7 +187,7 @@ internal class SdkFeature(
 
     override fun withContext(
         withFeatureContexts: Set<String>,
-        callback: (datadogContext: DatadogContext) -> Unit
+        callback: (datadogContext: MotadataContext) -> Unit
     ) {
         coreFeature.contextExecutorService
             .executeSafe("withContext-${wrappedFeature.name}", internalLogger) {
@@ -197,7 +197,7 @@ internal class SdkFeature(
             }
     }
 
-    internal fun getContextFuture(withFeatureContexts: Set<String>): Future<DatadogContext?>? {
+    internal fun getContextFuture(withFeatureContexts: Set<String>): Future<MotadataContext?>? {
         return coreFeature.contextExecutorService.submitSafe(
             "getContextFuture-${wrappedFeature.name}",
             internalLogger,
@@ -213,7 +213,7 @@ internal class SdkFeature(
 
     override fun getWriteContextSync(
         withFeatureContexts: Set<String>
-    ): Pair<DatadogContext, EventWriteScope>? {
+    ): Pair<MotadataContext, EventWriteScope>? {
         val operationName = "getWriteContextSync-${wrappedFeature.name}"
         return coreFeature.contextExecutorService
             .submitSafe(

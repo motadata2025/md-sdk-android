@@ -7,7 +7,7 @@
 package com.motadata.android.webview.internal.rum
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.api.context.DatadogContext
+import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.utils.forge.Configurator
 import fr.xgouchet.elmyr.Forge
 import fr.xgouchet.elmyr.annotation.Forgery
@@ -41,7 +41,7 @@ internal class TimestampOffsetProviderTest {
     lateinit var mockInternalLogger: InternalLogger
 
     @Forgery
-    lateinit var fakeDatadogContext: DatadogContext
+    lateinit var fakeDatadogContext: MotadataContext
 
     @StringForgery(regex = "[a-z0-9]{32}")
     lateinit var fakeViewId: String
@@ -103,7 +103,7 @@ internal class TimestampOffsetProviderTest {
         // Then
         assertThat(fakeOffset).isEqualTo(fakeDatadogContext.time.serverTimeOffsetMs)
         repeat(fakeCounts) {
-            val fakeNewContext = forge.getForgery<DatadogContext>()
+            val fakeNewContext = forge.getForgery<MotadataContext>()
             val fakeNewId = forge.aStringMatching("[a-z0-9]{32}")
             val newOffset = testedProvider.getOffset(fakeNewId, fakeNewContext)
             assertThat(newOffset).isEqualTo(fakeNewContext.time.serverTimeOffsetMs)
@@ -115,7 +115,7 @@ internal class TimestampOffsetProviderTest {
         // Given
         val size = forge.anInt(min = 3, max = 10)
         val fakeContexts = forge.aList(size) {
-            forge.getForgery<DatadogContext>()
+            forge.getForgery<MotadataContext>()
         }
         val fakeViewIds = forge.aList(size) {
             forge.aStringMatching("[a-z0-9]{32}")
@@ -155,7 +155,7 @@ internal class TimestampOffsetProviderTest {
         // Given
         val size = forge.anInt(min = 3, max = 10)
         val fakeContexts = forge.aList(size) {
-            forge.getForgery<DatadogContext>()
+            forge.getForgery<MotadataContext>()
         }
         val fakeViewIds = forge.aList(size) {
             forge.aStringMatching("[a-z0-9]{32}")

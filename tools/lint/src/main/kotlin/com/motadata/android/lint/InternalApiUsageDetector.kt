@@ -46,7 +46,7 @@ class InternalApiUsageDetector : Detector(), SourceCodeScanner {
                 scope = element,
                 location = context.getLocation(usageInfo.usage),
                 message = "Symbols annotated with `com.motadata.android.lint.InternalApi` shouldn't" +
-                    " be used outside of Datadog SDK packages."
+                    " be used outside of Motadata SDK packages."
             )
         }
     }
@@ -55,7 +55,7 @@ class InternalApiUsageDetector : Detector(), SourceCodeScanner {
 
         val ISSUE = Issue.create(
             id = "DatadogInternalApiUsage",
-            briefDescription = "Prohibits usages of Datadog SDK internal API",
+            briefDescription = "Prohibits usages of Motadata SDK internal API",
             explanation = "Usages of classes and methods annotated" +
                 " with `com.motadata.android.lint.InternalApi` are prohibited",
             category = Category.CORRECTNESS,

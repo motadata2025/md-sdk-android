@@ -10,7 +10,7 @@ import android.content.Context
 import android.content.res.AssetManager
 import android.content.res.Resources
 import androidx.annotation.RawRes
-import com.motadata.android.Datadog
+import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.internal.utils.toHexString
 import java.io.InputStream
@@ -35,7 +35,7 @@ import java.io.InputStream
 fun Context.getAssetAsRumResource(
     fileName: String,
     accessMode: Int = AssetManager.ACCESS_STREAMING,
-    sdkCore: SdkCore = Datadog.getInstance()
+    sdkCore: SdkCore = Motadata.getInstance()
 ): InputStream {
     return RumResourceInputStream(
         assets.open(fileName, accessMode),
@@ -60,7 +60,7 @@ fun Context.getAssetAsRumResource(
 @Suppress("SwallowedException")
 fun Context.getRawResAsRumResource(
     @RawRes id: Int,
-    sdkCore: SdkCore = Datadog.getInstance()
+    sdkCore: SdkCore = Motadata.getInstance()
 ): InputStream {
     val resName = try {
         resources.getResourceName(id)

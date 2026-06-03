@@ -8362,7 +8362,7 @@ public final class com/motadata/android/rum/tracking/ViewTarget {
 public abstract interface class com/motadata/android/rum/tracking/ViewTrackingStrategy : com/motadata/android/rum/tracking/TrackingStrategy {
 }
 
-public final class com/motadata/android/sqlite/DatadogDatabaseErrorHandler : android/database/DatabaseErrorHandler {
+public final class com/motadata/android/sqlite/MotadataDatabaseErrorHandler : android/database/DatabaseErrorHandler {
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/String;Landroid/database/DatabaseErrorHandler;)V
 	public synthetic fun <init> (Ljava/lang/String;Landroid/database/DatabaseErrorHandler;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
