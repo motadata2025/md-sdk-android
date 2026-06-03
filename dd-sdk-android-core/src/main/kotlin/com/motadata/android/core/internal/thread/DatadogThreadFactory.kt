@@ -17,7 +17,7 @@ internal class DatadogThreadFactory(
 
     override fun newThread(r: Runnable?): Thread {
         val index = threadNumber.getAndIncrement()
-        val threadName = "datadog-$newThreadContext-thread-$index"
+        val threadName = "motadata-$newThreadContext-thread-$index"
 
         @Suppress("UnsafeThirdPartyFunctionCall") // both arguments are safe
         val thread = Thread(r, threadName)

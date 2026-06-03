@@ -20,8 +20,8 @@ import java.util.concurrent.TimeUnit
 internal const val CANCEL_ERROR_MESSAGE = "Error cancelling the UploadWorker"
 internal const val SETUP_ERROR_MESSAGE = "Error while trying to setup the UploadWorker"
 internal const val UPLOAD_WORKER_WAS_SCHEDULED = "UploadWorker was scheduled."
-internal const val UPLOAD_WORKER_NAME = "DatadogUploadWorker"
-internal const val TAG_DATADOG_UPLOAD = "DatadogBackgroundUpload"
+internal const val UPLOAD_WORKER_NAME = "MotadataUploadWorker"
+internal const val TAG_DATADOG_UPLOAD = "MotadataBackgroundUpload"
 
 internal const val DELAY_MS: Long = 5000
 

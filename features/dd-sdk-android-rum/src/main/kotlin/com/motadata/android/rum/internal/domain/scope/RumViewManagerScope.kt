@@ -453,8 +453,8 @@ internal class RumViewManagerScope(
             RumRawEvent.UpdateExternalRefreshRate::class.java
         )
 
-        internal const val RUM_BACKGROUND_VIEW_ID = "com.datadog.background.view"
-        internal const val RUM_BACKGROUND_VIEW_URL = "com/datadog/background/view"
+        internal const val RUM_BACKGROUND_VIEW_ID = "com.motadata.background.view"
+        internal const val RUM_BACKGROUND_VIEW_URL = "com/motadata/background/view"
         internal const val RUM_BACKGROUND_VIEW_NAME = "Background"
 
         internal const val RUM_APP_LAUNCH_VIEW_ID = "com.motadata.application-launch.view"

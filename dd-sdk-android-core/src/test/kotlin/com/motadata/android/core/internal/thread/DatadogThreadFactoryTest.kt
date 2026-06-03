@@ -32,7 +32,7 @@ internal class DatadogThreadFactoryTest {
         val thread = testedFactory.newThread {}
 
         // Then
-        assertThat(thread.name).isEqualTo("datadog-$fakeNewThreadContext-thread-1")
+        assertThat(thread.name).isEqualTo("motadata-$fakeNewThreadContext-thread-1")
         assertThat(thread.isDaemon).isFalse()
         assertThat(thread.priority).isEqualTo(Thread.NORM_PRIORITY)
     }
@@ -49,7 +49,7 @@ internal class DatadogThreadFactoryTest {
         val thread = testedFactory.newThread {}
 
         // Then
-        assertThat(thread.name).isEqualTo("datadog-$fakeNewThreadContext-thread-2")
+        assertThat(thread.name).isEqualTo("motadata-$fakeNewThreadContext-thread-2")
         assertThat(thread.isDaemon).isFalse()
         assertThat(thread.priority).isEqualTo(Thread.NORM_PRIORITY)
     }
