@@ -14,20 +14,20 @@ import com.motadata.android.internal.network.HttpSpec
 import com.motadata.android.internal.utils.loggableStackTrace
 import com.motadata.android.okhttp.internal.utils.forge.OkHttpConfigurator
 import com.motadata.android.okhttp.utils.config.GlobalRumMonitorTestConfiguration
-import com.motadata.android.tests.config.DatadogSingletonTestConfiguration
+import com.motadata.android.tests.config.MotadataSingletonTestConfiguration
 import com.motadata.android.tests.elmyr.anOkHttpResponse
 import com.motadata.android.trace.DeterministicTraceSampler
 import com.motadata.android.trace.TraceContextInjection
 import com.motadata.android.trace.TracingHeaderType
-import com.motadata.android.trace.api.DatadogTracingConstants
-import com.motadata.android.trace.api.propagation.DatadogPropagation
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.span.DatadogSpanBuilder
-import com.motadata.android.trace.api.span.DatadogSpanContext
-import com.motadata.android.trace.api.trace.DatadogTraceId
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.MotadataTracingConstants
+import com.motadata.android.trace.api.propagation.MotadataPropagation
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.span.MotadataSpanBuilder
+import com.motadata.android.trace.api.span.MotadataSpanContext
+import com.motadata.android.trace.api.trace.MotadataTraceId
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.trace.api.withMockPropagationHelper
-import com.motadata.android.trace.internal.DatadogPropagationHelper
+import com.motadata.android.trace.internal.MotadataPropagationHelper
 import com.motadata.android.trace.internal._TraceInternalProxy
 import com.motadata.android.trace.internal.fromHex
 import com.motadata.android.trace.internal.net.TraceContext
@@ -96,23 +96,23 @@ internal class TracingInterceptorContextInjectionSampledTest {
 
     // region Mocks
 
-    private lateinit var mockTracer: DatadogTracer
+    private lateinit var mockTracer: MotadataTracer
 
-    private lateinit var mockPropagation: DatadogPropagation
+    private lateinit var mockPropagation: MotadataPropagation
 
-    private lateinit var mockLocalTracer: DatadogTracer
+    private lateinit var mockLocalTracer: MotadataTracer
 
-    private lateinit var mockSpanBuilder: DatadogSpanBuilder
+    private lateinit var mockSpanBuilder: MotadataSpanBuilder
 
-    private lateinit var mockSpanContext: DatadogSpanContext
+    private lateinit var mockSpanContext: MotadataSpanContext
 
-    private lateinit var mockSpan: DatadogSpan
+    private lateinit var mockSpan: MotadataSpan
 
     @Mock
     lateinit var mockChain: Interceptor.Chain
 
     @Mock
-    lateinit var mockPropagationHelper: DatadogPropagationHelper
+    lateinit var mockPropagationHelper: MotadataPropagationHelper
 
     @Mock
     lateinit var mockRequestListener: TracedRequestListener
@@ -120,7 +120,7 @@ internal class TracingInterceptorContextInjectionSampledTest {
     @Mock
     lateinit var mockResolver: DefaultFirstPartyHostHeaderTypeResolver
 
-    lateinit var mockTraceSampler: Sampler<DatadogSpan>
+    lateinit var mockTraceSampler: Sampler<MotadataSpan>
 
     @Mock
     lateinit var mockInternalLogger: InternalLogger
@@ -152,7 +152,7 @@ internal class TracingInterceptorContextInjectionSampledTest {
     @StringForgery(regex = "[a-f][0-9]{31}")
     lateinit var fakeTraceIdAsString: String
 
-    private lateinit var fakeTraceId: DatadogTraceId
+    private lateinit var fakeTraceId: MotadataTraceId
 
     private lateinit var fakeOrigin: String
 
@@ -194,8 +194,8 @@ internal class TracingInterceptorContextInjectionSampledTest {
 
     private fun instantiateTestedInterceptor(
         tracedHosts: Map<String, Set<TracingHeaderType>> = emptyMap(),
-        globalTracerProvider: () -> DatadogTracer? = { null },
-        localTracerFactory: (SdkCore, Set<TracingHeaderType>) -> DatadogTracer
+        globalTracerProvider: () -> MotadataTracer? = { null },
+        localTracerFactory: (SdkCore, Set<TracingHeaderType>) -> MotadataTracer
     ): TracingInterceptor {
         return TracingInterceptor.Builder(tracedHosts)
             .setTracedRequestListener(mockRequestListener)
@@ -318,7 +318,7 @@ internal class TracingInterceptorContextInjectionSampledTest {
                 carrier.addHeader(it, forge.anAlphaNumericalString())
             }
             carrier.addHeader(nonDatadogContextKey, nonDatadogContextKeyValue)
-        }.whenever(mockPropagation).inject(any<DatadogSpanContext>(), any<Request.Builder>(), any())
+        }.whenever(mockPropagation).inject(any<MotadataSpanContext>(), any<Request.Builder>(), any())
         stubChain(mockChain)
 
         // When
@@ -459,11 +459,11 @@ internal class TracingInterceptorContextInjectionSampledTest {
         @StringForgery(type = StringForgeryType.ALPHA_NUMERICAL) value: String,
         @IntForgery(min = 200, max = 300) statusCode: Int
     ) {
-        val parentSpanContext: DatadogSpanContext = forge.newSpanContextMock<DatadogSpanContext>(samplingPriority = 1)
-        val parentSpan: DatadogSpan = forge.newSpanMock(parentSpanContext)
+        val parentSpanContext: MotadataSpanContext = forge.newSpanContextMock<MotadataSpanContext>(samplingPriority = 1)
+        val parentSpan: MotadataSpan = forge.newSpanMock(parentSpanContext)
         whenever(parentSpan.context()) doReturn parentSpanContext
         whenever(mockSpanBuilder.withParentContext(parentSpanContext)) doReturn mockSpanBuilder
-        fakeRequest = forgeRequest { it.tag(DatadogSpan::class.java, parentSpan) }
+        fakeRequest = forgeRequest { it.tag(MotadataSpan::class.java, parentSpan) }
         whenever(mockResolver.isFirstPartyUrl(fakeUrl.toHttpUrl())).thenReturn(true)
         stubChain(mockChain, statusCode)
         mockPropagation.wheneverInjectThenValueToHeaders(key, value)
@@ -487,9 +487,9 @@ internal class TracingInterceptorContextInjectionSampledTest {
         @Forgery fakeTraceContext: TraceContext
     ) {
         // Given
-        val fakeExpectedTraceId = DatadogTraceId.fromHex(fakeTraceContext.traceId)
+        val fakeExpectedTraceId = MotadataTraceId.fromHex(fakeTraceContext.traceId)
         val fakeExpectedSpanId = _TraceInternalProxy.spanIdConverter.fromHex(fakeTraceContext.spanId)
-        val fakeExtractedContext = forge.newSpanContextMock<DatadogSpanContext>(
+        val fakeExtractedContext = forge.newSpanContextMock<MotadataSpanContext>(
             fakeExpectedTraceId,
             fakeExpectedSpanId
         )
@@ -497,7 +497,7 @@ internal class TracingInterceptorContextInjectionSampledTest {
         mockPropagation.wheneverInjectThenValueToHeaders(key, value)
         stubChain(mockChain, statusCode)
         whenever(mockResolver.isFirstPartyUrl(fakeUrl.toHttpUrl())).thenReturn(true)
-        whenever(mockSpanBuilder.withParentContext(any<DatadogSpanContext>())) doReturn mockSpanBuilder
+        whenever(mockSpanBuilder.withParentContext(any<MotadataSpanContext>())) doReturn mockSpanBuilder
         whenever(mockPropagationHelper.createExtractedContext(any(), any(), any())).thenReturn(fakeExtractedContext)
 
         _TraceInternalProxy.withMockPropagationHelper(mockPropagationHelper) {
@@ -514,7 +514,7 @@ internal class TracingInterceptorContextInjectionSampledTest {
                     assertThat(firstValue.headers(key)).isEmpty()
                 }
             }
-            argumentCaptor<DatadogSpanContext> {
+            argumentCaptor<MotadataSpanContext> {
                 verify(mockSpanBuilder).withParentContext(capture())
                 val extractedContext = firstValue //  as ExtractedContext
                 assertThat(extractedContext.traceId).isEqualTo(fakeExpectedTraceId)
@@ -589,10 +589,10 @@ internal class TracingInterceptorContextInjectionSampledTest {
         @IntForgery(min = 200, max = 300) statusCode: Int
     ) {
         // Given
-        val parentSpanContext: DatadogSpanContext = mock()
+        val parentSpanContext: MotadataSpanContext = mock()
         whenever(mockPropagationHelper.isExtractedContext(parentSpanContext)).thenReturn(true)
         whenever(mockPropagation.extract(any<Request>(), any())) doReturn parentSpanContext
-        whenever(mockSpanBuilder.withParentContext(any<DatadogSpanContext>())) doReturn mockSpanBuilder
+        whenever(mockSpanBuilder.withParentContext(any<MotadataSpanContext>())) doReturn mockSpanBuilder
         whenever(mockResolver.isFirstPartyUrl(fakeUrl.toHttpUrl())).thenReturn(true)
         stubChain(mockChain, statusCode)
         mockPropagation.wheneverInjectThenValueToHeaders(key, value)
@@ -627,8 +627,8 @@ internal class TracingInterceptorContextInjectionSampledTest {
             it.addHeader(
                 TracingInterceptor.DATADOG_SAMPLING_PRIORITY_HEADER,
                 forge.anElementFrom(
-                    DatadogTracingConstants.PrioritySampling.SAMPLER_KEEP.toString(),
-                    DatadogTracingConstants.PrioritySampling.USER_KEEP.toString()
+                    MotadataTracingConstants.PrioritySampling.SAMPLER_KEEP.toString(),
+                    MotadataTracingConstants.PrioritySampling.USER_KEEP.toString()
                 )
             )
         }
@@ -657,7 +657,7 @@ internal class TracingInterceptorContextInjectionSampledTest {
         fakeRequest = forgeRequest {
             it.addHeader(
                 TracingInterceptor.B3M_SAMPLING_PRIORITY_KEY,
-                DatadogTracingConstants.PrioritySampling.SAMPLER_KEEP.toString()
+                MotadataTracingConstants.PrioritySampling.SAMPLER_KEEP.toString()
             )
         }
         stubChain(mockChain)
@@ -764,8 +764,8 @@ internal class TracingInterceptorContextInjectionSampledTest {
             it.addHeader(
                 TracingInterceptor.DATADOG_SAMPLING_PRIORITY_HEADER,
                 forge.anElementFrom(
-                    DatadogTracingConstants.PrioritySampling.SAMPLER_DROP.toString(),
-                    DatadogTracingConstants.PrioritySampling.USER_DROP.toString()
+                    MotadataTracingConstants.PrioritySampling.SAMPLER_DROP.toString(),
+                    MotadataTracingConstants.PrioritySampling.USER_DROP.toString()
                 )
             )
         }
@@ -799,7 +799,7 @@ internal class TracingInterceptorContextInjectionSampledTest {
         fakeRequest = forgeRequest {
             it.addHeader(
                 TracingInterceptor.B3M_SAMPLING_PRIORITY_KEY,
-                DatadogTracingConstants.PrioritySampling.SAMPLER_DROP.toString()
+                MotadataTracingConstants.PrioritySampling.SAMPLER_DROP.toString()
             )
         }
         stubChain(mockChain)
@@ -831,7 +831,7 @@ internal class TracingInterceptorContextInjectionSampledTest {
             it.addHeader(
                 TracingInterceptor.B3_HEADER_KEY,
                 forge.anElementFrom(
-                    DatadogTracingConstants.PrioritySampling.SAMPLER_DROP.toString(),
+                    MotadataTracingConstants.PrioritySampling.SAMPLER_DROP.toString(),
                     forge.aStringMatching("[a-f0-9]{32}\\-[a-f0-9]{16}\\-0")
                 )
             )
@@ -1034,8 +1034,8 @@ internal class TracingInterceptorContextInjectionSampledTest {
     fun `M create a span with automatic tracer W intercept() if no tracer registered`(
         @IntForgery(min = 200, max = 300) statusCode: Int
     ) {
-        val localSpan: DatadogSpan = forge.newSpanMock(mockSpanContext)
-        val localSpanBuilder: DatadogSpanBuilder = forge.newSpanBuilderMock(localSpan)
+        val localSpan: MotadataSpan = forge.newSpanMock(mockSpanContext)
+        val localSpanBuilder: MotadataSpanBuilder = forge.newSpanBuilderMock(localSpan)
         whenever(mockResolver.isFirstPartyUrl(fakeUrl.toHttpUrl())).thenReturn(true)
         whenever(mockTraceSampler.sample(localSpan)).thenReturn(true)
         whenever(mockLocalTracer.buildSpan(TracingInterceptor.SPAN_NAME)) doReturn localSpanBuilder
@@ -1067,8 +1067,8 @@ internal class TracingInterceptorContextInjectionSampledTest {
     fun `M drop automatic tracer W intercept() and global tracer registered`(
         @IntForgery(min = 200, max = 300) statusCode: Int
     ) {
-        val localSpan: DatadogSpan = forge.newSpanMock(mockSpanContext)
-        val localSpanBuilder: DatadogSpanBuilder = forge.newSpanBuilderMock(localSpan, mockSpanContext)
+        val localSpan: MotadataSpan = forge.newSpanMock(mockSpanContext)
+        val localSpanBuilder: MotadataSpanBuilder = forge.newSpanBuilderMock(localSpan, mockSpanContext)
         whenever(mockResolver.isFirstPartyUrl(fakeUrl.toHttpUrl())).thenReturn(true)
         stubChain(mockChain, statusCode)
         whenever(mockTraceSampler.sample(localSpan)).thenReturn(true)
@@ -1119,7 +1119,7 @@ internal class TracingInterceptorContextInjectionSampledTest {
         whenever(
             mockRequestListener.onRequestIntercepted(any(), any(), anyOrNull(), anyOrNull())
         ).doAnswer {
-            val span = it.arguments[1] as DatadogSpan
+            val span = it.arguments[1] as MotadataSpan
             span.setTag(tagKey, tagValue)
             return@doAnswer Unit
         }
@@ -1148,7 +1148,7 @@ internal class TracingInterceptorContextInjectionSampledTest {
         whenever(
             mockRequestListener.onRequestIntercepted(any(), any(), anyOrNull(), anyOrNull())
         ).doAnswer {
-            val span = it.arguments[1] as DatadogSpan
+            val span = it.arguments[1] as MotadataSpan
             span.setTag(tagKey, tagValue)
             return@doAnswer Unit
         }
@@ -1190,7 +1190,7 @@ internal class TracingInterceptorContextInjectionSampledTest {
         whenever(
             mockRequestListener.onRequestIntercepted(any(), any(), anyOrNull(), anyOrNull())
         ).doAnswer {
-            val span = it.arguments[1] as DatadogSpan
+            val span = it.arguments[1] as MotadataSpan
             span.setTag(tagKey, tagValue)
             return@doAnswer Unit
         }
@@ -1281,8 +1281,8 @@ internal class TracingInterceptorContextInjectionSampledTest {
         stubChain(mockChain, statusCode)
 
         // need this setup, otherwise #intercept actually throws NPE, which pollutes the log
-        val localSpanBuilder: DatadogSpanBuilder = mock()
-        val localSpan: DatadogSpan = mock()
+        val localSpanBuilder: MotadataSpanBuilder = mock()
+        val localSpan: MotadataSpan = mock()
         whenever(localSpanBuilder.withOrigin(anyOrNull())) doReturn localSpanBuilder
         whenever(localSpanBuilder.withParentContext(null)) doReturn localSpanBuilder
         whenever(localSpanBuilder.start()) doReturn localSpan
@@ -1368,7 +1368,7 @@ internal class TracingInterceptorContextInjectionSampledTest {
         const val HOSTNAME_PATTERN =
             "(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]{1,4}[a-zA-Z0-9]{2,3})\\.)+" +
                 "([A-Za-z]|[A-Za-z][A-Za-z0-9-]{1,2}[A-Za-z0-9])"
-        val datadogCore = DatadogSingletonTestConfiguration()
+        val datadogCore = MotadataSingletonTestConfiguration()
         val rumMonitor = GlobalRumMonitorTestConfiguration(datadogCore)
 
         @TestConfigurationsProvider

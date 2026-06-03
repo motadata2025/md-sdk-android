@@ -1,4 +1,4 @@
-public final class com/motadata/android/fresco/DatadogFrescoCacheListener : com/facebook/cache/common/CacheEventListener {
+public final class com/motadata/android/fresco/MotadataFrescoCacheListener : com/facebook/cache/common/CacheEventListener {
 	public fun <init> ()V
 	public fun <init> (Lcom/motadata/android/api/SdkCore;)V
 	public synthetic fun <init> (Lcom/motadata/android/api/SdkCore;ILkotlin/jvm/internal/DefaultConstructorMarker;)V

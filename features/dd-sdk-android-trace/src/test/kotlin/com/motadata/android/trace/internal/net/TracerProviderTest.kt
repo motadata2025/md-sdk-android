@@ -12,7 +12,7 @@ import com.motadata.android.api.feature.FeatureScope
 import com.motadata.android.core.InternalSdkCore
 import com.motadata.android.core.internal.net.FirstPartyHostHeaderTypeResolver
 import com.motadata.android.trace.TracingHeaderType
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.utils.forge.Configurator
 import fr.xgouchet.elmyr.Forge
 import fr.xgouchet.elmyr.annotation.StringForgery
@@ -60,10 +60,10 @@ internal class TracerProviderTest {
     lateinit var mockTracingFeature: FeatureScope
 
     @Mock
-    lateinit var mockGlobalTracer: DatadogTracer
+    lateinit var mockGlobalTracer: MotadataTracer
 
     @Mock
-    lateinit var mockLocalTracer: DatadogTracer
+    lateinit var mockLocalTracer: MotadataTracer
 
     @Mock
     lateinit var mockFirstPartyHostResolver: FirstPartyHostHeaderTypeResolver
@@ -320,7 +320,7 @@ internal class TracerProviderTest {
         val executor = Executors.newFixedThreadPool(threadCount)
         val startLatch = CountDownLatch(1)
         val doneLatch = CountDownLatch(threadCount)
-        val results = mutableListOf<DatadogTracer?>()
+        val results = mutableListOf<MotadataTracer?>()
 
         // When
         repeat(threadCount) {
@@ -385,7 +385,7 @@ internal class TracerProviderTest {
 
     @Test
     fun `M create new local tracer each time W provideTracer() {global tracer cycles availability}`(
-        @Mock mockSecondLocalTracer: DatadogTracer
+        @Mock mockSecondLocalTracer: MotadataTracer
     ) {
         // Given
         whenever(mockSdkCore.getFeature(Feature.TRACING_FEATURE_NAME)) doReturn mockTracingFeature
@@ -533,7 +533,7 @@ internal class TracerProviderTest {
         val executor = Executors.newFixedThreadPool(threadCount)
         val startLatch = CountDownLatch(1)
         val doneLatch = CountDownLatch(threadCount)
-        val results = mutableListOf<DatadogTracer?>()
+        val results = mutableListOf<MotadataTracer?>()
 
         // When - concurrent access after global becomes available
         repeat(threadCount) {

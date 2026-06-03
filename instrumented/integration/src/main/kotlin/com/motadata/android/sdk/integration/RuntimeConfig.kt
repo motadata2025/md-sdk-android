@@ -15,9 +15,9 @@ import com.motadata.android.log.Logger
 import com.motadata.android.log.LogsConfiguration
 import com.motadata.android.rum.RumConfiguration
 import com.motadata.android.sessionreplay.SessionReplayConfiguration
-import com.motadata.android.trace.DatadogTracing
+import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.TraceConfiguration
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import java.util.UUID
 
 internal object RuntimeConfig {
@@ -56,7 +56,7 @@ internal object RuntimeConfig {
         return logger
     }
 
-    fun tracer(sdkCore: SdkCore): DatadogTracer = DatadogTracing.newTracerBuilder(sdkCore)
+    fun tracer(sdkCore: SdkCore): MotadataTracer = MotadataTracing.newTracerBuilder(sdkCore)
         .withSampleRate(SAMPLE_ALL)
         .withPartialFlushMinSpans(FLUSH_ON_EACH_SPAN_THRESHOLD)
         .build()

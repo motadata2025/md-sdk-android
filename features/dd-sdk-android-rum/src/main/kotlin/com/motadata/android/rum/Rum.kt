@@ -22,7 +22,7 @@ import com.motadata.android.rum.internal.RumAnonymousIdentifierManager
 import com.motadata.android.rum.internal.RumFeature
 import com.motadata.android.rum.internal.domain.scope.RumVitalAppLaunchEventHelper
 import com.motadata.android.rum.internal.metric.SessionEndedMetricDispatcher
-import com.motadata.android.rum.internal.monitor.DatadogRumMonitor
+import com.motadata.android.rum.internal.monitor.MotadataRumMonitor
 import com.motadata.android.rum.internal.startup.RumAppStartupTelemetryReporter
 import com.motadata.android.rum.internal.startup.RumSessionScopeStartupManager
 import com.motadata.android.telemetry.internal.TelemetryEventHandler
@@ -113,7 +113,7 @@ object Rum {
     private fun createMonitor(
         sdkCore: InternalSdkCore,
         rumFeature: RumFeature
-    ): DatadogRumMonitor {
+    ): MotadataRumMonitor {
         val sessionEndedMetricDispatcher = SessionEndedMetricDispatcher(
             internalLogger = sdkCore.internalLogger,
             sessionSamplingRate = rumFeature.configuration.sampleRate
@@ -134,7 +134,7 @@ object Rum {
             sampleRate = rumFeature.sampleRate
         )
 
-        return DatadogRumMonitor(
+        return MotadataRumMonitor(
             applicationId = rumFeature.applicationId,
             sdkCore = sdkCore,
             sessionEndedMetricDispatcher = sessionEndedMetricDispatcher,

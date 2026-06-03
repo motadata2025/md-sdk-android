@@ -6,26 +6,26 @@
 
 package com.motadata.android.sdk.integration.trace
 
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import com.motadata.android.trace.internal._TraceInternalProxy
 
 /**
  * Returns the span's least significant trace id in hex format (the last 64 bits from the 128 bits trace id)
  */
-fun DatadogSpan.leastSignificant64BitsTraceId(): String {
+fun MotadataSpan.leastSignificant64BitsTraceId(): String {
     return traceId.toHexString().padStart(32, '0').takeLast(16)
 }
 
 /**
  * Returns the span's most significant trace id in hex format (the first 64 bits from the 128 bits trace id)
  */
-fun DatadogSpan.mostSignificant64BitsTraceId(): String {
+fun MotadataSpan.mostSignificant64BitsTraceId(): String {
     return traceId.toHexString().padStart(32, '0').take(16)
 }
 
 /**
  * Returns the span's spanId in hex format.
  */
-fun DatadogSpan.spanIdAsHexString(): String {
+fun MotadataSpan.spanIdAsHexString(): String {
     return _TraceInternalProxy.spanIdConverter.toHexStringPadded(context().spanId)
 }

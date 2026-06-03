@@ -9,10 +9,10 @@ package com.motadata.android.trace.sqlite
 import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import com.motadata.android.trace.GlobalDatadogTracer
-import com.motadata.android.trace.api.scope.DatadogScope
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.span.DatadogSpanBuilder
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.scope.MotadataScope
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.span.MotadataSpanBuilder
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.datadog.tools.unit.forge.BaseConfigurator
 import fr.xgouchet.elmyr.Forge
 import fr.xgouchet.elmyr.annotation.Forgery
@@ -44,19 +44,19 @@ import org.mockito.quality.Strictness
 class SqliteDatabaseExtTest {
 
     @Mock
-    lateinit var mockTracer: DatadogTracer
+    lateinit var mockTracer: MotadataTracer
 
     @Mock
-    lateinit var mockSpanBuilder: DatadogSpanBuilder
+    lateinit var mockSpanBuilder: MotadataSpanBuilder
 
     @Mock
-    lateinit var mockSpan: DatadogSpan
+    lateinit var mockSpan: MotadataSpan
 
     @Mock
-    lateinit var mockParentSpan: DatadogSpan
+    lateinit var mockParentSpan: MotadataSpan
 
     @Mock
-    lateinit var mockScope: DatadogScope
+    lateinit var mockScope: MotadataScope
 
     @StringForgery
     lateinit var fakeOperationName: String
@@ -140,7 +140,7 @@ class SqliteDatabaseExtTest {
     fun `M create Span around transaction W transactionTraced() without parents`() {
         // GIVEN
         whenever(mockTracer.activeSpan()) doReturn null
-        whenever(mockSpanBuilder.withParentSpan(null as DatadogSpan?)) doReturn mockSpanBuilder
+        whenever(mockSpanBuilder.withParentSpan(null as MotadataSpan?)) doReturn mockSpanBuilder
 
         // WHEN
         val transactionExecuted = mockDatabase.transactionTraced(
@@ -152,7 +152,7 @@ class SqliteDatabaseExtTest {
 
         // THEN
         assertThat(transactionExecuted).isTrue()
-        verify(mockSpanBuilder).withParentSpan(null as DatadogSpan?)
+        verify(mockSpanBuilder).withParentSpan(null as MotadataSpan?)
         inOrder(mockSpan, mockScope) {
             verify(mockSpan).finish()
             verify(mockScope).close()
@@ -168,7 +168,7 @@ class SqliteDatabaseExtTest {
     fun `M close the Span around transaction W transactionTraced() throws exception`() {
         // GIVEN
         whenever(mockTracer.activeSpan()) doReturn null
-        whenever(mockSpanBuilder.withParentSpan(null as DatadogSpan?)) doReturn mockSpanBuilder
+        whenever(mockSpanBuilder.withParentSpan(null as MotadataSpan?)) doReturn mockSpanBuilder
 
         // WHEN
 
@@ -181,7 +181,7 @@ class SqliteDatabaseExtTest {
         ).isEqualTo(fakeException)
 
         // THEN
-        verify(mockSpanBuilder).withParentSpan(null as DatadogSpan?)
+        verify(mockSpanBuilder).withParentSpan(null as MotadataSpan?)
         inOrder(mockSpan, mockScope) {
             verify(mockSpan).finish()
             verify(mockScope).close()

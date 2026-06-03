@@ -23,9 +23,9 @@ import com.motadata.android.trace.ApmNetworkTracingScope
 import com.motadata.android.trace.NetworkTracedRequestListener
 import com.motadata.android.trace.TraceContextInjection
 import com.motadata.android.trace.TracingHeaderType
-import com.motadata.android.trace.api.DatadogTracingConstants
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.MotadataTracingConstants
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.trace.internal.RumContextPropagator.Companion.extractRumContext
 import com.motadata.android.trace.internal._TraceInternalProxy.propagationHelper
 import com.motadata.android.trace.internal.net.RequestTracingState
@@ -65,7 +65,7 @@ class ApmNetworkInstrumentation internal constructor(
     val traceOrigin: String?,
     internal val tracerProvider: TracerProvider,
     internal val redacted404ResourceName: Boolean,
-    internal val traceSampler: Sampler<DatadogSpan>,
+    internal val traceSampler: Sampler<MotadataSpan>,
     internal val injectionType: TraceContextInjection,
     internal val tracedRequestListener: NetworkTracedRequestListener,
     internal val localFirstPartyHostHeaderTypeResolver: DefaultFirstPartyHostHeaderTypeResolver,
@@ -162,7 +162,7 @@ class ApmNetworkInstrumentation internal constructor(
      */
     fun onResponseSucceeded(requestTracingState: RequestTracingState, response: HttpResponseInfo) {
         if (requestTracingState.isSampled) {
-            requestTracingState.span?.setTag(DatadogTracingConstants.Tags.KEY_HTTP_STATUS, response.statusCode)
+            requestTracingState.span?.setTag(MotadataTracingConstants.Tags.KEY_HTTP_STATUS, response.statusCode)
             if (response.statusCode in HttpURLConnection.HTTP_BAD_REQUEST until HttpURLConnection.HTTP_INTERNAL_ERROR) {
                 requestTracingState.span?.isError = true
             }
@@ -184,10 +184,10 @@ class ApmNetworkInstrumentation internal constructor(
     fun onResponseFailed(requestTracingState: RequestTracingState, throwable: Throwable) {
         if (requestTracingState.isSampled) {
             requestTracingState.span?.isError = true
-            requestTracingState.span?.setTag(DatadogTracingConstants.Tags.KEY_ERROR_MSG, throwable.message)
-            requestTracingState.span?.setTag(DatadogTracingConstants.Tags.KEY_ERROR_TYPE, throwable.javaClass.name)
+            requestTracingState.span?.setTag(MotadataTracingConstants.Tags.KEY_ERROR_MSG, throwable.message)
+            requestTracingState.span?.setTag(MotadataTracingConstants.Tags.KEY_ERROR_TYPE, throwable.javaClass.name)
             requestTracingState.span?.setTag(
-                DatadogTracingConstants.Tags.KEY_ERROR_STACK,
+                MotadataTracingConstants.Tags.KEY_ERROR_STACK,
                 throwable.loggableStackTrace()
             )
         }
@@ -218,7 +218,7 @@ class ApmNetworkInstrumentation internal constructor(
         )
     }
 
-    private fun DatadogSpan.isSampled(request: HttpRequestInfo): Boolean =
+    private fun MotadataSpan.isSampled(request: HttpRequestInfo): Boolean =
         extractRumContext(rumContextPropagator, block = true)
             .sample(request, traceSampler)
 
@@ -246,8 +246,8 @@ class ApmNetworkInstrumentation internal constructor(
         url: String,
         sdkCore: InternalSdkCore,
         requestBuilder: HttpRequestInfoBuilder,
-        tracer: DatadogTracer,
-        span: DatadogSpan,
+        tracer: MotadataTracer,
+        span: MotadataSpan,
         isSampled: Boolean
     ): HttpRequestInfoBuilder = requestBuilder.also { builder ->
         val tracingHeaderTypes = localFirstPartyHostHeaderTypeResolver.headerTypesForUrl(url)

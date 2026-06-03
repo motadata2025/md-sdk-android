@@ -6,13 +6,13 @@
 
 package com.motadata.android.trace.internal.coroutines
 
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import com.motadata.android.trace.coroutines.CoroutineScopeSpan
 import kotlinx.coroutines.CoroutineScope
 
 internal class CoroutineScopeSpanImpl(
     private val scope: CoroutineScope,
-    private val span: DatadogSpan
+    private val span: MotadataSpan
 ) : CoroutineScopeSpan,
     CoroutineScope by scope,
-    DatadogSpan by span
+    MotadataSpan by span

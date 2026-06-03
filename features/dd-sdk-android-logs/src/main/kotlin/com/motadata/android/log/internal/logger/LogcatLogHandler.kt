@@ -127,7 +127,7 @@ internal class LogcatLogHandler(
             LogcatLogHandler::class.java.canonicalName,
             ConditionalLogHandler::class.java.canonicalName,
             CombinedLogHandler::class.java.canonicalName,
-            DatadogLogHandler::class.java.canonicalName
+            MotadataLogHandler::class.java.canonicalName
         )
 
         // internal for testing

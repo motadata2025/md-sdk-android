@@ -7,7 +7,7 @@
 package com.motadata.android.trace
 
 import com.motadata.android.lint.InternalApi
-import com.motadata.android.trace.api.span.DatadogSpanWriter
+import com.motadata.android.trace.api.span.MotadataSpanWriter
 
 /**
  * Internal interface to provide the core writer to the tracer.
@@ -23,5 +23,5 @@ interface InternalCoreWriterProvider {
     /**
      * Returns the core writer used by the tracer.
      */
-    fun getCoreTracerWriter(): DatadogSpanWriter
+    fun getCoreTracerWriter(): MotadataSpanWriter
 }

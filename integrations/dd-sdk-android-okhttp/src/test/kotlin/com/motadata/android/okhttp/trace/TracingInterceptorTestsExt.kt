@@ -6,12 +6,12 @@
 package com.motadata.android.okhttp.trace
 
 import com.motadata.android.core.sampling.Sampler
-import com.motadata.android.trace.api.propagation.DatadogPropagation
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.span.DatadogSpanBuilder
-import com.motadata.android.trace.api.span.DatadogSpanContext
-import com.motadata.android.trace.api.trace.DatadogTraceId
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.propagation.MotadataPropagation
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.span.MotadataSpanBuilder
+import com.motadata.android.trace.api.span.MotadataSpanContext
+import com.motadata.android.trace.api.trace.MotadataTraceId
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.trace.internal.fromHex
 import fr.xgouchet.elmyr.Forge
 import okhttp3.Request
@@ -24,27 +24,27 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
 internal fun newAgentPropagationMock(
-    extractedContext: DatadogSpanContext = mock()
-) = mock<DatadogPropagation> {
+    extractedContext: MotadataSpanContext = mock()
+) = mock<MotadataPropagation> {
     on { extract(any<Request>(), any()) } doReturn extractedContext
 }
-internal fun DatadogPropagation.wheneverInjectThenThrow(throwable: Throwable) {
+internal fun MotadataPropagation.wheneverInjectThenThrow(throwable: Throwable) {
     doThrow(throwable)
         .whenever(this)
-        .inject(any<DatadogSpanContext>(), any<Request.Builder>(), any())
+        .inject(any<MotadataSpanContext>(), any<Request.Builder>(), any())
 }
 
-internal fun DatadogPropagation.wheneverInjectThenValueToHeaders(key: String, value: String) {
+internal fun MotadataPropagation.wheneverInjectThenValueToHeaders(key: String, value: String) {
     doAnswer { invocation ->
         val carrier = invocation.getArgument<Request.Builder>(1)
         val setter = invocation.getArgument<(carrier: Request.Builder, key: String, value: String) -> Unit>(2)
         setter.invoke(carrier, key, value)
     }
         .whenever(this)
-        .inject(any<DatadogSpanContext>(), any<Request.Builder>(), any())
+        .inject(any<MotadataSpanContext>(), any<Request.Builder>(), any())
 }
 
-internal fun DatadogPropagation.wheneverInjectCalledPassContextToHeaders(
+internal fun MotadataPropagation.wheneverInjectCalledPassContextToHeaders(
     datadogContext: Map<String, String>,
     nonDatadogContextKey: String,
     nonDatadogContextKeyValue: String
@@ -56,29 +56,29 @@ internal fun DatadogPropagation.wheneverInjectCalledPassContextToHeaders(
         setter.invoke(carrier, nonDatadogContextKey, nonDatadogContextKeyValue)
     }
         .whenever(this)
-        .inject(any<DatadogSpanContext>(), any<Request.Builder>(), any())
+        .inject(any<MotadataSpanContext>(), any<Request.Builder>(), any())
 }
 
 internal fun Forge.aDatadogTraceId(
     fakeString: String? = null
-) = DatadogTraceId.fromHex(fakeString ?: aStringMatching("[a-f0-9]{31}"))
+) = MotadataTraceId.fromHex(fakeString ?: aStringMatching("[a-f0-9]{31}"))
 
 internal fun Forge.newTraceSamplerMock(
-    span: DatadogSpan = newSpanMock()
-) = mock<Sampler<DatadogSpan>> {
+    span: MotadataSpan = newSpanMock()
+) = mock<Sampler<MotadataSpan>> {
     on { sample(span) } doReturn true
 }
 
 internal fun Forge.newTracerMock(
-    spanBuilder: DatadogSpanBuilder = newSpanBuilderMock(),
-    propagation: DatadogPropagation = newAgentPropagationMock()
-) = mock<DatadogTracer> {
+    spanBuilder: MotadataSpanBuilder = newSpanBuilderMock(),
+    propagation: MotadataPropagation = newAgentPropagationMock()
+) = mock<MotadataTracer> {
     on { buildSpan(TracingInterceptor.SPAN_NAME) } doReturn spanBuilder
     on { propagate() } doReturn propagation
 }
 
-internal inline fun <reified T : DatadogSpanContext> Forge.newSpanContextMock(
-    fakeTraceId: DatadogTraceId = aDatadogTraceId(),
+internal inline fun <reified T : MotadataSpanContext> Forge.newSpanContextMock(
+    fakeTraceId: MotadataTraceId = aDatadogTraceId(),
     fakeSpanId: Long = aLong(),
     samplingPriority: Int = 0
 ): T = mock<T> {
@@ -88,19 +88,19 @@ internal inline fun <reified T : DatadogSpanContext> Forge.newSpanContextMock(
 }
 
 internal fun Forge.newSpanMock(
-    context: DatadogSpanContext = newSpanContextMock(),
+    context: MotadataSpanContext = newSpanContextMock(),
     samplingPriority: Int? = null
-) = mock<DatadogSpan> {
+) = mock<MotadataSpan> {
     on { context() } doReturn context
     on { this.samplingPriority } doReturn samplingPriority
 }
 
 internal fun Forge.newSpanBuilderMock(
-    localSpan: DatadogSpan = newSpanMock(),
-    context: DatadogSpanContext = newSpanContextMock()
-) = mock<DatadogSpanBuilder> {
+    localSpan: MotadataSpan = newSpanMock(),
+    context: MotadataSpanContext = newSpanContextMock()
+) = mock<MotadataSpanBuilder> {
     on { withOrigin(anyOrNull()) } doReturn it
     on { withParentContext(context) } doReturn it
-    on { withParentContext(null as DatadogSpanContext?) } doReturn it
+    on { withParentContext(null as MotadataSpanContext?) } doReturn it
     on { start() } doReturn localSpan
 }

@@ -15,7 +15,7 @@ import com.motadata.android.okhttp.trace.TracingInterceptorTest
 import com.motadata.android.rum.RumResourceAttributesProvider
 import com.motadata.android.trace.TraceContextInjection
 import com.motadata.android.trace.TracingHeaderType
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.utils.verifyLog
 import com.datadog.tools.unit.extensions.TestConfigurationExtension
 import fr.xgouchet.elmyr.annotation.Forgery
@@ -53,8 +53,8 @@ internal class MotadataInterceptorWithoutRumTest : TracingInterceptorTest() {
 
     override fun instantiateTestedInterceptor(
         tracedHosts: Map<String, Set<TracingHeaderType>>,
-        globalTracerProvider: () -> DatadogTracer?,
-        localTracerFactory: (SdkCore, Set<TracingHeaderType>) -> DatadogTracer
+        globalTracerProvider: () -> MotadataTracer?,
+        localTracerFactory: (SdkCore, Set<TracingHeaderType>) -> MotadataTracer
     ): TracingInterceptor {
         return MotadataInterceptor(
             sdkInstanceName = null,

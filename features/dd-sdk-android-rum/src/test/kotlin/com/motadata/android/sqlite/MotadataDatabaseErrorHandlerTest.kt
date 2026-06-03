@@ -14,7 +14,7 @@ import com.motadata.android.rum.RumAttributes
 import com.motadata.android.rum.RumErrorSource
 import com.motadata.android.rum.RumMonitor
 import com.motadata.android.rum.utils.forge.Configurator
-import com.motadata.android.tests.config.DatadogSingletonTestConfiguration
+import com.motadata.android.tests.config.MotadataSingletonTestConfiguration
 import com.datadog.tools.unit.annotations.TestConfigurationsProvider
 import com.datadog.tools.unit.extensions.TestConfigurationExtension
 import com.datadog.tools.unit.extensions.config.TestConfiguration
@@ -126,7 +126,7 @@ internal class MotadataDatabaseErrorHandlerTest {
     }
 
     companion object {
-        val datadog = DatadogSingletonTestConfiguration()
+        val datadog = MotadataSingletonTestConfiguration()
 
         @TestConfigurationsProvider
         @JvmStatic

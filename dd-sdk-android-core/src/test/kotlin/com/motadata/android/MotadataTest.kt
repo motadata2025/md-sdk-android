@@ -13,7 +13,7 @@ import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
 import com.motadata.android.core.configuration.Configuration
 import com.motadata.android.core.internal.CoreFeature
-import com.motadata.android.core.internal.DatadogCore
+import com.motadata.android.core.internal.MotadataCore
 import com.motadata.android.core.internal.HashGenerator
 import com.motadata.android.core.internal.NoOpInternalSdkCore
 import com.motadata.android.core.internal.SdkCoreRegistry
@@ -188,7 +188,7 @@ internal class MotadataTest {
         )
 
         // Then
-        check(instance is DatadogCore)
+        check(instance is MotadataCore)
         assertThat(instance.instanceId).isEqualTo(fakeHash)
     }
 
@@ -216,7 +216,7 @@ internal class MotadataTest {
         )
 
         // Then
-        check(instance is DatadogCore)
+        check(instance is MotadataCore)
         assertThat(instance.instanceId).isEqualTo(fakeHash)
     }
 
@@ -242,7 +242,7 @@ internal class MotadataTest {
         )
 
         // Then
-        check(instance is DatadogCore)
+        check(instance is MotadataCore)
         assertThat(instance.trackingConsent).isEqualTo(fakeConsent)
     }
 
@@ -270,7 +270,7 @@ internal class MotadataTest {
         )
 
         // Then
-        check(instance is DatadogCore)
+        check(instance is MotadataCore)
         assertThat(instance.trackingConsent).isEqualTo(fakeConsent)
     }
 
@@ -328,7 +328,7 @@ internal class MotadataTest {
             appContext.mockInstance,
             fakeConfiguration,
             fakeConsent
-        ) as? DatadogCore
+        ) as? MotadataCore
         checkNotNull(sdk)
 
         // When
@@ -350,7 +350,7 @@ internal class MotadataTest {
             appContext.mockInstance,
             fakeConfiguration,
             fakeConsent
-        ) as? DatadogCore
+        ) as? MotadataCore
         checkNotNull(sdk)
 
         // When
@@ -373,7 +373,7 @@ internal class MotadataTest {
             appContext.mockInstance,
             fakeConfiguration,
             fakeConsent
-        ) as? DatadogCore
+        ) as? MotadataCore
         checkNotNull(sdk)
 
         // When

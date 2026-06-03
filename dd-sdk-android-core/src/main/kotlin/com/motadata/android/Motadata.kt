@@ -16,7 +16,7 @@ import com.motadata.android.api.context.UserInfo
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.core.configuration.Configuration
-import com.motadata.android.core.internal.DatadogCore
+import com.motadata.android.core.internal.MotadataCore
 import com.motadata.android.core.internal.HashGenerator
 import com.motadata.android.core.internal.NoOpInternalSdkCore
 import com.motadata.android.core.internal.SdkCoreRegistry
@@ -88,7 +88,7 @@ object Motadata {
             }
 
             val sdkInstanceName = instanceName ?: SdkCoreRegistry.DEFAULT_INSTANCE_NAME
-            val sdkCore = DatadogCore(
+            val sdkCore = MotadataCore(
                 context,
                 sdkInstanceId,
                 sdkInstanceName
@@ -189,7 +189,7 @@ object Motadata {
     fun stopInstance(instanceName: String? = null) {
         synchronized(registry) {
             val instance = registry.unregister(instanceName)
-            (instance as? DatadogCore)?.stop()
+            (instance as? MotadataCore)?.stop()
         }
     }
 
@@ -413,7 +413,7 @@ object Motadata {
                             "type" to "flush_and_stop_monitor"
                         )
                     )
-                (sdkCore as? DatadogCore)?.flushStoredData()
+                (sdkCore as? MotadataCore)?.flushStoredData()
             }
         }
     }

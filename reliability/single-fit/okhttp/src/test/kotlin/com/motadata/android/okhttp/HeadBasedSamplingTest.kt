@@ -19,15 +19,15 @@ import com.motadata.android.okhttp.trace.TracingInterceptor
 import com.motadata.android.rum.ExperimentalRumApi
 import com.motadata.android.tests.ktx.getString
 import com.motadata.android.trace.ApmNetworkInstrumentationConfiguration
-import com.motadata.android.trace.DatadogTracing
+import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.ExperimentalTraceApi
 import com.motadata.android.trace.GlobalDatadogTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
 import com.motadata.android.trace.TraceContextInjection
 import com.motadata.android.trace.TracingHeaderType
-import com.motadata.android.trace.api.DatadogTracingConstants
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.MotadataTracingConstants
+import com.motadata.android.trace.api.span.MotadataSpan
 import com.motadata.android.trace.internal._TraceInternalProxy
 import com.motadata.android.trace.opentelemetry.OtelTracerProvider
 import com.datadog.tools.unit.extensions.TestConfigurationExtension
@@ -200,7 +200,7 @@ class HeadBasedSamplingTest {
     }
 
     @Test
-    fun `M respect parent sampling decision W call is made {parent context DatadogTracing Span, parent not sampled}`(
+    fun `M respect parent sampling decision W call is made {parent context MotadataTracing Span, parent not sampled}`(
         @StringForgery fakeSpanName: String
     ) {
         // Given
@@ -294,7 +294,7 @@ class HeadBasedSamplingTest {
     }
 
     @Test
-    fun `M respect parent sampling decision W call is made { parent context = DatadogTracing Span, parent sampled }`(
+    fun `M respect parent sampling decision W call is made { parent context = MotadataTracing Span, parent sampled }`(
         @StringForgery fakeSpanName: String
     ) {
         // Given
@@ -353,7 +353,7 @@ class HeadBasedSamplingTest {
                 hasMostSignificant64BitsTraceId(mostSignificantTraceId)
                 hasParentId("0000000000000000")
                 hasAgentPsr(1.0)
-                hasSamplingPriority(DatadogTracingConstants.PrioritySampling.SAMPLER_KEEP)
+                hasSamplingPriority(MotadataTracingConstants.PrioritySampling.SAMPLER_KEEP)
                 hasGenericMetricValue("_top_level", 1)
             }
 
@@ -450,7 +450,7 @@ class HeadBasedSamplingTest {
                 hasParentId("0000000000000000")
                 // OpenTelemetry span will have _dd.rule_psr instead of _dd.agent_psr
                 hasRulePsr(1.0)
-                hasSamplingPriority(DatadogTracingConstants.PrioritySampling.USER_KEEP)
+                hasSamplingPriority(MotadataTracingConstants.PrioritySampling.USER_KEEP)
                 hasGenericMetricValue("_top_level", 1)
             }
 
@@ -473,7 +473,7 @@ class HeadBasedSamplingTest {
                 hasName("okhttp.request")
                 hasResource("http://${mockServer.hostName}:${mockServer.port}/")
                 hasNoAgentPsr()
-                hasSamplingPriority(DatadogTracingConstants.PrioritySampling.USER_KEEP)
+                hasSamplingPriority(MotadataTracingConstants.PrioritySampling.USER_KEEP)
                 hasNoGenericMetric("_top_level")
                 hasSpanKind("client")
                 hasHttpMethod("GET")
@@ -598,7 +598,7 @@ class HeadBasedSamplingTest {
                 hasMostSignificant64BitsTraceId(mostSignificantTraceId)
                 hasParentId("0000000000000000")
                 hasAgentPsr(1.0)
-                hasSamplingPriority(DatadogTracingConstants.PrioritySampling.SAMPLER_KEEP)
+                hasSamplingPriority(MotadataTracingConstants.PrioritySampling.SAMPLER_KEEP)
                 hasGenericMetricValue("_top_level", 1)
             }
 
@@ -642,7 +642,7 @@ class HeadBasedSamplingTest {
 
     private fun registerGlobalTracer(sampleRate: Double) {
         GlobalDatadogTracer.registerIfAbsent(
-            DatadogTracing.newTracerBuilder(stubSdkCore)
+            MotadataTracing.newTracerBuilder(stubSdkCore)
                 .withTracingHeadersTypes(setOf(TracingHeaderType.DATADOG))
                 // this is on purpose, we want to make sure that it is not taken into account
                 .withSampleRate(sampleRate)
@@ -751,7 +751,7 @@ class HeadBasedSamplingTest {
 
     @Test
     @Suppress("LongMethod")
-    fun `M respect parent sampling decision W call is made {parent=DatadogTracing, not sampled, new}`(
+    fun `M respect parent sampling decision W call is made {parent=MotadataTracing, not sampled, new}`(
         @StringForgery fakeSpanName: String
     ) {
         // Given
@@ -826,7 +826,7 @@ class HeadBasedSamplingTest {
     }
 
     @Test
-    fun `M respect parent sampling decision W call is made {parent=DatadogTracing Span, sampled, new instrumentation}`(
+    fun `M respect parent sampling decision W call is made {parent=MotadataTracing Span, sampled, new instrumentation}`(
         @StringForgery fakeSpanName: String
     ) {
         // Given
@@ -875,7 +875,7 @@ class HeadBasedSamplingTest {
                 hasMostSignificant64BitsTraceId(mostSignificantTraceId)
                 hasParentId("0000000000000000")
                 hasAgentPsr(1.0)
-                hasSamplingPriority(DatadogTracingConstants.PrioritySampling.SAMPLER_KEEP)
+                hasSamplingPriority(MotadataTracingConstants.PrioritySampling.SAMPLER_KEEP)
                 hasGenericMetricValue("_top_level", 1)
             }
 
@@ -962,7 +962,7 @@ class HeadBasedSamplingTest {
                 hasParentId("0000000000000000")
                 // OpenTelemetry span will have _dd.rule_psr instead of _dd.agent_psr
                 hasRulePsr(1.0)
-                hasSamplingPriority(DatadogTracingConstants.PrioritySampling.USER_KEEP)
+                hasSamplingPriority(MotadataTracingConstants.PrioritySampling.USER_KEEP)
                 hasGenericMetricValue("_top_level", 1)
             }
 
@@ -985,7 +985,7 @@ class HeadBasedSamplingTest {
                 hasName("okhttp.request")
                 hasResource("http://${mockServer.hostName}:${mockServer.port}/")
                 hasNoAgentPsr()
-                hasSamplingPriority(DatadogTracingConstants.PrioritySampling.USER_KEEP)
+                hasSamplingPriority(MotadataTracingConstants.PrioritySampling.USER_KEEP)
                 hasNoGenericMetric("_top_level")
                 hasSpanKind("client")
                 hasHttpMethod("GET")
@@ -1090,7 +1090,7 @@ class HeadBasedSamplingTest {
                 hasMostSignificant64BitsTraceId(mostSignificantTraceId)
                 hasParentId("0000000000000000")
                 hasAgentPsr(1.0)
-                hasSamplingPriority(DatadogTracingConstants.PrioritySampling.SAMPLER_KEEP)
+                hasSamplingPriority(MotadataTracingConstants.PrioritySampling.SAMPLER_KEEP)
                 hasGenericMetricValue("_top_level", 1)
             }
 
@@ -1137,8 +1137,8 @@ class HeadBasedSamplingTest {
         toHexStringPadded(this@toHexPaddedFromDecimalString.toLong())
     }
 
-    private fun Request.Builder.parentSpan(span: DatadogSpan): Request.Builder {
-        tag(DatadogSpan::class.java, span)
+    private fun Request.Builder.parentSpan(span: MotadataSpan): Request.Builder {
+        tag(MotadataSpan::class.java, span)
         return this
     }
 

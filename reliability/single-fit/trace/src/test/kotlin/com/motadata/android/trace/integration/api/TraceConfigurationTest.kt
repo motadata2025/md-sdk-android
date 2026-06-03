@@ -14,7 +14,7 @@ import com.motadata.android.core.stub.StubSDKCore
 import com.motadata.android.tests.ktx.getInt
 import com.motadata.android.tests.ktx.getLong
 import com.motadata.android.tests.ktx.getString
-import com.motadata.android.trace.DatadogTracing
+import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.GlobalDatadogTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
@@ -141,7 +141,7 @@ class TraceConfigurationTest {
             .setNetworkInfoEnabled(false)
             .build()
         Trace.enable(fakeTraceConfiguration, stubSdkCore)
-        val testedTracer = DatadogTracing.newTracerBuilder(stubSdkCore).build()
+        val testedTracer = MotadataTracing.newTracerBuilder(stubSdkCore).build()
 
         // When
         var leastSignificantTraceId: String
@@ -187,7 +187,7 @@ class TraceConfigurationTest {
             .setNetworkInfoEnabled(true)
             .build()
         Trace.enable(fakeTraceConfiguration, stubSdkCore)
-        val testedTracer = DatadogTracing.newTracerBuilder(stubSdkCore).build()
+        val testedTracer = MotadataTracing.newTracerBuilder(stubSdkCore).build()
 
         // When
         var leastSignificantTraceId: String
@@ -245,7 +245,7 @@ class TraceConfigurationTest {
             .setEventMapper(stubMapper)
             .build()
         Trace.enable(fakeTraceConfiguration, stubSdkCore)
-        val testedTracer = DatadogTracing.newTracerBuilder(stubSdkCore).build()
+        val testedTracer = MotadataTracing.newTracerBuilder(stubSdkCore).build()
 
         // When
         val fullDuration = measureNanoTime {

@@ -14,7 +14,7 @@ import com.motadata.android.rum.coroutines.sendErrorToDatadog
 import com.motadata.android.sample.BuildConfig
 import com.motadata.android.sample.data.Result
 import com.motadata.android.trace.GlobalDatadogTracer
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import com.motadata.android.trace.coroutines.CoroutineScopeSpan
 import com.motadata.android.trace.coroutines.asyncTraced
 import com.motadata.android.trace.coroutines.awaitTraced
@@ -210,7 +210,7 @@ internal class TracesViewModel(
         private val onException: (Throwable) -> Unit,
         private val onCancel: () -> Unit
     ) : AsyncTask<Unit, Unit, Result>() {
-        private var currentActiveMainSpan: DatadogSpan? = null
+        private var currentActiveMainSpan: MotadataSpan? = null
 
         @Deprecated("Deprecated in Java")
         override fun onPreExecute() {
@@ -227,7 +227,7 @@ internal class TracesViewModel(
 
             if (currentActiveMainSpan != null) {
                 builder.tag(
-                    DatadogSpan::class.java,
+                    MotadataSpan::class.java,
                     currentActiveMainSpan
                 )
             }
@@ -284,7 +284,7 @@ internal class TracesViewModel(
         private val onResponse: () -> Unit,
         private val onException: (Throwable) -> Unit
     ) : AsyncTask<Unit, Unit, Result>(), EventHandler {
-        private var currentActiveMainSpan: DatadogSpan? = null
+        private var currentActiveMainSpan: MotadataSpan? = null
 
         @Deprecated("Deprecated in Java")
         override fun onPreExecute() {
@@ -341,7 +341,7 @@ internal class TracesViewModel(
         val onDone: () -> Unit
     ) : AsyncTask<Unit, Unit, Unit>() {
 
-        var activeSpanInMainThread: DatadogSpan? = null
+        var activeSpanInMainThread: MotadataSpan? = null
 
         @Suppress("CheckInternal")
         private val logger: Logger by lazy {

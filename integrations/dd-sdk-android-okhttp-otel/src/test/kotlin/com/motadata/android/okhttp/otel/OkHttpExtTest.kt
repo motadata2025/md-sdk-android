@@ -6,7 +6,7 @@
 
 package com.motadata.android.okhttp.otel
 
-import com.motadata.android.trace.api.DatadogTracingConstants
+import com.motadata.android.trace.api.MotadataTracingConstants
 import com.motadata.android.trace.internal.net.TraceContext
 import com.datadog.tools.unit.forge.BaseConfigurator
 import fr.xgouchet.elmyr.annotation.BoolForgery
@@ -61,9 +61,9 @@ internal class OkHttpExtTest {
             on { isSampled }.thenReturn(fakeIsSampled)
         }
         expectedPrioritySampling = if (fakeIsSampled) {
-            DatadogTracingConstants.PrioritySampling.USER_KEEP
+            MotadataTracingConstants.PrioritySampling.USER_KEEP
         } else {
-            DatadogTracingConstants.PrioritySampling.UNSET
+            MotadataTracingConstants.PrioritySampling.UNSET
         }
         whenever(mockSpan.spanContext).thenReturn(spanContext)
     }

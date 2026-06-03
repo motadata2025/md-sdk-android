@@ -6,10 +6,10 @@
 
 package com.motadata.android.trace.opentelemetry.internal
 
-import com.motadata.android.trace.api.scope.DatadogScope
+import com.motadata.android.trace.api.scope.MotadataScope
 import io.opentelemetry.context.Scope
 
-internal class OtelScope(internal val scope: Scope, internal val delegate: DatadogScope) : Scope {
+internal class OtelScope(internal val scope: Scope, internal val delegate: MotadataScope) : Scope {
     override fun close() {
         delegate.close()
         scope.close()

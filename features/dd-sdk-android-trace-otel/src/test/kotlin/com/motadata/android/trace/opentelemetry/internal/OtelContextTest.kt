@@ -6,7 +6,7 @@
 
 package com.motadata.android.trace.opentelemetry.internal
 
-import com.motadata.android.trace.api.scope.DatadogScope
+import com.motadata.android.trace.api.scope.MotadataScope
 import com.motadata.android.trace.opentelemetry.utils.forge.Configurator
 import com.datadog.opentelemetry.trace.OtelSpan
 import fr.xgouchet.elmyr.Forge
@@ -172,7 +172,7 @@ internal class OtelContextTest {
     @Test
     fun `M return OtelScope W makeCurrent { currentSpan is OtelSpan }`() {
         // Given
-        val mockAgentScope: DatadogScope = mock()
+        val mockAgentScope: MotadataScope = mock()
         val mockOtelSpan: OtelSpan = mock {
             on { activate() }.thenReturn(mockAgentScope)
         }

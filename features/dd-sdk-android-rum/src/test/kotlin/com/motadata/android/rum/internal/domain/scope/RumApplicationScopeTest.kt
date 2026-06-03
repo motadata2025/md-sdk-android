@@ -17,7 +17,7 @@ import com.motadata.android.api.storage.DataWriter
 import com.motadata.android.core.InternalSdkCore
 import com.motadata.android.core.internal.net.FirstPartyHostHeaderTypeResolver
 import com.motadata.android.core.sampling.Sampler
-import com.motadata.android.rum.DdRumContentProvider
+import com.motadata.android.rum.MdRumContentProvider
 import com.motadata.android.rum.RumActionType
 import com.motadata.android.rum.RumSessionListener
 import com.motadata.android.rum.RumSessionType
@@ -442,7 +442,7 @@ internal class RumApplicationScopeTest {
         val firstEvent = fakeEvents.first()
         val appStartTimeNs = forge.aLong(min = 0, max = fakeEvents.first().eventTime.nanoTime)
         whenever(mockSdkCore.appStartTimeNs) doReturn appStartTimeNs
-        DdRumContentProvider.processImportance =
+        MdRumContentProvider.processImportance =
             ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
         val mockSessionScope = mock<RumSessionScope>()
         testedScope.childScopes.clear()
@@ -495,7 +495,7 @@ internal class RumApplicationScopeTest {
         }
         val appStartTimeNs = forge.aLong(min = 0, max = fakeEvents.first().eventTime.nanoTime)
         whenever(mockSdkCore.appStartTimeNs) doReturn appStartTimeNs
-        DdRumContentProvider.processImportance = forge.anElementFrom(
+        MdRumContentProvider.processImportance = forge.anElementFrom(
             ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND_SERVICE,
             ActivityManager.RunningAppProcessInfo.IMPORTANCE_TOP_SLEEPING,
             @Suppress("DEPRECATION")
@@ -537,7 +537,7 @@ internal class RumApplicationScopeTest {
         val fakeSdkInitEvent = forge.sdkInitEvent()
         val appStartTimeNs = forge.aLong(min = 0, max = fakeSdkInitEvent.eventTime.nanoTime)
         whenever(mockSdkCore.appStartTimeNs) doReturn appStartTimeNs
-        DdRumContentProvider.processImportance = forge.anElementFrom(
+        MdRumContentProvider.processImportance = forge.anElementFrom(
             ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND,
             ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND_SERVICE,
             ActivityManager.RunningAppProcessInfo.IMPORTANCE_TOP_SLEEPING,

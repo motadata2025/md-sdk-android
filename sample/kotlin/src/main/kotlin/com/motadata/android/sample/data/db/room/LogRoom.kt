@@ -10,18 +10,18 @@ import android.provider.BaseColumns
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.motadata.android.sample.data.db.DatadogDbContract
+import com.motadata.android.sample.data.db.MotadataDbContract
 import java.util.UUID
 
-@Entity(tableName = DatadogDbContract.Logs.TABLE_NAME)
+@Entity(tableName = MotadataDbContract.Logs.TABLE_NAME)
 internal data class LogRoom(
     @PrimaryKey
     @ColumnInfo(name = BaseColumns._ID)
     val uid: String = UUID.randomUUID().toString(),
-    @ColumnInfo(name = DatadogDbContract.Logs.COLUMN_NAME_MESSAGE)
+    @ColumnInfo(name = MotadataDbContract.Logs.COLUMN_NAME_MESSAGE)
     val message: String,
-    @ColumnInfo(name = DatadogDbContract.Logs.COLUMN_NAME_TIMESTAMP)
+    @ColumnInfo(name = MotadataDbContract.Logs.COLUMN_NAME_TIMESTAMP)
     val timestamp: String,
-    @ColumnInfo(name = DatadogDbContract.Logs.COLUMN_NAME_TTL)
+    @ColumnInfo(name = MotadataDbContract.Logs.COLUMN_NAME_TTL)
     val ttl: Long
 )

@@ -6,7 +6,7 @@
 
 package com.motadata.android.trace.integration.otel
 
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import com.datadog.tools.unit.getFieldValue
 import io.opentelemetry.api.trace.Span
 
@@ -23,6 +23,6 @@ internal fun Span.spanIdAsHex(): String {
 }
 
 internal fun Span.expectedSpanName(): String {
-    val datadogSpan: DatadogSpan = this.getFieldValue("delegate")
+    val datadogSpan: MotadataSpan = this.getFieldValue("delegate")
     return datadogSpan.operationName
 }

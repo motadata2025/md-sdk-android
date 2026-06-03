@@ -7,10 +7,10 @@
 package com.motadata.android.cronet
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.cronet.internal.DatadogCronetEngine
+import com.motadata.android.cronet.internal.MotadataCronetEngine
 import com.motadata.android.rum.ExperimentalRumApi
 import com.motadata.android.rum.configuration.RumNetworkInstrumentationConfiguration
-import com.motadata.android.tests.config.DatadogSingletonTestConfiguration
+import com.motadata.android.tests.config.MotadataSingletonTestConfiguration
 import com.motadata.android.tests.elmyr.aHostName
 import com.motadata.android.trace.ApmNetworkInstrumentationConfiguration
 import com.motadata.android.trace.ApmNetworkTracingScope
@@ -83,11 +83,11 @@ internal class CronetIntegrationPluginTest {
 
         // Then
         assertThat(result).isSameAs(mockCronetEngine)
-        assertThat(result).isNotInstanceOf(DatadogCronetEngine::class.java)
+        assertThat(result).isNotInstanceOf(MotadataCronetEngine::class.java)
     }
 
     @Test
-    fun `M return DatadogCronetEngine W build() {APM config only}`() {
+    fun `M return MotadataCronetEngine W build() {APM config only}`() {
         // When
         val engine = mockDelegateBuilder
             .configureDatadogInstrumentation(
@@ -97,14 +97,14 @@ internal class CronetIntegrationPluginTest {
             .build()
 
         // Then
-        check(engine is DatadogCronetEngine)
+        check(engine is MotadataCronetEngine)
         assertThat(engine.apmNetworkInstrumentation).isNotNull
         assertThat(engine.rumNetworkInstrumentation).isNull()
         assertThat(engine.distributedTracingInstrumentation).isNull()
     }
 
     @Test
-    fun `M return DatadogCronetEngine W build() {RUM config only}`() {
+    fun `M return MotadataCronetEngine W build() {RUM config only}`() {
         // When
         val engine = mockDelegateBuilder
             .configureDatadogInstrumentation(
@@ -114,14 +114,14 @@ internal class CronetIntegrationPluginTest {
             .build()
 
         // Then
-        check(engine is DatadogCronetEngine)
+        check(engine is MotadataCronetEngine)
         assertThat(engine.apmNetworkInstrumentation).isNull()
         assertThat(engine.rumNetworkInstrumentation).isNotNull
         assertThat(engine.distributedTracingInstrumentation).isNull()
     }
 
     @Test
-    fun `M return DatadogCronetEngine W build() {both configs}`() {
+    fun `M return MotadataCronetEngine W build() {both configs}`() {
         // When
         val engine = mockDelegateBuilder
             .configureDatadogInstrumentation(
@@ -130,7 +130,7 @@ internal class CronetIntegrationPluginTest {
             ).build()
 
         // Then
-        check(engine is DatadogCronetEngine)
+        check(engine is MotadataCronetEngine)
         assertThat(engine.apmNetworkInstrumentation).isNotNull
         assertThat(engine.rumNetworkInstrumentation).isNotNull
         assertThat(engine.distributedTracingInstrumentation).isNotNull
@@ -146,7 +146,7 @@ internal class CronetIntegrationPluginTest {
             ).build()
 
         // Then
-        check(engine is DatadogCronetEngine)
+        check(engine is MotadataCronetEngine)
         assertThat(engine.distributedTracingInstrumentation).isNotNull
         assertThat(engine.distributedTracingInstrumentation?.traceOrigin)
             .isEqualTo(CronetIntegrationPlugin.ORIGIN_RUM)
@@ -164,7 +164,7 @@ internal class CronetIntegrationPluginTest {
             ).build()
 
         // Then
-        check(engine is DatadogCronetEngine)
+        check(engine is MotadataCronetEngine)
         assertThat(engine.distributedTracingInstrumentation).isNull()
     }
 
@@ -183,7 +183,7 @@ internal class CronetIntegrationPluginTest {
             .build()
 
         // Then
-        assertThat(engine).isInstanceOf(DatadogCronetEngine::class.java)
+        assertThat(engine).isInstanceOf(MotadataCronetEngine::class.java)
     }
 
     @Test
@@ -195,7 +195,7 @@ internal class CronetIntegrationPluginTest {
         ).build()
 
         // Then
-        check(engine is DatadogCronetEngine)
+        check(engine is MotadataCronetEngine)
         assertThat(engine.distributedTracingInstrumentation?.traceOrigin)
             .isEqualTo(CronetIntegrationPlugin.ORIGIN_RUM)
     }
@@ -209,7 +209,7 @@ internal class CronetIntegrationPluginTest {
         ).build()
 
         // Then
-        check(engine is DatadogCronetEngine)
+        check(engine is MotadataCronetEngine)
         assertThat(engine.apmNetworkInstrumentation?.traceOrigin).isNull()
     }
 
@@ -224,7 +224,7 @@ internal class CronetIntegrationPluginTest {
             ).build()
 
         // Then
-        check(engine is DatadogCronetEngine)
+        check(engine is MotadataCronetEngine)
         assertThat(engine.apmNetworkInstrumentation).isNull()
         assertThat(engine.distributedTracingInstrumentation).isNotNull
     }
@@ -239,7 +239,7 @@ internal class CronetIntegrationPluginTest {
             ).build()
 
         // Then
-        check(engine is DatadogCronetEngine)
+        check(engine is MotadataCronetEngine)
         assertThat(engine.distributedTracingInstrumentation).isNotNull
         assertThat(engine.distributedTracingInstrumentation?.traceOrigin).isEqualTo(CronetIntegrationPlugin.ORIGIN_RUM)
     }
@@ -285,7 +285,7 @@ internal class CronetIntegrationPluginTest {
             ).build()
 
         // Then
-        check(engine is DatadogCronetEngine)
+        check(engine is MotadataCronetEngine)
         assertThat(engine.distributedTracingInstrumentation?.traceOrigin)
             .isEqualTo(CronetIntegrationPlugin.ORIGIN_RUM)
     }
@@ -304,7 +304,7 @@ internal class CronetIntegrationPluginTest {
             ).build()
 
         // Then
-        check(engine is DatadogCronetEngine)
+        check(engine is MotadataCronetEngine)
         assertThat(engine.distributedTracingInstrumentation?.networkTracingScope)
             .isEqualTo(ApmNetworkTracingScope.EXCLUDE_INTERNAL_REDIRECTS)
     }
@@ -321,7 +321,7 @@ internal class CronetIntegrationPluginTest {
             ).build()
 
         // Then
-        check(engine is DatadogCronetEngine)
+        check(engine is MotadataCronetEngine)
         assertThat(engine.apmNetworkInstrumentation?.networkTracingScope)
             .isEqualTo(ApmNetworkTracingScope.ALL)
     }
@@ -344,7 +344,7 @@ internal class CronetIntegrationPluginTest {
     }
 
     companion object {
-        val datadogCore = DatadogSingletonTestConfiguration()
+        val datadogCore = MotadataSingletonTestConfiguration()
 
         @TestConfigurationsProvider
         @JvmStatic

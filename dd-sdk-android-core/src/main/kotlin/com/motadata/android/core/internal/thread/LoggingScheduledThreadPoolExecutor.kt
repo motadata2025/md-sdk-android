@@ -28,7 +28,7 @@ internal class LoggingScheduledThreadPoolExecutor(
     private val backPressureStrategy: BackPressureStrategy
 ) : ScheduledThreadPoolExecutor(
     corePoolSize,
-    DatadogThreadFactory(executorContext),
+    MotadataThreadFactory(executorContext),
     RejectedExecutionHandler { r, _ ->
         if (r != null) {
             logger.log(

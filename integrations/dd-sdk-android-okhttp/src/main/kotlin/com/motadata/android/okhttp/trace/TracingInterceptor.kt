@@ -24,16 +24,16 @@ import com.motadata.android.internal.telemetry.TracingHeaderTypesSet
 import com.motadata.android.internal.utils.loggableStackTrace
 import com.motadata.android.lint.InternalApi
 import com.motadata.android.okhttp.internal.trace.toTelemetryTracingHeaderType
-import com.motadata.android.trace.DatadogTracing
+import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.DeterministicTraceSampler
 import com.motadata.android.trace.GlobalDatadogTracer
 import com.motadata.android.trace.TraceContextInjection
 import com.motadata.android.trace.TracingHeaderType
-import com.motadata.android.trace.api.DatadogTracingConstants.PrioritySampling
-import com.motadata.android.trace.api.DatadogTracingConstants.Tags
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.span.DatadogSpanContext
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.MotadataTracingConstants.PrioritySampling
+import com.motadata.android.trace.api.MotadataTracingConstants.Tags
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.span.MotadataSpanContext
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.trace.internal.RumContextPropagator
 import com.motadata.android.trace.internal.RumContextPropagator.Companion.extractRumContext
 import com.motadata.android.trace.internal._TraceInternalProxy
@@ -82,14 +82,14 @@ internal constructor(
     internal val tracedHosts: Map<String, Set<TracingHeaderType>>,
     internal val tracedRequestListener: TracedRequestListener,
     internal val traceOrigin: String?,
-    internal val traceSampler: Sampler<DatadogSpan>,
+    internal val traceSampler: Sampler<MotadataSpan>,
     internal val traceContextInjection: TraceContextInjection,
     internal val redacted404ResourceName: Boolean,
-    internal val localTracerFactory: (SdkCore, Set<TracingHeaderType>) -> DatadogTracer,
-    private val globalTracerProvider: () -> DatadogTracer?
+    internal val localTracerFactory: (SdkCore, Set<TracingHeaderType>) -> MotadataTracer,
+    private val globalTracerProvider: () -> MotadataTracer?
 ) : Interceptor {
 
-    private val localTracerReference: AtomicReference<DatadogTracer> = AtomicReference()
+    private val localTracerReference: AtomicReference<MotadataTracer> = AtomicReference()
     private val sanitizedHosts = HostsSanitizer().sanitizeHosts(
         tracedHosts.keys.toList(),
         NETWORK_REQUESTS_TRACKING_FEATURE_NAME
@@ -174,7 +174,7 @@ internal constructor(
     protected open fun onRequestIntercepted(
         sdkCore: FeatureSdkCore,
         request: Request,
-        span: DatadogSpan?,
+        span: MotadataSpan?,
         response: Response?,
         throwable: Throwable?
     ) {
@@ -244,7 +244,7 @@ internal constructor(
         sdkCore: InternalSdkCore,
         chain: Interceptor.Chain,
         request: Request,
-        tracer: DatadogTracer
+        tracer: MotadataTracer
     ): Response {
         val span = buildSpan(tracer, request)
         val isSampled = span.extractRumContext(rumContextPropagator, block = true).sample(request)
@@ -304,7 +304,7 @@ internal constructor(
     }
 
     @Synchronized
-    private fun resolveTracer(sdkCore: InternalSdkCore): DatadogTracer? {
+    private fun resolveTracer(sdkCore: InternalSdkCore): MotadataTracer? {
         val tracingFeature = sdkCore.getFeature(Feature.TRACING_FEATURE_NAME)
         val globalTracerInstance = globalTracerProvider.invoke()
         return if (tracingFeature == null) {
@@ -325,7 +325,7 @@ internal constructor(
         }
     }
 
-    private fun resolveLocalTracer(sdkCore: InternalSdkCore): DatadogTracer {
+    private fun resolveLocalTracer(sdkCore: InternalSdkCore): MotadataTracer {
         // only register once
         if (localTracerReference.get() == null) {
             @Suppress("UnsafeThirdPartyFunctionCall") // internal safe call
@@ -342,7 +342,7 @@ internal constructor(
         return localTracerReference.get()
     }
 
-    private fun buildSpan(tracer: DatadogTracer, request: Request): DatadogSpan {
+    private fun buildSpan(tracer: MotadataTracer, request: Request): MotadataSpan {
         val parentContext = extractParentContext(tracer, request)
         val url = request.url.toString()
 
@@ -361,7 +361,7 @@ internal constructor(
 
     private fun extractSamplingDecision(request: Request): Boolean? {
         val headerSamplingPriority = extractSamplingDecisionFromHeader(request)
-        val datadogSpan = request.tag(DatadogSpan::class.java)
+        val datadogSpan = request.tag(MotadataSpan::class.java)
         val openTelemetrySpanSamplingPriority = request.getTraceContextTag()?.samplingPriority
 
         return when {
@@ -429,10 +429,10 @@ internal constructor(
         return null
     }
 
-    private fun extractParentContext(tracer: DatadogTracer, request: Request): DatadogSpanContext? {
-        val tagContext = request.tag(DatadogSpan::class.java)?.context() ?: extractTraceContext(request)
+    private fun extractParentContext(tracer: MotadataTracer, request: Request): MotadataSpanContext? {
+        val tagContext = request.tag(MotadataSpan::class.java)?.context() ?: extractTraceContext(request)
 
-        val headerContext: DatadogSpanContext? = tracer.propagate().extract(request) { carrier, classifier ->
+        val headerContext: MotadataSpanContext? = tracer.propagate().extract(request) { carrier, classifier ->
             val headers = carrier.headers.toMultimap()
                 .map { it.key to it.value.joinToString(";") }
                 .toMap()
@@ -448,7 +448,7 @@ internal constructor(
         }
     }
 
-    private fun extractTraceContext(request: Request): DatadogSpanContext? =
+    private fun extractTraceContext(request: Request): MotadataSpanContext? =
         request.getTraceContextTag()?.let {
             _TraceInternalProxy.propagationHelper.createExtractedContext(
                 it.traceId,
@@ -460,8 +460,8 @@ internal constructor(
     private fun setSampledOutHeaders(
         requestBuilder: Request.Builder,
         tracingHeaderTypes: Set<TracingHeaderType>,
-        span: DatadogSpan,
-        tracer: DatadogTracer
+        span: MotadataSpan,
+        tracer: MotadataTracer
     ) {
         for (headerType in tracingHeaderTypes) {
             when (headerType) {
@@ -490,8 +490,8 @@ internal constructor(
 
     private fun handleDatadogSampledOutHeaders(
         requestBuilder: Request.Builder,
-        span: DatadogSpan,
-        tracer: DatadogTracer
+        span: MotadataSpan,
+        tracer: MotadataTracer
     ) {
         if (traceContextInjection == TraceContextInjection.ALL) {
             tracer.propagate().inject(
@@ -525,7 +525,7 @@ internal constructor(
         }
     }
 
-    private fun handleW3CNotSampledHeaders(span: DatadogSpan, requestBuilder: Request.Builder) {
+    private fun handleW3CNotSampledHeaders(span: MotadataSpan, requestBuilder: Request.Builder) {
         if (traceContextInjection == TraceContextInjection.ALL) {
             val traceId = span.context().traceId.toHexString()
             val spanId = span.context().spanId.toString()
@@ -578,8 +578,8 @@ internal constructor(
     private fun updateRequest(
         sdkCore: InternalSdkCore,
         request: Request,
-        tracer: DatadogTracer,
-        span: DatadogSpan,
+        tracer: MotadataTracer,
+        span: MotadataSpan,
         isSampled: Boolean
     ): Request.Builder {
         val tracedRequestBuilder = request.newBuilder()
@@ -656,7 +656,7 @@ internal constructor(
         sdkCore: FeatureSdkCore,
         request: Request,
         response: Response,
-        span: DatadogSpan,
+        span: MotadataSpan,
         isSampled: Boolean
     ) {
         if (!isSampled) {
@@ -679,7 +679,7 @@ internal constructor(
         sdkCore: FeatureSdkCore,
         request: Request,
         throwable: Throwable,
-        span: DatadogSpan,
+        span: MotadataSpan,
         isSampled: Boolean
     ) {
         if (!isSampled) {
@@ -694,7 +694,7 @@ internal constructor(
         span.finishRumAware(isSampled)
     }
 
-    private fun DatadogSpan.finishRumAware(isSampled: Boolean) {
+    private fun MotadataSpan.finishRumAware(isSampled: Boolean) {
         if (canSendSpan()) {
             if (isSampled) finish() else drop()
         } else {
@@ -702,7 +702,7 @@ internal constructor(
         }
     }
 
-    private fun DatadogSpan.sample(request: Request): Boolean {
+    private fun MotadataSpan.sample(request: Request): Boolean {
         val samplingPriority = samplingPriority
         return if (samplingPriority != null) {
             samplingPriority > 0
@@ -719,7 +719,7 @@ internal constructor(
      * A Builder class for the [TracingInterceptor].
      * @param tracedHostsWithHeaderType a list of all the hosts and header types that you want to
      * be automatically tracked by this interceptor. If registering a [GlobalDatadogTracer], the tracer must be
-     * configured with [com.motadata.android.trace.api.tracer.DatadogTracerBuilder.withTracingHeadersTypes] containing all the necessary
+     * configured with [com.motadata.android.trace.api.tracer.MotadataTracerBuilder.withTracingHeadersTypes] containing all the necessary
      * header types configured for OkHttp tracking.
      * If no hosts are provided (via this argument or global configuration
      * [Configuration.Builder.setFirstPartyHosts] or [Configuration.Builder.setFirstPartyHostsWithHeaderType] )
@@ -774,9 +774,9 @@ internal constructor(
         internal var sdkInstanceName: String? = null
         internal var tracedRequestListener: TracedRequestListener = NoOpTracedRequestListener()
         internal var traceOrigin: String? = null
-        internal var traceSampler: Sampler<DatadogSpan> = DeterministicTraceSampler(DEFAULT_TRACE_SAMPLE_RATE)
+        internal var traceSampler: Sampler<MotadataSpan> = DeterministicTraceSampler(DEFAULT_TRACE_SAMPLE_RATE)
         internal var localTracerFactory = DEFAULT_LOCAL_TRACER_FACTORY
-        internal var globalTracerProvider: () -> DatadogTracer? = { GlobalDatadogTracer.getOrNull() }
+        internal var globalTracerProvider: () -> MotadataTracer? = { GlobalDatadogTracer.getOrNull() }
         internal var traceContextInjection = TraceContextInjection.SAMPLED
 
         internal var redacted404ResourceName = true
@@ -818,7 +818,7 @@ internal constructor(
          * @param traceSampler the trace sampler controlling the sampling of APM traces.
          * By default it is a sampler accepting 100% of the traces.
          */
-        fun setTraceSampler(traceSampler: Sampler<DatadogSpan>): R {
+        fun setTraceSampler(traceSampler: Sampler<MotadataSpan>): R {
             this.traceSampler = traceSampler
             return getThis()
         }
@@ -872,12 +872,12 @@ internal constructor(
             return getThis()
         }
 
-        internal fun setLocalTracerFactory(factory: (SdkCore, Set<TracingHeaderType>) -> DatadogTracer): R {
+        internal fun setLocalTracerFactory(factory: (SdkCore, Set<TracingHeaderType>) -> MotadataTracer): R {
             this.localTracerFactory = factory
             return getThis()
         }
 
-        internal fun setGlobalTracerProvider(globalTracerProvider: () -> DatadogTracer?): R {
+        internal fun setGlobalTracerProvider(globalTracerProvider: () -> MotadataTracer?): R {
             this.globalTracerProvider = globalTracerProvider
             return getThis()
         }
@@ -912,7 +912,7 @@ internal constructor(
                 "Your requests won't be traced."
         internal const val WARNING_DEFAULT_TRACER =
             "You added a TracingInterceptor to your OkHttpClient, " +
-                "but you didn't register any DatadogTracer. " +
+                "but you didn't register any MotadataTracer. " +
                 "We automatically created a local tracer for you."
 
         internal const val ERROR_STACK_OVERFLOW =
@@ -961,9 +961,9 @@ internal constructor(
 
         private const val AGENT_PSR_ATTRIBUTE = "_dd.agent_psr"
 
-        private val DEFAULT_LOCAL_TRACER_FACTORY: (SdkCore, Set<TracingHeaderType>) -> DatadogTracer =
+        private val DEFAULT_LOCAL_TRACER_FACTORY: (SdkCore, Set<TracingHeaderType>) -> MotadataTracer =
             { sdkCore, tracingHeaderTypes: Set<TracingHeaderType> ->
-                DatadogTracing.newTracerBuilder(sdkCore)
+                MotadataTracing.newTracerBuilder(sdkCore)
                     .withTracingHeadersTypes(tracingHeaderTypes)
                     .withSampleRate(ALL_IN_SAMPLE_RATE)
                     .build()

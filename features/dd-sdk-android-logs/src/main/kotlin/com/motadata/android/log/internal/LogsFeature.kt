@@ -22,7 +22,7 @@ import com.motadata.android.api.storage.NoOpDataWriter
 import com.motadata.android.event.EventMapper
 import com.motadata.android.event.MapperSerializer
 import com.motadata.android.internal.utils.NULL_MAP_VALUE
-import com.motadata.android.log.internal.domain.DatadogLogGenerator
+import com.motadata.android.log.internal.domain.MotadataLogGenerator
 import com.motadata.android.log.internal.domain.event.LogEventMapperWrapper
 import com.motadata.android.log.internal.domain.event.LogEventSerializer
 import com.motadata.android.log.internal.net.LogsRequestFactory
@@ -44,7 +44,7 @@ internal class LogsFeature(
     internal var dataWriter: DataWriter<LogEvent> = NoOpDataWriter()
     private val initialized = AtomicBoolean(false)
     internal var packageName = ""
-    private val logGenerator = DatadogLogGenerator(internalLogger = sdkCore.internalLogger)
+    private val logGenerator = MotadataLogGenerator(internalLogger = sdkCore.internalLogger)
     private val attributes = ConcurrentHashMap<String, Any?>()
 
     // region Context Information (attributes)

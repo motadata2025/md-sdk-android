@@ -10,7 +10,7 @@ import android.content.Context
 import android.widget.ImageView
 import androidx.core.net.toUri
 import com.motadata.android.Motadata
-import com.motadata.android.fresco.DatadogFrescoCacheListener
+import com.motadata.android.fresco.MotadataFrescoCacheListener
 import com.motadata.android.rum.GlobalRumMonitor
 import com.motadata.android.rum.RumErrorSource
 import com.motadata.android.sample.BuildConfig
@@ -47,7 +47,7 @@ internal class FrescoImageLoader : ImageLoader {
 
         fun initialize(context: Context, okHttpClient: OkHttpClient) {
             val diskConfigBuilder = DiskCacheConfig.newBuilder(context)
-                .setCacheEventListener(DatadogFrescoCacheListener(Motadata.getInstance()))
+                .setCacheEventListener(MotadataFrescoCacheListener(Motadata.getInstance()))
                 .setMaxCacheSize(MAX_DISK_CACHE_SIZE)
             val config = OkHttpImagePipelineConfigFactory
                 .newBuilder(context, okHttpClient)

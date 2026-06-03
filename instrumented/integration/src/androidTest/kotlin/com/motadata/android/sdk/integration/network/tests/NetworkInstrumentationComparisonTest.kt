@@ -35,7 +35,7 @@ import org.junit.runner.RunWith
  * Currently supported clients:
  * - OkHttp (with TracingInterceptor as Network Interceptor)
  * - InstrumentedOkHttp (with configureDatadogInstrumentation new API)
- * - Cronet (with DatadogCronetEngine.enableNetworkTracing)
+ * - Cronet (with MotadataCronetEngine.enableNetworkTracing)
  *
  * To add a new client:
  * 1. Create a new [com.motadata.android.sdk.integration.network.wrappers.HttpTestClientWrapper] implementation

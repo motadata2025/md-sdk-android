@@ -15,7 +15,7 @@ import com.motadata.android.api.storage.DataWriter
 import com.motadata.android.core.InternalSdkCore
 import com.motadata.android.core.internal.net.FirstPartyHostHeaderTypeResolver
 import com.motadata.android.core.sampling.Sampler
-import com.motadata.android.rum.DdRumContentProvider
+import com.motadata.android.rum.MdRumContentProvider
 import com.motadata.android.rum.GlobalRumMonitor
 import com.motadata.android.rum.RumSessionListener
 import com.motadata.android.rum.RumSessionType
@@ -237,7 +237,7 @@ internal class RumApplicationScope(
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
-        val processImportance = DdRumContentProvider.processImportance
+        val processImportance = MdRumContentProvider.processImportance
         val isForegroundProcess = processImportance ==
             ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
         if (isForegroundProcess) {

@@ -12,12 +12,12 @@ import com.motadata.android.core.stub.StubEvent
 import com.motadata.android.core.stub.StubSDKCore
 import com.motadata.android.okhttp.tests.assertj.SpansPayloadAssert
 import com.motadata.android.okhttp.tests.elmyr.OkHttpConfigurator
-import com.motadata.android.trace.DatadogTracing
+import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.GlobalDatadogTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
 import com.motadata.android.trace.api.replace
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import com.motadata.android.trace.internal._TraceInternalProxy
 import com.motadata.android.trace.withinSpan
 import com.datadog.tools.unit.extensions.TestConfigurationExtension
@@ -62,14 +62,14 @@ class SpanExtIntegrationTest {
 
     private fun JsonArray.getObject(index: Int) = get(index).asJsonObject
     private fun StubEvent.asJson(): JsonObject = JsonParser.parseString(eventData).asJsonObject
-    private fun DatadogSpan.getSpanId(): String = _TraceInternalProxy.spanIdConverter
+    private fun MotadataSpan.getSpanId(): String = _TraceInternalProxy.spanIdConverter
         .toHexStringPadded(context().spanId)
     private fun registerTracer(
         sampleRate: Double? = null,
         partialFlushMinSpans: Int? = null
     ): Boolean {
         return GlobalDatadogTracer.replace(
-            DatadogTracing.newTracerBuilder(stubSdkCore)
+            MotadataTracing.newTracerBuilder(stubSdkCore)
                 .also {
                     if (sampleRate != null) it.withSampleRate(sampleRate)
                     if (partialFlushMinSpans != null) it.withPartialFlushMinSpans(partialFlushMinSpans)

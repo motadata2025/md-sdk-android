@@ -7,10 +7,10 @@
 package com.datadog.opentelemetry.trace
 
 import com.motadata.android.api.InternalLogger
-import com.motadata.android.trace.api.DatadogTracingConstants
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.span.DatadogSpanBuilder
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.MotadataTracingConstants
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.span.MotadataSpanBuilder
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.trace.opentelemetry.utils.forge.Configurator
 import fr.xgouchet.elmyr.junit5.ForgeConfiguration
 import fr.xgouchet.elmyr.junit5.ForgeExtension
@@ -38,16 +38,16 @@ internal class OtelSpanBuilderTest {
     private lateinit var testedBuilder: OtelSpanBuilder
 
     @Mock
-    lateinit var mockDelegateBuilder: DatadogSpanBuilder
+    lateinit var mockDelegateBuilder: MotadataSpanBuilder
 
     @Mock
-    lateinit var mockAgentTracer: DatadogTracer
+    lateinit var mockAgentTracer: MotadataTracer
 
     @Mock
     lateinit var mockLogger: InternalLogger
 
     @Mock
-    lateinit var mockAgentSpan: DatadogSpan
+    lateinit var mockAgentSpan: MotadataSpan
 
     // region Init
     @BeforeEach
@@ -86,7 +86,7 @@ internal class OtelSpanBuilderTest {
         testedBuilder.startSpan()
 
         verify(mockAgentSpan).operationName = "op_name"
-        verify(mockAgentSpan).setMetric(DatadogTracingConstants.Tags.KEY_ANALYTICS_SAMPLE_RATE, 1)
+        verify(mockAgentSpan).setMetric(MotadataTracingConstants.Tags.KEY_ANALYTICS_SAMPLE_RATE, 1)
     }
 
     @Test
@@ -106,7 +106,7 @@ internal class OtelSpanBuilderTest {
         testedBuilder.startSpan()
 
         verify(mockAgentSpan).operationName = "op_name"
-        verify(mockAgentSpan).setMetric(DatadogTracingConstants.Tags.KEY_ANALYTICS_SAMPLE_RATE, 0)
+        verify(mockAgentSpan).setMetric(MotadataTracingConstants.Tags.KEY_ANALYTICS_SAMPLE_RATE, 0)
     }
 
     // endregion

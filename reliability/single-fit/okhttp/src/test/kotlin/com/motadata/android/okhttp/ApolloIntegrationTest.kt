@@ -12,7 +12,7 @@ import com.apollographql.apollo.network.okHttpClient
 import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.Feature
-import com.motadata.android.apollo.DatadogApolloInterceptor
+import com.motadata.android.apollo.MotadataApolloInterceptor
 import com.motadata.android.core.stub.StubEvent
 import com.motadata.android.core.stub.StubSDKCore
 import com.motadata.android.internal.network.GraphQLHeaders
@@ -129,7 +129,7 @@ class ApolloIntegrationTest {
             .Builder()
             .serverUrl(mockServer.url("/").toString())
             .okHttpClient(okHttpClient)
-            .addInterceptor(DatadogApolloInterceptor(sendGraphQLPayloads = true))
+            .addInterceptor(MotadataApolloInterceptor(sendGraphQLPayloads = true))
             .build()
 
         mockServer.enqueue(MockResponse().setResponseCode(200).setBody(fakeResponseBody))
@@ -220,7 +220,7 @@ class ApolloIntegrationTest {
 
         val partialHeadersApolloClient = ApolloClient
             .Builder()
-            .addInterceptor(DatadogApolloInterceptor(sendGraphQLPayloads = false))
+            .addInterceptor(MotadataApolloInterceptor(sendGraphQLPayloads = false))
             .serverUrl(mockServer.url("/").toString())
             .okHttpClient(okHttpClient)
             .build()
@@ -243,7 +243,7 @@ class ApolloIntegrationTest {
     // region RUM Resource Creation
 
     @Test
-    fun `M create RUM resource events W DatadogApolloInterceptor { with GraphQL query }`() = runBlocking {
+    fun `M create RUM resource events W MotadataApolloInterceptor { with GraphQL query }`() = runBlocking {
         // Given
         rumMonitor.startView(fakeViewKey, fakeViewName)
 
@@ -269,7 +269,7 @@ class ApolloIntegrationTest {
     }
 
     @Test
-    fun `M create RUM resource events W DatadogApolloInterceptor { with GraphQL mutation }`() = runBlocking {
+    fun `M create RUM resource events W MotadataApolloInterceptor { with GraphQL mutation }`() = runBlocking {
         // Given
         rumMonitor.startView(fakeViewKey, fakeViewName)
 
@@ -292,7 +292,7 @@ class ApolloIntegrationTest {
     }
 
     @Test
-    fun `M create resource events with GraphQL attributes W DatadogApolloInterceptor`() {
+    fun `M create resource events with GraphQL attributes W MotadataApolloInterceptor`() {
         runBlocking {
             // Given
             rumMonitor.startView(fakeViewKey, fakeViewName)
@@ -319,7 +319,7 @@ class ApolloIntegrationTest {
     }
 
     @Test
-    fun `M track RUM resource timing W DatadogApolloInterceptor { resource duration tracked }`() {
+    fun `M track RUM resource timing W MotadataApolloInterceptor { resource duration tracked }`() {
         runBlocking {
             // Given
             rumMonitor.startView(fakeViewKey, fakeViewName)

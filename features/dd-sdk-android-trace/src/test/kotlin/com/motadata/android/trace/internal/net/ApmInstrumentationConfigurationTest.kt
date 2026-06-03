@@ -15,8 +15,8 @@ import com.motadata.android.trace.DeterministicTraceSampler
 import com.motadata.android.trace.NetworkTracedRequestListener
 import com.motadata.android.trace.TraceContextInjection
 import com.motadata.android.trace.TracingHeaderType
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.utils.forge.Configurator
 import fr.xgouchet.elmyr.Forge
 import fr.xgouchet.elmyr.annotation.BoolForgery
@@ -50,13 +50,13 @@ internal class ApmInstrumentationConfigurationTest {
     lateinit var mockNetworkTracedRequestListener: NetworkTracedRequestListener
 
     @Mock
-    lateinit var mockTraceSampler: Sampler<DatadogSpan>
+    lateinit var mockTraceSampler: Sampler<MotadataSpan>
 
     @Mock
-    lateinit var mockGlobalTracer: DatadogTracer
+    lateinit var mockGlobalTracer: MotadataTracer
 
     @Mock
-    lateinit var mockLocalTracer: DatadogTracer
+    lateinit var mockLocalTracer: MotadataTracer
 
     @StringForgery
     lateinit var fakeNetworkLibraryName: String
@@ -190,7 +190,7 @@ internal class ApmInstrumentationConfigurationTest {
     @Test
     fun `M set local tracer factory W setLocalTracerFactory()`() {
         // Given
-        val fakeFactory: (SdkCore, Set<TracingHeaderType>) -> DatadogTracer = { _, _ -> mockLocalTracer }
+        val fakeFactory: (SdkCore, Set<TracingHeaderType>) -> MotadataTracer = { _, _ -> mockLocalTracer }
 
         // When
         val result = testedBuilder.setLocalTracerFactory(fakeFactory)
@@ -202,13 +202,13 @@ internal class ApmInstrumentationConfigurationTest {
     @Test
     fun `M set global tracer provider W setGlobalTracerProvider()`() {
         // Given
-        val fakeProvider: () -> DatadogTracer? = { mockGlobalTracer }
+        val fakeProvider: () -> MotadataTracer? = { mockGlobalTracer }
 
         // When
         val result = testedBuilder.setGlobalTracerProvider(fakeProvider)
 
         // Then
-        assertThat<() -> DatadogTracer?>(result.globalTracerProvider).isSameAs(fakeProvider)
+        assertThat<() -> MotadataTracer?>(result.globalTracerProvider).isSameAs(fakeProvider)
     }
 
     @Test

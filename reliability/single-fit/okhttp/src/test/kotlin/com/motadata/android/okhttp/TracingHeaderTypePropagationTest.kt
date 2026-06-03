@@ -10,7 +10,7 @@ import com.motadata.android.api.SdkCore
 import com.motadata.android.core.stub.StubSDKCore
 import com.motadata.android.okhttp.tests.elmyr.OkHttpConfigurator
 import com.motadata.android.okhttp.trace.TracingInterceptor
-import com.motadata.android.trace.DatadogTracing
+import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.GlobalDatadogTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
@@ -107,7 +107,7 @@ class TracingHeaderTypePropagationTest {
         // Given
         mockServer.enqueue(MockResponse())
         mockServer.start()
-        val tracer = DatadogTracing.newTracerBuilder(stubSdkCore)
+        val tracer = MotadataTracing.newTracerBuilder(stubSdkCore)
             .withTracingHeadersTypes(setOf(headerType))
             .withSampleRate(100.0)
             .build()

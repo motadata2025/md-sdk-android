@@ -24,7 +24,7 @@ import com.motadata.android.api.storage.RawBatchEvent
 import com.motadata.android.internal.telemetry.InternalTelemetryEvent
 import com.motadata.android.utils.forge.Configurator
 import com.motadata.android.utils.verifyLog
-import com.motadata.android.webview.internal.DatadogEventBridge
+import com.motadata.android.webview.internal.MotadataEventBridge
 import com.motadata.android.webview.internal.MixedWebViewEventConsumer
 import com.motadata.android.webview.internal.NoOpWebViewEventConsumer
 import com.motadata.android.webview.internal.log.WebViewLogEventConsumer
@@ -153,7 +153,7 @@ internal class WebViewTrackingTest {
 
         // Then
         verify(mockWebView).addJavascriptInterface(
-            argThat { this is DatadogEventBridge },
+            argThat { this is MotadataEventBridge },
             eq(WebViewTracking.DATADOG_EVENT_BRIDGE_NAME)
         )
     }
@@ -206,7 +206,7 @@ internal class WebViewTrackingTest {
         WebViewTracking.enable(mockWebView, fakeHosts, sdkCore = mockCore)
 
         // Then
-        argumentCaptor<DatadogEventBridge> {
+        argumentCaptor<MotadataEventBridge> {
             verify(mockWebView).addJavascriptInterface(
                 capture(),
                 eq(WebViewTracking.DATADOG_EVENT_BRIDGE_NAME)
@@ -244,7 +244,7 @@ internal class WebViewTrackingTest {
         WebViewTracking.enable(mockWebView, fakeHosts, sdkCore = mockCore)
 
         // Then
-        argumentCaptor<DatadogEventBridge> {
+        argumentCaptor<MotadataEventBridge> {
             verify(mockWebView).addJavascriptInterface(
                 capture(),
                 eq(WebViewTracking.DATADOG_EVENT_BRIDGE_NAME)
@@ -282,7 +282,7 @@ internal class WebViewTrackingTest {
         WebViewTracking.enable(mockWebView, fakeHosts, sdkCore = mockCore)
 
         // Then
-        argumentCaptor<DatadogEventBridge> {
+        argumentCaptor<MotadataEventBridge> {
             verify(mockWebView).addJavascriptInterface(
                 capture(),
                 eq(WebViewTracking.DATADOG_EVENT_BRIDGE_NAME)
@@ -313,7 +313,7 @@ internal class WebViewTrackingTest {
         WebViewTracking.enable(mockWebView, fakeHosts, sdkCore = mockCore)
 
         // Then
-        argumentCaptor<DatadogEventBridge> {
+        argumentCaptor<MotadataEventBridge> {
             verify(mockWebView).addJavascriptInterface(
                 capture(),
                 eq(WebViewTracking.DATADOG_EVENT_BRIDGE_NAME)
@@ -341,7 +341,7 @@ internal class WebViewTrackingTest {
 
         // Then
         verify(mockWebView).addJavascriptInterface(
-            argThat { this is DatadogEventBridge },
+            argThat { this is MotadataEventBridge },
             eq(WebViewTracking.DATADOG_EVENT_BRIDGE_NAME)
         )
         mockInternalLogger.verifyLog(
@@ -366,7 +366,7 @@ internal class WebViewTrackingTest {
         WebViewTracking.enable(mockWebView, fakeHosts, sdkCore = mockCore)
 
         // Then
-        argumentCaptor<DatadogEventBridge> {
+        argumentCaptor<MotadataEventBridge> {
             verify(mockWebView).addJavascriptInterface(
                 capture(),
                 eq(WebViewTracking.DATADOG_EVENT_BRIDGE_NAME)
@@ -412,7 +412,7 @@ internal class WebViewTrackingTest {
         WebViewTracking.enable(mockWebView, fakeHosts, sdkCore = mockCore)
 
         // Then
-        argumentCaptor<DatadogEventBridge> {
+        argumentCaptor<MotadataEventBridge> {
             verify(mockWebView).addJavascriptInterface(
                 capture(),
                 eq(WebViewTracking.DATADOG_EVENT_BRIDGE_NAME)
@@ -449,7 +449,7 @@ internal class WebViewTrackingTest {
         WebViewTracking.enable(mockWebView, fakeHosts, sdkCore = mockCore)
 
         // Then
-        argumentCaptor<DatadogEventBridge> {
+        argumentCaptor<MotadataEventBridge> {
             verify(mockWebView).addJavascriptInterface(
                 capture(),
                 eq(WebViewTracking.DATADOG_EVENT_BRIDGE_NAME)
@@ -502,7 +502,7 @@ internal class WebViewTrackingTest {
         WebViewTracking.enable(mockWebView, fakeHosts, sdkCore = mockCore)
 
         // Then
-        argumentCaptor<DatadogEventBridge> {
+        argumentCaptor<MotadataEventBridge> {
             verify(mockWebView).addJavascriptInterface(
                 capture(),
                 eq(WebViewTracking.DATADOG_EVENT_BRIDGE_NAME)
@@ -555,7 +555,7 @@ internal class WebViewTrackingTest {
         WebViewTracking.enable(mockWebView, fakeHosts, sdkCore = mockCore)
 
         // Then
-        argumentCaptor<DatadogEventBridge> {
+        argumentCaptor<MotadataEventBridge> {
             verify(mockWebView).addJavascriptInterface(
                 capture(),
                 eq(WebViewTracking.DATADOG_EVENT_BRIDGE_NAME)
@@ -606,7 +606,7 @@ internal class WebViewTrackingTest {
         WebViewTracking.enable(mockWebView, fakeHosts, sdkCore = mockCore)
 
         // Then
-        argumentCaptor<DatadogEventBridge> {
+        argumentCaptor<MotadataEventBridge> {
             verify(mockWebView).addJavascriptInterface(
                 capture(),
                 eq(WebViewTracking.DATADOG_EVENT_BRIDGE_NAME)

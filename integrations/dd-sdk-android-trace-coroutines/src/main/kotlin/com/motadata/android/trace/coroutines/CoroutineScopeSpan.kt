@@ -6,10 +6,10 @@
 
 package com.motadata.android.trace.coroutines
 
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import kotlinx.coroutines.CoroutineScope
 
 /**
- * An object that implements both [DatadogSpan] and [CoroutineScope].
+ * An object that implements both [MotadataSpan] and [CoroutineScope].
  */
-interface CoroutineScopeSpan : CoroutineScope, DatadogSpan
+interface CoroutineScopeSpan : CoroutineScope, MotadataSpan

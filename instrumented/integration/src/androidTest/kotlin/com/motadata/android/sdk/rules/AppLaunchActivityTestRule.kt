@@ -10,7 +10,7 @@ import android.app.ActivityManager
 import androidx.test.platform.app.InstrumentationRegistry
 import com.motadata.android.Motadata
 import com.motadata.android.privacy.TrackingConsent
-import com.motadata.android.rum.DdRumContentProvider
+import com.motadata.android.rum.MdRumContentProvider
 import com.motadata.android.rum.Rum
 import com.motadata.android.rum.tracking.ActivityViewTrackingStrategy
 import com.motadata.android.sdk.integration.RuntimeConfig
@@ -39,6 +39,6 @@ internal class AppLaunchActivityTestRule : RumMockServerActivityTestRule<AppLaun
             .useViewTrackingStrategy(ActivityViewTrackingStrategy(false))
             .build()
         Rum.enable(rumConfig, sdkCore)
-        DdRumContentProvider.processImportance = ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+        MdRumContentProvider.processImportance = ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
     }
 }

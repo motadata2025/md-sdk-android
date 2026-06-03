@@ -49,7 +49,7 @@ internal class CronetRequestResourceIdentifierTest {
     private lateinit var fakeBody: String
 
     @Mock
-    lateinit var mockEngine: DatadogCronetEngine
+    lateinit var mockEngine: MotadataCronetEngine
 
     @Mock
     lateinit var mockCallback: CronetRequestCallback

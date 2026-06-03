@@ -29,8 +29,8 @@ internal class BackPressureExecutorServiceTest :
     }
 
     @Test
-    fun `M use DatadogThreadFactory W constructor()`() {
+    fun `M use MotadataThreadFactory W constructor()`() {
         // Then
-        assertThat(testedExecutor.threadFactory).isInstanceOf(DatadogThreadFactory::class.java)
+        assertThat(testedExecutor.threadFactory).isInstanceOf(MotadataThreadFactory::class.java)
     }
 }

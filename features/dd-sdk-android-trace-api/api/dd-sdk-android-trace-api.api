@@ -1,27 +1,27 @@
-public final class com/motadata/android/trace/api/DatadogTracingConstants {
+public final class com/motadata/android/trace/api/MotadataTracingConstants {
 	public static final field DEFAULT_ASYNC_PROPAGATING Z
-	public static final field INSTANCE Lcom/motadata/android/trace/api/DatadogTracingConstants;
+	public static final field INSTANCE Lcom/motadata/android/trace/api/MotadataTracingConstants;
 }
 
-public final class com/motadata/android/trace/api/DatadogTracingConstants$ErrorPriorities {
+public final class com/motadata/android/trace/api/MotadataTracingConstants$ErrorPriorities {
 	public static final field DEFAULT B
 	public static final field HTTP_SERVER_DECORATOR B
-	public static final field INSTANCE Lcom/motadata/android/trace/api/DatadogTracingConstants$ErrorPriorities;
+	public static final field INSTANCE Lcom/motadata/android/trace/api/MotadataTracingConstants$ErrorPriorities;
 	public static final field UNSET B
 }
 
-public final class com/motadata/android/trace/api/DatadogTracingConstants$LogAttributes {
+public final class com/motadata/android/trace/api/MotadataTracingConstants$LogAttributes {
 	public static final field ERROR_KIND Ljava/lang/String;
 	public static final field ERROR_OBJECT Ljava/lang/String;
 	public static final field EVENT Ljava/lang/String;
-	public static final field INSTANCE Lcom/motadata/android/trace/api/DatadogTracingConstants$LogAttributes;
+	public static final field INSTANCE Lcom/motadata/android/trace/api/MotadataTracingConstants$LogAttributes;
 	public static final field MESSAGE Ljava/lang/String;
 	public static final field STACK Ljava/lang/String;
 	public static final field STATUS Ljava/lang/String;
 }
 
-public final class com/motadata/android/trace/api/DatadogTracingConstants$PrioritySampling {
-	public static final field INSTANCE Lcom/motadata/android/trace/api/DatadogTracingConstants$PrioritySampling;
+public final class com/motadata/android/trace/api/MotadataTracingConstants$PrioritySampling {
+	public static final field INSTANCE Lcom/motadata/android/trace/api/MotadataTracingConstants$PrioritySampling;
 	public static final field SAMPLER_DROP I
 	public static final field SAMPLER_KEEP I
 	public static final field UNSET I
@@ -29,10 +29,10 @@ public final class com/motadata/android/trace/api/DatadogTracingConstants$Priori
 	public static final field USER_KEEP I
 }
 
-public final class com/motadata/android/trace/api/DatadogTracingConstants$Tags {
+public final class com/motadata/android/trace/api/MotadataTracingConstants$Tags {
 	public static final field ERROR_MSG Ljava/lang/String;
 	public static final field ERROR_TYPE Ljava/lang/String;
-	public static final field INSTANCE Lcom/motadata/android/trace/api/DatadogTracingConstants$Tags;
+	public static final field INSTANCE Lcom/motadata/android/trace/api/MotadataTracingConstants$Tags;
 	public static final field KEY_ANALYTICS_SAMPLE_RATE Ljava/lang/String;
 	public static final field KEY_ERROR_MSG Ljava/lang/String;
 	public static final field KEY_ERROR_STACK Ljava/lang/String;
@@ -48,8 +48,8 @@ public final class com/motadata/android/trace/api/DatadogTracingConstants$Tags {
 	public static final field VALUE_SPAN_KIND_SERVER Ljava/lang/String;
 }
 
-public final class com/motadata/android/trace/api/DatadogTracingConstants$TracerConfig {
-	public static final field INSTANCE Lcom/motadata/android/trace/api/DatadogTracingConstants$TracerConfig;
+public final class com/motadata/android/trace/api/MotadataTracingConstants$TracerConfig {
+	public static final field INSTANCE Lcom/motadata/android/trace/api/MotadataTracingConstants$TracerConfig;
 	public static final field PARTIAL_FLUSH_MIN_SPANS Ljava/lang/String;
 	public static final field PROPAGATION_STYLE_EXTRACT Ljava/lang/String;
 	public static final field PROPAGATION_STYLE_INJECT Ljava/lang/String;
@@ -64,39 +64,39 @@ public final class com/motadata/android/trace/api/DatadogTracingConstants$Tracer
 	public static final field URL_AS_RESOURCE_NAME Ljava/lang/String;
 }
 
-public abstract interface class com/motadata/android/trace/api/propagation/DatadogHttpHeadersPropagation {
-	public abstract fun handleNotSampledHeaders (Lcom/motadata/android/api/instrumentation/network/HttpRequestInfoBuilder;Lcom/motadata/android/trace/api/tracer/DatadogTracer;Lcom/motadata/android/trace/api/span/DatadogSpan;)Lcom/motadata/android/api/instrumentation/network/HttpRequestInfoBuilder;
-	public abstract fun handleSampledHeaders (Lcom/motadata/android/api/instrumentation/network/HttpRequestInfoBuilder;Lcom/motadata/android/trace/api/tracer/DatadogTracer;Lcom/motadata/android/trace/api/span/DatadogSpan;)Lcom/motadata/android/api/instrumentation/network/HttpRequestInfoBuilder;
+public abstract interface class com/motadata/android/trace/api/propagation/MotadataHttpHeadersPropagation {
+	public abstract fun handleNotSampledHeaders (Lcom/motadata/android/api/instrumentation/network/HttpRequestInfoBuilder;Lcom/motadata/android/trace/api/tracer/MotadataTracer;Lcom/motadata/android/trace/api/span/MotadataSpan;)Lcom/motadata/android/api/instrumentation/network/HttpRequestInfoBuilder;
+	public abstract fun handleSampledHeaders (Lcom/motadata/android/api/instrumentation/network/HttpRequestInfoBuilder;Lcom/motadata/android/trace/api/tracer/MotadataTracer;Lcom/motadata/android/trace/api/span/MotadataSpan;)Lcom/motadata/android/api/instrumentation/network/HttpRequestInfoBuilder;
 }
 
-public abstract interface class com/motadata/android/trace/api/propagation/DatadogPropagation {
-	public abstract fun extract (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Lcom/motadata/android/trace/api/span/DatadogSpanContext;
-	public abstract fun inject (Lcom/motadata/android/trace/api/span/DatadogSpanContext;Ljava/lang/Object;Lkotlin/jvm/functions/Function3;)V
+public abstract interface class com/motadata/android/trace/api/propagation/MotadataPropagation {
+	public abstract fun extract (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Lcom/motadata/android/trace/api/span/MotadataSpanContext;
+	public abstract fun inject (Lcom/motadata/android/trace/api/span/MotadataSpanContext;Ljava/lang/Object;Lkotlin/jvm/functions/Function3;)V
 }
 
-public final class com/motadata/android/trace/api/propagation/NoOpDatadogPropagation : com/motadata/android/trace/api/propagation/DatadogPropagation {
+public final class com/motadata/android/trace/api/propagation/NoOpDatadogPropagation : com/motadata/android/trace/api/propagation/MotadataPropagation {
 	public fun <init> ()V
-	public fun extract (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Lcom/motadata/android/trace/api/span/DatadogSpanContext;
-	public fun inject (Lcom/motadata/android/trace/api/span/DatadogSpanContext;Ljava/lang/Object;Lkotlin/jvm/functions/Function3;)V
+	public fun extract (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Lcom/motadata/android/trace/api/span/MotadataSpanContext;
+	public fun inject (Lcom/motadata/android/trace/api/span/MotadataSpanContext;Ljava/lang/Object;Lkotlin/jvm/functions/Function3;)V
 }
 
-public abstract interface class com/motadata/android/trace/api/scope/DatadogScope : java/io/Closeable {
+public abstract interface class com/motadata/android/trace/api/scope/MotadataScope : java/io/Closeable {
 	public abstract fun close ()V
 }
 
-public abstract interface class com/motadata/android/trace/api/scope/DatadogScopeListener {
+public abstract interface class com/motadata/android/trace/api/scope/MotadataScopeListener {
 	public abstract fun afterScopeActivated ()V
 	public abstract fun afterScopeClosed ()V
 }
 
-public abstract interface class com/motadata/android/trace/api/span/DatadogSpan {
+public abstract interface class com/motadata/android/trace/api/span/MotadataSpan {
 	public abstract fun addThrowable (Ljava/lang/Throwable;)V
-	public abstract fun context ()Lcom/motadata/android/trace/api/span/DatadogSpanContext;
+	public abstract fun context ()Lcom/motadata/android/trace/api/span/MotadataSpanContext;
 	public abstract fun drop ()V
 	public abstract fun finish ()V
 	public abstract fun finish (J)V
 	public abstract fun getDurationNano ()J
-	public abstract fun getLocalRootSpan ()Lcom/motadata/android/trace/api/span/DatadogSpan;
+	public abstract fun getLocalRootSpan ()Lcom/motadata/android/trace/api/span/MotadataSpan;
 	public abstract fun getOperationName ()Ljava/lang/String;
 	public abstract fun getParentSpanId ()Ljava/lang/Long;
 	public abstract fun getResourceName ()Ljava/lang/String;
@@ -104,7 +104,7 @@ public abstract interface class com/motadata/android/trace/api/span/DatadogSpan 
 	public abstract fun getServiceName ()Ljava/lang/String;
 	public abstract fun getStartTimeNanos ()J
 	public abstract fun getTag (Ljava/lang/String;)Ljava/lang/Object;
-	public abstract fun getTraceId ()Lcom/motadata/android/trace/api/trace/DatadogTraceId;
+	public abstract fun getTraceId ()Lcom/motadata/android/trace/api/trace/MotadataTraceId;
 	public abstract fun isError ()Ljava/lang/Boolean;
 	public abstract fun isRootSpan ()Z
 	public abstract fun logAttributes (Ljava/util/Map;)V
@@ -123,93 +123,93 @@ public abstract interface class com/motadata/android/trace/api/span/DatadogSpan 
 	public abstract fun setTag (Ljava/lang/String;Z)V
 }
 
-public abstract interface class com/motadata/android/trace/api/span/DatadogSpanBuilder {
-	public abstract fun ignoreActiveSpan ()Lcom/motadata/android/trace/api/span/DatadogSpanBuilder;
-	public abstract fun start ()Lcom/motadata/android/trace/api/span/DatadogSpan;
-	public abstract fun withLink (Lcom/motadata/android/trace/api/span/DatadogSpanLink;)Lcom/motadata/android/trace/api/span/DatadogSpanBuilder;
-	public abstract fun withOrigin (Ljava/lang/String;)Lcom/motadata/android/trace/api/span/DatadogSpanBuilder;
-	public abstract fun withParentContext (Lcom/motadata/android/trace/api/span/DatadogSpanContext;)Lcom/motadata/android/trace/api/span/DatadogSpanBuilder;
-	public abstract fun withParentSpan (Lcom/motadata/android/trace/api/span/DatadogSpan;)Lcom/motadata/android/trace/api/span/DatadogSpanBuilder;
-	public abstract fun withResourceName (Ljava/lang/String;)Lcom/motadata/android/trace/api/span/DatadogSpanBuilder;
-	public abstract fun withStartTimestamp (J)Lcom/motadata/android/trace/api/span/DatadogSpanBuilder;
-	public abstract fun withTag (Ljava/lang/String;Ljava/lang/Double;)Lcom/motadata/android/trace/api/span/DatadogSpanBuilder;
-	public abstract fun withTag (Ljava/lang/String;Ljava/lang/Long;)Lcom/motadata/android/trace/api/span/DatadogSpanBuilder;
-	public abstract fun withTag (Ljava/lang/String;Ljava/lang/Object;)Lcom/motadata/android/trace/api/span/DatadogSpanBuilder;
+public abstract interface class com/motadata/android/trace/api/span/MotadataSpanBuilder {
+	public abstract fun ignoreActiveSpan ()Lcom/motadata/android/trace/api/span/MotadataSpanBuilder;
+	public abstract fun start ()Lcom/motadata/android/trace/api/span/MotadataSpan;
+	public abstract fun withLink (Lcom/motadata/android/trace/api/span/MotadataSpanLink;)Lcom/motadata/android/trace/api/span/MotadataSpanBuilder;
+	public abstract fun withOrigin (Ljava/lang/String;)Lcom/motadata/android/trace/api/span/MotadataSpanBuilder;
+	public abstract fun withParentContext (Lcom/motadata/android/trace/api/span/MotadataSpanContext;)Lcom/motadata/android/trace/api/span/MotadataSpanBuilder;
+	public abstract fun withParentSpan (Lcom/motadata/android/trace/api/span/MotadataSpan;)Lcom/motadata/android/trace/api/span/MotadataSpanBuilder;
+	public abstract fun withResourceName (Ljava/lang/String;)Lcom/motadata/android/trace/api/span/MotadataSpanBuilder;
+	public abstract fun withStartTimestamp (J)Lcom/motadata/android/trace/api/span/MotadataSpanBuilder;
+	public abstract fun withTag (Ljava/lang/String;Ljava/lang/Double;)Lcom/motadata/android/trace/api/span/MotadataSpanBuilder;
+	public abstract fun withTag (Ljava/lang/String;Ljava/lang/Long;)Lcom/motadata/android/trace/api/span/MotadataSpanBuilder;
+	public abstract fun withTag (Ljava/lang/String;Ljava/lang/Object;)Lcom/motadata/android/trace/api/span/MotadataSpanBuilder;
 }
 
-public abstract interface class com/motadata/android/trace/api/span/DatadogSpanContext {
+public abstract interface class com/motadata/android/trace/api/span/MotadataSpanContext {
 	public abstract fun getSamplingPriority ()I
 	public abstract fun getSpanId ()J
 	public abstract fun getTags ()Ljava/util/Map;
-	public abstract fun getTraceId ()Lcom/motadata/android/trace/api/trace/DatadogTraceId;
+	public abstract fun getTraceId ()Lcom/motadata/android/trace/api/trace/MotadataTraceId;
 	public abstract fun setMetric (Ljava/lang/CharSequence;D)V
 	public abstract fun setSamplingPriority (I)Z
 }
 
-public abstract interface class com/motadata/android/trace/api/span/DatadogSpanLink {
+public abstract interface class com/motadata/android/trace/api/span/MotadataSpanLink {
 	public abstract fun getAttributes ()Ljava/util/Map;
 	public abstract fun getSampled ()Z
 	public abstract fun getSpanId ()J
-	public abstract fun getTraceId ()Lcom/motadata/android/trace/api/trace/DatadogTraceId;
+	public abstract fun getTraceId ()Lcom/motadata/android/trace/api/trace/MotadataTraceId;
 	public abstract fun getTraceStrace ()Ljava/lang/String;
 }
 
-public abstract interface class com/motadata/android/trace/api/span/DatadogSpanWriter {
+public abstract interface class com/motadata/android/trace/api/span/MotadataSpanWriter {
 }
 
-public abstract interface class com/motadata/android/trace/api/trace/DatadogTraceId {
-	public static final field Companion Lcom/motadata/android/trace/api/trace/DatadogTraceId$Companion;
+public abstract interface class com/motadata/android/trace/api/trace/MotadataTraceId {
+	public static final field Companion Lcom/motadata/android/trace/api/trace/MotadataTraceId$Companion;
 	public abstract fun toHexString ()Ljava/lang/String;
 	public abstract fun toHexStringPadded (I)Ljava/lang/String;
 	public abstract fun toLong ()J
 }
 
-public final class com/motadata/android/trace/api/trace/DatadogTraceId$Companion {
+public final class com/motadata/android/trace/api/trace/MotadataTraceId$Companion {
 }
 
-public abstract interface class com/motadata/android/trace/api/tracer/DatadogTracer {
-	public abstract fun activateSpan (Lcom/motadata/android/trace/api/span/DatadogSpan;)Lcom/motadata/android/trace/api/scope/DatadogScope;
-	public abstract fun activeSpan ()Lcom/motadata/android/trace/api/span/DatadogSpan;
-	public abstract fun addScopeListener (Lcom/motadata/android/trace/api/scope/DatadogScopeListener;)V
-	public abstract fun buildSpan (Ljava/lang/CharSequence;)Lcom/motadata/android/trace/api/span/DatadogSpanBuilder;
-	public abstract fun buildSpan (Ljava/lang/String;Ljava/lang/CharSequence;)Lcom/motadata/android/trace/api/span/DatadogSpanBuilder;
-	public abstract fun propagate ()Lcom/motadata/android/trace/api/propagation/DatadogPropagation;
+public abstract interface class com/motadata/android/trace/api/tracer/MotadataTracer {
+	public abstract fun activateSpan (Lcom/motadata/android/trace/api/span/MotadataSpan;)Lcom/motadata/android/trace/api/scope/MotadataScope;
+	public abstract fun activeSpan ()Lcom/motadata/android/trace/api/span/MotadataSpan;
+	public abstract fun addScopeListener (Lcom/motadata/android/trace/api/scope/MotadataScopeListener;)V
+	public abstract fun buildSpan (Ljava/lang/CharSequence;)Lcom/motadata/android/trace/api/span/MotadataSpanBuilder;
+	public abstract fun buildSpan (Ljava/lang/String;Ljava/lang/CharSequence;)Lcom/motadata/android/trace/api/span/MotadataSpanBuilder;
+	public abstract fun propagate ()Lcom/motadata/android/trace/api/propagation/MotadataPropagation;
 }
 
-public final class com/motadata/android/trace/api/tracer/DatadogTracer$DefaultImpls {
-	public static fun propagate (Lcom/motadata/android/trace/api/tracer/DatadogTracer;)Lcom/motadata/android/trace/api/propagation/DatadogPropagation;
+public final class com/motadata/android/trace/api/tracer/MotadataTracer$DefaultImpls {
+	public static fun propagate (Lcom/motadata/android/trace/api/tracer/MotadataTracer;)Lcom/motadata/android/trace/api/propagation/MotadataPropagation;
 }
 
-public abstract interface class com/motadata/android/trace/api/tracer/DatadogTracerBuilder {
-	public abstract fun build ()Lcom/motadata/android/trace/api/tracer/DatadogTracer;
-	public abstract fun setBundleWithRumEnabled (Z)Lcom/motadata/android/trace/api/tracer/DatadogTracerBuilder;
-	public abstract fun setTraceRateLimit (I)Lcom/motadata/android/trace/api/tracer/DatadogTracerBuilder;
-	public abstract fun withPartialFlushMinSpans (I)Lcom/motadata/android/trace/api/tracer/DatadogTracerBuilder;
-	public abstract fun withSampleRate (D)Lcom/motadata/android/trace/api/tracer/DatadogTracerBuilder;
-	public abstract fun withServiceName (Ljava/lang/String;)Lcom/motadata/android/trace/api/tracer/DatadogTracerBuilder;
-	public abstract fun withTag (Ljava/lang/String;Ljava/lang/String;)Lcom/motadata/android/trace/api/tracer/DatadogTracerBuilder;
-	public abstract fun withTracingHeadersTypes (Ljava/util/Set;)Lcom/motadata/android/trace/api/tracer/DatadogTracerBuilder;
+public abstract interface class com/motadata/android/trace/api/tracer/MotadataTracerBuilder {
+	public abstract fun build ()Lcom/motadata/android/trace/api/tracer/MotadataTracer;
+	public abstract fun setBundleWithRumEnabled (Z)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
+	public abstract fun setTraceRateLimit (I)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
+	public abstract fun withPartialFlushMinSpans (I)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
+	public abstract fun withSampleRate (D)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
+	public abstract fun withServiceName (Ljava/lang/String;)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
+	public abstract fun withTag (Ljava/lang/String;Ljava/lang/String;)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
+	public abstract fun withTracingHeadersTypes (Ljava/util/Set;)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
 }
 
-public final class com/motadata/android/trace/api/tracer/NoOpDatadogTracer : com/motadata/android/trace/api/tracer/DatadogTracer {
+public final class com/motadata/android/trace/api/tracer/NoOpDatadogTracer : com/motadata/android/trace/api/tracer/MotadataTracer {
 	public fun <init> ()V
-	public fun activateSpan (Lcom/motadata/android/trace/api/span/DatadogSpan;)Lcom/motadata/android/trace/api/scope/DatadogScope;
-	public fun activeSpan ()Lcom/motadata/android/trace/api/span/DatadogSpan;
-	public fun addScopeListener (Lcom/motadata/android/trace/api/scope/DatadogScopeListener;)V
-	public fun buildSpan (Ljava/lang/CharSequence;)Lcom/motadata/android/trace/api/span/DatadogSpanBuilder;
-	public fun buildSpan (Ljava/lang/String;Ljava/lang/CharSequence;)Lcom/motadata/android/trace/api/span/DatadogSpanBuilder;
-	public fun propagate ()Lcom/motadata/android/trace/api/propagation/DatadogPropagation;
+	public fun activateSpan (Lcom/motadata/android/trace/api/span/MotadataSpan;)Lcom/motadata/android/trace/api/scope/MotadataScope;
+	public fun activeSpan ()Lcom/motadata/android/trace/api/span/MotadataSpan;
+	public fun addScopeListener (Lcom/motadata/android/trace/api/scope/MotadataScopeListener;)V
+	public fun buildSpan (Ljava/lang/CharSequence;)Lcom/motadata/android/trace/api/span/MotadataSpanBuilder;
+	public fun buildSpan (Ljava/lang/String;Ljava/lang/CharSequence;)Lcom/motadata/android/trace/api/span/MotadataSpanBuilder;
+	public fun propagate ()Lcom/motadata/android/trace/api/propagation/MotadataPropagation;
 }
 
-public final class com/motadata/android/trace/api/tracer/NoOpDatadogTracerBuilder : com/motadata/android/trace/api/tracer/DatadogTracerBuilder {
+public final class com/motadata/android/trace/api/tracer/NoOpDatadogTracerBuilder : com/motadata/android/trace/api/tracer/MotadataTracerBuilder {
 	public fun <init> ()V
-	public fun build ()Lcom/motadata/android/trace/api/tracer/DatadogTracer;
-	public fun setBundleWithRumEnabled (Z)Lcom/motadata/android/trace/api/tracer/DatadogTracerBuilder;
-	public fun setTraceRateLimit (I)Lcom/motadata/android/trace/api/tracer/DatadogTracerBuilder;
-	public fun withPartialFlushMinSpans (I)Lcom/motadata/android/trace/api/tracer/DatadogTracerBuilder;
-	public fun withSampleRate (D)Lcom/motadata/android/trace/api/tracer/DatadogTracerBuilder;
-	public fun withServiceName (Ljava/lang/String;)Lcom/motadata/android/trace/api/tracer/DatadogTracerBuilder;
-	public fun withTag (Ljava/lang/String;Ljava/lang/String;)Lcom/motadata/android/trace/api/tracer/DatadogTracerBuilder;
-	public fun withTracingHeadersTypes (Ljava/util/Set;)Lcom/motadata/android/trace/api/tracer/DatadogTracerBuilder;
+	public fun build ()Lcom/motadata/android/trace/api/tracer/MotadataTracer;
+	public fun setBundleWithRumEnabled (Z)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
+	public fun setTraceRateLimit (I)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
+	public fun withPartialFlushMinSpans (I)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
+	public fun withSampleRate (D)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
+	public fun withServiceName (Ljava/lang/String;)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
+	public fun withTag (Ljava/lang/String;Ljava/lang/String;)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
+	public fun withTracingHeadersTypes (Ljava/util/Set;)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
 }
 

@@ -8,7 +8,7 @@ package com.motadata.android.okhttp.internal
 
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.instrumentation.network.tag
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import com.motadata.android.trace.internal.net.RequestTracingState
 import com.motadata.android.utils.verifyLog
 import com.datadog.tools.unit.forge.BaseConfigurator
@@ -310,7 +310,7 @@ internal class RequestTracingStateRegistryTest {
         val originalUuid = checkNotNull(testedRegistry.get(mockCall))
             .createRequestInfo().tag(UUID::class.java)
 
-        val mockSpan = mock<DatadogSpan>()
+        val mockSpan = mock<MotadataSpan>()
         val newRequestBuilder = OkHttpRequestInfoBuilder(
             Request.Builder()
                 .url(fakeUrl)

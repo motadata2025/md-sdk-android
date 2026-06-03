@@ -5,12 +5,12 @@
  */
 package com.motadata.android.sdk.integration.network.models
 
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 
 internal data class ClientExecutionResult(
     val name: String,
     val request: TestRequest?,
     val response: TestResponse?,
-    val collectedSpans: List<DatadogSpan>,
+    val collectedSpans: List<MotadataSpan>,
     val error: Throwable?
 )

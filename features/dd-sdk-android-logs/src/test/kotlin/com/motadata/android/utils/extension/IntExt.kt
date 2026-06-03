@@ -7,7 +7,7 @@
 package com.motadata.android.utils.extension
 
 import android.util.Log
-import com.motadata.android.log.internal.domain.DatadogLogGenerator
+import com.motadata.android.log.internal.domain.MotadataLogGenerator
 import com.motadata.android.log.model.LogEvent
 
 fun Int.asLogStatus(): LogEvent.Status {
@@ -18,7 +18,7 @@ fun Int.asLogStatus(): LogEvent.Status {
         Log.INFO -> LogEvent.Status.INFO
         Log.DEBUG -> LogEvent.Status.DEBUG
         Log.VERBOSE -> LogEvent.Status.TRACE
-        DatadogLogGenerator.CRASH -> LogEvent.Status.EMERGENCY
+        MotadataLogGenerator.CRASH -> LogEvent.Status.EMERGENCY
         else -> LogEvent.Status.DEBUG
     }
 }

@@ -6,7 +6,7 @@
 
 package com.motadata.android.trace.internal.coroutines
 
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import com.motadata.android.trace.coroutines.CoroutineScopeSpan
 import com.motadata.android.trace.withinSpan
 import kotlinx.coroutines.CoroutineDispatcher
@@ -18,7 +18,7 @@ private const val TAG_DISPATCHER: String = "coroutine.dispatcher"
 
 internal suspend fun <T : Any?> CoroutineScope.withinCoroutineSpan(
     operationName: String,
-    parentSpan: DatadogSpan? = null,
+    parentSpan: MotadataSpan? = null,
     context: CoroutineContext,
     block: suspend CoroutineScopeSpan.() -> T
 ): T {

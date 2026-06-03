@@ -36,8 +36,8 @@ import com.motadata.android.rum.resource.ResourceHeadersExtractor
 import com.motadata.android.rum.tracking.ViewTrackingStrategy
 import com.motadata.android.trace.TraceContextInjection
 import com.motadata.android.trace.TracingHeaderType
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -56,7 +56,7 @@ import java.util.UUID
  * configuring the SDK (see [com.motadata.android.rum.RumConfiguration.Builder.useViewTrackingStrategy]) or start a view
  * manually (see [RumMonitor.startView]).
  *
- * For APM integration: This interceptor will create a [DatadogSpan] around the request and fill the
+ * For APM integration: This interceptor will create a [MotadataSpan] around the request and fill the
  * request information (url, method, status code, optional error). It will also propagate the span
  * and trace information in the request header to link it with backend spans.
  *
@@ -84,11 +84,11 @@ open class MotadataInterceptor internal constructor(
     tracedHosts: Map<String, Set<TracingHeaderType>>,
     tracedRequestListener: TracedRequestListener,
     rumResourceAttributesProvider: RumResourceAttributesProvider,
-    traceSampler: Sampler<DatadogSpan>,
+    traceSampler: Sampler<MotadataSpan>,
     traceContextInjection: TraceContextInjection,
     redacted404ResourceName: Boolean,
-    localTracerFactory: (SdkCore, Set<TracingHeaderType>) -> DatadogTracer,
-    globalTracerProvider: () -> DatadogTracer?,
+    localTracerFactory: (SdkCore, Set<TracingHeaderType>) -> MotadataTracer,
+    globalTracerProvider: () -> MotadataTracer?,
     internal val resourceHeadersExtractor: ResourceHeadersExtractor? = null
 ) : TracingInterceptor(
     sdkInstanceName,
@@ -160,7 +160,7 @@ open class MotadataInterceptor internal constructor(
     override fun onRequestIntercepted(
         sdkCore: FeatureSdkCore,
         request: Request,
-        span: DatadogSpan?,
+        span: MotadataSpan?,
         response: Response?,
         throwable: Throwable?
     ) {
@@ -203,7 +203,7 @@ open class MotadataInterceptor internal constructor(
         sdkCore: FeatureSdkCore,
         request: Request,
         response: Response,
-        span: DatadogSpan?,
+        span: MotadataSpan?,
         isSampled: Boolean
     ) {
         @Suppress("DEPRECATION")
@@ -361,7 +361,7 @@ open class MotadataInterceptor internal constructor(
      * A Builder for the [MotadataInterceptor].
      * @param tracedHostsWithHeaderType a list of all the hosts and header types that you want to
      * be automatically tracked by this interceptor. If registering a [com.motadata.android.trace.GlobalDatadogTracer],
-     * the tracer must be configured with [com.motadata.android.trace.api.tracer.DatadogTracerBuilder.withTracingHeadersTypes] containing all the necessary
+     * the tracer must be configured with [com.motadata.android.trace.api.tracer.MotadataTracerBuilder.withTracingHeadersTypes] containing all the necessary
      * header types configured for OkHttp tracking.
      * If no hosts are provided (via this argument or global configuration
      * [Configuration.Builder.setFirstPartyHosts] or [Configuration.Builder.setFirstPartyHostsWithHeaderType] )

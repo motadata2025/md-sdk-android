@@ -6,15 +6,15 @@
 
 package com.motadata.android.okhttp.trace
 
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import okhttp3.Request
 
 /**
- * Set the parent for the [DatadogSpan] created around this OkHttp [Request].
- * @param span the parent [DatadogSpan]
+ * Set the parent for the [MotadataSpan] created around this OkHttp [Request].
+ * @param span the parent [MotadataSpan]
  */
-fun Request.Builder.parentSpan(span: DatadogSpan): Request.Builder {
+fun Request.Builder.parentSpan(span: MotadataSpan): Request.Builder {
     @Suppress("UnsafeThirdPartyFunctionCall") // Span can't be null
-    tag(DatadogSpan::class.java, span)
+    tag(MotadataSpan::class.java, span)
     return this
 }

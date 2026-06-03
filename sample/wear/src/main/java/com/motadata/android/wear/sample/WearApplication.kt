@@ -17,11 +17,11 @@ import com.motadata.android.privacy.TrackingConsent
 import com.motadata.android.rum.Rum
 import com.motadata.android.rum.RumConfiguration
 import com.motadata.android.rum.tracking.ActivityViewTrackingStrategy
-import com.motadata.android.trace.DatadogTracing
+import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.GlobalDatadogTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
-import com.motadata.android.trace.opentelemetry.DatadogOpenTelemetry
+import com.motadata.android.trace.opentelemetry.MotadataOpenTelemetry
 import io.opentelemetry.api.GlobalOpenTelemetry
 import timber.log.Timber
 
@@ -86,13 +86,13 @@ class WearApplication : Application() {
         )
 
         GlobalDatadogTracer.registerIfAbsent(
-            DatadogTracing.newTracerBuilder(checkNotNull(sdkCore))
+            MotadataTracing.newTracerBuilder(checkNotNull(sdkCore))
                 .withServiceName(BuildConfig.APPLICATION_ID)
                 .build()
         )
 
         GlobalOpenTelemetry.set(
-            DatadogOpenTelemetry(BuildConfig.APPLICATION_ID)
+            MotadataOpenTelemetry(BuildConfig.APPLICATION_ID)
         )
     }
 

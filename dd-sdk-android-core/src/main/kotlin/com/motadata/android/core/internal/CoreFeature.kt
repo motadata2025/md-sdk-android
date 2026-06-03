@@ -25,7 +25,7 @@ import com.motadata.android.core.configuration.BatchSize
 import com.motadata.android.core.configuration.Configuration
 import com.motadata.android.core.configuration.UploadFrequency
 import com.motadata.android.core.configuration.UploadSchedulerStrategy
-import com.motadata.android.core.internal.account.DatadogAccountInfoProvider
+import com.motadata.android.core.internal.account.MotadataAccountInfoProvider
 import com.motadata.android.core.internal.account.MutableAccountInfoProvider
 import com.motadata.android.core.internal.account.NoOpMutableAccountInfoProvider
 import com.motadata.android.core.internal.data.upload.CurlInterceptor
@@ -58,14 +58,14 @@ import com.motadata.android.core.internal.system.NoOpSystemInfoProvider
 import com.motadata.android.core.internal.system.SystemInfoProvider
 import com.motadata.android.core.internal.thread.BackPressureExecutorService
 import com.motadata.android.core.internal.thread.BackPressuredBlockingQueue
-import com.motadata.android.core.internal.thread.DatadogThreadFactory
+import com.motadata.android.core.internal.thread.MotadataThreadFactory
 import com.motadata.android.core.internal.thread.LoggingScheduledThreadPoolExecutor
 import com.motadata.android.core.internal.thread.ScheduledExecutorServiceFactory
 import com.motadata.android.core.internal.time.AppStartTimeProvider
-import com.motadata.android.core.internal.time.DatadogNtpEndpoint
+import com.motadata.android.core.internal.time.MotadataNtpEndpoint
 import com.motadata.android.core.internal.time.KronosTimeProvider
 import com.motadata.android.core.internal.time.LoggingSyncListener
-import com.motadata.android.core.internal.user.DatadogUserInfoProvider
+import com.motadata.android.core.internal.user.MotadataUserInfoProvider
 import com.motadata.android.core.internal.user.MutableUserInfoProvider
 import com.motadata.android.core.internal.user.NoOpMutableUserInfoProvider
 import com.motadata.android.core.internal.utils.executeSafe
@@ -76,7 +76,7 @@ import com.motadata.android.internal.system.BuildSdkVersionProvider
 import com.motadata.android.internal.time.DefaultTimeProvider
 import com.motadata.android.internal.time.TimeProvider
 import com.motadata.android.internal.utils.allowThreadDiskReads
-import com.motadata.android.ndk.internal.DatadogNdkCrashHandler
+import com.motadata.android.ndk.internal.MotadataNdkCrashHandler
 import com.motadata.android.ndk.internal.NdkCrashHandler
 import com.motadata.android.ndk.internal.NdkCrashLogDeserializer
 import com.motadata.android.ndk.internal.NoOpNdkCrashHandler
@@ -394,7 +394,7 @@ internal class CoreFeature(
             lastViewEventFile.deleteSafe(internalLogger)
         } else {
             @Suppress("DEPRECATION")
-            val legacyViewEventFile = DatadogNdkCrashHandler.getLastViewEventFile(storageDir)
+            val legacyViewEventFile = MotadataNdkCrashHandler.getLastViewEventFile(storageDir)
             if (legacyViewEventFile.existsSafe(internalLogger)) {
                 legacyViewEventFile.deleteSafe(internalLogger)
             }
@@ -423,7 +423,7 @@ internal class CoreFeature(
             lastViewEventFile
         } else {
             @Suppress("DEPRECATION")
-            val legacyViewEventFile = DatadogNdkCrashHandler.getLastViewEventFile(storageDir)
+            val legacyViewEventFile = MotadataNdkCrashHandler.getLastViewEventFile(storageDir)
             if (legacyViewEventFile.existsSafe(internalLogger)) {
                 legacyViewEventFile
             } else {
@@ -448,7 +448,7 @@ internal class CoreFeature(
 
     private fun prepareNdkCrashData(nativeSourceType: String?) {
         if (isMainProcess) {
-            ndkCrashHandler = DatadogNdkCrashHandler(
+            ndkCrashHandler = MotadataNdkCrashHandler(
                 storageDir,
                 persistenceExecutorService,
                 NdkCrashLogDeserializer(internalLogger),
@@ -470,10 +470,10 @@ internal class CoreFeature(
         kronosClock = AndroidClockFactory.createKronosClock(
             safeContext,
             ntpHosts = listOf(
-                DatadogNtpEndpoint.NTP_0,
-                DatadogNtpEndpoint.NTP_1,
-                DatadogNtpEndpoint.NTP_2,
-                DatadogNtpEndpoint.NTP_3
+                MotadataNtpEndpoint.NTP_0,
+                MotadataNtpEndpoint.NTP_1,
+                MotadataNtpEndpoint.NTP_2,
+                MotadataNtpEndpoint.NTP_3
             ).map { it.host },
             cacheExpirationMs = TimeUnit.MINUTES.toMillis(NTP_CACHE_EXPIRATION_MINUTES),
             minWaitTimeBetweenSyncMs = TimeUnit.MINUTES.toMillis(NTP_DELAY_BETWEEN_SYNCS_MINUTES),
@@ -603,10 +603,10 @@ internal class CoreFeature(
         setupNetworkInfoProviders(appContext)
 
         // User Info Provider
-        userInfoProvider = DatadogUserInfoProvider()
+        userInfoProvider = MotadataUserInfoProvider()
 
         // Account Info Provider
-        accountInfoProvider = DatadogAccountInfoProvider(internalLogger)
+        accountInfoProvider = MotadataAccountInfoProvider(internalLogger)
     }
 
     private fun setupNetworkInfoProviders(appContext: Context) {
@@ -685,7 +685,7 @@ internal class CoreFeature(
             0L,
             TimeUnit.MILLISECONDS,
             contextQueue,
-            DatadogThreadFactory("context")
+            MotadataThreadFactory("context")
         )
     }
 

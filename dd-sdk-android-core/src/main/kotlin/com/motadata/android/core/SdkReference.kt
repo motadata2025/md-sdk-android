@@ -8,7 +8,7 @@ package com.motadata.android.core
 
 import com.motadata.android.Motadata
 import com.motadata.android.api.SdkCore
-import com.motadata.android.core.internal.DatadogCore
+import com.motadata.android.core.internal.MotadataCore
 import java.util.concurrent.atomic.AtomicReference
 
 /**
@@ -41,7 +41,7 @@ constructor(
         return if (current == null) {
             tryAcquire()
         } else {
-            val isActive = (current as? DatadogCore)?.isActive
+            val isActive = (current as? MotadataCore)?.isActive
             if (isActive != null && !isActive) {
                 reference.compareAndSet(current, null)
                 null

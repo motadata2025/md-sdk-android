@@ -15,7 +15,7 @@ import com.motadata.android.core.InternalSdkCore
 import com.motadata.android.core.sampling.DeterministicSampler
 import com.motadata.android.core.sampling.RateBasedSampler
 import com.motadata.android.rum.internal.RumFeature
-import com.motadata.android.rum.internal.monitor.DatadogRumMonitor
+import com.motadata.android.rum.internal.monitor.MotadataRumMonitor
 import com.motadata.android.rum.internal.monitor.NoOpAdvancedRumMonitor
 import com.motadata.android.rum.internal.net.RumRequestFactory
 import com.motadata.android.rum.tracking.NoOpTrackingStrategy
@@ -154,7 +154,7 @@ internal class RumTest {
 
         // Then
         val monitor = GlobalRumMonitor.get(mockSdkCore)
-        check(monitor is DatadogRumMonitor)
+        check(monitor is MotadataRumMonitor)
         assertThat(monitor.rootScope)
             .overridingErrorMessage(
                 "Expecting root scope to have applicationId ${fakeRumConfiguration.applicationId}"

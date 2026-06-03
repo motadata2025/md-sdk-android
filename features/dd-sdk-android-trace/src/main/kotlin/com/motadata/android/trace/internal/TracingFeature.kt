@@ -63,7 +63,7 @@ internal class TracingFeature(
 
     // region InternalCoreWriterProvider
 
-    override fun getCoreTracerWriter() = DatadogSpanWriterWrapper(coreTracerDataWriter)
+    override fun getCoreTracerWriter() = MotadataSpanWriterWrapper(coreTracerDataWriter)
 
     // endregion
 

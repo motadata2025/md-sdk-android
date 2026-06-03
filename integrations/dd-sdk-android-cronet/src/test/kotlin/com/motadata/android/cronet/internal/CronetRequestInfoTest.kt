@@ -45,7 +45,7 @@ internal class CronetRequestInfoTest {
     lateinit var mockExecutor: Executor
 
     @Mock
-    lateinit var mockEngine: DatadogCronetEngine
+    lateinit var mockEngine: MotadataCronetEngine
 
     @Mock
     lateinit var mockCallback: CronetRequestCallback

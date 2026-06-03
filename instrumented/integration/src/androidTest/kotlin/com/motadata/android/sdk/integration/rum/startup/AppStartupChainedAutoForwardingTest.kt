@@ -14,7 +14,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.motadata.android.Motadata
 import com.motadata.android.privacy.TrackingConsent
-import com.motadata.android.rum.DdRumContentProvider
+import com.motadata.android.rum.MdRumContentProvider
 import com.motadata.android.rum.Rum
 import com.motadata.android.rum.tracking.ActivityViewTrackingStrategy
 import com.motadata.android.sdk.integration.RuntimeConfig
@@ -158,7 +158,7 @@ internal class AppStartupChainedAutoForwardingTest :
                     // No predicate — auto-forwarding should handle the entire chain
                     .build()
                 Rum.enable(rumConfig, sdkCore)
-                DdRumContentProvider.processImportance =
+                MdRumContentProvider.processImportance =
                     ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
             } catch (e: Throwable) {
                 appContext.unregisterActivityLifecycleCallbacks(mainActivityResumedCallback)

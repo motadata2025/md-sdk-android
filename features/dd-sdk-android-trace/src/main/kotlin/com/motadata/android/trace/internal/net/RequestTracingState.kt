@@ -8,7 +8,7 @@ package com.motadata.android.trace.internal.net
 import com.motadata.android.api.instrumentation.network.HttpRequestInfo
 import com.motadata.android.api.instrumentation.network.HttpRequestInfoBuilder
 import com.motadata.android.lint.InternalApi
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 
 /**
  * For internal usage only.
@@ -28,7 +28,7 @@ import com.motadata.android.trace.api.span.DatadogSpan
 data class RequestTracingState(
     val requestInfoBuilder: HttpRequestInfoBuilder,
     val isSampled: Boolean = false,
-    val span: DatadogSpan? = null,
+    val span: MotadataSpan? = null,
     val sampleRate: Float? = null
 ) {
 

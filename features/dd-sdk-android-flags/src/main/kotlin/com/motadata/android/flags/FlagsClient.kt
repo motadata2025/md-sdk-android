@@ -13,7 +13,7 @@ import com.motadata.android.api.feature.Feature.Companion.FLAGS_EVALUATIONS_FEAT
 import com.motadata.android.api.feature.Feature.Companion.FLAGS_FEATURE_NAME
 import com.motadata.android.api.feature.Feature.Companion.RUM_FEATURE_NAME
 import com.motadata.android.api.feature.FeatureSdkCore
-import com.motadata.android.flags.internal.DatadogFlagsClient
+import com.motadata.android.flags.internal.MotadataFlagsClient
 import com.motadata.android.flags.internal.DefaultRumEvaluationLogger
 import com.motadata.android.flags.internal.EvaluationsFeature
 import com.motadata.android.flags.internal.FlagsFeature
@@ -432,7 +432,7 @@ interface FlagsClient {
 
             val rumEvaluationLogger = createRumEvaluationLogger(featureSdkCore)
 
-            return DatadogFlagsClient(
+            return MotadataFlagsClient(
                 featureSdkCore = featureSdkCore,
                 evaluationsManager = evaluationsManager,
                 flagsRepository = flagsRepository,

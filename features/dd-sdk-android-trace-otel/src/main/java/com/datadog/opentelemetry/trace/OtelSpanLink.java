@@ -10,9 +10,9 @@ package com.datadog.opentelemetry.trace;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.motadata.android.trace.api.span.DatadogSpanLink;
-import com.motadata.android.trace.api.trace.DatadogTraceId;
-import com.motadata.android.trace.internal.DatadogTraceExtKt;
+import com.motadata.android.trace.api.span.MotadataSpanLink;
+import com.motadata.android.trace.api.trace.MotadataTraceId;
+import com.motadata.android.trace.internal.MotadataTraceExtKt;
 import com.motadata.android.trace.internal._TraceInternalProxy;
 import com.datadog.opentelemetry.context.propagation.TraceStateHelper;
 
@@ -24,11 +24,11 @@ import java.util.Map;
 import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.trace.SpanContext;
 
-public class OtelSpanLink implements DatadogSpanLink {
+public class OtelSpanLink implements MotadataSpanLink {
   private final long spanId;
   private final boolean sampled;
   private final String traceState;
-  private final DatadogTraceId traceId;
+  private final MotadataTraceId traceId;
   private final Map<String, String> attributes;
 
   public OtelSpanLink(SpanContext spanContext) {
@@ -36,7 +36,7 @@ public class OtelSpanLink implements DatadogSpanLink {
   }
 
   public OtelSpanLink(SpanContext spanContext, Attributes attributes) {
-    traceId = DatadogTraceExtKt.fromHex(DatadogTraceId.Companion, spanContext.getTraceId());
+    traceId = MotadataTraceExtKt.fromHex(MotadataTraceId.Companion, spanContext.getTraceId());
     spanId = _TraceInternalProxy.spanIdConverter.fromHex(spanContext.getSpanId());
     sampled = spanContext.isSampled();
     traceState = TraceStateHelper.encodeHeader(spanContext.getTraceState());
@@ -86,7 +86,7 @@ public class OtelSpanLink implements DatadogSpanLink {
 
   @NonNull
   @Override
-  public DatadogTraceId getTraceId() {
+  public MotadataTraceId getTraceId() {
     return traceId;
   }
 

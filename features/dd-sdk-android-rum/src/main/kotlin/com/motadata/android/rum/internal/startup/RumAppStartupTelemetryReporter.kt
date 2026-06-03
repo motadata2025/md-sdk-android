@@ -7,7 +7,7 @@
 package com.motadata.android.rum.internal.startup
 
 import com.motadata.android.core.InternalSdkCore
-import com.motadata.android.rum.DdRumContentProvider
+import com.motadata.android.rum.MdRumContentProvider
 
 internal interface RumAppStartupTelemetryReporter {
     fun reportTTID(info: RumTTIDInfo, indexInSession: Int)
@@ -17,8 +17,8 @@ internal interface RumAppStartupTelemetryReporter {
             return RumAppStartupTelemetryReporterImpl(
                 internalLogger = sdkCore.internalLogger,
                 appStartupTimeNs = sdkCore.appStartTimeNs,
-                contentProviderCreationTimeNs = DdRumContentProvider.createTimeNs,
-                processStartImportance = DdRumContentProvider.processImportance
+                contentProviderCreationTimeNs = MdRumContentProvider.createTimeNs,
+                processStartImportance = MdRumContentProvider.processImportance
             )
         }
     }

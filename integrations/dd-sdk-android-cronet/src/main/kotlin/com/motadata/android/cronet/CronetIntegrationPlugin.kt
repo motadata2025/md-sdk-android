@@ -9,7 +9,7 @@ import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.api.logToUser
 import com.motadata.android.cronet.internal.CronetRequestFinishedInfoListener
-import com.motadata.android.cronet.internal.DatadogCronetEngine
+import com.motadata.android.cronet.internal.MotadataCronetEngine
 import com.motadata.android.internal.telemetry.InternalTelemetryEvent.ApiUsage.NetworkInstrumentation.LibraryType
 import com.motadata.android.rum.ExperimentalRumApi
 import com.motadata.android.rum._RumInternalProxy
@@ -97,7 +97,7 @@ class CronetIntegrationPlugin internal constructor(
             )
         }
 
-        return DatadogCronetEngine(
+        return MotadataCronetEngine(
             delegate = delegate.build(),
             apmNetworkInstrumentation = apmInstrumentation,
             rumNetworkInstrumentation = rumInstrumentation,

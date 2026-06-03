@@ -1,4 +1,4 @@
-public final class com/motadata/android/timber/DatadogTree : timber/log/Timber$Tree {
+public final class com/motadata/android/timber/MotadataTree : timber/log/Timber$Tree {
 	public static final field TIMBER_TAG_ATTRIBUTE Ljava/lang/String;
 	public fun <init> (I)V
 	public fun <init> (ILcom/motadata/android/api/SdkCore;)V

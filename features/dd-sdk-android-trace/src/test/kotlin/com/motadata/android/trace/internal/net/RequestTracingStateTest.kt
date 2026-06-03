@@ -8,9 +8,9 @@ package com.motadata.android.trace.internal.net
 
 import com.motadata.android.api.instrumentation.network.HttpRequestInfo
 import com.motadata.android.api.instrumentation.network.HttpRequestInfoBuilder
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.span.DatadogSpanContext
-import com.motadata.android.trace.api.trace.DatadogTraceId
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.span.MotadataSpanContext
+import com.motadata.android.trace.api.trace.MotadataTraceId
 import com.motadata.android.utils.forge.Configurator
 import fr.xgouchet.elmyr.annotation.FloatForgery
 import fr.xgouchet.elmyr.annotation.LongForgery
@@ -44,10 +44,10 @@ internal class RequestTracingStateTest {
     lateinit var mockRequestInfo: HttpRequestInfo
 
     @Mock
-    lateinit var mockSpan: DatadogSpan
+    lateinit var mockSpan: MotadataSpan
 
     @Mock
-    lateinit var mockSpanContext: DatadogSpanContext
+    lateinit var mockSpanContext: MotadataSpanContext
 
     @StringForgery
     lateinit var fakeTraceIdKey: String
@@ -119,7 +119,7 @@ internal class RequestTracingStateTest {
         @StringForgery fakeTraceIdHex: String
     ) {
         // Given
-        val mockTraceId: DatadogTraceId = mock()
+        val mockTraceId: MotadataTraceId = mock()
         whenever(mockTraceId.toHexString()) doReturn fakeTraceIdHex
         whenever(mockSpan.context()) doReturn mockSpanContext
         whenever(mockSpanContext.traceId) doReturn mockTraceId
@@ -147,7 +147,7 @@ internal class RequestTracingStateTest {
         @StringForgery fakeTraceIdHex: String
     ) {
         // Given
-        val mockTraceId: DatadogTraceId = mock()
+        val mockTraceId: MotadataTraceId = mock()
         whenever(mockTraceId.toHexString()) doReturn fakeTraceIdHex
         whenever(mockSpan.context()) doReturn mockSpanContext
         whenever(mockSpanContext.traceId) doReturn mockTraceId

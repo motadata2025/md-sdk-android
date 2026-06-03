@@ -5,19 +5,19 @@
  */
 package com.motadata.android.trace
 
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.trace.api.tracer.NoOpDatadogTracer
 import java.util.concurrent.atomic.AtomicReference
 
 /**
- * A holder object for managing and retrieving a global instance of the [DatadogTracer].
+ * A holder object for managing and retrieving a global instance of the [MotadataTracer].
  *
- * This object is used to share same instance of [DatadogTracer] across different integrations such as
+ * This object is used to share same instance of [MotadataTracer] across different integrations such as
  * `OkHttp`, Kotlin's coroutines, ect.
  */
 object GlobalDatadogTracer {
 
-    private val instance = AtomicReference<DatadogTracer?>()
+    private val instance = AtomicReference<MotadataTracer?>()
 
     /**
      * Registers the provided tracer as the global tracer if no tracer is currently registered.
@@ -26,25 +26,25 @@ object GlobalDatadogTracer {
      * @return `true` if the tracer was successfully registered, or `false` if a tracer was already registered.
      */
     @JvmStatic
-    fun registerIfAbsent(tracer: DatadogTracer): Boolean {
+    fun registerIfAbsent(tracer: MotadataTracer): Boolean {
         return instance.compareAndSet(null, tracer)
     }
 
     /**
      * Retrieves the current active tracer for Motadata, or a no-operation tracer if none is active.
      *
-     * @return The current instance of [DatadogTracer] if available. Otherwise, an instance of
+     * @return The current instance of [MotadataTracer] if available. Otherwise, an instance of
      * [NoOpDatadogTracer] that performs no operations.
      */
     @JvmStatic
-    fun get(): DatadogTracer = getOrNull() ?: NoOpDatadogTracer()
+    fun get(): MotadataTracer = getOrNull() ?: NoOpDatadogTracer()
 
     /**
-     * Retrieves the current instance of the DatadogTracer, if available.
+     * Retrieves the current instance of the MotadataTracer, if available.
      *
-     * @return An instance of [DatadogTracer] or null.
+     * @return An instance of [MotadataTracer] or null.
      */
-    fun getOrNull(): DatadogTracer? = instance.get()
+    fun getOrNull(): MotadataTracer? = instance.get()
 
     /**
      * Clears the current instance of the global Motadata tracer.

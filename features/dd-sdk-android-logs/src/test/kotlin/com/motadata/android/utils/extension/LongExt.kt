@@ -6,12 +6,12 @@
 
 package com.motadata.android.utils.extension
 
-import com.motadata.android.log.internal.domain.DatadogLogGenerator
+import com.motadata.android.log.internal.domain.MotadataLogGenerator
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
 
-fun Long.toIsoFormattedTimestamp(iso: String = DatadogLogGenerator.ISO_8601): String {
+fun Long.toIsoFormattedTimestamp(iso: String = MotadataLogGenerator.ISO_8601): String {
     val simpleDateFormat = SimpleDateFormat(iso, Locale.US).apply {
         timeZone = TimeZone.getTimeZone("UTC")
     }

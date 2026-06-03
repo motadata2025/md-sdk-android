@@ -9,7 +9,7 @@ package com.motadata.android.core.internal.time
 import android.os.Process
 import com.motadata.android.internal.system.BuildSdkVersionProvider
 import com.motadata.android.internal.time.TimeProvider
-import com.motadata.android.rum.DdRumContentProvider
+import com.motadata.android.rum.MdRumContentProvider
 import java.util.concurrent.TimeUnit
 import kotlin.time.Duration.Companion.seconds
 
@@ -25,7 +25,7 @@ internal class DefaultAppStartTimeProvider(
                 val diffMs = timeProvider.getDeviceElapsedRealtimeMillis() - Process.getStartElapsedRealtime()
                 val computedAppStartTimeNs =
                     timeProvider.getDeviceElapsedTimeNanos() - TimeUnit.MILLISECONDS.toNanos(diffMs)
-                val contentProviderCreateTimeNs = DdRumContentProvider.createTimeNs
+                val contentProviderCreateTimeNs = MdRumContentProvider.createTimeNs
                 val isAfterContentProviderInit = computedAppStartTimeNs > contentProviderCreateTimeNs
                 val isTooFarBeforeContentProviderInit =
                     contentProviderCreateTimeNs - computedAppStartTimeNs >
@@ -33,7 +33,7 @@ internal class DefaultAppStartTimeProvider(
 
                 /**
                  * Occasionally [Process.getStartElapsedRealtime] returns buggy values. We filter them and fall back
-                 * to the time of creation of [DdRumContentProvider].
+                 * to the time of creation of [MdRumContentProvider].
                  * Two directions are guarded:
                  * - computedAppStartTimeNs > createTimeNs: app start appears to be after content provider init,
                  * which is impossible.
@@ -46,7 +46,7 @@ internal class DefaultAppStartTimeProvider(
                     computedAppStartTimeNs
                 }
             }
-            else -> DdRumContentProvider.createTimeNs
+            else -> MdRumContentProvider.createTimeNs
         }
     }
 

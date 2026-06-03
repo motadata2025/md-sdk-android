@@ -6,10 +6,10 @@
 
 package com.motadata.android.trace
 
-import com.motadata.android.trace.api.scope.DatadogScope
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.span.DatadogSpanBuilder
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.scope.MotadataScope
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.span.MotadataSpanBuilder
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.datadog.tools.unit.forge.BaseConfigurator
 import fr.xgouchet.elmyr.annotation.Forgery
 import fr.xgouchet.elmyr.annotation.LongForgery
@@ -42,19 +42,19 @@ import org.mockito.quality.Strictness
 class SpanExtTest {
 
     @Mock
-    lateinit var mockTracer: DatadogTracer
+    lateinit var mockTracer: MotadataTracer
 
     @Mock
-    lateinit var mockSpanBuilder: DatadogSpanBuilder
+    lateinit var mockSpanBuilder: MotadataSpanBuilder
 
     @Mock
-    lateinit var mockSpan: DatadogSpan
+    lateinit var mockSpan: MotadataSpan
 
     @Mock
-    lateinit var mockParentSpan: DatadogSpan
+    lateinit var mockParentSpan: MotadataSpan
 
     @Mock
-    lateinit var mockScope: DatadogScope
+    lateinit var mockScope: MotadataScope
 
     @StringForgery
     lateinit var fakeOperationName: String
@@ -78,7 +78,7 @@ class SpanExtTest {
         @LongForgery result: Long
     ) {
         var lambdaCalled = false
-        whenever(mockSpanBuilder.withParentSpan(null as DatadogSpan?)) doReturn mockSpanBuilder
+        whenever(mockSpanBuilder.withParentSpan(null as MotadataSpan?)) doReturn mockSpanBuilder
 
         val callResult = withinSpan(fakeOperationName) {
             lambdaCalled = true
@@ -87,7 +87,7 @@ class SpanExtTest {
 
         assertThat(lambdaCalled).isTrue()
         assertThat(callResult).isEqualTo(result)
-        verify(mockSpanBuilder).withParentSpan(null as DatadogSpan?)
+        verify(mockSpanBuilder).withParentSpan(null as MotadataSpan?)
         inOrder(mockSpan, mockScope) {
             verify(mockSpan).finish()
             verify(mockScope).close()

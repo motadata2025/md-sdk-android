@@ -25,15 +25,15 @@ import com.motadata.android.rum.RumResourceAttributesProvider
 import com.motadata.android.rum.RumResourceKind
 import com.motadata.android.rum.RumResourceMethod
 import com.motadata.android.rum.resource.ResourceId
-import com.motadata.android.tests.config.DatadogSingletonTestConfiguration
+import com.motadata.android.tests.config.MotadataSingletonTestConfiguration
 import com.motadata.android.tests.elmyr.anOkHttpResponse
 import com.motadata.android.trace.TraceContextInjection
-import com.motadata.android.trace.api.propagation.DatadogPropagation
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.span.DatadogSpanBuilder
-import com.motadata.android.trace.api.span.DatadogSpanContext
-import com.motadata.android.trace.api.trace.DatadogTraceId
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.propagation.MotadataPropagation
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.span.MotadataSpanBuilder
+import com.motadata.android.trace.api.span.MotadataSpanContext
+import com.motadata.android.trace.api.trace.MotadataTraceId
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.utils.verifyLog
 import com.datadog.tools.unit.annotations.TestConfigurationsProvider
 import com.datadog.tools.unit.extensions.TestConfigurationExtension
@@ -92,15 +92,15 @@ internal class MotadataInterceptorWithoutTracesTest {
 
     // region Mocks
 
-    private lateinit var mockLocalTracer: DatadogTracer
+    private lateinit var mockLocalTracer: MotadataTracer
 
-    private lateinit var mockSpanBuilder: DatadogSpanBuilder
+    private lateinit var mockSpanBuilder: MotadataSpanBuilder
 
-    private lateinit var mockSpanContext: DatadogSpanContext
+    private lateinit var mockSpanContext: MotadataSpanContext
 
-    private lateinit var mockPropagation: DatadogPropagation
+    private lateinit var mockPropagation: MotadataPropagation
 
-    private lateinit var fakeSpan: DatadogSpan
+    private lateinit var fakeSpan: MotadataSpan
 
     @Mock
     lateinit var mockChain: Interceptor.Chain
@@ -115,7 +115,7 @@ internal class MotadataInterceptorWithoutTracesTest {
     lateinit var mockResolver: DefaultFirstPartyHostHeaderTypeResolver
 
     @Mock
-    lateinit var mockTraceSampler: Sampler<DatadogSpan>
+    lateinit var mockTraceSampler: Sampler<MotadataSpan>
 
     @Mock
     lateinit var mockInternalLogger: InternalLogger
@@ -144,7 +144,7 @@ internal class MotadataInterceptorWithoutTracesTest {
     @StringForgery(regex = "[a-f][0-9]{31}")
     lateinit var fakeTraceIdString: String
 
-    lateinit var fakeTraceId: DatadogTraceId
+    lateinit var fakeTraceId: MotadataTraceId
 
     @BoolForgery
     var fakeRedacted404Resources: Boolean = true
@@ -438,7 +438,7 @@ internal class MotadataInterceptorWithoutTracesTest {
     // endregion
 
     companion object {
-        val datadogCore = DatadogSingletonTestConfiguration()
+        val datadogCore = MotadataSingletonTestConfiguration()
         val rumMonitor = GlobalRumMonitorTestConfiguration(datadogCore)
 
         @TestConfigurationsProvider

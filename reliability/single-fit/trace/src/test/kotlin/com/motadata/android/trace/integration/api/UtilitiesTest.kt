@@ -11,7 +11,7 @@ import com.motadata.android.core.stub.StubSDKCore
 import com.motadata.android.tests.ktx.getInt
 import com.motadata.android.tests.ktx.getLong
 import com.motadata.android.tests.ktx.getString
-import com.motadata.android.trace.DatadogTracing
+import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.GlobalDatadogTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
@@ -71,7 +71,7 @@ class UtilitiesTest {
     ) {
         // Given
         stubSdkCore.stubFeature(Feature.LOGS_FEATURE_NAME)
-        val testedTracer = DatadogTracing.newTracerBuilder(stubSdkCore).build()
+        val testedTracer = MotadataTracing.newTracerBuilder(stubSdkCore).build()
 
         // When
         var traceId: String
@@ -119,7 +119,7 @@ class UtilitiesTest {
     ) {
         // Given
         stubSdkCore.stubFeature(Feature.LOGS_FEATURE_NAME)
-        val testedTracer = DatadogTracing.newTracerBuilder(stubSdkCore).build()
+        val testedTracer = MotadataTracing.newTracerBuilder(stubSdkCore).build()
 
         // When
         var leastSignificantTraceId: String
@@ -175,7 +175,7 @@ class UtilitiesTest {
     ) {
         // Given
         stubSdkCore.stubFeature(Feature.LOGS_FEATURE_NAME)
-        val testedTracer = DatadogTracing.newTracerBuilder(stubSdkCore).build()
+        val testedTracer = MotadataTracing.newTracerBuilder(stubSdkCore).build()
 
         // When
         val mostSignificantTraceId: String
@@ -223,7 +223,7 @@ class UtilitiesTest {
     ) {
         // Given
         stubSdkCore.stubFeature(Feature.LOGS_FEATURE_NAME)
-        val testedTracer = DatadogTracing.newTracerBuilder(stubSdkCore).build()
+        val testedTracer = MotadataTracing.newTracerBuilder(stubSdkCore).build()
 
         // When
         var leastSignificantTraceId: String
@@ -278,7 +278,7 @@ class UtilitiesTest {
         @StringForgery fakeOperation: String
     ) {
         // Given
-        val testedTracer = DatadogTracing.newTracerBuilder(stubSdkCore).build()
+        val testedTracer = MotadataTracing.newTracerBuilder(stubSdkCore).build()
         GlobalDatadogTracer.registerIfAbsent(testedTracer)
 
         // When
@@ -320,7 +320,7 @@ class UtilitiesTest {
         @StringForgery fakeOperation2: String
     ) {
         // Given
-        val testedTracer = DatadogTracing.newTracerBuilder(stubSdkCore).build()
+        val testedTracer = MotadataTracing.newTracerBuilder(stubSdkCore).build()
         GlobalDatadogTracer.registerIfAbsent(testedTracer)
 
         // When
@@ -379,7 +379,7 @@ class UtilitiesTest {
         @Forgery fakeThrowable: Throwable
     ) {
         // Given
-        val testedTracer = DatadogTracing.newTracerBuilder(stubSdkCore).build()
+        val testedTracer = MotadataTracing.newTracerBuilder(stubSdkCore).build()
         GlobalDatadogTracer.registerIfAbsent(testedTracer)
 
         // When

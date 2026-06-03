@@ -13,10 +13,10 @@ import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.SdkCore
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureSdkCore
-import com.motadata.android.trace.DatadogTracing
+import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.InternalCoreWriterProvider
 import com.motadata.android.trace.TracingHeaderType
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.trace.internal._TraceInternalProxy
 import com.motadata.android.trace.internal._TraceInternalProxy.setTraceId128BitGenerationEnabled
 import com.motadata.android.trace.opentelemetry.internal.MotadataContextStorageWrapper
@@ -37,7 +37,7 @@ import java.util.Locale
  *
  */
 class OtelTracerProvider internal constructor(
-    private val datadogTracer: DatadogTracer,
+    private val datadogTracer: MotadataTracer,
     private val internalLogger: InternalLogger
 ) : TracerProvider {
 
@@ -92,7 +92,7 @@ class OtelTracerProvider internal constructor(
     class Builder internal constructor(
         private val sdkCore: FeatureSdkCore
     ) {
-        private val builderDelegate = DatadogTracing.newTracerBuilder(sdkCore)
+        private val builderDelegate = MotadataTracing.newTracerBuilder(sdkCore)
             .withPartialFlushMinSpans(DEFAULT_PARTIAL_MIN_FLUSH)
             .withTracingHeadersTypes(
                 setOf(
@@ -148,7 +148,7 @@ class OtelTracerProvider internal constructor(
             }
         }
 
-        private fun createDatadogTracer(): DatadogTracer {
+        private fun createDatadogTracer(): MotadataTracer {
             val datadogTracer = builderDelegate
                 .withServiceName(serviceName)
                 .also(_TraceInternalProxy::setSdkV2Compatible)

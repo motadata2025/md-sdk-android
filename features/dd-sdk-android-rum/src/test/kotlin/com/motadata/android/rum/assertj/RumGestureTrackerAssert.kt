@@ -6,15 +6,15 @@
 
 package com.motadata.android.rum.assertj
 
-import com.motadata.android.rum.internal.instrumentation.gestures.DatadogGesturesTracker
+import com.motadata.android.rum.internal.instrumentation.gestures.MotadataGesturesTracker
 import com.motadata.android.rum.internal.tracking.JetpackViewAttributesProvider
 import com.motadata.android.rum.tracking.InteractionPredicate
 import com.motadata.android.rum.tracking.ViewAttributesProvider
 import org.assertj.core.api.AbstractObjectAssert
 import org.assertj.core.api.Assertions.assertThat
 
-internal class RumGestureTrackerAssert(actual: DatadogGesturesTracker) :
-    AbstractObjectAssert<RumGestureTrackerAssert, DatadogGesturesTracker>(
+internal class RumGestureTrackerAssert(actual: MotadataGesturesTracker) :
+    AbstractObjectAssert<RumGestureTrackerAssert, MotadataGesturesTracker>(
         actual,
         RumGestureTrackerAssert::class.java
     ) {
@@ -55,7 +55,7 @@ internal class RumGestureTrackerAssert(actual: DatadogGesturesTracker) :
 
     companion object {
 
-        internal fun assertThat(actual: DatadogGesturesTracker): RumGestureTrackerAssert =
+        internal fun assertThat(actual: MotadataGesturesTracker): RumGestureTrackerAssert =
             RumGestureTrackerAssert(actual)
     }
 }

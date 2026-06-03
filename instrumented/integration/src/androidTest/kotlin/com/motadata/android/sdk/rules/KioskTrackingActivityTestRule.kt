@@ -9,7 +9,7 @@ package com.motadata.android.sdk.rules
 import android.app.Activity
 import android.app.ActivityManager
 import com.motadata.android.privacy.TrackingConsent
-import com.motadata.android.rum.DdRumContentProvider
+import com.motadata.android.rum.MdRumContentProvider
 
 internal class KioskTrackingActivityTestRule<T : Activity>(
     activityClass: Class<T>,
@@ -19,6 +19,6 @@ internal class KioskTrackingActivityTestRule<T : Activity>(
 
     override fun beforeActivityLaunched() {
         super.beforeActivityLaunched()
-        DdRumContentProvider.processImportance = ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+        MdRumContentProvider.processImportance = ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
     }
 }

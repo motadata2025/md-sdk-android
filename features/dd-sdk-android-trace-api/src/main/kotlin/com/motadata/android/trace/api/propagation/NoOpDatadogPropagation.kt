@@ -5,18 +5,18 @@
  */
 package com.motadata.android.trace.api.propagation
 
-import com.motadata.android.trace.api.span.DatadogSpanContext
+import com.motadata.android.trace.api.span.MotadataSpanContext
 
 /**
- * A no-operation implementation of the [DatadogPropagation] interface.
+ * A no-operation implementation of the [MotadataPropagation] interface.
  *
  * This implementation is intended as a placeholder making possible to create other NoOp.* classes.
  */
 // TODO RUM-10573 - replace with @NoOpImplementation when method-level generics will be supported in noopfactory
-class NoOpDatadogPropagation : DatadogPropagation {
+class NoOpDatadogPropagation : MotadataPropagation {
 
     override fun <C> inject(
-        context: DatadogSpanContext,
+        context: MotadataSpanContext,
         carrier: C,
         setter: (carrier: C, key: String, value: String) -> Unit
     ) = Unit // Do nothing
@@ -24,5 +24,5 @@ class NoOpDatadogPropagation : DatadogPropagation {
     override fun <C> extract(
         carrier: C,
         getter: (carrier: C, classifier: (String, String) -> Boolean) -> Unit
-    ): DatadogSpanContext? = null
+    ): MotadataSpanContext? = null
 }

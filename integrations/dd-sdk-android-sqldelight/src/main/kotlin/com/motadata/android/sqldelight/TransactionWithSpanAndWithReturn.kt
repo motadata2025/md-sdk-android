@@ -6,10 +6,10 @@
 
 package com.motadata.android.sqldelight
 
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import com.squareup.sqldelight.TransactionWithReturn
 
 /**
- * An object that implements both [DatadogSpan] and [TransactionWithReturn].
+ * An object that implements both [MotadataSpan] and [TransactionWithReturn].
  */
-interface TransactionWithSpanAndWithReturn<R> : TransactionWithReturn<R>, DatadogSpan
+interface TransactionWithSpanAndWithReturn<R> : TransactionWithReturn<R>, MotadataSpan

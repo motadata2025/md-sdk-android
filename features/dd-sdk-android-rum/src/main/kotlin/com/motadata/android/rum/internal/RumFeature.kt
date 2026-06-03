@@ -67,14 +67,14 @@ import com.motadata.android.rum.internal.domain.event.RumViewEventFilter
 import com.motadata.android.rum.internal.instrumentation.MainLooperLongTaskStrategy
 import com.motadata.android.rum.internal.instrumentation.UserActionTrackingStrategyApi29
 import com.motadata.android.rum.internal.instrumentation.UserActionTrackingStrategyLegacy
-import com.motadata.android.rum.internal.instrumentation.gestures.DatadogGesturesTracker
+import com.motadata.android.rum.internal.instrumentation.gestures.MotadataGesturesTracker
 import com.motadata.android.rum.internal.instrumentation.insights.InsightsCollector
 import com.motadata.android.rum.internal.instrumentation.insights.NoOpInsightsCollector
 import com.motadata.android.rum.internal.metric.slowframes.DefaultSlowFramesListener
 import com.motadata.android.rum.internal.metric.slowframes.DefaultUISlownessMetricDispatcher
 import com.motadata.android.rum.internal.metric.slowframes.SlowFramesListener
 import com.motadata.android.rum.internal.monitor.AdvancedRumMonitor
-import com.motadata.android.rum.internal.monitor.DatadogRumMonitor
+import com.motadata.android.rum.internal.monitor.MotadataRumMonitor
 import com.motadata.android.rum.internal.net.RumRequestFactory
 import com.motadata.android.rum.internal.startup.DefaultAppStartupActivityPredicate
 import com.motadata.android.rum.internal.startup.RumAppStartupDetector
@@ -136,7 +136,7 @@ internal class RumFeature(
     internal val applicationId: String,
     internal val configuration: Configuration,
     private val lateCrashReporterFactory: (InternalSdkCore) -> LateCrashReporter = {
-        DatadogLateCrashReporter(it)
+        MotadataLateCrashReporter(it)
     },
     private val buildSdkVersionProvider: BuildSdkVersionProvider = BuildSdkVersionProvider.DEFAULT,
     private val handler: Handler = Handler(Looper.getMainLooper())
@@ -454,7 +454,7 @@ internal class RumFeature(
 
             TELEMETRY_SESSION_REPLAY_SKIP_FRAME -> addSessionReplaySkippedFrame()
             FLUSH_AND_STOP_MONITOR_MESSAGE_TYPE -> {
-                (GlobalRumMonitor.get(sdkCore) as? DatadogRumMonitor)?.drainExecutorService()
+                (GlobalRumMonitor.get(sdkCore) as? MotadataRumMonitor)?.drainExecutorService()
             }
 
             else -> {
@@ -884,10 +884,10 @@ internal class RumFeature(
             interactionPredicate: InteractionPredicate,
             composeActionTrackingStrategy: ActionTrackingStrategy,
             internalLogger: InternalLogger
-        ): DatadogGesturesTracker {
+        ): MotadataGesturesTracker {
             val defaultProviders = arrayOf(JetpackViewAttributesProvider())
             val providers = customProviders + defaultProviders
-            return DatadogGesturesTracker(
+            return MotadataGesturesTracker(
                 providers,
                 interactionPredicate,
                 composeActionsTrackingStrategy = composeActionTrackingStrategy,

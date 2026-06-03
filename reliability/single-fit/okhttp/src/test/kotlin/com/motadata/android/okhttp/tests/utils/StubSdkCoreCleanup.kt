@@ -14,7 +14,7 @@ import com.motadata.android.rum.RumMonitor
  * Removes [sdkCore] from [GlobalRumMonitor]'s static registry.
  *
  * Required because `Motadata.stopInstance(name)` only triggers `RumFeature.onStop` (and
- * therefore `GlobalRumMonitor.unregister`) for real `DatadogCore` instances; with a
+ * therefore `GlobalRumMonitor.unregister`) for real `MotadataCore` instances; with a
  * `StubSDKCore` the cast fails silently and the monitor entry leaks for the rest of the
  * JVM.
  *

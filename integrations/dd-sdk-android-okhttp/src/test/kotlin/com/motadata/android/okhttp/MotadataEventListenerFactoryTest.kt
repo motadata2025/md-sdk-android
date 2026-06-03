@@ -7,7 +7,7 @@
 package com.motadata.android.okhttp
 
 import com.motadata.android.okhttp.internal.buildResourceId
-import com.motadata.android.tests.config.DatadogSingletonTestConfiguration
+import com.motadata.android.tests.config.MotadataSingletonTestConfiguration
 import com.datadog.tools.unit.annotations.TestConfigurationsProvider
 import com.datadog.tools.unit.extensions.TestConfigurationExtension
 import com.datadog.tools.unit.extensions.config.TestConfiguration
@@ -93,7 +93,7 @@ internal class MotadataEventListenerFactoryTest {
     }
 
     companion object {
-        val datadogCore = DatadogSingletonTestConfiguration()
+        val datadogCore = MotadataSingletonTestConfiguration()
 
         @TestConfigurationsProvider
         @JvmStatic

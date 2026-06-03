@@ -13,7 +13,7 @@ import com.motadata.android.api.SdkCore
 import com.motadata.android.core.configuration.Configuration
 import com.motadata.android.privacy.TrackingConsent
 import com.motadata.android.sdk.integration.network.utils.TestEchoWebServer
-import com.motadata.android.trace.DatadogTracing
+import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.GlobalDatadogTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
@@ -75,7 +75,7 @@ internal class NetworkInstrumentationTestRule : ExternalResource() {
         )
 
         GlobalDatadogTracer.registerIfAbsent(
-            DatadogTracing.newTracerBuilder()
+            MotadataTracing.newTracerBuilder()
                 .withPartialFlushMinSpans(1)
                 .build()
         )

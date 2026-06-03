@@ -82,7 +82,7 @@ class WidgetIntentService : IntentService("WidgetIntentService") {
         appWidgetManager.getAppWidgetIds(
             ComponentName(
                 context,
-                DatadogWidgetsProvider::class.java
+                MotadataWidgetsProvider::class.java
             )
         ).forEach {
             val remoteViews = RemoteViews(

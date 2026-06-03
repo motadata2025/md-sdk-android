@@ -8,7 +8,7 @@ package com.motadata.android.trace.sqlite
 
 import android.database.sqlite.SQLiteDatabase
 import com.motadata.android.trace.GlobalDatadogTracer
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import com.motadata.android.trace.withinSpan
 
 /**
@@ -24,7 +24,7 @@ import com.motadata.android.trace.withinSpan
 inline fun <T> SQLiteDatabase.transactionTraced(
     operationName: String,
     exclusive: Boolean = true,
-    body: DatadogSpan.(SQLiteDatabase) -> T
+    body: MotadataSpan.(SQLiteDatabase) -> T
 ): T {
     val parentSpan = GlobalDatadogTracer.get().activeSpan()
     withinSpan(operationName, parentSpan, true) {

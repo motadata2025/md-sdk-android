@@ -10,7 +10,7 @@ import com.motadata.android.core.InternalSdkCore
 import com.motadata.android.rum.GlobalRumMonitor
 import com.motadata.android.rum.RumMonitor
 import com.motadata.android.rum.internal.monitor.AdvancedNetworkRumMonitor
-import com.motadata.android.tests.config.DatadogSingletonTestConfiguration
+import com.motadata.android.tests.config.MotadataSingletonTestConfiguration
 import com.datadog.tools.unit.extensions.config.MockTestConfiguration
 import fr.xgouchet.elmyr.Forge
 import org.mockito.kotlin.mock
@@ -19,7 +19,7 @@ import kotlin.reflect.jvm.isAccessible
 
 // TODO RUMM-2949 Share forgeries/test configurations between modules
 internal class GlobalRumMonitorTestConfiguration(
-    private val datadogSingletonTestConfiguration: DatadogSingletonTestConfiguration? = null
+    private val datadogSingletonTestConfiguration: MotadataSingletonTestConfiguration? = null
 ) : MockTestConfiguration<FakeRumMonitor>(FakeRumMonitor::class.java) {
 
     lateinit var mockSdkCore: InternalSdkCore

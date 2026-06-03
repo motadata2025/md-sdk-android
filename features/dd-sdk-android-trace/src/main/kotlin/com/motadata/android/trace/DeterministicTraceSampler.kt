@@ -8,7 +8,7 @@ package com.motadata.android.trace
 
 import androidx.annotation.FloatRange
 import com.motadata.android.core.sampling.DeterministicSampler
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import com.motadata.android.trace.internal.net.SpanSamplingIdProvider
 
 /**
@@ -19,7 +19,7 @@ import com.motadata.android.trace.internal.net.SpanSamplingIdProvider
  */
 open class DeterministicTraceSampler(
     sampleRateProvider: () -> Float
-) : DeterministicSampler<DatadogSpan>(
+) : DeterministicSampler<MotadataSpan>(
     SpanSamplingIdProvider::provideId,
     sampleRateProvider
 ) {

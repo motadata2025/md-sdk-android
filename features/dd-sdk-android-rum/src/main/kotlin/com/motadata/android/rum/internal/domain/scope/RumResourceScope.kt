@@ -251,7 +251,7 @@ internal class RumResourceScope(
         val graphqlOperationType = resourceAttributes.remove(RumAttributes.GRAPHQL_OPERATION_TYPE) as? String
         val graphqlVariables = resourceAttributes.remove(RumAttributes.GRAPHQL_VARIABLES) as? String
 
-        // The decision whether to send payloads is determined by a DatadogApolloInterceptor parameter
+        // The decision whether to send payloads is determined by a MotadataApolloInterceptor parameter
         val rawPayload = resourceAttributes.remove(RumAttributes.GRAPHQL_PAYLOAD) as? String
         val graphqlPayload = rawPayload
             ?.truncateToUtf8ByteSize(MAX_GRAPHQL_PAYLOAD_SIZE_BYTES, sdkCore.internalLogger)

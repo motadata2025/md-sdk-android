@@ -9,7 +9,7 @@ package com.motadata.android
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureScope
 import com.motadata.android.core.internal.CoreFeature
-import com.motadata.android.core.internal.DatadogCore
+import com.motadata.android.core.internal.MotadataCore
 import com.motadata.android.core.internal.system.AppVersionProvider
 import com.motadata.android.internal.telemetry.InternalTelemetryEvent
 import com.motadata.android.utils.forge.Configurator
@@ -44,7 +44,7 @@ internal class InternalProxyTest {
         @StringForgery message: String
     ) {
         // Given
-        val mockSdkCore = mock<DatadogCore>()
+        val mockSdkCore = mock<MotadataCore>()
         val mockRumFeatureScope = mock<FeatureScope>()
         whenever(mockSdkCore.getFeature(Feature.RUM_FEATURE_NAME)) doReturn mockRumFeatureScope
         val proxy = _InternalProxy(mockSdkCore)
@@ -67,7 +67,7 @@ internal class InternalProxyTest {
         @StringForgery kind: String
     ) {
         // Given
-        val mockSdkCore = mock<DatadogCore>()
+        val mockSdkCore = mock<MotadataCore>()
         val mockRumFeatureScope = mock<FeatureScope>()
         whenever(mockSdkCore.getFeature(Feature.RUM_FEATURE_NAME)) doReturn mockRumFeatureScope
         val proxy = _InternalProxy(mockSdkCore)
@@ -91,7 +91,7 @@ internal class InternalProxyTest {
         @Forgery throwable: Throwable
     ) {
         // Given
-        val mockSdkCore = mock<DatadogCore>()
+        val mockSdkCore = mock<MotadataCore>()
         val mockRumFeatureScope = mock<FeatureScope>()
         whenever(mockSdkCore.getFeature(Feature.RUM_FEATURE_NAME)) doReturn mockRumFeatureScope
         val proxy = _InternalProxy(mockSdkCore)
@@ -113,7 +113,7 @@ internal class InternalProxyTest {
         @StringForgery version: String
     ) {
         // Given
-        val mockSdkCore = mock<DatadogCore>()
+        val mockSdkCore = mock<MotadataCore>()
         val mockAppVersionProvider = mock<AppVersionProvider>()
         val mockCoreFeature = mock<CoreFeature>()
         whenever(mockCoreFeature.packageVersionProvider) doReturn mockAppVersionProvider
@@ -132,7 +132,7 @@ internal class InternalProxyTest {
         @FloatForgery(min = 0.0f, max = 100.0f) fakeSampleRate: Float
     ) {
         // Given
-        val mockSdkCore = mock<DatadogCore>()
+        val mockSdkCore = mock<MotadataCore>()
         val mockCoreFeature = mock<CoreFeature>()
         whenever(mockSdkCore.coreFeature) doReturn mockCoreFeature
         val proxy = _InternalProxy(mockSdkCore)

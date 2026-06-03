@@ -18,8 +18,8 @@ import com.motadata.android.sdk.integration.RuntimeConfig
 import com.motadata.android.sdk.utils.getForgeSeed
 import com.motadata.android.sdk.utils.getTrackingConsent
 import com.motadata.android.trace.Trace
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import fr.xgouchet.elmyr.Forge
 import java.util.LinkedList
 import java.util.Random
@@ -28,11 +28,11 @@ internal class ActivityLifecycleTrace : AppCompatActivity() {
 
     private val forge by lazy { Forge().apply { seed = intent.getForgeSeed() } }
 
-    private lateinit var tracer: DatadogTracer
-    private val sentSpans = LinkedList<DatadogSpan>()
+    private lateinit var tracer: MotadataTracer
+    private val sentSpans = LinkedList<MotadataSpan>()
     private val sentLogs = LinkedList<Pair<Int, String>>()
-    private lateinit var activityStartSpan: DatadogSpan
-    private lateinit var activityResumeSpan: DatadogSpan
+    private lateinit var activityStartSpan: MotadataSpan
+    private lateinit var activityResumeSpan: MotadataSpan
 
     // region Activity
 
@@ -83,7 +83,7 @@ internal class ActivityLifecycleTrace : AppCompatActivity() {
 
     // region Tests
 
-    fun getSentSpans(): LinkedList<DatadogSpan> {
+    fun getSentSpans(): LinkedList<MotadataSpan> {
         return sentSpans
     }
 
@@ -99,10 +99,10 @@ internal class ActivityLifecycleTrace : AppCompatActivity() {
 
     // region Internal
 
-    private fun buildSpan(title: String): DatadogSpan {
+    private fun buildSpan(title: String): MotadataSpan {
         val span = tracer.buildSpan(title).start()
         checkNotNull(tracer.activateSpan(span)) { "Span activation failed" }
-        val ddSpan = tracer.activeSpan() as DatadogSpan
+        val ddSpan = tracer.activeSpan() as MotadataSpan
         ddSpan.logMessage(title)
         sentLogs.add(Log.VERBOSE to title)
         sentSpans.add(ddSpan)

@@ -7,13 +7,13 @@
 package com.motadata.android.trace.internal.net
 
 import com.motadata.android.log.LogAttributes
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 
 private const val HEX_RADIX = 16
 
 internal object SpanSamplingIdProvider {
 
-    fun provideId(span: DatadogSpan): ULong {
+    fun provideId(span: MotadataSpan): ULong {
         val context = span.context()
         val sessionId = context.tags[LogAttributes.RUM_SESSION_ID] as? String
 

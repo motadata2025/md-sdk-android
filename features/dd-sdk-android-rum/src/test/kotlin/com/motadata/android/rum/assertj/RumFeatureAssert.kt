@@ -9,7 +9,7 @@ package com.motadata.android.rum.assertj
 import com.motadata.android.rum.internal.RumFeature
 import com.motadata.android.rum.internal.instrumentation.UserActionTrackingStrategyApi29
 import com.motadata.android.rum.internal.instrumentation.UserActionTrackingStrategyLegacy
-import com.motadata.android.rum.internal.instrumentation.gestures.DatadogGesturesTracker
+import com.motadata.android.rum.internal.instrumentation.gestures.MotadataGesturesTracker
 import com.motadata.android.rum.internal.tracking.NoOpUserActionTrackingStrategy
 import com.motadata.android.rum.internal.tracking.UserActionTrackingStrategy
 import com.motadata.android.rum.tracking.InteractionPredicate
@@ -51,8 +51,8 @@ internal class RumFeatureAssert(actual: RumFeature) :
         providers: Array<ViewAttributesProvider> = emptyArray()
     ): RumFeatureAssert {
         val gesturesTracker = actual.actionTrackingStrategy.getGesturesTracker()
-        assertThat(gesturesTracker).isInstanceOf(DatadogGesturesTracker::class.java)
-        RumGestureTrackerAssert.assertThat(gesturesTracker as DatadogGesturesTracker)
+        assertThat(gesturesTracker).isInstanceOf(MotadataGesturesTracker::class.java)
+        RumGestureTrackerAssert.assertThat(gesturesTracker as MotadataGesturesTracker)
             .hasCustomTargetAttributesProviders(providers)
             .hasDefaultTargetAttributesProviders()
         return this
@@ -60,8 +60,8 @@ internal class RumFeatureAssert(actual: RumFeature) :
 
     fun hasDefaultActionTargetAttributeProviders(): RumFeatureAssert {
         val gesturesTracker = actual.actionTrackingStrategy.getGesturesTracker()
-        assertThat(gesturesTracker).isInstanceOf(DatadogGesturesTracker::class.java)
-        RumGestureTrackerAssert.assertThat(gesturesTracker as DatadogGesturesTracker)
+        assertThat(gesturesTracker).isInstanceOf(MotadataGesturesTracker::class.java)
+        RumGestureTrackerAssert.assertThat(gesturesTracker as MotadataGesturesTracker)
             .hasDefaultTargetAttributesProviders()
         return this
     }
@@ -70,8 +70,8 @@ internal class RumFeatureAssert(actual: RumFeature) :
         interactionPredicate: InteractionPredicate
     ): RumFeatureAssert {
         val gesturesTracker = actual.actionTrackingStrategy.getGesturesTracker()
-        assertThat(gesturesTracker).isInstanceOf(DatadogGesturesTracker::class.java)
-        RumGestureTrackerAssert.assertThat(gesturesTracker as DatadogGesturesTracker)
+        assertThat(gesturesTracker).isInstanceOf(MotadataGesturesTracker::class.java)
+        RumGestureTrackerAssert.assertThat(gesturesTracker as MotadataGesturesTracker)
             .hasInteractionPredicate(interactionPredicate)
         return this
     }
@@ -80,8 +80,8 @@ internal class RumFeatureAssert(actual: RumFeature) :
         type: Class<*>
     ): RumFeatureAssert {
         val gesturesTracker = actual.actionTrackingStrategy.getGesturesTracker()
-        assertThat(gesturesTracker).isInstanceOf(DatadogGesturesTracker::class.java)
-        RumGestureTrackerAssert.assertThat(gesturesTracker as DatadogGesturesTracker)
+        assertThat(gesturesTracker).isInstanceOf(MotadataGesturesTracker::class.java)
+        RumGestureTrackerAssert.assertThat(gesturesTracker as MotadataGesturesTracker)
             .hasInteractionPredicateOfType(type)
         return this
     }

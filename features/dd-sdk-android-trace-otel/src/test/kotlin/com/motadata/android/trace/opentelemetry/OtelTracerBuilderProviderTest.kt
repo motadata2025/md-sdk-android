@@ -15,16 +15,16 @@ import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.api.feature.SdkFeatureMock
 import com.motadata.android.api.feature.getContextFuture
 import com.motadata.android.trace.InternalCoreWriterProvider
-import com.motadata.android.trace.api.DatadogTracingConstants
+import com.motadata.android.trace.api.MotadataTracingConstants
 import com.motadata.android.trace.api.forceSamplingDecision
 import com.motadata.android.trace.api.partialFlushMinSpans
 import com.motadata.android.trace.api.resourceName
 import com.motadata.android.trace.api.serviceName
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.span.DatadogSpanContext
-import com.motadata.android.trace.api.span.DatadogSpanWriter
-import com.motadata.android.trace.api.tracer.DatadogTracer
-import com.motadata.android.trace.api.tracer.DatadogTracerBuilder
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.span.MotadataSpanContext
+import com.motadata.android.trace.api.span.MotadataSpanWriter
+import com.motadata.android.trace.api.tracer.MotadataTracer
+import com.motadata.android.trace.api.tracer.MotadataTracerBuilder
 import com.motadata.android.trace.opentelemetry.utils.forge.Configurator
 import com.motadata.android.utils.verifyLog
 import com.datadog.opentelemetry.trace.OtelSpan
@@ -74,7 +74,7 @@ internal class OtelTracerBuilderProviderTest {
     lateinit var testedOtelTracerProviderBuilder: OtelTracerProvider.Builder
     lateinit var fakeServiceName: String
 
-    val mockDatadogTracerBuilder: DatadogTracerBuilder = mock {
+    val mockDatadogTracerBuilder: MotadataTracerBuilder = mock {
         on { withServiceName(any()) } doReturn it
         on { withTracingHeadersTypes(any()) } doReturn it
         on { withPartialFlushMinSpans(any()) } doReturn it
@@ -99,7 +99,7 @@ internal class OtelTracerBuilderProviderTest {
     lateinit var fakeOperationName: String
 
     @Mock
-    lateinit var mockTraceWriter: DatadogSpanWriter
+    lateinit var mockTraceWriter: MotadataSpanWriter
 
     lateinit var fakeRumContext: MutableMap<String, String>
 
@@ -254,7 +254,7 @@ internal class OtelTracerBuilderProviderTest {
         span.end()
 
         // Then
-        val agentContext = (span.spanContext as OtelSpanContext).delegate as DatadogSpanContext
+        val agentContext = (span.spanContext as OtelSpanContext).delegate as MotadataSpanContext
         assertThat(agentContext.resourceName).isEqualTo(spanName)
     }
 
@@ -274,7 +274,7 @@ internal class OtelTracerBuilderProviderTest {
         span.end()
 
         // Then
-        val agentContext = (span.spanContext as OtelSpanContext).delegate as DatadogSpanContext
+        val agentContext = (span.spanContext as OtelSpanContext).delegate as MotadataSpanContext
         assertThat(agentContext.serviceName).isEqualTo(fakeServiceName)
     }
 
@@ -295,7 +295,7 @@ internal class OtelTracerBuilderProviderTest {
         span.end()
 
         // Then
-        val agentContext = (span.spanContext as OtelSpanContext).delegate as DatadogSpanContext
+        val agentContext = (span.spanContext as OtelSpanContext).delegate as MotadataSpanContext
         assertThat(agentContext.serviceName).isEqualTo(fakeCustomServiceName)
     }
 
@@ -306,7 +306,7 @@ internal class OtelTracerBuilderProviderTest {
             .tracerBuilder(fakeInstrumentationName).build()
 
         // When
-        val coreTracer: DatadogTracer = tracer.delegate
+        val coreTracer: MotadataTracer = tracer.delegate
 
         // Then
         assertThat(coreTracer.partialFlushMinSpans).isEqualTo(OtelTracerProvider.DEFAULT_PARTIAL_MIN_FLUSH)
@@ -319,7 +319,7 @@ internal class OtelTracerBuilderProviderTest {
             .tracerBuilder(fakeInstrumentationName).build()
 
         // When
-        val coreTracer: DatadogTracer = tracer.delegate
+        val coreTracer: MotadataTracer = tracer.delegate
 
         // Then
         assertThat(coreTracer.partialFlushMinSpans).isEqualTo(threshold)
@@ -340,7 +340,7 @@ internal class OtelTracerBuilderProviderTest {
         // Then
         assertThat(tracer).isNotNull()
         val span = tracer.spanBuilder(operation).startSpan() as OtelSpan
-        val agentSpanContext = span.datadogSpanContext as DatadogSpanContext
+        val agentSpanContext = span.datadogSpanContext as MotadataSpanContext
         assertThat(agentSpanContext.tags).containsEntry(key, value)
     }
 
@@ -362,13 +362,13 @@ internal class OtelTracerBuilderProviderTest {
         val span = tracer
             .spanBuilder(fakeOperationName)
             .startSpan()
-        val delegateSpan: DatadogSpan = span.delegate
+        val delegateSpan: MotadataSpan = span.delegate
         delegateSpan.forceSamplingDecision()
         span.end()
 
         // Then
         val priority = delegateSpan.samplingPriority
-        assertThat(priority).isEqualTo(DatadogTracingConstants.PrioritySampling.USER_KEEP)
+        assertThat(priority).isEqualTo(MotadataTracingConstants.PrioritySampling.USER_KEEP)
     }
 
     @Test
@@ -385,13 +385,13 @@ internal class OtelTracerBuilderProviderTest {
         val span = tracer
             .spanBuilder(fakeOperationName)
             .startSpan()
-        val delegateSpan: DatadogSpan = span.delegate
+        val delegateSpan: MotadataSpan = span.delegate
         delegateSpan.forceSamplingDecision()
         span.end()
 
         // Then
         val priority = delegateSpan.samplingPriority
-        assertThat(priority).isEqualTo(DatadogTracingConstants.PrioritySampling.USER_DROP)
+        assertThat(priority).isEqualTo(MotadataTracingConstants.PrioritySampling.USER_DROP)
     }
 
     @Test
@@ -416,15 +416,15 @@ internal class OtelTracerBuilderProviderTest {
             tracer.spanBuilder(forge.anAlphabeticalString()).startSpan()
         }
         val delegatedSpans = spans.map {
-            val delegatedSpan: DatadogSpan = it.delegate
+            val delegatedSpan: MotadataSpan = it.delegate
             delegatedSpan.forceSamplingDecision()
             delegatedSpan
         }
         spans.forEach { it.end() }
         val droppedSpans =
-            delegatedSpans.filter { it.samplingPriority == DatadogTracingConstants.PrioritySampling.USER_DROP }
+            delegatedSpans.filter { it.samplingPriority == MotadataTracingConstants.PrioritySampling.USER_DROP }
         val keptSpans =
-            delegatedSpans.filter { it.samplingPriority == DatadogTracingConstants.PrioritySampling.USER_KEEP }
+            delegatedSpans.filter { it.samplingPriority == MotadataTracingConstants.PrioritySampling.USER_KEEP }
 
         // Then
         assertThat(droppedSpans.size + keptSpans.size).isEqualTo(numberOfSpans)
@@ -448,12 +448,12 @@ internal class OtelTracerBuilderProviderTest {
         val span = tracer
             .spanBuilder(fakeOperationName)
             .startSpan()
-        val delegateSpan: DatadogSpan = span.delegate
+        val delegateSpan: MotadataSpan = span.delegate
         span.end()
 
         // Then
         val priority = delegateSpan.samplingPriority
-        assertThat(priority).isEqualTo(DatadogTracingConstants.PrioritySampling.SAMPLER_KEEP)
+        assertThat(priority).isEqualTo(MotadataTracingConstants.PrioritySampling.SAMPLER_KEEP)
     }
 
     // endregion
@@ -483,7 +483,7 @@ internal class OtelTracerBuilderProviderTest {
         val span = tracer
             .spanBuilder(fakeOperationName)
             .startSpan()
-        val delegateSpan: DatadogSpan = span.delegate
+        val delegateSpan: MotadataSpan = span.delegate
         val context = delegateSpan.context()
         span.end()
 
@@ -526,7 +526,7 @@ internal class OtelTracerBuilderProviderTest {
         val span = tracer
             .spanBuilder(fakeOperationName)
             .startSpan()
-        val delegateSpan: DatadogSpan = span.delegate
+        val delegateSpan: MotadataSpan = span.delegate
         val context = delegateSpan.context()
         span.end()
 
@@ -548,11 +548,11 @@ internal class OtelTracerBuilderProviderTest {
             .build()
             .tracerBuilder(fakeInstrumentationName)
             .build()
-        val delegatedTracer: DatadogTracer = tracer.delegate
+        val delegatedTracer: MotadataTracer = tracer.delegate
         val span = tracer
             .spanBuilder(fakeOperationName)
             .startSpan()
-        val delegateSpan: DatadogSpan = span.delegate
+        val delegateSpan: MotadataSpan = span.delegate
         val expectedTraceId = delegateSpan.context().traceId.toHexString()
         val expectedSpanId = delegateSpan.context().spanId.toString()
 
@@ -584,7 +584,7 @@ internal class OtelTracerBuilderProviderTest {
             .tracerBuilder(fakeInstrumentationName)
             .build()
 
-        val delegatedTracer: DatadogTracer = tracer.delegate
+        val delegatedTracer: MotadataTracer = tracer.delegate
         spy(delegatedTracer) {
             whenever(it.activeSpan()).thenReturn(null)
         }
@@ -593,7 +593,7 @@ internal class OtelTracerBuilderProviderTest {
             .startSpan()
 
         // When
-        val delegateSpan: DatadogSpan = span.delegate
+        val delegateSpan: MotadataSpan = span.delegate
         val scope = delegatedTracer.activateSpan(delegateSpan)
         scope?.close()
         span.end()
@@ -645,17 +645,17 @@ internal class OtelTracerBuilderProviderTest {
         override val name: String = ""
         override fun onStop() = Unit
         override fun onInitialize(appContext: Context) = Unit
-        override fun getCoreTracerWriter(): DatadogSpanWriter = mock()
+        override fun getCoreTracerWriter(): MotadataSpanWriter = mock()
     }
 
     companion object {
 
         private const val DATADOG_INITIAL_CONTEXT: String = "_dd.datadog_initial_context"
 
-        private val Tracer.delegate: DatadogTracer
+        private val Tracer.delegate: MotadataTracer
             get() = getFieldValue("tracer")
 
-        private val Span.delegate: DatadogSpan
+        private val Span.delegate: MotadataSpan
             get() = getFieldValue("delegate")
     }
 }

@@ -9,10 +9,10 @@ import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.api.instrumentation.network.HttpRequestInfo
 import com.motadata.android.core.sampling.Sampler
-import com.motadata.android.trace.api.DatadogTracingConstants.PrioritySampling
-import com.motadata.android.trace.api.DatadogTracingConstants.Tags
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.MotadataTracingConstants.PrioritySampling
+import com.motadata.android.trace.api.MotadataTracingConstants.Tags
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.trace.internal.ApmNetworkInstrumentation.Companion.AGENT_PSR_ATTRIBUTE
 import com.motadata.android.trace.internal.ApmNetworkInstrumentation.Companion.ALL_IN_SAMPLE_RATE
 import com.motadata.android.trace.internal.ApmNetworkInstrumentation.Companion.SPAN_NAME
@@ -24,7 +24,7 @@ import java.util.Locale
 internal val FeatureSdkCore?.isRumEnabled: Boolean
     get() = this?.getFeature(Feature.RUM_FEATURE_NAME) != null
 
-internal fun DatadogSpan.applyPriority(isSampled: Boolean, traceSampler: Sampler<DatadogSpan>) {
+internal fun MotadataSpan.applyPriority(isSampled: Boolean, traceSampler: Sampler<MotadataSpan>) {
     val samplingPriority = if (isSampled) {
         PrioritySampling.SAMPLER_KEEP
     } else {
@@ -40,7 +40,7 @@ internal fun DatadogSpan.applyPriority(isSampled: Boolean, traceSampler: Sampler
     }
 }
 
-internal fun DatadogSpan.sample(request: HttpRequestInfo, traceSampler: Sampler<DatadogSpan>): Boolean {
+internal fun MotadataSpan.sample(request: HttpRequestInfo, traceSampler: Sampler<MotadataSpan>): Boolean {
     val samplingPriority = samplingPriority
     return if (samplingPriority != null) {
         samplingPriority > 0
@@ -49,7 +49,7 @@ internal fun DatadogSpan.sample(request: HttpRequestInfo, traceSampler: Sampler<
     }
 }
 
-internal fun DatadogSpan.finishRumAware(isSampled: Boolean, canSendSpan: Boolean) {
+internal fun MotadataSpan.finishRumAware(isSampled: Boolean, canSendSpan: Boolean) {
     if (canSendSpan && isSampled) {
         finish()
     } else {
@@ -57,11 +57,11 @@ internal fun DatadogSpan.finishRumAware(isSampled: Boolean, canSendSpan: Boolean
     }
 }
 
-internal fun DatadogTracer.buildSpan(
+internal fun MotadataTracer.buildSpan(
     request: HttpRequestInfo,
     networkInstrumentationName: String,
     traceOrigin: String?
-): DatadogSpan {
+): MotadataSpan {
     val parentContext = propagationHelper.extractParentContext(this, request)
 
     val span = buildSpan(SPAN_NAME.format(Locale.US, networkInstrumentationName))

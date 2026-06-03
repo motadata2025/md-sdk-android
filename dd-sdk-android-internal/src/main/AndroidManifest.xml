@@ -9,7 +9,7 @@
     <application>
 
         <provider
-            android:name="com.motadata.android.rum.DdRumContentProvider"
+            android:name="com.motadata.android.rum.MdRumContentProvider"
             android:authorities="${applicationId}.provider.motadata.rum"
             android:exported="false" />
 

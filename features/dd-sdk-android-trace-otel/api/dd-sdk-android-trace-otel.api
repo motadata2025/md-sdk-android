@@ -6,7 +6,7 @@ public final class com/motadata/android/trace/opentelemetry/BuildConfig {
 	public fun <init> ()V
 }
 
-public final class com/motadata/android/trace/opentelemetry/DatadogOpenTelemetry : io/opentelemetry/api/OpenTelemetry {
+public final class com/motadata/android/trace/opentelemetry/MotadataOpenTelemetry : io/opentelemetry/api/OpenTelemetry {
 	public fun <init> (Ljava/lang/String;)V
 	public fun getPropagators ()Lio/opentelemetry/context/propagation/ContextPropagators;
 	public fun getTracerProvider ()Lio/opentelemetry/api/trace/TracerProvider;
@@ -43,31 +43,31 @@ public final class com/datadog/opentelemetry/context/propagation/TraceStateHelpe
 }
 
 public final class com/datadog/opentelemetry/trace/OtelConventions {
-	public static fun applyNamingConvention (Lcom/motadata/android/trace/api/span/DatadogSpan;)V
-	public static fun applyReservedAttribute (Lcom/motadata/android/trace/api/span/DatadogSpan;Lio/opentelemetry/api/common/AttributeKey;Ljava/lang/Object;)Z
+	public static fun applyNamingConvention (Lcom/motadata/android/trace/api/span/MotadataSpan;)V
+	public static fun applyReservedAttribute (Lcom/motadata/android/trace/api/span/MotadataSpan;Lio/opentelemetry/api/common/AttributeKey;Ljava/lang/Object;)Z
 	public static fun toOtelSpanKind (Ljava/lang/String;)Lio/opentelemetry/api/trace/SpanKind;
 	public static fun toSpanKindTagValue (Lio/opentelemetry/api/trace/SpanKind;)Ljava/lang/String;
 }
 
-public class com/datadog/opentelemetry/trace/OtelExtractedContext : com/motadata/android/trace/api/span/DatadogSpanContext {
-	public static fun extract (Lio/opentelemetry/context/Context;Lcom/motadata/android/api/InternalLogger;)Lcom/motadata/android/trace/api/span/DatadogSpanContext;
+public class com/datadog/opentelemetry/trace/OtelExtractedContext : com/motadata/android/trace/api/span/MotadataSpanContext {
+	public static fun extract (Lio/opentelemetry/context/Context;Lcom/motadata/android/api/InternalLogger;)Lcom/motadata/android/trace/api/span/MotadataSpanContext;
 	public fun getSamplingPriority ()I
 	public fun getSpanId ()J
 	public fun getTags ()Ljava/util/Map;
-	public fun getTraceId ()Lcom/motadata/android/trace/api/trace/DatadogTraceId;
+	public fun getTraceId ()Lcom/motadata/android/trace/api/trace/MotadataTraceId;
 	public fun setMetric (Ljava/lang/CharSequence;D)V
 	public fun setSamplingPriority (I)Z
 }
 
 public class com/datadog/opentelemetry/trace/OtelSpan : io/opentelemetry/api/trace/Span {
-	public fun <init> (Lcom/motadata/android/trace/api/span/DatadogSpan;Lcom/motadata/android/trace/api/tracer/DatadogTracer;)V
-	public fun activate ()Lcom/motadata/android/trace/api/scope/DatadogScope;
+	public fun <init> (Lcom/motadata/android/trace/api/span/MotadataSpan;Lcom/motadata/android/trace/api/tracer/MotadataTracer;)V
+	public fun activate ()Lcom/motadata/android/trace/api/scope/MotadataScope;
 	public fun addEvent (Ljava/lang/String;Lio/opentelemetry/api/common/Attributes;)Lio/opentelemetry/api/trace/Span;
 	public fun addEvent (Ljava/lang/String;Lio/opentelemetry/api/common/Attributes;JLjava/util/concurrent/TimeUnit;)Lio/opentelemetry/api/trace/Span;
 	public fun end ()V
 	public fun end (JLjava/util/concurrent/TimeUnit;)V
-	public fun getDatadogSpan ()Lcom/motadata/android/trace/api/span/DatadogSpan;
-	public fun getDatadogSpanContext ()Lcom/motadata/android/trace/api/span/DatadogSpanContext;
+	public fun getDatadogSpan ()Lcom/motadata/android/trace/api/span/MotadataSpan;
+	public fun getDatadogSpanContext ()Lcom/motadata/android/trace/api/span/MotadataSpanContext;
 	public fun getSpanContext ()Lio/opentelemetry/api/trace/SpanContext;
 	public fun getStatusCode ()Lio/opentelemetry/api/trace/StatusCode;
 	public static fun invalid ()Lio/opentelemetry/api/trace/Span;
@@ -79,7 +79,7 @@ public class com/datadog/opentelemetry/trace/OtelSpan : io/opentelemetry/api/tra
 }
 
 public class com/datadog/opentelemetry/trace/OtelSpanBuilder : io/opentelemetry/api/trace/SpanBuilder {
-	public fun <init> (Lcom/motadata/android/trace/api/span/DatadogSpanBuilder;Lcom/motadata/android/trace/api/tracer/DatadogTracer;Lcom/motadata/android/api/InternalLogger;)V
+	public fun <init> (Lcom/motadata/android/trace/api/span/MotadataSpanBuilder;Lcom/motadata/android/trace/api/tracer/MotadataTracer;Lcom/motadata/android/api/InternalLogger;)V
 	public fun addLink (Lio/opentelemetry/api/trace/SpanContext;)Lio/opentelemetry/api/trace/SpanBuilder;
 	public fun addLink (Lio/opentelemetry/api/trace/SpanContext;Lio/opentelemetry/api/common/Attributes;)Lio/opentelemetry/api/trace/SpanBuilder;
 	public fun setAttribute (Lio/opentelemetry/api/common/AttributeKey;Ljava/lang/Object;)Lio/opentelemetry/api/trace/SpanBuilder;
@@ -95,10 +95,10 @@ public class com/datadog/opentelemetry/trace/OtelSpanBuilder : io/opentelemetry/
 }
 
 public class com/datadog/opentelemetry/trace/OtelSpanContext : io/opentelemetry/api/trace/SpanContext {
-	public fun <init> (Lcom/motadata/android/trace/api/span/DatadogSpanContext;ZZLio/opentelemetry/api/trace/TraceState;)V
-	public static fun fromLocalSpan (Lcom/motadata/android/trace/api/span/DatadogSpan;)Lio/opentelemetry/api/trace/SpanContext;
-	public static fun fromRemote (Lcom/motadata/android/trace/api/span/DatadogSpanContext;Lio/opentelemetry/api/trace/TraceState;)Lio/opentelemetry/api/trace/SpanContext;
-	public fun getDelegate ()Lcom/motadata/android/trace/api/span/DatadogSpanContext;
+	public fun <init> (Lcom/motadata/android/trace/api/span/MotadataSpanContext;ZZLio/opentelemetry/api/trace/TraceState;)V
+	public static fun fromLocalSpan (Lcom/motadata/android/trace/api/span/MotadataSpan;)Lio/opentelemetry/api/trace/SpanContext;
+	public static fun fromRemote (Lcom/motadata/android/trace/api/span/MotadataSpanContext;Lio/opentelemetry/api/trace/TraceState;)Lio/opentelemetry/api/trace/SpanContext;
+	public fun getDelegate ()Lcom/motadata/android/trace/api/span/MotadataSpanContext;
 	public fun getSpanId ()Ljava/lang/String;
 	public fun getTraceFlags ()Lio/opentelemetry/api/trace/TraceFlags;
 	public fun getTraceId ()Ljava/lang/String;
@@ -107,24 +107,24 @@ public class com/datadog/opentelemetry/trace/OtelSpanContext : io/opentelemetry/
 	public fun toString ()Ljava/lang/String;
 }
 
-public class com/datadog/opentelemetry/trace/OtelSpanLink : com/motadata/android/trace/api/span/DatadogSpanLink {
+public class com/datadog/opentelemetry/trace/OtelSpanLink : com/motadata/android/trace/api/span/MotadataSpanLink {
 	public fun <init> (Lio/opentelemetry/api/trace/SpanContext;)V
 	public fun <init> (Lio/opentelemetry/api/trace/SpanContext;Lio/opentelemetry/api/common/Attributes;)V
 	public fun getAttributes ()Ljava/util/Map;
 	public fun getSampled ()Z
 	public fun getSpanId ()J
-	public fun getTraceId ()Lcom/motadata/android/trace/api/trace/DatadogTraceId;
+	public fun getTraceId ()Lcom/motadata/android/trace/api/trace/MotadataTraceId;
 	public fun getTraceStrace ()Ljava/lang/String;
 }
 
 public class com/datadog/opentelemetry/trace/OtelTracer : io/opentelemetry/api/trace/Tracer {
-	public fun <init> (Ljava/lang/String;Lcom/motadata/android/trace/api/tracer/DatadogTracer;Lcom/motadata/android/api/InternalLogger;)V
-	public fun <init> (Ljava/lang/String;Lcom/motadata/android/trace/api/tracer/DatadogTracer;Lcom/motadata/android/api/InternalLogger;Lcom/datadog/opentelemetry/compat/function/Function;)V
+	public fun <init> (Ljava/lang/String;Lcom/motadata/android/trace/api/tracer/MotadataTracer;Lcom/motadata/android/api/InternalLogger;)V
+	public fun <init> (Ljava/lang/String;Lcom/motadata/android/trace/api/tracer/MotadataTracer;Lcom/motadata/android/api/InternalLogger;Lcom/datadog/opentelemetry/compat/function/Function;)V
 	public fun spanBuilder (Ljava/lang/String;)Lio/opentelemetry/api/trace/SpanBuilder;
 }
 
 public class com/datadog/opentelemetry/trace/OtelTracerBuilder : io/opentelemetry/api/trace/TracerBuilder {
-	public fun <init> (Ljava/lang/String;Lcom/motadata/android/trace/api/tracer/DatadogTracer;Lcom/motadata/android/api/InternalLogger;)V
+	public fun <init> (Ljava/lang/String;Lcom/motadata/android/trace/api/tracer/MotadataTracer;Lcom/motadata/android/api/InternalLogger;)V
 	public fun build ()Lio/opentelemetry/api/trace/Tracer;
 	public fun setInstrumentationVersion (Ljava/lang/String;)Lio/opentelemetry/api/trace/TracerBuilder;
 	public fun setSchemaUrl (Ljava/lang/String;)Lio/opentelemetry/api/trace/TracerBuilder;

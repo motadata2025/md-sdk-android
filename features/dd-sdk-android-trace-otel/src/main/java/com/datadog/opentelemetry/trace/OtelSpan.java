@@ -6,7 +6,7 @@
 
 package com.datadog.opentelemetry.trace;
 
-import static com.motadata.android.trace.api.DatadogTracingConstants.DEFAULT_ASYNC_PROPAGATING;
+import static com.motadata.android.trace.api.MotadataTracingConstants.DEFAULT_ASYNC_PROPAGATING;
 import static com.datadog.opentelemetry.trace.OtelConventions.applyNamingConvention;
 import static com.datadog.opentelemetry.trace.OtelConventions.applyReservedAttribute;
 import static io.opentelemetry.api.trace.StatusCode.ERROR;
@@ -16,11 +16,11 @@ import static io.opentelemetry.api.trace.StatusCode.UNSET;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.motadata.android.trace.api.DatadogTracingConstants;
-import com.motadata.android.trace.api.scope.DatadogScope;
-import com.motadata.android.trace.api.span.DatadogSpan;
-import com.motadata.android.trace.api.span.DatadogSpanContext;
-import com.motadata.android.trace.api.tracer.DatadogTracer;
+import com.motadata.android.trace.api.MotadataTracingConstants;
+import com.motadata.android.trace.api.scope.MotadataScope;
+import com.motadata.android.trace.api.span.MotadataSpan;
+import com.motadata.android.trace.api.span.MotadataSpanContext;
+import com.motadata.android.trace.api.tracer.MotadataTracer;
 import com.motadata.android.trace.internal._TraceInternalProxy;
 
 import java.util.List;
@@ -35,13 +35,13 @@ import io.opentelemetry.api.trace.TraceFlags;
 import io.opentelemetry.api.trace.TraceState;
 
 public class OtelSpan implements Span {
-  private final DatadogSpan delegate;
+  private final MotadataSpan delegate;
   private StatusCode statusCode;
   private boolean recording;
 
-  private final DatadogTracer agentTracer;
+  private final MotadataTracer agentTracer;
 
-  public OtelSpan(DatadogSpan delegate, DatadogTracer agentTracer) {
+  public OtelSpan(MotadataSpan delegate, MotadataTracer agentTracer) {
     this.delegate = delegate;
     this.statusCode = UNSET;
     this.recording = true;
@@ -115,7 +115,7 @@ public class OtelSpan implements Span {
   public Span recordException(Throwable exception, Attributes additionalAttributes) {
     if (this.recording) {
       // Store exception as span tags as span events are not supported yet
-      _TraceInternalProxy.addThrowable(delegate, exception, DatadogTracingConstants.ErrorPriorities.UNSET);
+      _TraceInternalProxy.addThrowable(delegate, exception, MotadataTracingConstants.ErrorPriorities.UNSET);
     }
     return this;
   }
@@ -152,15 +152,15 @@ public class OtelSpan implements Span {
     return this.recording;
   }
 
-  public DatadogScope activate() {
+  public MotadataScope activate() {
     return _TraceInternalProxy.activateSpan(agentTracer, this.delegate, DEFAULT_ASYNC_PROPAGATING);
   }
 
-  public DatadogSpan getDatadogSpan() {
+  public MotadataSpan getDatadogSpan() {
     return this.delegate;
   }
 
-  public DatadogSpanContext getDatadogSpanContext() {
+  public MotadataSpanContext getDatadogSpanContext() {
     return this.delegate.context();
   }
 

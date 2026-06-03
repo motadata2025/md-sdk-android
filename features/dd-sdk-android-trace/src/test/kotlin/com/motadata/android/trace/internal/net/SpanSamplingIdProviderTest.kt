@@ -10,9 +10,9 @@ import com.motadata.android.internal.utils.toHexString
 import com.motadata.android.log.LogAttributes
 import com.motadata.android.trace.api.ZERO
 import com.motadata.android.trace.api.from
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.span.DatadogSpanContext
-import com.motadata.android.trace.api.trace.DatadogTraceId
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.span.MotadataSpanContext
+import com.motadata.android.trace.api.trace.MotadataTraceId
 import com.datadog.tools.unit.forge.BaseConfigurator
 import fr.xgouchet.elmyr.Forge
 import fr.xgouchet.elmyr.annotation.LongForgery
@@ -39,10 +39,10 @@ import org.mockito.quality.Strictness
 internal class SpanSamplingIdProviderTest {
 
     @Mock
-    lateinit var mockSpan: DatadogSpan
+    lateinit var mockSpan: MotadataSpan
 
     @Mock
-    lateinit var mockSpanContext: DatadogSpanContext
+    lateinit var mockSpanContext: MotadataSpanContext
 
     private lateinit var fakeTags: Map<String, Any?>
 
@@ -80,7 +80,7 @@ internal class SpanSamplingIdProviderTest {
     ) {
         // Given
         val expectedId = traceId.toULong()
-        whenever(mockSpanContext.traceId) doReturn DatadogTraceId.from(traceId)
+        whenever(mockSpanContext.traceId) doReturn MotadataTraceId.from(traceId)
 
         // When
         val result = SpanSamplingIdProvider.provideId(mockSpan)
@@ -93,7 +93,7 @@ internal class SpanSamplingIdProviderTest {
     fun `M return 0u W provideId() {no rum session, invalid traceId}`() {
         // Given
         val expectedId: ULong = 0u
-        whenever(mockSpanContext.traceId) doReturn DatadogTraceId.ZERO
+        whenever(mockSpanContext.traceId) doReturn MotadataTraceId.ZERO
 
         // When
         val result = SpanSamplingIdProvider.provideId(mockSpan)
@@ -106,7 +106,7 @@ internal class SpanSamplingIdProviderTest {
     fun `M return 0u W provideId() {no rum session, empty traceId}`() {
         // Given
         val expectedId: ULong = 0u
-        whenever(mockSpanContext.traceId) doReturn DatadogTraceId.ZERO
+        whenever(mockSpanContext.traceId) doReturn MotadataTraceId.ZERO
 
         // When
         val result = SpanSamplingIdProvider.provideId(mockSpan)

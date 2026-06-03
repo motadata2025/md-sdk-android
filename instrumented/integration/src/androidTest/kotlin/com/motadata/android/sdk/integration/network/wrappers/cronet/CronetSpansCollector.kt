@@ -9,14 +9,14 @@ package com.motadata.android.sdk.integration.network.wrappers.cronet
 import com.motadata.android.api.instrumentation.network.HttpRequestInfo
 import com.motadata.android.api.instrumentation.network.HttpResponseInfo
 import com.motadata.android.trace.NetworkTracedRequestListener
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import java.util.concurrent.CopyOnWriteArrayList
 
 internal class CronetSpansCollector : NetworkTracedRequestListener {
-    val spans = CopyOnWriteArrayList<DatadogSpan>()
+    val spans = CopyOnWriteArrayList<MotadataSpan>()
     override fun onRequestIntercepted(
         request: HttpRequestInfo,
-        span: DatadogSpan,
+        span: MotadataSpan,
         response: HttpResponseInfo?,
         throwable: Throwable?
     ) {

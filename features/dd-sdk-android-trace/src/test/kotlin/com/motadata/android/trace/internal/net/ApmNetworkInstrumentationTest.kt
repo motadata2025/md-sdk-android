@@ -23,14 +23,14 @@ import com.motadata.android.trace.ApmNetworkTracingScope
 import com.motadata.android.trace.NetworkTracedRequestListener
 import com.motadata.android.trace.TraceContextInjection
 import com.motadata.android.trace.TracingHeaderType
-import com.motadata.android.trace.api.DatadogTracingConstants.Tags
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.span.DatadogSpanBuilder
-import com.motadata.android.trace.api.span.DatadogSpanContext
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.MotadataTracingConstants.Tags
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.span.MotadataSpanBuilder
+import com.motadata.android.trace.api.span.MotadataSpanContext
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.trace.api.withMockPropagationHelper
 import com.motadata.android.trace.internal.ApmNetworkInstrumentation
-import com.motadata.android.trace.internal.DatadogPropagationHelper
+import com.motadata.android.trace.internal.MotadataPropagationHelper
 import com.motadata.android.trace.internal._TraceInternalProxy
 import com.motadata.android.utils.forge.Configurator
 import com.motadata.android.utils.verifyLog
@@ -83,16 +83,16 @@ internal class ApmNetworkInstrumentationTest {
     lateinit var mockTracerProvider: TracerProvider
 
     @Mock
-    lateinit var mockTracer: DatadogTracer
+    lateinit var mockTracer: MotadataTracer
 
-    lateinit var mockSpan: DatadogSpan
+    lateinit var mockSpan: MotadataSpan
 
-    lateinit var mockSpanBuilder: DatadogSpanBuilder
+    lateinit var mockSpanBuilder: MotadataSpanBuilder
 
     @Mock
-    lateinit var mockSpanContext: DatadogSpanContext
+    lateinit var mockSpanContext: MotadataSpanContext
 
-    lateinit var mockTraceSampler: Sampler<DatadogSpan>
+    lateinit var mockTraceSampler: Sampler<MotadataSpan>
 
     @Mock
     lateinit var mockNetworkTracedRequestListener: NetworkTracedRequestListener
@@ -117,7 +117,7 @@ internal class ApmNetworkInstrumentationTest {
     lateinit var mockResponseInfo: HttpResponseInfo
 
     @Mock
-    lateinit var mockPropagationHelper: DatadogPropagationHelper
+    lateinit var mockPropagationHelper: MotadataPropagationHelper
 
     @StringForgery
     lateinit var fakeNetworkInstrumentationName: String

@@ -16,7 +16,7 @@ import com.motadata.android.core.InternalSdkCore
 import com.motadata.android.core.internal.net.FirstPartyHostHeaderTypeResolver
 import com.motadata.android.core.metrics.MethodCallSamplingRate
 import com.motadata.android.internal.telemetry.InternalTelemetryEvent
-import com.motadata.android.rum.DdRumContentProvider
+import com.motadata.android.rum.MdRumContentProvider
 import com.motadata.android.rum.RumSessionType
 import com.motadata.android.rum.internal.anr.ANRException
 import com.motadata.android.rum.internal.domain.InfoProvider
@@ -236,7 +236,7 @@ internal class RumViewManagerScope(
         writeScope: EventWriteScope,
         writer: DataWriter<Any>
     ) {
-        val processFlag = DdRumContentProvider.processImportance
+        val processFlag = MdRumContentProvider.processImportance
         val importanceForeground = ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
         val isForegroundProcess = processFlag == importanceForeground
 

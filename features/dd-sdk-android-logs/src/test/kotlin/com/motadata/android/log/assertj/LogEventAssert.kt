@@ -9,7 +9,7 @@ package com.motadata.android.log.assertj
 import com.motadata.android.api.context.AccountInfo
 import com.motadata.android.api.context.NetworkInfo
 import com.motadata.android.api.context.UserInfo
-import com.motadata.android.log.internal.domain.DatadogLogGenerator
+import com.motadata.android.log.internal.domain.MotadataLogGenerator
 import com.motadata.android.log.model.LogEvent
 import org.assertj.core.api.AbstractObjectAssert
 import org.assertj.core.api.Assertions.assertThat
@@ -285,7 +285,7 @@ internal class LogEventAssert(actual: LogEvent) :
     companion object {
 
         private val dateFormatter =
-            SimpleDateFormat(DatadogLogGenerator.ISO_8601, Locale.US).apply {
+            SimpleDateFormat(MotadataLogGenerator.ISO_8601, Locale.US).apply {
                 timeZone = TimeZone.getTimeZone("UTC")
             }
 

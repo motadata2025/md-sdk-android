@@ -46,4 +46,4 @@ import dev.openfeature.kotlin.sdk.FeatureProvider
  * @return A [FeatureProvider] that delegates to this [FlagsClient]
  * @see FlagsClient.Builder for configuring the underlying flags client
  */
-fun FlagsClient.asOpenFeatureProvider(): FeatureProvider = DatadogFlagsProvider.wrap(this)
+fun FlagsClient.asOpenFeatureProvider(): FeatureProvider = MotadataFlagsProvider.wrap(this)

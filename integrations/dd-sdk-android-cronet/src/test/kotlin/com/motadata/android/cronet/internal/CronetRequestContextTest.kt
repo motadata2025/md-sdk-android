@@ -45,7 +45,7 @@ import java.util.concurrent.Executor
 internal class CronetRequestContextTest {
 
     @Mock
-    lateinit var mockEngine: DatadogCronetEngine
+    lateinit var mockEngine: MotadataCronetEngine
 
     @Mock
     lateinit var mockCallback: CronetRequestCallback

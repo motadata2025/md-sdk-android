@@ -13,7 +13,7 @@ import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureScope
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.core.configuration.Configuration
-import com.motadata.android.core.internal.DatadogCore
+import com.motadata.android.core.internal.MotadataCore
 import com.motadata.android.internal.telemetry.InternalTelemetryEvent
 import com.motadata.android.lint.InternalApi
 
@@ -79,11 +79,11 @@ class _InternalProxy internal constructor(
     fun setMetricTelemetrySampleRateBypass(
         @FloatRange(from = 0.0, to = 100.0) sampleRate: Float
     ) {
-        (sdkCore as? DatadogCore)?.coreFeature?.metricTelemetrySampleRateBypass = sampleRate
+        (sdkCore as? MotadataCore)?.coreFeature?.metricTelemetrySampleRateBypass = sampleRate
     }
 
     fun setCustomAppVersion(version: String) {
-        val coreFeature = (sdkCore as? DatadogCore)?.coreFeature
+        val coreFeature = (sdkCore as? MotadataCore)?.coreFeature
         coreFeature?.packageVersionProvider?.version = version
     }
 

@@ -10,10 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.motadata.android.api.InternalLogger;
-import com.motadata.android.trace.api.DatadogTracingConstants;
-import com.motadata.android.trace.api.span.DatadogSpanContext;
-import com.motadata.android.trace.api.trace.DatadogTraceId;
-import com.motadata.android.trace.internal.DatadogTraceExtKt;
+import com.motadata.android.trace.api.MotadataTracingConstants;
+import com.motadata.android.trace.api.span.MotadataSpanContext;
+import com.motadata.android.trace.api.trace.MotadataTraceId;
+import com.motadata.android.trace.internal.MotadataTraceExtKt;
 import com.motadata.android.trace.internal._TraceInternalProxy;
 
 import java.util.Collections;
@@ -24,20 +24,20 @@ import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanContext;
 import io.opentelemetry.context.Context;
 
-public class OtelExtractedContext implements DatadogSpanContext {
-    private final DatadogTraceId traceId;
+public class OtelExtractedContext implements MotadataSpanContext {
+    private final MotadataTraceId traceId;
     private final long spanId;
     private final int prioritySampling;
 
     private OtelExtractedContext(SpanContext context) {
-        traceId = DatadogTraceExtKt.fromHex(DatadogTraceId.Companion, context.getTraceId());
+        traceId = MotadataTraceExtKt.fromHex(MotadataTraceId.Companion, context.getTraceId());
         spanId = _TraceInternalProxy.spanIdConverter.fromHex(context.getSpanId());
         prioritySampling = context.isSampled()
-                ? DatadogTracingConstants.PrioritySampling.SAMPLER_KEEP
-                : DatadogTracingConstants.PrioritySampling.UNSET;
+                ? MotadataTracingConstants.PrioritySampling.SAMPLER_KEEP
+                : MotadataTracingConstants.PrioritySampling.UNSET;
     }
 
-    public static DatadogSpanContext extract(Context context, InternalLogger logger) {
+    public static MotadataSpanContext extract(Context context, InternalLogger logger) {
         Span span = Span.fromContext(context);
         SpanContext spanContext = span.getSpanContext();
         if (spanContext instanceof OtelSpanContext) {
@@ -62,7 +62,7 @@ public class OtelExtractedContext implements DatadogSpanContext {
 
     @NonNull
     @Override
-    public DatadogTraceId getTraceId() {
+    public MotadataTraceId getTraceId() {
         return traceId;
     }
 

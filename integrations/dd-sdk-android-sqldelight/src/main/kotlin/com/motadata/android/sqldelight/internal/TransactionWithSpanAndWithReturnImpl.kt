@@ -7,10 +7,10 @@
 package com.motadata.android.sqldelight.internal
 
 import com.motadata.android.sqldelight.TransactionWithSpanAndWithReturn
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import com.squareup.sqldelight.TransactionWithReturn
 
 internal class TransactionWithSpanAndWithReturnImpl<R>(
-    private val span: DatadogSpan,
+    private val span: MotadataSpan,
     private val transaction: TransactionWithReturn<R>
-) : TransactionWithSpanAndWithReturn<R>, DatadogSpan by span, TransactionWithReturn<R> by transaction
+) : TransactionWithSpanAndWithReturn<R>, MotadataSpan by span, TransactionWithReturn<R> by transaction

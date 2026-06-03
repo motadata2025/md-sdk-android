@@ -11,7 +11,7 @@ import android.content.Context
 import android.database.Cursor
 import android.provider.BaseColumns
 import com.motadata.android.sample.data.db.DataSource
-import com.motadata.android.sample.data.db.DatadogDbContract
+import com.motadata.android.sample.data.db.MotadataDbContract
 import com.motadata.android.sample.data.model.Log
 import com.motadata.android.sample.data.model.LogAttributes
 import com.motadata.android.sample.datalist.DataSourceType
@@ -47,18 +47,18 @@ internal class SQLiteDataSource(val context: Context) : DataSource {
         val contentValues = logs.map {
             ContentValues().apply {
                 put(BaseColumns._ID, it.id)
-                put(DatadogDbContract.Logs.COLUMN_NAME_MESSAGE, it.attributes.message)
-                put(DatadogDbContract.Logs.COLUMN_NAME_TIMESTAMP, it.attributes.timestamp)
-                put(DatadogDbContract.Logs.COLUMN_NAME_TTL, currentTimeInMillis)
+                put(MotadataDbContract.Logs.COLUMN_NAME_MESSAGE, it.attributes.message)
+                put(MotadataDbContract.Logs.COLUMN_NAME_TIMESTAMP, it.attributes.timestamp)
+                put(MotadataDbContract.Logs.COLUMN_NAME_TTL, currentTimeInMillis)
             }
         }.toTypedArray()
-        context.contentResolver.bulkInsert(DatadogContentProvider.LOGS_URI, contentValues)
+        context.contentResolver.bulkInsert(MotadataContentProvider.LOGS_URI, contentValues)
     }
 
     private fun purgeData(minTtlRequired: Long) {
         context.contentResolver.delete(
-            DatadogContentProvider.LOGS_URI,
-            "${DatadogDbContract.Logs.COLUMN_NAME_TTL} <= ?",
+            MotadataContentProvider.LOGS_URI,
+            "${MotadataDbContract.Logs.COLUMN_NAME_TTL} <= ?",
             arrayOf(minTtlRequired.toString())
         )
     }
@@ -68,17 +68,17 @@ internal class SQLiteDataSource(val context: Context) : DataSource {
         override fun call(): List<Log> {
             val columns = arrayOf(
                 BaseColumns._ID,
-                DatadogDbContract.Logs.COLUMN_NAME_MESSAGE,
-                DatadogDbContract.Logs.COLUMN_NAME_TIMESTAMP,
-                DatadogDbContract.Logs.COLUMN_NAME_TTL
+                MotadataDbContract.Logs.COLUMN_NAME_MESSAGE,
+                MotadataDbContract.Logs.COLUMN_NAME_TIMESTAMP,
+                MotadataDbContract.Logs.COLUMN_NAME_TTL
             )
-            val whereClause = "${DatadogDbContract.Logs.COLUMN_NAME_TTL} >= ?"
+            val whereClause = "${MotadataDbContract.Logs.COLUMN_NAME_TTL} >= ?"
             val minTtlRequired =
                 System.currentTimeMillis() - LOGS_EXPIRING_TTL_IN_MS
             val whereClauseArg = arrayOf(minTtlRequired.toString())
             val cursor =
                 context.contentResolver.query(
-                    DatadogContentProvider.LOGS_URI,
+                    MotadataContentProvider.LOGS_URI,
                     columns,
                     whereClause,
                     whereClauseArg,
@@ -97,9 +97,9 @@ internal class SQLiteDataSource(val context: Context) : DataSource {
                 val idColumnIndex =
                     it.getColumnIndexOrThrow(BaseColumns._ID)
                 val messageColumnIndex =
-                    it.getColumnIndexOrThrow(DatadogDbContract.Logs.COLUMN_NAME_MESSAGE)
+                    it.getColumnIndexOrThrow(MotadataDbContract.Logs.COLUMN_NAME_MESSAGE)
                 val timestampColumnIndex =
-                    it.getColumnIndexOrThrow(DatadogDbContract.Logs.COLUMN_NAME_TIMESTAMP)
+                    it.getColumnIndexOrThrow(MotadataDbContract.Logs.COLUMN_NAME_TIMESTAMP)
                 while (it.moveToNext()) {
                     val log = Log(
                         id = it.getString(idColumnIndex),

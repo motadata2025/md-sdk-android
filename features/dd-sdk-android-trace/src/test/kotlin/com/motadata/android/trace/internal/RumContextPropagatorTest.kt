@@ -14,8 +14,8 @@ import com.motadata.android.api.feature.FeatureScope
 import com.motadata.android.api.feature.SdkFeatureMock
 import com.motadata.android.core.InternalSdkCore
 import com.motadata.android.log.LogAttributes
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.span.DatadogSpanBuilder
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.span.MotadataSpanBuilder
 import com.motadata.android.trace.internal.RumContextPropagator.Companion.DATADOG_INITIAL_CONTEXT
 import com.motadata.android.trace.internal.RumContextPropagator.Companion.ERROR_FUTURE_GET_FAILED
 import com.motadata.android.trace.internal.RumContextPropagator.Companion.INITIAL_DATADOG_CONTEXT_NOT_AVAILABLE_ERROR
@@ -74,7 +74,7 @@ class RumContextPropagatorTest {
     private lateinit var mockRumFeatureScope: FeatureScope
 
     @Mock
-    private lateinit var mockSpanBuilder: DatadogSpanBuilder
+    private lateinit var mockSpanBuilder: MotadataSpanBuilder
 
     @Mock
     private lateinit var mockInternalLogger: InternalLogger
@@ -116,7 +116,7 @@ class RumContextPropagatorTest {
     }
 
     @Test
-    fun `M get(Long, TimeUnit) W extractRumContext {DatadogSpan, block=True}`() {
+    fun `M get(Long, TimeUnit) W extractRumContext {MotadataSpan, block=True}`() {
         // Given
         val futureMock = incompleteFutureMock<MotadataContext>()
         val span = newDatadogSpanWithLazyDatadogContext(futureMock)
@@ -146,7 +146,7 @@ class RumContextPropagatorTest {
     }
 
     @Test
-    fun `M not block W extractRumContext {DatadogSpan, isDone=true, block=False}`() {
+    fun `M not block W extractRumContext {MotadataSpan, isDone=true, block=False}`() {
         // Given
         val futureMock = completedFutureMock<MotadataContext?>(null)
         val span = newDatadogSpanWithLazyDatadogContext(futureMock)
@@ -182,7 +182,7 @@ class RumContextPropagatorTest {
     }
 
     @Test
-    fun `M not block W extractRumContext {DatadogSpan, isDone=false, block=False}`() {
+    fun `M not block W extractRumContext {MotadataSpan, isDone=false, block=False}`() {
         // Given
         val futureMock = incompleteFutureMock<MotadataContext>()
         val span = newDatadogSpanWithLazyDatadogContext(futureMock)
@@ -216,7 +216,7 @@ class RumContextPropagatorTest {
     }
 
     @Test
-    fun `M log ERROR_FUTURE_GET_FAILED if Future#get(Long, TimeUnit) failed { DatadogSpan, block = true }`(
+    fun `M log ERROR_FUTURE_GET_FAILED if Future#get(Long, TimeUnit) failed { MotadataSpan, block = true }`(
         forge: Forge
     ) {
         // Given
@@ -248,7 +248,7 @@ class RumContextPropagatorTest {
     }
 
     @Test
-    fun `M log ERROR_FUTURE_GET_FAILED if Future#get() failed { DatadogSpan, block = false }`(forge: Forge) {
+    fun `M log ERROR_FUTURE_GET_FAILED if Future#get() failed { MotadataSpan, block = false }`(forge: Forge) {
         // Given
         val span = newDatadogSpanWithLazyDatadogContext(
             completedWithErrorFutureMock(forge.anException())
@@ -278,7 +278,7 @@ class RumContextPropagatorTest {
     }
 
     @Test
-    fun `M set RUM tags W extractRumContext { DatadogSpan }`() {
+    fun `M set RUM tags W extractRumContext { MotadataSpan }`() {
         // Given
         val span = newDatadogSpanWithLazyDatadogContext(
             completedFutureMock(fakeDatadogContext)
@@ -326,7 +326,7 @@ class RumContextPropagatorTest {
     }
 
     @Test
-    fun `M set null RUM tags W extractRumContext { DatadogSpan, rum context is empty }`(forge: Forge) {
+    fun `M set null RUM tags W extractRumContext { MotadataSpan, rum context is empty }`(forge: Forge) {
         // Given
         val futureMock = completedFutureMock(forge.aDatadogContextWithRumContext(emptyMap()))
         val span = newDatadogSpanWithLazyDatadogContext(futureMock)
@@ -371,7 +371,7 @@ class RumContextPropagatorTest {
     }
 
     @Test
-    fun `M not call setTag W getTag(DATADOG_INITIAL_CONTEXT) is null { DatadogSpan }`() {
+    fun `M not call setTag W getTag(DATADOG_INITIAL_CONTEXT) is null { MotadataSpan }`() {
         // Given
         val span = newDatadogSpanWithLazyDatadogContext(null)
 
@@ -404,7 +404,7 @@ class RumContextPropagatorTest {
         }
 
         fun newDatadogSpanWithLazyDatadogContext(value: Future<MotadataContext?>?) =
-            mock<DatadogSpan> {
+            mock<MotadataSpan> {
                 on { getTag(DATADOG_INITIAL_CONTEXT) } doAnswer { value }
             }
 
@@ -422,7 +422,7 @@ class RumContextPropagatorTest {
                     verify(span).setTag(DATADOG_INITIAL_CONTEXT, null as Any?)
                 }
 
-                is DatadogSpan -> {
+                is MotadataSpan -> {
                     verify(span).getTag(DATADOG_INITIAL_CONTEXT)
                     verify(span).setTag(DATADOG_INITIAL_CONTEXT, null as Any?)
                 }

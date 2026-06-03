@@ -1,4 +1,4 @@
-public final class com/motadata/android/profiling/DdProfilingContentProvider : android/content/ContentProvider {
+public final class com/motadata/android/profiling/MdProfilingContentProvider : android/content/ContentProvider {
 	public fun <init> ()V
 	public fun <init> (Lcom/motadata/android/internal/system/BuildSdkVersionProvider;)V
 	public synthetic fun <init> (Lcom/motadata/android/internal/system/BuildSdkVersionProvider;ILkotlin/jvm/internal/DefaultConstructorMarker;)V

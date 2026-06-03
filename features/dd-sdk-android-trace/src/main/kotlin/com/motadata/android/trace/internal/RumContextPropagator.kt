@@ -12,8 +12,8 @@ import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.api.feature.getContextFuture
 import com.motadata.android.lint.InternalApi
 import com.motadata.android.log.LogAttributes
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.span.DatadogSpanBuilder
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.span.MotadataSpanBuilder
 import com.datadog.trace.core.DDSpan
 import com.datadog.trace.core.propagation.HttpCodec
 import java.util.concurrent.Future
@@ -34,7 +34,7 @@ class RumContextPropagator(private val sdkCoreProvider: () -> FeatureSdkCore?) {
     private val internalLogger: InternalLogger?
         get() = sdkCore?.internalLogger
 
-    private fun injectRumContext(builder: DatadogSpanBuilder) {
+    private fun injectRumContext(builder: MotadataSpanBuilder) {
         sdkCore?.getFeature(Feature.RUM_FEATURE_NAME)
             ?.getContextFuture(withFeatureContexts = setOf(Feature.RUM_FEATURE_NAME))
             ?.let { lazyContext -> builder.withTag(DATADOG_INITIAL_CONTEXT, lazyContext) }
@@ -72,13 +72,13 @@ class RumContextPropagator(private val sdkCoreProvider: () -> FeatureSdkCore?) {
     private fun Any.setTag(key: String, value: Any?) {
         when (this) {
             is DDSpan -> setTag(key, value)
-            is DatadogSpan -> setTag(key, value)
+            is MotadataSpan -> setTag(key, value)
         }
     }
 
     private inline fun <reified T> Any.getTag(key: String): T? = when (this) {
         is DDSpan -> getTag(key) as? T
-        is DatadogSpan -> getTag(key) as? T
+        is MotadataSpan -> getTag(key) as? T
         else -> null
     }
 
@@ -129,7 +129,7 @@ class RumContextPropagator(private val sdkCoreProvider: () -> FeatureSdkCore?) {
          * @param block if true, this method will block (1 second max) until the Motadata context is resolved.
          */
         @InternalApi
-        fun DatadogSpan.extractRumContext(propagator: RumContextPropagator, block: Boolean = false) = apply {
+        fun MotadataSpan.extractRumContext(propagator: RumContextPropagator, block: Boolean = false) = apply {
             propagator.extractRumContextInternal(this, block)
         }
 
@@ -137,7 +137,7 @@ class RumContextPropagator(private val sdkCoreProvider: () -> FeatureSdkCore?) {
             propagator.extractRumContextInternal(this, block)
         }
 
-        internal fun DatadogSpanBuilder.injectRumContext(propagator: RumContextPropagator) = apply {
+        internal fun MotadataSpanBuilder.injectRumContext(propagator: RumContextPropagator) = apply {
             propagator.injectRumContext(this)
         }
     }

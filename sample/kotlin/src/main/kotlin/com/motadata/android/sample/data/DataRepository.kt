@@ -11,7 +11,7 @@ import com.motadata.android.sample.data.model.Log
 import com.motadata.android.sample.data.remote.RemoteDataSource
 import com.motadata.android.sample.datalist.DataSourceType
 import com.motadata.android.trace.GlobalDatadogTracer
-import com.motadata.android.trace.api.scope.DatadogScope
+import com.motadata.android.trace.api.scope.MotadataScope
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -23,7 +23,7 @@ internal class DataRepository(
 
     @Suppress("SimpleRedundantLet")
     fun getLogs(query: String): Flowable<List<Log>> {
-        var spanScope: DatadogScope? = null
+        var spanScope: MotadataScope? = null
         return Single.concat(
             localDataSource.fetchLogs(),
             remoteDataSource.getLogs(query)

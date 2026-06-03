@@ -23,7 +23,7 @@ import com.motadata.android.rum.RumConfiguration
 import com.motadata.android.rum.RumMonitor
 import com.motadata.android.rum.configuration.RumNetworkInstrumentationConfiguration
 import com.motadata.android.trace.ApmNetworkInstrumentationConfiguration
-import com.motadata.android.trace.DatadogTracing
+import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.ExperimentalTraceApi
 import com.motadata.android.trace.GlobalDatadogTracer
 import com.motadata.android.trace.Trace
@@ -106,7 +106,7 @@ class CustomInterceptorPreservationTest {
         Trace.enable(TraceConfiguration.Builder().build(), stubSdkCore)
 
         GlobalDatadogTracer.replace(
-            DatadogTracing.newTracerBuilder(stubSdkCore)
+            MotadataTracing.newTracerBuilder(stubSdkCore)
                 .withPartialFlushMinSpans(1)
         )
 

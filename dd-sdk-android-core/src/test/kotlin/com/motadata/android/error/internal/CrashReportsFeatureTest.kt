@@ -63,7 +63,7 @@ internal class CrashReportsFeatureTest {
         // Then
         val handler = Thread.getDefaultUncaughtExceptionHandler()
         assertThat(handler)
-            .isInstanceOf(DatadogExceptionHandler::class.java)
+            .isInstanceOf(MotadataExceptionHandler::class.java)
     }
 
     @Test

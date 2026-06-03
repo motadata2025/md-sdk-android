@@ -58,14 +58,14 @@ import com.motadata.android.sessionreplay.TextAndInputPrivacy
 import com.motadata.android.sessionreplay.TouchPrivacy
 import com.motadata.android.sessionreplay.compose.ComposeExtensionSupport
 import com.motadata.android.sessionreplay.material.MaterialExtensionSupport
-import com.motadata.android.timber.DatadogTree
+import com.motadata.android.timber.MotadataTree
 import com.motadata.android.trace.ApmNetworkInstrumentationConfiguration
-import com.motadata.android.trace.DatadogTracing
+import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.ExperimentalTraceApi
 import com.motadata.android.trace.GlobalDatadogTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
-import com.motadata.android.trace.opentelemetry.DatadogOpenTelemetry
+import com.motadata.android.trace.opentelemetry.MotadataOpenTelemetry
 import com.motadata.android.vendor.sample.LocalServer
 import com.facebook.stetho.Stetho
 import com.google.gson.GsonBuilder
@@ -228,13 +228,13 @@ class SampleApplication : Application() {
         Trace.enable(tracesConfig)
 
         GlobalDatadogTracer.registerIfAbsent(
-            DatadogTracing.newTracerBuilder()
+            MotadataTracing.newTracerBuilder()
                 .withPartialFlushMinSpans(1)
                 .build()
         )
 
         GlobalOpenTelemetry.set(
-            DatadogOpenTelemetry(BuildConfig.APPLICATION_ID)
+            MotadataOpenTelemetry(BuildConfig.APPLICATION_ID)
         )
     }
 
@@ -485,7 +485,7 @@ class SampleApplication : Application() {
         logger.addTag("flavor", BuildConfig.FLAVOR)
         logger.addTag("build_type", BuildConfig.BUILD_TYPE)
 
-        Timber.plant(DatadogTree(logger))
+        Timber.plant(MotadataTree(logger))
     }
 
     companion object {

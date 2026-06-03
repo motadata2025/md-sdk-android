@@ -36,12 +36,12 @@ internal class FlagsClientExtTest {
     lateinit var mockFlagsClient: FlagsClient
 
     @Test
-    fun `M return DatadogFlagsProvider W asOpenFeatureProvider()`() {
+    fun `M return MotadataFlagsProvider W asOpenFeatureProvider()`() {
         // When
         val result = mockFlagsClient.asOpenFeatureProvider()
 
         // Then
-        assertThat(result).isInstanceOf(DatadogFlagsProvider::class.java)
+        assertThat(result).isInstanceOf(MotadataFlagsProvider::class.java)
         assertThat(result.metadata.name).isEqualTo("Motadata Feature Flags Provider")
     }
 
@@ -146,7 +146,7 @@ internal class FlagsClientExtTest {
         // Then
         // Note: Each call creates a new provider instance wrapping the same client
         assertThat(provider1).isNotSameAs(provider2)
-        assertThat(provider1).isInstanceOf(DatadogFlagsProvider::class.java)
-        assertThat(provider2).isInstanceOf(DatadogFlagsProvider::class.java)
+        assertThat(provider1).isInstanceOf(MotadataFlagsProvider::class.java)
+        assertThat(provider2).isInstanceOf(MotadataFlagsProvider::class.java)
     }
 }

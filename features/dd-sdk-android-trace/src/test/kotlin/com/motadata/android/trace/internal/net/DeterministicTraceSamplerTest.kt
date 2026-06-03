@@ -7,9 +7,9 @@
 package com.motadata.android.trace.internal.net
 
 import com.motadata.android.trace.DeterministicTraceSampler
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.span.DatadogSpanContext
-import com.motadata.android.trace.api.trace.DatadogTraceId
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.span.MotadataSpanContext
+import com.motadata.android.trace.api.trace.MotadataTraceId
 import com.motadata.android.utils.forge.Configurator
 import fr.xgouchet.elmyr.Forge
 import fr.xgouchet.elmyr.annotation.FloatForgery
@@ -41,22 +41,22 @@ internal class DeterministicTraceSamplerTest {
     private lateinit var testedSampler: DeterministicTraceSampler
 
     @Mock
-    lateinit var mockSpanContext: DatadogSpanContext
+    lateinit var mockSpanContext: MotadataSpanContext
 
-    private lateinit var fakeSpans: List<DatadogSpan>
+    private lateinit var fakeSpans: List<MotadataSpan>
 
     @BeforeEach
     fun `set up`(forge: Forge) {
         val listSize = forge.anInt(256, 1024)
         fakeSpans = forge.aList(listSize) {
-            val traceId = mock<DatadogTraceId> {
+            val traceId = mock<MotadataTraceId> {
                 on { toLong() } doReturn aLong()
             }
-            val context = mock<DatadogSpanContext> {
+            val context = mock<MotadataSpanContext> {
                 on { this.traceId } doReturn traceId
                 on { tags } doReturn emptyMap()
             }
-            mock<DatadogSpan> {
+            mock<MotadataSpan> {
                 on { context() } doReturn context
             }
         }
@@ -185,14 +185,14 @@ internal class DeterministicTraceSamplerTest {
     ) {
         // Given
         testedSampler = DeterministicTraceSampler(50f)
-        val traceId = mock<DatadogTraceId> {
+        val traceId = mock<MotadataTraceId> {
             on { toLong() } doReturn fakeTraceIdLong
         }
-        val context = mock<DatadogSpanContext> {
+        val context = mock<MotadataSpanContext> {
             on { this.traceId } doReturn traceId
             on { tags } doReturn emptyMap()
         }
-        val span = mock<DatadogSpan> {
+        val span = mock<MotadataSpan> {
             on { context() } doReturn context
         }
 

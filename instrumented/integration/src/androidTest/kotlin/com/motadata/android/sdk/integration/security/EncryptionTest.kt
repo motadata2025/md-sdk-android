@@ -25,11 +25,11 @@ import com.motadata.android.rum.RumResourceMethod
 import com.motadata.android.security.Encryption
 import com.motadata.android.sessionreplay.SessionReplay
 import com.motadata.android.sessionreplay.SessionReplayConfiguration
-import com.motadata.android.trace.DatadogTracing
+import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.GlobalDatadogTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import fr.xgouchet.elmyr.junit4.ForgeRule
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
@@ -79,7 +79,7 @@ internal class EncryptionTest {
         )
         featureActivations.shuffled(Random(forge.seed)).forEach { it() }
 
-        val tracer = DatadogTracing.newTracerBuilder(sdkCore).setBundleWithRumEnabled(true).build()
+        val tracer = MotadataTracing.newTracerBuilder(sdkCore).setBundleWithRumEnabled(true).build()
         GlobalDatadogTracer.registerIfAbsent(tracer)
 
         val logger = Logger.Builder(sdkCore)
@@ -158,7 +158,7 @@ internal class EncryptionTest {
             .build()
     }
 
-    private fun sendEventsForAllFeatures(rumMonitor: RumMonitor, logger: Logger, tracer: DatadogTracer) {
+    private fun sendEventsForAllFeatures(rumMonitor: RumMonitor, logger: Logger, tracer: MotadataTracer) {
         val viewName = "rumView-${forge.aString()}"
         rumMonitor.startView(viewName, viewName)
 

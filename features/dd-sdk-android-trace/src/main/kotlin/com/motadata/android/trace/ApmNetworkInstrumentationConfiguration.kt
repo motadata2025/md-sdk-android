@@ -10,8 +10,8 @@ import com.motadata.android.api.SdkCore
 import com.motadata.android.core.configuration.HostsSanitizer
 import com.motadata.android.core.internal.net.DefaultFirstPartyHostHeaderTypeResolver
 import com.motadata.android.core.sampling.Sampler
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.trace.internal.ApmNetworkInstrumentation
 import com.motadata.android.trace.internal.net.TracerProvider
 
@@ -43,11 +43,11 @@ class ApmNetworkInstrumentationConfiguration internal constructor(
     internal var traceOrigin: String? = null,
     internal var redacted404ResourceName: Boolean = true,
     internal var sdkInstanceName: String? = null,
-    internal var localTracerFactory: (SdkCore, Set<TracingHeaderType>) -> DatadogTracer = DEFAULT_LOCAL_TRACER_FACTORY,
+    internal var localTracerFactory: (SdkCore, Set<TracingHeaderType>) -> MotadataTracer = DEFAULT_LOCAL_TRACER_FACTORY,
     internal var traceContextInjection: TraceContextInjection = TraceContextInjection.SAMPLED,
     internal var tracedRequestListener: NetworkTracedRequestListener = NoOpNetworkTracedRequestListener(),
-    internal var traceSampler: Sampler<DatadogSpan> = DeterministicTraceSampler(DEFAULT_TRACE_SAMPLE_RATE),
-    internal var globalTracerProvider: () -> DatadogTracer? = { GlobalDatadogTracer.getOrNull() },
+    internal var traceSampler: Sampler<MotadataSpan> = DeterministicTraceSampler(DEFAULT_TRACE_SAMPLE_RATE),
+    internal var globalTracerProvider: () -> MotadataTracer? = { GlobalDatadogTracer.getOrNull() },
     internal var networkTracingScope: ApmNetworkTracingScope = ApmNetworkTracingScope.EXCLUDE_INTERNAL_REDIRECTS,
     internal var headerPropagationOnly: Boolean = false
 ) {
@@ -107,8 +107,8 @@ class ApmNetworkInstrumentationConfiguration internal constructor(
     }
 
     /**
-     * Set the listener for automatically created [DatadogSpan]s.
-     * @param tracedRequestListener a listener for automatically created [DatadogSpan]s
+     * Set the listener for automatically created [MotadataSpan]s.
+     * @param tracedRequestListener a listener for automatically created [MotadataSpan]s
      */
     fun setTracedRequestListener(tracedRequestListener: NetworkTracedRequestListener) = apply {
         this.tracedRequestListener = tracedRequestListener
@@ -131,7 +131,7 @@ class ApmNetworkInstrumentationConfiguration internal constructor(
      * @param traceSampler the trace sampler controlling the sampling of APM traces.
      * By default it is a sampler accepting 100% of the traces.
      */
-    fun setTraceSampler(traceSampler: Sampler<DatadogSpan>) = apply {
+    fun setTraceSampler(traceSampler: Sampler<MotadataSpan>) = apply {
         this.traceSampler = traceSampler
     }
 
@@ -224,11 +224,11 @@ class ApmNetworkInstrumentationConfiguration internal constructor(
         headerPropagationOnly = headerPropagationOnly
     )
 
-    internal fun setLocalTracerFactory(factory: (SdkCore, Set<TracingHeaderType>) -> DatadogTracer) = apply {
+    internal fun setLocalTracerFactory(factory: (SdkCore, Set<TracingHeaderType>) -> MotadataTracer) = apply {
         this.localTracerFactory = factory
     }
 
-    internal fun setGlobalTracerProvider(globalTracerProvider: () -> DatadogTracer?) = apply {
+    internal fun setGlobalTracerProvider(globalTracerProvider: () -> MotadataTracer?) = apply {
         this.globalTracerProvider = globalTracerProvider
     }
 
@@ -275,9 +275,9 @@ class ApmNetworkInstrumentationConfiguration internal constructor(
 
         private fun Map<String, Set<TracingHeaderType>>.deepCopy() = mapValues { (_, v) -> v.toSet() }
 
-        private val DEFAULT_LOCAL_TRACER_FACTORY: (SdkCore, Set<TracingHeaderType>) -> DatadogTracer =
+        private val DEFAULT_LOCAL_TRACER_FACTORY: (SdkCore, Set<TracingHeaderType>) -> MotadataTracer =
             { sdkCore, tracingHeaderTypes: Set<TracingHeaderType> ->
-                DatadogTracing.newTracerBuilder(sdkCore)
+                MotadataTracing.newTracerBuilder(sdkCore)
                     .withTracingHeadersTypes(tracingHeaderTypes)
                     .withSampleRate(ALL_IN_SAMPLE_RATE)
                     .build()

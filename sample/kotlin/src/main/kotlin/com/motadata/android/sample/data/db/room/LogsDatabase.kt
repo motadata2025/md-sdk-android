@@ -10,9 +10,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.motadata.android.sample.data.db.DatadogDbContract
+import com.motadata.android.sample.data.db.MotadataDbContract
 
-@Database(entities = [LogRoom::class], version = DatadogDbContract.DB_VERSION, exportSchema = false)
+@Database(entities = [LogRoom::class], version = MotadataDbContract.DB_VERSION, exportSchema = false)
 internal abstract class LogsDatabase : RoomDatabase() {
 
     abstract fun logDao(): LogDao
@@ -31,7 +31,7 @@ internal abstract class LogsDatabase : RoomDatabase() {
             Room.databaseBuilder(
                 context.applicationContext,
                 LogsDatabase::class.java,
-                DatadogDbContract.DB_NAME
+                MotadataDbContract.DB_NAME
             ).build()
     }
 }

@@ -15,9 +15,9 @@ import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.core.sampling.RateBasedSampler
 import com.motadata.android.internal.utils.NULL_MAP_VALUE
 import com.motadata.android.log.internal.LogsFeature
-import com.motadata.android.log.internal.domain.DatadogLogGenerator
+import com.motadata.android.log.internal.domain.MotadataLogGenerator
 import com.motadata.android.log.internal.logger.CombinedLogHandler
-import com.motadata.android.log.internal.logger.DatadogLogHandler
+import com.motadata.android.log.internal.logger.MotadataLogHandler
 import com.motadata.android.log.internal.logger.LogHandler
 import com.motadata.android.log.internal.logger.LogcatLogHandler
 import com.motadata.android.log.internal.logger.NoOpLogHandler
@@ -341,10 +341,10 @@ internal constructor(internal var handler: LogHandler) {
                 return NoOpLogHandler()
             }
 
-            return DatadogLogHandler(
+            return MotadataLogHandler(
                 sdkCore = sdkCore,
                 loggerName = loggerName ?: logsFeature.packageName,
-                logGenerator = DatadogLogGenerator(
+                logGenerator = MotadataLogGenerator(
                     serviceName ?: sdkCore.service,
                     sdkCore.internalLogger
                 ),

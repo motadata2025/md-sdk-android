@@ -6,7 +6,7 @@
 
 package com.motadata.android.okhttp.trace
 
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import com.datadog.tools.unit.forge.BaseConfigurator
 import fr.xgouchet.elmyr.annotation.StringForgery
 import fr.xgouchet.elmyr.junit5.ForgeConfiguration
@@ -33,9 +33,9 @@ class OkHttpRequestExtTest {
     fun `set the parentSpan through the Request builder`(
         @StringForgery(regex = "http://[a-z0-9_]{8}\\.[a-z]{3}/") fakeUrl: String
     ) {
-        val parentSpan: DatadogSpan = mock()
+        val parentSpan: MotadataSpan = mock()
         val request = Request.Builder().url(fakeUrl).parentSpan(parentSpan).build()
 
-        assertThat(request.tag(DatadogSpan::class.java)).isEqualTo(parentSpan)
+        assertThat(request.tag(MotadataSpan::class.java)).isEqualTo(parentSpan)
     }
 }

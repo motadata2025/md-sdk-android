@@ -30,11 +30,11 @@ import com.motadata.android.sdk.utils.isLogsUrl
 import com.motadata.android.sdk.utils.isRumUrl
 import com.motadata.android.sdk.utils.isTracesUrl
 import com.motadata.android.sdk.utils.overrideProcessImportance
-import com.motadata.android.trace.DatadogTracing
+import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.GlobalDatadogTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.trace.model.SpanEvent
 import com.datadog.tools.unit.ConditionWatcher
 import com.google.gson.JsonNull
@@ -60,7 +60,7 @@ class CrossFeatureTest {
     private val logEvents = mutableListOf<JsonObject>()
     private val spanEvents = mutableListOf<JsonObject>()
     private lateinit var logger: Logger
-    private lateinit var openTracingTracer: DatadogTracer
+    private lateinit var openTracingTracer: MotadataTracer
     private val forge = Forge()
 
     @Before
@@ -106,7 +106,7 @@ class CrossFeatureTest {
             .useCustomEndpoint(mockWebServer.url("/traces").toString())
             .build()
         Trace.enable(traceConfiguration)
-        openTracingTracer = DatadogTracing.newTracerBuilder()
+        openTracingTracer = MotadataTracing.newTracerBuilder()
             .withPartialFlushMinSpans(1)
             .setBundleWithRumEnabled(true)
             .build()
@@ -334,7 +334,7 @@ class CrossFeatureTest {
         }.doWait(TimeUnit.SECONDS.toMillis(30))
     }
 
-    private fun DatadogTracer.withinSpan(operationName: String, block: () -> Unit) {
+    private fun MotadataTracer.withinSpan(operationName: String, block: () -> Unit) {
         val span = buildSpan(operationName).start()
         activateSpan(span).use {
             block()

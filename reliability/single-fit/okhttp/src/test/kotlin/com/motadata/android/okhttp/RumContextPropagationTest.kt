@@ -20,7 +20,7 @@ import com.motadata.android.okhttp.RumContextPropagationTest.Companion.SAMPLING_
 import com.motadata.android.okhttp.tests.elmyr.OkHttpConfigurator
 import com.motadata.android.okhttp.tests.utils.unregisterGlobalRumMonitor
 import com.motadata.android.okhttp.trace.TracingInterceptor
-import com.motadata.android.trace.DatadogTracing
+import com.motadata.android.trace.MotadataTracing
 import com.motadata.android.trace.GlobalDatadogTracer
 import com.motadata.android.trace.Trace
 import com.motadata.android.trace.TraceConfiguration
@@ -29,7 +29,7 @@ import com.motadata.android.trace.TracingHeaderType
 import com.motadata.android.trace.api.TestIdGenerationStrategy
 import com.motadata.android.trace.api.replace
 import com.motadata.android.trace.api.setTestIdGenerationStrategy
-import com.motadata.android.trace.api.tracer.DatadogTracerBuilder
+import com.motadata.android.trace.api.tracer.MotadataTracerBuilder
 import com.motadata.android.trace.utils.RumContextTestsUtils.aDatadogContextWithRumContext
 import com.motadata.android.trace.utils.RumContextTestsUtils.aRumContext
 import com.datadog.tools.unit.completedFutureMock
@@ -261,13 +261,13 @@ class RumContextPropagationTest {
             return sdkCoreStub
         }
 
-        private fun createTracer(sdkCore: SdkCore) = DatadogTracing.newTracerBuilder(sdkCore)
+        private fun createTracer(sdkCore: SdkCore) = MotadataTracing.newTracerBuilder(sdkCore)
             .withTracingHeadersTypes(setOf(TracingHeaderType.DATADOG))
             // this is on purpose, we want to make sure that it is not taken into account
             .withSampleRate(100.0)
 
         @Suppress("MISSING_DEPENDENCY_SUPERCLASS_WARNING") // it's okay for testing
-        private fun DatadogTracerBuilder.withTraceIdsFrom(traceIds: List<Long>): DatadogTracerBuilder =
+        private fun MotadataTracerBuilder.withTraceIdsFrom(traceIds: List<Long>): MotadataTracerBuilder =
             setTestIdGenerationStrategy(TestIdGenerationStrategy(traceIds = traceIds))
     }
 }

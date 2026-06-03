@@ -6,11 +6,11 @@
 
 package com.datadog.opentelemetry.trace;
 
-import static com.motadata.android.trace.api.DatadogTracingConstants.Tags.KEY_ANALYTICS_SAMPLE_RATE;
-import static com.motadata.android.trace.api.DatadogTracingConstants.Tags.VALUE_SPAN_KIND_CLIENT;
-import static com.motadata.android.trace.api.DatadogTracingConstants.Tags.VALUE_SPAN_KIND_CONSUMER;
-import static com.motadata.android.trace.api.DatadogTracingConstants.Tags.VALUE_SPAN_KIND_PRODUCER;
-import static com.motadata.android.trace.api.DatadogTracingConstants.Tags.VALUE_SPAN_KIND_SERVER;
+import static com.motadata.android.trace.api.MotadataTracingConstants.Tags.KEY_ANALYTICS_SAMPLE_RATE;
+import static com.motadata.android.trace.api.MotadataTracingConstants.Tags.VALUE_SPAN_KIND_CLIENT;
+import static com.motadata.android.trace.api.MotadataTracingConstants.Tags.VALUE_SPAN_KIND_CONSUMER;
+import static com.motadata.android.trace.api.MotadataTracingConstants.Tags.VALUE_SPAN_KIND_PRODUCER;
+import static com.motadata.android.trace.api.MotadataTracingConstants.Tags.VALUE_SPAN_KIND_SERVER;
 import static java.lang.Boolean.parseBoolean;
 import static java.util.Locale.ROOT;
 import static io.opentelemetry.api.trace.SpanKind.CLIENT;
@@ -21,8 +21,8 @@ import static io.opentelemetry.api.trace.SpanKind.SERVER;
 
 import androidx.annotation.Nullable;
 
-import com.motadata.android.trace.api.DatadogTracingConstants;
-import com.motadata.android.trace.api.span.DatadogSpan;
+import com.motadata.android.trace.api.MotadataTracingConstants;
+import com.motadata.android.trace.api.span.MotadataSpan;
 
 import io.opentelemetry.api.common.AttributeKey;
 import io.opentelemetry.api.trace.SpanKind;
@@ -34,10 +34,10 @@ public final class OtelConventions {
   private OtelConventions() {}
 
   /**
-   * Convert OpenTelemetry {@link SpanKind} to {@link DatadogTracingConstants.Tags#KEY_SPAN_KIND} value.
+   * Convert OpenTelemetry {@link SpanKind} to {@link MotadataTracingConstants.Tags#KEY_SPAN_KIND} value.
    *
    * @param spanKind The OpenTelemetry span kind to convert.
-   * @return The {@link DatadogTracingConstants.Tags#KEY_SPAN_KIND} value.
+   * @return The {@link MotadataTracingConstants.Tags#KEY_SPAN_KIND} value.
    */
   public static String toSpanKindTagValue(SpanKind spanKind) {
     switch (spanKind) {
@@ -57,9 +57,9 @@ public final class OtelConventions {
   }
 
   /**
-   * Convert {@link DatadogTracingConstants.Tags#KEY_SPAN_KIND} value to OpenTelemetry {@link SpanKind}.
+   * Convert {@link MotadataTracingConstants.Tags#KEY_SPAN_KIND} value to OpenTelemetry {@link SpanKind}.
    *
-   * @param spanKind The {@link DatadogTracingConstants.Tags#KEY_SPAN_KIND} value to convert.
+   * @param spanKind The {@link MotadataTracingConstants.Tags#KEY_SPAN_KIND} value to convert.
    * @return The related OpenTelemetry {@link SpanKind}.
    */
   public static SpanKind toOtelSpanKind(String spanKind) {
@@ -91,7 +91,7 @@ public final class OtelConventions {
    * @return {@code true} if the attributes is a reserved attribute applied to the span, {@code
    *     false} otherwise.
    */
-  public static <T> boolean applyReservedAttribute(DatadogSpan span, AttributeKey<T> key, T value) {
+  public static <T> boolean applyReservedAttribute(MotadataSpan span, AttributeKey<T> key, T value) {
     String name = key.getKey();
     switch (key.getType()) {
       case STRING:
@@ -111,15 +111,15 @@ public final class OtelConventions {
     return false;
   }
 
-  public static void applyNamingConvention(DatadogSpan span) {
+  public static void applyNamingConvention(MotadataSpan span) {
     // Check if span operation name is unchanged from its default value
     if (SPAN_KIND_INTERNAL.equals(span.getOperationName())) {
       span.setOperationName(computeOperationName(span).toLowerCase(ROOT));
     }
   }
 
-  private static String computeOperationName(DatadogSpan span) {
-    Object spanKingTag = span.getTag(DatadogTracingConstants.Tags.KEY_SPAN_KIND);
+  private static String computeOperationName(MotadataSpan span) {
+    Object spanKingTag = span.getTag(MotadataTracingConstants.Tags.KEY_SPAN_KIND);
     SpanKind spanKind =
         spanKingTag instanceof String ? toOtelSpanKind((String) spanKingTag) : INTERNAL;
     /*
@@ -210,7 +210,7 @@ public final class OtelConventions {
   }
 
   @Nullable
-  private static String getStringAttribute(DatadogSpan span, String key) {
+  private static String getStringAttribute(MotadataSpan span, String key) {
     Object tag = span.getTag(key);
     if (tag == null) {
       return null;

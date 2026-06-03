@@ -32,7 +32,7 @@ import com.motadata.android.sessionreplay.SystemRequirementsConfiguration
 import com.motadata.android.sessionreplay.TextAndInputPrivacy
 import com.motadata.android.sessionreplay.TouchPrivacy
 import com.motadata.android.sessionreplay.material.MaterialExtensionSupport
-import com.motadata.android.timber.DatadogTree
+import com.motadata.android.timber.MotadataTree
 import com.motadata.android.tv.sample.net.OkHttpDownloader
 import okhttp3.OkHttpClient
 import org.schabi.newpipe.extractor.NewPipe
@@ -113,7 +113,7 @@ class TvSampleApplication : Application() {
             .setLogcatLogsEnabled(true)
             .build()
 
-        Timber.plant(DatadogTree(logger))
+        Timber.plant(MotadataTree(logger))
     }
 
     private fun initializeOkHttp() {

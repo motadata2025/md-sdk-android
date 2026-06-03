@@ -10,7 +10,7 @@ package com.motadata.android.okhttp.trace
 import androidx.annotation.FloatRange
 import com.motadata.android.core.sampling.DeterministicSampler
 import com.motadata.android.okhttp.internal.utils.SpanSamplingIdProvider
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 
 @Deprecated(
     "Use com.motadata.android.trace.DeterministicTraceSampler instead.",
@@ -30,7 +30,7 @@ import com.motadata.android.trace.api.span.DatadogSpan
 // TODO RUM-13454 Remove with SDK v4 release.
 open class DeterministicTraceSampler(
     sampleRateProvider: () -> Float
-) : DeterministicSampler<DatadogSpan>(
+) : DeterministicSampler<MotadataSpan>(
     SpanSamplingIdProvider::provideId,
     sampleRateProvider
 ) {

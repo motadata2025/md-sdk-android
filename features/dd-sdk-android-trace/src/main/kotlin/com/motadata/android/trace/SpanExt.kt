@@ -6,24 +6,24 @@
 
 package com.motadata.android.trace
 
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 
 /**
- * Wraps the provided lambda within a [DatadogSpan].
+ * Wraps the provided lambda within a [MotadataSpan].
  * @param T the type returned by the lambda
- * @param operationName the name of the [DatadogSpan] created around the lambda
- * @param parentSpan the parent [DatadogSpan] (default is `null`)
- * @param activate whether the created [DatadogSpan] should be made active for the current thread
+ * @param operationName the name of the [MotadataSpan] created around the lambda
+ * @param parentSpan the parent [MotadataSpan] (default is `null`)
+ * @param activate whether the created [MotadataSpan] should be made active for the current thread
  * (default is `true`)
- * @param block the lambda function traced by this newly created [DatadogSpan]
+ * @param block the lambda function traced by this newly created [MotadataSpan]
  *
  */
 @SuppressWarnings("TooGenericExceptionCaught")
 inline fun <T : Any?> withinSpan(
     operationName: String,
-    parentSpan: DatadogSpan? = null,
+    parentSpan: MotadataSpan? = null,
     activate: Boolean = true,
-    block: DatadogSpan.() -> T
+    block: MotadataSpan.() -> T
 ): T {
     val tracer = GlobalDatadogTracer.get()
 

@@ -11,22 +11,22 @@ import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.logToUser
 import com.motadata.android.core.InternalSdkCore
 import com.motadata.android.trace.TracingHeaderType
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import java.util.Locale
 import java.util.concurrent.atomic.AtomicReference
 
 internal class TracerProvider internal constructor(
-    private val localTracerFactory: (SdkCore, Set<TracingHeaderType>) -> DatadogTracer,
-    private val globalTracerProvider: () -> DatadogTracer?
+    private val localTracerFactory: (SdkCore, Set<TracingHeaderType>) -> MotadataTracer,
+    private val globalTracerProvider: () -> MotadataTracer?
 ) {
-    private val localTracerReference: AtomicReference<DatadogTracer> = AtomicReference()
+    private val localTracerReference: AtomicReference<MotadataTracer> = AtomicReference()
 
     @Synchronized
     fun provideTracer(
         sdkCore: InternalSdkCore,
         localHeaderTypes: Set<TracingHeaderType>,
         networkingLibraryName: String
-    ): DatadogTracer? {
+    ): MotadataTracer? {
         val tracingFeature = sdkCore.getFeature(Feature.TRACING_FEATURE_NAME)
         val globalTracerInstance = globalTracerProvider.invoke()
         return when {
@@ -67,7 +67,7 @@ internal class TracerProvider internal constructor(
 
         const val WARNING_DEFAULT_TRACER =
             "You added a ApmNetworkInstrumentation to your %s instrumentation, " +
-                "but you didn't register any DatadogTracer. " +
+                "but you didn't register any MotadataTracer. " +
                 "We automatically created a local tracer for you."
     }
 }

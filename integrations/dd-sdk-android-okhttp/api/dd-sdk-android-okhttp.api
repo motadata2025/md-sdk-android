@@ -23,7 +23,7 @@ public final class com/motadata/android/okhttp/MotadataEventListener$Factory : o
 
 public class com/motadata/android/okhttp/MotadataInterceptor : com/motadata/android/okhttp/trace/TracingInterceptor {
 	public fun intercept (Lokhttp3/Interceptor$Chain;)Lokhttp3/Response;
-	protected fun onRequestIntercepted (Lcom/motadata/android/api/feature/FeatureSdkCore;Lokhttp3/Request;Lcom/motadata/android/trace/api/span/DatadogSpan;Lokhttp3/Response;Ljava/lang/Throwable;)V
+	protected fun onRequestIntercepted (Lcom/motadata/android/api/feature/FeatureSdkCore;Lokhttp3/Request;Lcom/motadata/android/trace/api/span/MotadataSpan;Lokhttp3/Response;Ljava/lang/Throwable;)V
 }
 
 public final class com/motadata/android/okhttp/MotadataInterceptor$Builder : com/motadata/android/okhttp/trace/TracingInterceptor$BaseBuilder {
@@ -86,17 +86,17 @@ public class com/motadata/android/okhttp/trace/DeterministicTraceSampler : com/m
 }
 
 public final class com/motadata/android/okhttp/trace/OkHttpRequestExtKt {
-	public static final fun parentSpan (Lokhttp3/Request$Builder;Lcom/motadata/android/trace/api/span/DatadogSpan;)Lokhttp3/Request$Builder;
+	public static final fun parentSpan (Lokhttp3/Request$Builder;Lcom/motadata/android/trace/api/span/MotadataSpan;)Lokhttp3/Request$Builder;
 }
 
 public abstract interface class com/motadata/android/okhttp/trace/TracedRequestListener {
-	public abstract fun onRequestIntercepted (Lokhttp3/Request;Lcom/motadata/android/trace/api/span/DatadogSpan;Lokhttp3/Response;Ljava/lang/Throwable;)V
+	public abstract fun onRequestIntercepted (Lokhttp3/Request;Lcom/motadata/android/trace/api/span/MotadataSpan;Lokhttp3/Response;Ljava/lang/Throwable;)V
 }
 
 public class com/motadata/android/okhttp/trace/TracingInterceptor : okhttp3/Interceptor {
 	protected final fun doIntercept (Lokhttp3/Interceptor$Chain;Lokhttp3/Request;)Lokhttp3/Response;
 	public fun intercept (Lokhttp3/Interceptor$Chain;)Lokhttp3/Response;
-	protected fun onRequestIntercepted (Lcom/motadata/android/api/feature/FeatureSdkCore;Lokhttp3/Request;Lcom/motadata/android/trace/api/span/DatadogSpan;Lokhttp3/Response;Ljava/lang/Throwable;)V
+	protected fun onRequestIntercepted (Lcom/motadata/android/api/feature/FeatureSdkCore;Lokhttp3/Request;Lcom/motadata/android/trace/api/span/MotadataSpan;Lokhttp3/Response;Ljava/lang/Throwable;)V
 }
 
 public abstract class com/motadata/android/okhttp/trace/TracingInterceptor$BaseBuilder {

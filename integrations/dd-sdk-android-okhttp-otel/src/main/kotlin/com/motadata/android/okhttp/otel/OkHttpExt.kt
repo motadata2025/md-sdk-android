@@ -7,7 +7,7 @@
 package com.motadata.android.okhttp.otel
 
 import com.motadata.android.okhttp.internal.OkHttpRequestInfoBuilder
-import com.motadata.android.trace.api.DatadogTracingConstants
+import com.motadata.android.trace.api.MotadataTracingConstants
 import com.motadata.android.trace.internal._TraceInternalProxy
 import com.datadog.opentelemetry.trace.OtelSpan
 import io.opentelemetry.api.trace.Span
@@ -36,9 +36,9 @@ fun Request.Builder.addParentSpan(span: Span): Request.Builder = apply {
             span.spanContext.traceId,
             span.spanContext.spanId,
             if (span.spanContext.isSampled) {
-                DatadogTracingConstants.PrioritySampling.USER_KEEP
+                MotadataTracingConstants.PrioritySampling.USER_KEEP
             } else {
-                DatadogTracingConstants.PrioritySampling.UNSET
+                MotadataTracingConstants.PrioritySampling.UNSET
             }
         )
     }

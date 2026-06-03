@@ -6,7 +6,7 @@
 
 package com.motadata.android.flags
 
-import com.motadata.android.flags.internal.DatadogFlagsClient
+import com.motadata.android.flags.internal.MotadataFlagsClient
 import com.motadata.android.flags.model.EvaluationContext
 import com.motadata.android.flags.model.UnparsedFlag
 import com.motadata.android.lint.InternalApi
@@ -24,14 +24,14 @@ import com.motadata.android.lint.InternalApi
 @InternalApi
 @Suppress("ClassName", "UndocumentedPublicFunction")
 class _FlagsInternalProxy(private val client: FlagsClient) {
-    fun getFlagAssignmentsSnapshot(): Map<String, UnparsedFlag> = if (client is DatadogFlagsClient) {
+    fun getFlagAssignmentsSnapshot(): Map<String, UnparsedFlag> = if (client is MotadataFlagsClient) {
         client.getFlagAssignmentsSnapshot()
     } else {
         emptyMap()
     }
 
     fun trackFlagSnapshotEvaluation(flagKey: String, flag: UnparsedFlag, context: EvaluationContext) {
-        if (client is DatadogFlagsClient) {
+        if (client is MotadataFlagsClient) {
             client.trackFlagSnapshotEvaluation(flagKey, flag, context)
         }
     }

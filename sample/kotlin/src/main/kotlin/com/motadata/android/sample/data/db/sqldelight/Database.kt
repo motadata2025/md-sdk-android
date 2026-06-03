@@ -8,7 +8,7 @@ package com.motadata.android.sample.data.db.sqldelight
 
 import android.content.Context
 import com.motadata.android.sample.LogsDatabase
-import com.motadata.android.sqldelight.DatadogSqliteCallback
+import com.motadata.android.sqldelight.MotadataSqliteCallback
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 
 internal object Database {
@@ -26,7 +26,7 @@ internal object Database {
             AndroidSqliteDriver(
                 LogsDatabase.Schema,
                 context,
-                callback = DatadogSqliteCallback(LogsDatabase.Schema)
+                callback = MotadataSqliteCallback(LogsDatabase.Schema)
             )
         )
     }

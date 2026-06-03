@@ -6,18 +6,18 @@
 package com.motadata.android.sdk.integration.network.wrappers.okhttp
 
 import com.motadata.android.okhttp.trace.TracedRequestListener
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import okhttp3.Request
 import okhttp3.Response
 import java.util.concurrent.CopyOnWriteArrayList
 
 class OkHttpSpansCollector : TracedRequestListener {
 
-    val spans = CopyOnWriteArrayList<DatadogSpan>()
+    val spans = CopyOnWriteArrayList<MotadataSpan>()
 
     override fun onRequestIntercepted(
         request: Request,
-        span: DatadogSpan,
+        span: MotadataSpan,
         response: Response?,
         throwable: Throwable?
     ) {

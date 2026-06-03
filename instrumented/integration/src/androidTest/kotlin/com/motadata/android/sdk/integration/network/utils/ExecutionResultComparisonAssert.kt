@@ -8,7 +8,7 @@ package com.motadata.android.sdk.integration.network.utils
 
 import com.motadata.android.sdk.integration.network.models.ClientExecutionResult
 import com.motadata.android.sdk.integration.network.models.TestRequest
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import org.assertj.core.api.AbstractObjectAssert
 import org.assertj.core.api.Assertions.assertThat
 
@@ -119,14 +119,14 @@ internal class ExecutionResultComparisonAssert(
         internal fun assertThat(actual: Map<String, ClientExecutionResult>, request: TestRequest) =
             ExecutionResultComparisonAssert(actual, request)
 
-        fun List<DatadogSpan>.associateById(): Map<Long, DatadogSpan> = associateBy { it.context().spanId }
+        fun List<MotadataSpan>.associateById(): Map<Long, MotadataSpan> = associateBy { it.context().spanId }
 
-        fun Map<Long, DatadogSpan>.childrenByParentId(): Map<Long, List<DatadogSpan>> =
+        fun Map<Long, MotadataSpan>.childrenByParentId(): Map<Long, List<MotadataSpan>> =
             values
                 .filter { containsKey(it.parentSpanId) }
                 .groupBy { checkNotNull(it.parentSpanId) }
 
-        fun DatadogSpan.hash(childrenByParentId: Map<Long, List<DatadogSpan>>): String {
+        fun MotadataSpan.hash(childrenByParentId: Map<Long, List<MotadataSpan>>): String {
             val props = "{$resourceName,${if (isRootSpan) "root" else ""}}"
             val childHashes = childrenByParentId[context().spanId].orEmpty()
                 .map { it.hash(childrenByParentId) }
@@ -139,7 +139,7 @@ internal class ExecutionResultComparisonAssert(
             }
         }
 
-        fun List<DatadogSpan>.hash(): String {
+        fun List<MotadataSpan>.hash(): String {
             val spanById = associateById()
             val childrenByParentId = spanById.childrenByParentId()
 

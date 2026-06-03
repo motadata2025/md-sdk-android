@@ -7,7 +7,7 @@
 package com.motadata.android.core
 
 import com.motadata.android.Motadata
-import com.motadata.android.core.internal.DatadogCore
+import com.motadata.android.core.internal.MotadataCore
 import fr.xgouchet.elmyr.annotation.IntForgery
 import fr.xgouchet.elmyr.annotation.StringForgery
 import fr.xgouchet.elmyr.junit5.ForgeExtension
@@ -29,7 +29,7 @@ import org.mockito.kotlin.whenever
 internal class SdkReferenceTest {
 
     @Mock
-    lateinit var mockSdkCore: DatadogCore
+    lateinit var mockSdkCore: MotadataCore
 
     @BeforeEach
     fun `set up`() {

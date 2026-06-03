@@ -7,9 +7,9 @@ package com.motadata.android.trace.internal
 
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureSdkCore
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.span.DatadogSpanContext
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.span.MotadataSpanContext
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.utils.forge.Configurator
 import fr.xgouchet.elmyr.annotation.Forgery
 import fr.xgouchet.elmyr.junit5.ForgeConfiguration
@@ -41,13 +41,13 @@ class TracePropagationScopeListenerTest {
     lateinit var mockSdkCore: FeatureSdkCore
 
     @Mock
-    lateinit var mockTracer: DatadogTracer
+    lateinit var mockTracer: MotadataTracer
 
     @Mock
-    lateinit var mockSpan: DatadogSpan
+    lateinit var mockSpan: MotadataSpan
 
     @Forgery
-    lateinit var fakeSpanContext: DatadogSpanContext
+    lateinit var fakeSpanContext: MotadataSpanContext
 
     private val contextName = "context@${Thread.currentThread().name}"
 

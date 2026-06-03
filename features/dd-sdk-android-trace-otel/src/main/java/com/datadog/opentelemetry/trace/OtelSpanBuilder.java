@@ -18,11 +18,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.motadata.android.api.InternalLogger;
-import com.motadata.android.trace.api.DatadogTracingConstants;
-import com.motadata.android.trace.api.span.DatadogSpan;
-import com.motadata.android.trace.api.span.DatadogSpanBuilder;
-import com.motadata.android.trace.api.span.DatadogSpanContext;
-import com.motadata.android.trace.api.tracer.DatadogTracer;
+import com.motadata.android.trace.api.MotadataTracingConstants;
+import com.motadata.android.trace.api.span.MotadataSpan;
+import com.motadata.android.trace.api.span.MotadataSpanBuilder;
+import com.motadata.android.trace.api.span.MotadataSpanContext;
+import com.motadata.android.trace.api.tracer.MotadataTracer;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -36,8 +36,8 @@ import io.opentelemetry.api.trace.SpanKind;
 import io.opentelemetry.context.Context;
 
 public class OtelSpanBuilder implements SpanBuilder {
-    private final DatadogSpanBuilder delegate;
-    private final DatadogTracer agentTracer;
+    private final MotadataSpanBuilder delegate;
+    private final MotadataTracer agentTracer;
 
     private boolean spanKindSet;
     /**
@@ -56,8 +56,8 @@ public class OtelSpanBuilder implements SpanBuilder {
     private final InternalLogger logger;
 
     public OtelSpanBuilder(
-            DatadogSpanBuilder delegate,
-            DatadogTracer agentTracer,
+            MotadataSpanBuilder delegate,
+            MotadataTracer agentTracer,
             @NonNull InternalLogger logger) {
         this.delegate = delegate;
         this.spanKindSet = false;
@@ -69,7 +69,7 @@ public class OtelSpanBuilder implements SpanBuilder {
 
     @Override
     public SpanBuilder setParent(Context context) {
-        DatadogSpanContext extractedContext = extract(context, logger);
+        MotadataSpanContext extractedContext = extract(context, logger);
         if (extractedContext != null) {
             this.delegate.withParentContext(extractedContext);
         }
@@ -162,7 +162,7 @@ public class OtelSpanBuilder implements SpanBuilder {
     @Override
     public SpanBuilder setSpanKind(@Nullable SpanKind spanKind) {
         if (spanKind != null) {
-            this.delegate.withTag(DatadogTracingConstants.Tags.KEY_SPAN_KIND, toSpanKindTagValue(spanKind));
+            this.delegate.withTag(MotadataTracingConstants.Tags.KEY_SPAN_KIND, toSpanKindTagValue(spanKind));
             this.spanKindSet = true;
         }
         return this;
@@ -180,13 +180,13 @@ public class OtelSpanBuilder implements SpanBuilder {
         if (!this.spanKindSet) {
             setSpanKind(INTERNAL);
         }
-        DatadogSpan delegate = this.delegate.start();
+        MotadataSpan delegate = this.delegate.start();
         // Apply overrides
         if (this.overriddenOperationName != null) {
             delegate.setOperationName(this.overriddenOperationName);
         }
         if (this.overriddenAnalyticsSampleRate != -1) {
-            delegate.setMetric(DatadogTracingConstants.Tags.KEY_ANALYTICS_SAMPLE_RATE, this.overriddenAnalyticsSampleRate);
+            delegate.setMetric(MotadataTracingConstants.Tags.KEY_ANALYTICS_SAMPLE_RATE, this.overriddenAnalyticsSampleRate);
         }
         return new OtelSpan(delegate, agentTracer);
     }

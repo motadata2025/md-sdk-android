@@ -27,7 +27,7 @@ internal class BackPressureExecutorService(
     THREAD_POOL_MAX_KEEP_ALIVE_MS,
     TimeUnit.MILLISECONDS,
     BackPressuredBlockingQueue(logger, executorContext, backpressureStrategy, timeProvider),
-    DatadogThreadFactory(executorContext)
+    MotadataThreadFactory(executorContext)
 ),
     FlushableExecutorService {
 

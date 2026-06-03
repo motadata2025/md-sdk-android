@@ -83,7 +83,7 @@ class ManualTrackingRumTest {
 
         // Then
         // We use reflection because that class is marked internal
-        val classDatadogRum = Class.forName("com.motadata.android.rum.internal.monitor.DatadogRumMonitor")
+        val classDatadogRum = Class.forName("com.motadata.android.rum.internal.monitor.MotadataRumMonitor")
         assertThat(result).isInstanceOf(classDatadogRum)
     }
 

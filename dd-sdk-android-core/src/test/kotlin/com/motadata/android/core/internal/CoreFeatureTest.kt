@@ -31,13 +31,13 @@ import com.motadata.android.core.internal.system.NoOpSystemInfoProvider
 import com.motadata.android.core.internal.thread.BackPressuredBlockingQueue
 import com.motadata.android.core.internal.time.AppStartTimeProvider
 import com.motadata.android.core.internal.time.KronosTimeProvider
-import com.motadata.android.core.internal.user.DatadogUserInfoProvider
+import com.motadata.android.core.internal.user.MotadataUserInfoProvider
 import com.motadata.android.core.internal.user.NoOpMutableUserInfoProvider
 import com.motadata.android.core.persistence.PersistenceStrategy
 import com.motadata.android.core.thread.FlushableExecutorService
 import com.motadata.android.internal.system.BuildSdkVersionProvider
 import com.motadata.android.internal.time.DefaultTimeProvider
-import com.motadata.android.ndk.internal.DatadogNdkCrashHandler
+import com.motadata.android.ndk.internal.MotadataNdkCrashHandler
 import com.motadata.android.ndk.internal.NoOpNdkCrashHandler
 import com.motadata.android.privacy.TrackingConsent
 import com.motadata.android.security.Encryption
@@ -277,7 +277,7 @@ internal class CoreFeatureTest {
 
         // Then
         assertThat(testedFeature.userInfoProvider)
-            .isInstanceOf(DatadogUserInfoProvider::class.java)
+            .isInstanceOf(MotadataUserInfoProvider::class.java)
     }
 
     @Test
@@ -917,7 +917,7 @@ internal class CoreFeatureTest {
 
         // Then
         assertThat(testedFeature.ndkCrashHandler)
-            .isInstanceOfSatisfying(DatadogNdkCrashHandler::class.java) {
+            .isInstanceOfSatisfying(MotadataNdkCrashHandler::class.java) {
                 assertThat(it.ndkCrashDataDirectory.parentFile).isEqualTo(
                     File(
                         tempDir,
@@ -964,7 +964,7 @@ internal class CoreFeatureTest {
 
         // Then
         assertThat(testedFeature.ndkCrashHandler)
-            .isInstanceOfSatisfying(DatadogNdkCrashHandler::class.java) {
+            .isInstanceOfSatisfying(MotadataNdkCrashHandler::class.java) {
                 assertThat(it.nativeCrashSourceType).isEqualTo("ndk+il2cpp")
             }
     }
@@ -1190,7 +1190,7 @@ internal class CoreFeatureTest {
     ) {
         // Given
         testedFeature.storageDir = tempDir
-        DatadogNdkCrashHandler.getLastViewEventFile(tempDir)
+        MotadataNdkCrashHandler.getLastViewEventFile(tempDir)
             .apply {
                 parentFile?.mkdirs()
             }
@@ -1200,7 +1200,7 @@ internal class CoreFeatureTest {
         testedFeature.deleteLastViewEvent()
 
         // Then
-        assertThat(DatadogNdkCrashHandler.getLastViewEventFile(tempDir)).doesNotExist()
+        assertThat(MotadataNdkCrashHandler.getLastViewEventFile(tempDir)).doesNotExist()
     }
 
     @Test
@@ -1244,7 +1244,7 @@ internal class CoreFeatureTest {
         testedFeature.storageDir = tempDir
 
         @Suppress("DEPRECATION")
-        val legacyNdkViewEventFile = DatadogNdkCrashHandler.getLastViewEventFile(tempDir)
+        val legacyNdkViewEventFile = MotadataNdkCrashHandler.getLastViewEventFile(tempDir)
         legacyNdkViewEventFile.parentFile?.mkdirs()
 
         BatchFileReaderWriter

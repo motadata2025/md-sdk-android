@@ -16,7 +16,7 @@ import com.motadata.android.rum.resource.ResourceHeadersExtractor
 import com.motadata.android.trace.DeterministicTraceSampler
 import com.motadata.android.trace.TraceContextInjection
 import com.motadata.android.trace.TracingHeaderType
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import com.datadog.tools.unit.extensions.TestConfigurationExtension
 import com.datadog.tools.unit.forge.BaseConfigurator
 import fr.xgouchet.elmyr.Forge
@@ -59,7 +59,7 @@ internal class MotadataInterceptorBuilderTest {
     private lateinit var fakeTracedHosts: List<String>
 
     @Mock
-    lateinit var mockSampler: Sampler<DatadogSpan>
+    lateinit var mockSampler: Sampler<MotadataSpan>
 
     @BeforeEach
     fun `set up`(forge: Forge) {

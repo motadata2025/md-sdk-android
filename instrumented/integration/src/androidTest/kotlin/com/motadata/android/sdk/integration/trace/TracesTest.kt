@@ -16,7 +16,7 @@ import com.motadata.android.sdk.rules.HandledRequest
 import com.motadata.android.sdk.rules.MockServerActivityTestRule
 import com.motadata.android.sdk.utils.isLogsUrl
 import com.motadata.android.sdk.utils.isTracesUrl
-import com.motadata.android.trace.api.span.DatadogSpan
+import com.motadata.android.trace.api.span.MotadataSpan
 import com.motadata.android.trace.internal._TraceInternalProxy
 import com.datadog.tools.unit.assertj.JsonObjectAssert.Companion.assertThat
 import com.google.gson.JsonElement
@@ -50,7 +50,7 @@ internal abstract class TracesTest {
     protected fun verifyExpectedSpans(
         context: MotadataContext,
         handledRequests: List<HandledRequest>,
-        expectedSpans: List<DatadogSpan>
+        expectedSpans: List<MotadataSpan>
     ) {
         val sentSpansObjects = mutableListOf<JsonObject>()
         handledRequests
@@ -116,7 +116,7 @@ internal abstract class TracesTest {
         }
     }
 
-    private fun assertMatches(jsonObject: JsonObject, span: DatadogSpan, context: MotadataContext) {
+    private fun assertMatches(jsonObject: JsonObject, span: MotadataSpan, context: MotadataContext) {
         assertThat(jsonObject)
             .hasField(SERVICE_NAME_KEY, span.serviceName)
             .hasField(TRACE_ID_KEY, span.leastSignificant64BitsTraceId())

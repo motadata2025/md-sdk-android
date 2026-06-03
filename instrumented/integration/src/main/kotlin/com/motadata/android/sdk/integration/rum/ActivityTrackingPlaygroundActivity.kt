@@ -11,7 +11,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.motadata.android.Motadata
-import com.motadata.android.rum.DdRumContentProvider
+import com.motadata.android.rum.MdRumContentProvider
 import com.motadata.android.rum.Rum
 import com.motadata.android.rum.tracking.ActivityViewTrackingStrategy
 import com.motadata.android.sdk.integration.R
@@ -33,7 +33,7 @@ internal class ActivityTrackingPlaygroundActivity : AppCompatActivity() {
         val sdkCore = Motadata.initialize(this, config, trackingConsent)
         checkNotNull(sdkCore)
 
-        DdRumContentProvider.processImportance = ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+        MdRumContentProvider.processImportance = ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
 
         val rumConfig = RuntimeConfig.rumConfigBuilder()
             .trackUserInteractions()

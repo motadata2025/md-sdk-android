@@ -9,7 +9,7 @@ package com.datadog.benchmark.sample.ui.trace
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.motadata.android.trace.api.DatadogTracingConstants
+import com.motadata.android.trace.api.MotadataTracingConstants
 import io.opentelemetry.api.trace.Span
 import io.opentelemetry.api.trace.StatusCode
 import io.opentelemetry.api.trace.Tracer
@@ -182,14 +182,14 @@ internal class TraceScenarioViewModel(
     private fun launchTracingJob(task: TraceScenarioScreenState.TracingTask): Job {
         return viewModelScope.launch(defaultDispatcher) {
             val rootSpan = tracer.spanBuilder(task.config.spanOperation).apply {
-                setAttribute(DatadogTracingConstants.Tags.RESOURCE_NAME, task.config.spanResource)
+                setAttribute(MotadataTracingConstants.Tags.RESOURCE_NAME, task.config.spanResource)
             }.startSpan()
 
             if (task.config.isError) {
                 rootSpan.apply {
                     setStatus(StatusCode.ERROR)
-                    setAttribute(DatadogTracingConstants.Tags.ERROR_TYPE, "simulated_error")
-                    setAttribute(DatadogTracingConstants.Tags.ERROR_MSG, "Simulated error message")
+                    setAttribute(MotadataTracingConstants.Tags.ERROR_TYPE, "simulated_error")
+                    setAttribute(MotadataTracingConstants.Tags.ERROR_MSG, "Simulated error message")
                 }
             }
 

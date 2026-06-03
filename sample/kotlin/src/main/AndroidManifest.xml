@@ -41,7 +41,7 @@
             android:value="XR_ACTIVITY_START_MODE_HOME_SPACE" />
 
         <receiver
-            android:name=".widget.DatadogWidgetsProvider"
+            android:name=".widget.MotadataWidgetsProvider"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -83,7 +83,7 @@
 
         <provider
             android:authorities="com.motadata.android.provider"
-            android:name=".data.db.sqlite.DatadogContentProvider"
+            android:name=".data.db.sqlite.MotadataContentProvider"
             android:exported="false"/>
 
         <service android:name=".auto.AutoMediaBrowserService"

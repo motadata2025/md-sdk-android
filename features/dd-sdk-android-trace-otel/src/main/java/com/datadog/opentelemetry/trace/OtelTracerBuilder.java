@@ -10,7 +10,7 @@ package com.datadog.opentelemetry.trace;
 import androidx.annotation.NonNull;
 
 import com.motadata.android.api.InternalLogger;
-import com.motadata.android.trace.api.tracer.DatadogTracer;
+import com.motadata.android.trace.api.tracer.MotadataTracer;
 import com.datadog.opentelemetry.compat.function.Function;
 
 import io.opentelemetry.api.trace.SpanBuilder;
@@ -22,7 +22,7 @@ public class OtelTracerBuilder implements TracerBuilder {
     private final String instrumentationScopeName;
 
     @NonNull
-    private final DatadogTracer datadogTracer;
+    private final MotadataTracer datadogTracer;
 
     @NonNull
     private final InternalLogger logger;
@@ -30,7 +30,7 @@ public class OtelTracerBuilder implements TracerBuilder {
 
     public OtelTracerBuilder(
             @NonNull String instrumentationScopeName,
-            @NonNull DatadogTracer datadogTracer,
+            @NonNull MotadataTracer datadogTracer,
             @NonNull InternalLogger logger) {
         this.datadogTracer = datadogTracer;
         this.instrumentationScopeName = instrumentationScopeName;

@@ -12,7 +12,7 @@ import com.motadata.android.okhttp.internal.RegistryTrackingEventListener
 import com.motadata.android.okhttp.internal.RumInstrumentationOkHttpAdapter
 import com.motadata.android.rum.ExperimentalRumApi
 import com.motadata.android.rum.configuration.RumNetworkInstrumentationConfiguration
-import com.motadata.android.tests.config.DatadogSingletonTestConfiguration
+import com.motadata.android.tests.config.MotadataSingletonTestConfiguration
 import com.motadata.android.trace.ApmNetworkInstrumentationConfiguration
 import com.motadata.android.trace.ApmNetworkTracingScope
 import com.motadata.android.trace.ExperimentalTraceApi
@@ -353,7 +353,7 @@ internal class OkHttpIntegrationPluginTest {
     }
 
     companion object {
-        val datadogCore = DatadogSingletonTestConfiguration()
+        val datadogCore = MotadataSingletonTestConfiguration()
 
         @TestConfigurationsProvider
         @JvmStatic

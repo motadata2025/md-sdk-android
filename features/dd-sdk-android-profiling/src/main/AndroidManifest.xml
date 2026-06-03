@@ -9,7 +9,7 @@
     <application>
 
         <provider
-            android:name="com.motadata.android.profiling.DdProfilingContentProvider"
+            android:name="com.motadata.android.profiling.MdProfilingContentProvider"
             android:authorities="${applicationId}.provider.datadog.profiling"
             android:exported="false"
             android:initOrder="1000" />

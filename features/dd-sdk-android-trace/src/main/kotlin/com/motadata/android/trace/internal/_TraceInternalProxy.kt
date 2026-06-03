@@ -8,11 +8,11 @@ package com.motadata.android.trace.internal
 import com.motadata.android.lint.InternalApi
 import com.motadata.android.trace.ApmNetworkInstrumentationConfiguration
 import com.motadata.android.trace.ApmNetworkInstrumentationConfiguration.Companion.createInstrumentation
-import com.motadata.android.trace.api.scope.DatadogScope
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.span.DatadogSpanContext
-import com.motadata.android.trace.api.tracer.DatadogTracer
-import com.motadata.android.trace.api.tracer.DatadogTracerBuilder
+import com.motadata.android.trace.api.scope.MotadataScope
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.span.MotadataSpanContext
+import com.motadata.android.trace.api.tracer.MotadataTracer
+import com.motadata.android.trace.api.tracer.MotadataTracerBuilder
 import com.datadog.trace.core.propagation.Baggage
 
 /**
@@ -29,39 +29,39 @@ object _TraceInternalProxy {
      * when working with the Motadata SDK.
      */
     @JvmField
-    val spanIdConverter: DatadogSpanIdConverter = DatadogSpanIdConverter()
+    val spanIdConverter: MotadataSpanIdConverter = MotadataSpanIdConverter()
 
     /**
-     * Providing helper function to extract [DatadogSpanContext] from tracing context added by addParentSpan method.
+     * Providing helper function to extract [MotadataSpanContext] from tracing context added by addParentSpan method.
 
      * This property is intended for internal usage only and should not
      * be altered externally.
      */
-    var propagationHelper: DatadogPropagationHelper = DatadogPropagationHelper()
+    var propagationHelper: MotadataPropagationHelper = MotadataPropagationHelper()
         internal set
 
-    internal var testBuilderProvider: DatadogTracerBuilder? = null
+    internal var testBuilderProvider: MotadataTracerBuilder? = null
 
     /**
      * Sets the tracing sampling priority if it is necessary.
      */
-    fun setTracingSamplingPriorityIfNecessary(context: DatadogSpanContext) {
-        (context as? DatadogSpanContextAdapter)?.setTracingSamplingPriorityIfNecessary()
+    fun setTracingSamplingPriorityIfNecessary(context: MotadataSpanContext) {
+        (context as? MotadataSpanContextAdapter)?.setTracingSamplingPriorityIfNecessary()
     }
 
     /**
      * Enables 128-bit trace ID generation for the provided Motadata tracer builder.
      */
-    fun setTraceId128BitGenerationEnabled(builder: DatadogTracerBuilder): DatadogTracerBuilder {
-        (builder as? DatadogTracerBuilderAdapter)?.setTraceId128BitGenerationEnabled(true)
+    fun setTraceId128BitGenerationEnabled(builder: MotadataTracerBuilder): MotadataTracerBuilder {
+        (builder as? MotadataTracerBuilderAdapter)?.setTraceId128BitGenerationEnabled(true)
         return builder
     }
 
     /**
      * Enables compatibility mode with SDK v2 for sampling factory strategy.
      */
-    fun setSdkV2Compatible(builder: DatadogTracerBuilder): DatadogTracerBuilder {
-        (builder as? DatadogTracerBuilderAdapter)?.setSdkV2Compatible()
+    fun setSdkV2Compatible(builder: MotadataTracerBuilder): MotadataTracerBuilder {
+        (builder as? MotadataTracerBuilderAdapter)?.setSdkV2Compatible()
         return builder
     }
 
@@ -74,8 +74,8 @@ object _TraceInternalProxy {
      * @param errorPriority The priority level of the error, represented as a byte.
      */
     @JvmStatic // this method is called from OTel code, written in java
-    fun addThrowable(span: DatadogSpan, throwable: Throwable, errorPriority: Byte) {
-        (span as? DatadogSpanAdapter)?.addThrowable(throwable, errorPriority)
+    fun addThrowable(span: MotadataSpan, throwable: Throwable, errorPriority: Byte) {
+        (span as? MotadataSpanAdapter)?.addThrowable(throwable, errorPriority)
     }
 
     /**
@@ -86,11 +86,11 @@ object _TraceInternalProxy {
      * @param tracer The tracer instance to be used for activation.
      * @param span The span to be activated. Represents the logical unit of work being traced.
      * @param asyncPropagating If true, this context will propagate across async boundaries.
-     * @return An instance of [DatadogScope] representing the activated scope.
+     * @return An instance of [MotadataScope] representing the activated scope.
      */
     @JvmStatic // this method is called from OTel code, written in java
-    fun activateSpan(tracer: DatadogTracer, span: DatadogSpan, asyncPropagating: Boolean): DatadogScope? {
-        return (tracer as? DatadogTracerAdapter)?.activateSpan(span, asyncPropagating)
+    fun activateSpan(tracer: MotadataTracer, span: MotadataSpan, asyncPropagating: Boolean): MotadataScope? {
+        return (tracer as? MotadataTracerAdapter)?.activateSpan(span, asyncPropagating)
     }
 
     /**

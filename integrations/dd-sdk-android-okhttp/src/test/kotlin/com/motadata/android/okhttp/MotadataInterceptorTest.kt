@@ -27,7 +27,7 @@ import com.motadata.android.rum.resource.ResourceId
 import com.motadata.android.trace.DeterministicTraceSampler
 import com.motadata.android.trace.TraceContextInjection
 import com.motadata.android.trace.TracingHeaderType
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.utils.verifyLog
 import com.datadog.tools.unit.extensions.TestConfigurationExtension
 import com.datadog.tools.unit.forge.BaseConfigurator
@@ -95,8 +95,8 @@ internal class MotadataInterceptorTest : TracingInterceptorNotSendingSpanTest() 
 
     override fun instantiateTestedInterceptor(
         tracedHosts: Map<String, Set<TracingHeaderType>>,
-        globalTracerProvider: () -> DatadogTracer?,
-        localTracerFactory: (SdkCore, Set<TracingHeaderType>) -> DatadogTracer
+        globalTracerProvider: () -> MotadataTracer?,
+        localTracerFactory: (SdkCore, Set<TracingHeaderType>) -> MotadataTracer
     ): TracingInterceptor {
         whenever(rumMonitor.mockSdkCore.getFeature(Feature.RUM_FEATURE_NAME)) doReturn mock()
         whenever(rumMonitor.mockSdkCore.firstPartyHostResolver) doReturn mockResolver

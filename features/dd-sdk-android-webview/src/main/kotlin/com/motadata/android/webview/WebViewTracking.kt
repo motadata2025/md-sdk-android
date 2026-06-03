@@ -18,7 +18,7 @@ import com.motadata.android.api.feature.StorageBackedFeature
 import com.motadata.android.api.storage.NoOpDataWriter
 import com.motadata.android.internal.telemetry.InternalTelemetryEvent
 import com.motadata.android.lint.InternalApi
-import com.motadata.android.webview.internal.DatadogEventBridge
+import com.motadata.android.webview.internal.MotadataEventBridge
 import com.motadata.android.webview.internal.MixedWebViewEventConsumer
 import com.motadata.android.webview.internal.NoOpWebViewEventConsumer
 import com.motadata.android.webview.internal.WebViewEventConsumer
@@ -95,7 +95,7 @@ object WebViewTracking {
             System.identityHashCode(webView).toString()
         )
         webView.addJavascriptInterface(
-            DatadogEventBridge(webViewEventConsumer, allowedHosts, privacyLevel),
+            MotadataEventBridge(webViewEventConsumer, allowedHosts, privacyLevel),
             DATADOG_EVENT_BRIDGE_NAME
         )
         featureSdkCore.internalLogger.logApiUsage {
@@ -284,7 +284,7 @@ object WebViewTracking {
     internal const val JAVA_SCRIPT_NOT_ENABLED_WARNING_MESSAGE =
         "You are trying to enable the WebView" +
             "tracking but the java script capability was not enabled for the given WebView."
-    internal const val DATADOG_EVENT_BRIDGE_NAME = "DatadogEventBridge"
+    internal const val DATADOG_EVENT_BRIDGE_NAME = "MotadataEventBridge"
 
     internal const val RUM_FEATURE_MISSING_INFO =
         "RUM feature is not registered, will ignore RUM events from WebView."

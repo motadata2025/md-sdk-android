@@ -18,7 +18,7 @@ import java.util.concurrent.Executor
 internal class CronetRequestContext internal constructor(
     internal var url: String,
     private val executor: Executor,
-    private val engine: DatadogCronetEngine,
+    private val engine: MotadataCronetEngine,
     private val requestCallback: CronetRequestCallback,
     private val requestParams: CronetRequestParams = CronetRequestParams(),
     private val additionalAnnotations: MutableList<Any> = mutableListOf()

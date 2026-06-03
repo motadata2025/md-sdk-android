@@ -38,7 +38,7 @@ internal class CrashReportsFeature(private val sdkCore: FeatureSdkCore) : Featur
         appContext: Context
     ) {
         originalUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
-        DatadogExceptionHandler(
+        MotadataExceptionHandler(
             sdkCore = sdkCore,
             appContext = appContext
         ).register()

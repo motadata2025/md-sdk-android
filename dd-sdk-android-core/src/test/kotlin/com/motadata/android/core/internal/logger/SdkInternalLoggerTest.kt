@@ -13,7 +13,7 @@ import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureScope
 import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.core.internal.CoreFeature
-import com.motadata.android.core.internal.DatadogCore
+import com.motadata.android.core.internal.MotadataCore
 import com.motadata.android.core.internal.metrics.MethodCalledTelemetry
 import com.motadata.android.core.metrics.TelemetryMetricType
 import com.motadata.android.internal.attributes.LocalAttribute
@@ -885,7 +885,7 @@ internal class SdkInternalLoggerTest {
     }
 
     private fun givenLoggerWithMetricTelemetrySampleRateBypass(sampleRate: Float?) {
-        val mockDatadogCore: DatadogCore = mock()
+        val mockDatadogCore: MotadataCore = mock()
         val mockCoreFeature: CoreFeature = mock()
         whenever(mockDatadogCore.coreFeature) doReturn mockCoreFeature
         whenever(mockCoreFeature.metricTelemetrySampleRateBypass) doReturn sampleRate

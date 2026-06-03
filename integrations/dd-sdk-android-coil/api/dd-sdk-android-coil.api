@@ -1,4 +1,4 @@
-public final class com/motadata/android/coil/DatadogCoilRequestListener : coil/request/ImageRequest$Listener {
+public final class com/motadata/android/coil/MotadataCoilRequestListener : coil/request/ImageRequest$Listener {
 	public fun <init> ()V
 	public fun <init> (Lcom/motadata/android/api/SdkCore;)V
 	public synthetic fun <init> (Lcom/motadata/android/api/SdkCore;ILkotlin/jvm/internal/DefaultConstructorMarker;)V

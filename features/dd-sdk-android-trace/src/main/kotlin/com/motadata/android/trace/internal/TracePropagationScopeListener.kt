@@ -6,13 +6,13 @@
 package com.motadata.android.trace.internal
 
 import com.motadata.android.api.feature.FeatureSdkCore
-import com.motadata.android.trace.api.scope.DatadogScopeListener
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.scope.MotadataScopeListener
+import com.motadata.android.trace.api.tracer.MotadataTracer
 
 internal class TracePropagationScopeListener(
     private val sdkCore: FeatureSdkCore,
-    private val datadogTracer: DatadogTracer
-) : DatadogScopeListener {
+    private val datadogTracer: MotadataTracer
+) : MotadataScopeListener {
     override fun afterScopeActivated() {
         val activeSpanContext = datadogTracer.activeSpan()?.context()
         if (activeSpanContext != null) {

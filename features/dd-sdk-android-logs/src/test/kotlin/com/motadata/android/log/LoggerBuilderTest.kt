@@ -13,9 +13,9 @@ import com.motadata.android.api.feature.FeatureSdkCore
 import com.motadata.android.api.storage.DataWriter
 import com.motadata.android.core.sampling.RateBasedSampler
 import com.motadata.android.log.internal.LogsFeature
-import com.motadata.android.log.internal.domain.DatadogLogGenerator
+import com.motadata.android.log.internal.domain.MotadataLogGenerator
 import com.motadata.android.log.internal.logger.CombinedLogHandler
-import com.motadata.android.log.internal.logger.DatadogLogHandler
+import com.motadata.android.log.internal.logger.MotadataLogHandler
 import com.motadata.android.log.internal.logger.LogHandler
 import com.motadata.android.log.internal.logger.LogcatLogHandler
 import com.motadata.android.log.internal.logger.NoOpLogHandler
@@ -111,7 +111,7 @@ internal class LoggerBuilderTest {
         val logger = Logger.Builder(mockSdkCore)
             .build()
 
-        val handler: DatadogLogHandler = logger.handler as DatadogLogHandler
+        val handler: MotadataLogHandler = logger.handler as MotadataLogHandler
         assertThat(handler.writer).isSameAs(mockDataWriter)
         assertThat(handler.bundleWithTraces).isTrue
         assertThat(handler.sampler).isInstanceOf(RateBasedSampler::class.java)
@@ -120,7 +120,7 @@ internal class LoggerBuilderTest {
         assertThat(handler.loggerName).isEqualTo(fakePackageName)
         assertThat(handler.attachNetworkInfo).isFalse
 
-        val logGenerator: DatadogLogGenerator = handler.logGenerator as DatadogLogGenerator
+        val logGenerator: MotadataLogGenerator = handler.logGenerator as MotadataLogGenerator
         assertThat(logGenerator.serviceName).isEqualTo(fakeServiceName)
     }
 
@@ -132,8 +132,8 @@ internal class LoggerBuilderTest {
             .setService(serviceName)
             .build()
 
-        val handler: DatadogLogHandler = logger.handler as DatadogLogHandler
-        val logGenerator: DatadogLogGenerator = handler.logGenerator as DatadogLogGenerator
+        val handler: MotadataLogHandler = logger.handler as MotadataLogHandler
+        val logGenerator: MotadataLogGenerator = handler.logGenerator as MotadataLogGenerator
         assertThat(logGenerator.serviceName).isEqualTo(serviceName)
     }
 
@@ -155,7 +155,7 @@ internal class LoggerBuilderTest {
             .setRemoteLogThreshold(minLogThreshold)
             .build()
 
-        val handler: DatadogLogHandler = logger.handler as DatadogLogHandler
+        val handler: MotadataLogHandler = logger.handler as MotadataLogHandler
         assertThat(handler.minLogPriority).isEqualTo(minLogThreshold)
     }
 
@@ -172,7 +172,7 @@ internal class LoggerBuilderTest {
         val handlers = (handler as CombinedLogHandler).handlers
         assertThat(handlers)
             .hasAtLeastOneElementOfType(LogcatLogHandler::class.java)
-            .hasAtLeastOneElementOfType(DatadogLogHandler::class.java)
+            .hasAtLeastOneElementOfType(MotadataLogHandler::class.java)
     }
 
     @Test
@@ -205,7 +205,7 @@ internal class LoggerBuilderTest {
             .setNetworkInfoEnabled(networkInfoEnabled)
             .build()
 
-        val handler: DatadogLogHandler = logger.handler as DatadogLogHandler
+        val handler: MotadataLogHandler = logger.handler as MotadataLogHandler
         assertThat(handler.attachNetworkInfo).isTrue
     }
 
@@ -217,7 +217,7 @@ internal class LoggerBuilderTest {
             .setName(loggerName)
             .build()
 
-        val handler: DatadogLogHandler = logger.handler as DatadogLogHandler
+        val handler: MotadataLogHandler = logger.handler as MotadataLogHandler
         assertThat(handler.loggerName).isEqualTo(loggerName)
     }
 
@@ -227,7 +227,7 @@ internal class LoggerBuilderTest {
             .setBundleWithTraceEnabled(false)
             .build()
 
-        val handler: DatadogLogHandler = logger.handler as DatadogLogHandler
+        val handler: MotadataLogHandler = logger.handler as MotadataLogHandler
         assertThat(handler.bundleWithTraces).isFalse
     }
 
@@ -237,7 +237,7 @@ internal class LoggerBuilderTest {
             .setBundleWithRumEnabled(false)
             .build()
 
-        val handler: DatadogLogHandler = logger.handler as DatadogLogHandler
+        val handler: MotadataLogHandler = logger.handler as MotadataLogHandler
         assertThat(handler.bundleWithRum).isFalse
     }
 
@@ -247,7 +247,7 @@ internal class LoggerBuilderTest {
 
         val logger = Logger.Builder(mockSdkCore).setRemoteSampleRate(expectedSampleRate).build()
 
-        val handler: DatadogLogHandler = logger.handler as DatadogLogHandler
+        val handler: MotadataLogHandler = logger.handler as MotadataLogHandler
         val sampler = handler.sampler
         assertThat(sampler).isInstanceOf(RateBasedSampler::class.java)
         assertThat((sampler as RateBasedSampler).getSampleRate()).isEqualTo(expectedSampleRate)

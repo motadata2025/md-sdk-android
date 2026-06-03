@@ -12,7 +12,7 @@ import com.motadata.android.Motadata
 import com.motadata.android.api.InternalLogger
 import com.motadata.android.api.feature.Feature
 import com.motadata.android.api.feature.FeatureSdkCore
-import com.motadata.android.core.internal.DatadogCore
+import com.motadata.android.core.internal.MotadataCore
 import com.motadata.android.core.internal.metrics.MethodCalledTelemetry
 import com.motadata.android.core.metrics.PerformanceMetric
 import com.motadata.android.core.metrics.TelemetryMetricType
@@ -103,7 +103,7 @@ internal class SdkInternalLogger(
         samplingRate: Float,
         creationSampleRate: Float?
     ) {
-        val updatedSamplingRate = (sdkCore as? DatadogCore)
+        val updatedSamplingRate = (sdkCore as? MotadataCore)
             ?.coreFeature
             ?.metricTelemetrySampleRateBypass
             ?: samplingRate

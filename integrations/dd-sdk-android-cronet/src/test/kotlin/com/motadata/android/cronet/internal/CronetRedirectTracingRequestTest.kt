@@ -50,7 +50,7 @@ internal class CronetRedirectTracingRequestTest {
     lateinit var mockApmNetworkInstrumentation: ApmNetworkInstrumentation
 
     @Mock
-    lateinit var mockEngine: DatadogCronetEngine
+    lateinit var mockEngine: MotadataCronetEngine
 
     @Mock
     lateinit var mockCallback: CronetRequestCallback

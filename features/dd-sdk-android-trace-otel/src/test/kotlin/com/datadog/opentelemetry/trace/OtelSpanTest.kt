@@ -6,10 +6,10 @@
 
 package com.datadog.opentelemetry.trace
 
-import com.motadata.android.trace.api.DatadogTracingConstants.DEFAULT_ASYNC_PROPAGATING
-import com.motadata.android.trace.api.DatadogTracingConstants.ErrorPriorities
-import com.motadata.android.trace.api.span.DatadogSpan
-import com.motadata.android.trace.api.tracer.DatadogTracer
+import com.motadata.android.trace.api.MotadataTracingConstants.DEFAULT_ASYNC_PROPAGATING
+import com.motadata.android.trace.api.MotadataTracingConstants.ErrorPriorities
+import com.motadata.android.trace.api.span.MotadataSpan
+import com.motadata.android.trace.api.tracer.MotadataTracer
 import com.motadata.android.trace.internal._TraceInternalProxy
 import com.motadata.android.trace.opentelemetry.utils.forge.Configurator
 import fr.xgouchet.elmyr.annotation.Forgery
@@ -49,10 +49,10 @@ import org.mockito.quality.Strictness
 internal class OtelSpanTest {
 
     @Mock
-    lateinit var mockAgentTracer: DatadogTracer
+    lateinit var mockAgentTracer: MotadataTracer
 
     @Mock
-    lateinit var mockAgentSpan: DatadogSpan
+    lateinit var mockAgentSpan: MotadataSpan
     lateinit var testedSpan: OtelSpan
 
     @BeforeEach
