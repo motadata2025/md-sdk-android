@@ -23,7 +23,7 @@ internal class DeserializedViewEventAssert(actual: ViewEvent) :
             .usingRecursiveComparison()
             .ignoringFields("context", "usr", "account", "view", "device", "dd.configuration")
             .isEqualTo(expected)
-        assertConfigurationEquals(actual.dd.configuration, expected.dd.configuration)
+        assertConfigurationEquals(actual.md.configuration, expected.md.configuration)
         assertThat(actual.view)
             .usingRecursiveComparison()
             .ignoringFields(

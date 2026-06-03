@@ -86,7 +86,7 @@ internal class CoreTracerSpanToSpanEventMapper(
             additionalProperties = userInfo.additionalProperties.toMutableMap()
         )
         val accountMeta = accountInfo?.let { resolveAccountInfo(it) }
-        val dd = SpanEvent.Dd(
+        val md = SpanEvent.Md(
             source = datadogContext.source,
             application = event.tags[LogAttributes.RUM_APPLICATION_ID]?.let { SpanEvent.Application(it as? String) },
             session = event.tags[LogAttributes.RUM_SESSION_ID]?.let { SpanEvent.Session(it as? String) },
@@ -103,7 +103,7 @@ internal class CoreTracerSpanToSpanEventMapper(
         resolveSpanLinks(event)?.let { meta[SPAN_LINKS_KEY] = it }
         return SpanEvent.Meta(
             version = datadogContext.version,
-            dd = dd,
+            md = md,
             span = SpanEvent.Span(),
             tracer = SpanEvent.Tracer(
                 version = datadogContext.sdkVersion

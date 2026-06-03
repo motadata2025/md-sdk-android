@@ -19,7 +19,7 @@ import com.motadata.android.rum.internal.domain.Time
 import com.motadata.android.rum.internal.instrumentation.insights.InsightsCollector
 import com.motadata.android.rum.internal.monitor.StorageEvent
 import com.motadata.android.rum.internal.toAction
-import com.motadata.android.rum.internal.utils.buildDDTagsString
+import com.motadata.android.rum.internal.utils.buildMdTagsString
 import com.motadata.android.rum.internal.utils.hasUserData
 import com.motadata.android.rum.internal.utils.newRumEventWriteOperation
 import com.motadata.android.rum.model.ActionEvent
@@ -350,8 +350,8 @@ internal class RumActionScope(
                     isLowRam = datadogContext.deviceInfo.isLowRam
                 ),
                 context = ActionEvent.Context(additionalProperties = getCustomAttributes().toMutableMap()),
-                dd = ActionEvent.Dd(
-                    session = ActionEvent.DdSession(
+                md = ActionEvent.Md(
+                    session = ActionEvent.MdSession(
                         sessionPrecondition = rumContext.sessionStartReason.toActionSessionPrecondition()
                     ),
                     configuration = ActionEvent.Configuration(sessionSampleRate = sampleRate)
@@ -361,7 +361,7 @@ internal class RumActionScope(
                 version = datadogContext.version,
                 buildVersion = datadogContext.versionCode.toString(),
                 buildId = datadogContext.appBuildId,
-                ddtags = buildDDTagsString(datadogContext)
+                mdtags = buildMdTagsString(datadogContext)
             )
         }
             .apply {

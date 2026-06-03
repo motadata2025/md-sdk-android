@@ -143,8 +143,8 @@ class ViewEventForgeryFactory : ForgeryFactory<ViewEvent> {
                     additionalProperties = exhaustiveAttributes()
                 )
             },
-            dd = ViewEvent.Dd(
-                session = forge.aNullable { ViewEvent.DdSession(aNullable { getForgery() }) },
+            md = ViewEvent.Md(
+                session = forge.aNullable { ViewEvent.MdSession(aNullable { getForgery() }) },
                 browserSdkVersion = forge.aNullable { aStringMatching("\\d+\\.\\d+\\.\\d+") },
                 documentVersion = forge.aPositiveLong(strict = true),
                 configuration = forge.aNullable {
@@ -155,7 +155,7 @@ class ViewEventForgeryFactory : ForgeryFactory<ViewEvent> {
                     )
                 }
             ),
-            ddtags = forge.aNullable { ddTagsString() }
+            mdtags = forge.aNullable { ddTagsString() }
         )
     }
 }

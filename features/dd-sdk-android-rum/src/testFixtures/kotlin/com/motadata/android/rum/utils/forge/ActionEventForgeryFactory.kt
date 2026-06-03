@@ -119,11 +119,11 @@ class ActionEventForgeryFactory :
             context = forge.aNullable {
                 ActionEvent.Context(additionalProperties = forge.exhaustiveAttributes())
             },
-            dd = ActionEvent.Dd(
-                session = forge.aNullable { ActionEvent.DdSession(aNullable { getForgery() }) },
+            md = ActionEvent.Md(
+                session = forge.aNullable { ActionEvent.MdSession(aNullable { getForgery() }) },
                 browserSdkVersion = forge.aNullable { aStringMatching("\\d+\\.\\d+\\.\\d+") }
             ),
-            ddtags = forge.aNullable { ddTagsString() }
+            mdtags = forge.aNullable { ddTagsString() }
         )
     }
 }

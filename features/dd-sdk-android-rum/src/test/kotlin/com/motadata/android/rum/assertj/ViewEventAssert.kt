@@ -89,10 +89,10 @@ internal class ViewEventAssert(actual: ViewEvent) :
     }
 
     fun hasVersion(expected: Long): ViewEventAssert {
-        assertThat(actual.dd.documentVersion)
+        assertThat(actual.md.documentVersion)
             .overridingErrorMessage(
                 "Expected event data to have dd.documentVersion $expected " +
-                    "but was ${actual.dd.documentVersion}"
+                    "but was ${actual.md.documentVersion}"
             )
             .isEqualTo(expected)
         return this
@@ -558,10 +558,10 @@ internal class ViewEventAssert(actual: ViewEvent) :
     }
 
     fun hasStartReason(reason: RumSessionScope.StartReason): ViewEventAssert {
-        assertThat(actual.dd.session?.sessionPrecondition)
+        assertThat(actual.md.session?.sessionPrecondition)
             .overridingErrorMessage(
                 "Expected event to have a session sessionPrecondition of ${reason.name} " +
-                    "but was ${actual.dd.session?.sessionPrecondition}"
+                    "but was ${actual.md.session?.sessionPrecondition}"
             )
             .isEqualTo(reason.toViewSessionPrecondition())
         return this
@@ -692,10 +692,10 @@ internal class ViewEventAssert(actual: ViewEvent) :
     }
 
     fun hasReplayStats(replayStats: ViewEvent.ReplayStats) {
-        assertThat(actual.dd.replayStats)
+        assertThat(actual.md.replayStats)
             .overridingErrorMessage(
                 "Expected event data to have replay stats $replayStats " +
-                    "but was ${actual.dd.replayStats}"
+                    "but was ${actual.md.replayStats}"
             )
             .isEqualTo(replayStats)
     }
@@ -816,30 +816,30 @@ internal class ViewEventAssert(actual: ViewEvent) :
     }
 
     fun hasSampleRate(sampleRate: Float?): ViewEventAssert {
-        assertThat(actual.dd.configuration?.sessionSampleRate ?: 0)
+        assertThat(actual.md.configuration?.sessionSampleRate ?: 0)
             .overridingErrorMessage(
                 "Expected RUM event to have sample rate: $sampleRate" +
-                    " but instead was: ${actual.dd.configuration?.sessionSampleRate}"
+                    " but instead was: ${actual.md.configuration?.sessionSampleRate}"
             )
             .isEqualTo(sampleRate)
         return this
     }
 
     fun hasSessionReplaySampleRate(expected: Long?): ViewEventAssert {
-        assertThat(actual.dd.configuration?.sessionReplaySampleRate)
+        assertThat(actual.md.configuration?.sessionReplaySampleRate)
             .overridingErrorMessage(
                 "Expected RUM event to have sessionReplaySampleRate: $expected" +
-                    " but instead was: ${actual.dd.configuration?.sessionReplaySampleRate}"
+                    " but instead was: ${actual.md.configuration?.sessionReplaySampleRate}"
             )
             .isEqualTo(expected)
         return this
     }
 
     fun hasTraceSampleRate(expected: Float?): ViewEventAssert {
-        assertThat(actual.dd.configuration?.traceSampleRate)
+        assertThat(actual.md.configuration?.traceSampleRate)
             .overridingErrorMessage(
                 "Expected RUM event to have traceSampleRate: $expected" +
-                    " but instead was: ${actual.dd.configuration?.traceSampleRate}"
+                    " but instead was: ${actual.md.configuration?.traceSampleRate}"
             )
             .isEqualTo(expected)
         return this

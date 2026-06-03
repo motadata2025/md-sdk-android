@@ -41,7 +41,7 @@ internal class TelemetryConfigurationEventForgeryFactory :
                     forge.getForgery<UUID>().toString()
                 )
             },
-            dd = TelemetryConfigurationEvent.Dd(),
+            md = TelemetryConfigurationEvent.Md(),
             telemetry = TelemetryConfigurationEvent.Telemetry(
                 configuration = TelemetryConfigurationEvent.Configuration(
                     sessionSampleRate = forge.aNullable { aLong() },

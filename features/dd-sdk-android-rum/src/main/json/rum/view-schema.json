@@ -15,7 +15,7 @@
       "$ref": "_view-properties-schema.json"
     },
     {
-      "required": ["type", "view", "_dd"],
+      "required": ["type", "view", "_md"],
       "properties": {
         "type": {
           "type": "string",
@@ -33,7 +33,7 @@
             "resource": { "type": "object" }
           }
         },
-        "_dd": {
+        "_md": {
           "type": "object",
           "description": "Internal properties",
           "required": ["document_version"],

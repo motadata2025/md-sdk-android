@@ -47,7 +47,7 @@ import com.motadata.android.rum.internal.toError
 import com.motadata.android.rum.internal.toLongTask
 import com.motadata.android.rum.internal.toView
 import com.motadata.android.rum.internal.toVital
-import com.motadata.android.rum.internal.utils.buildDDTagsString
+import com.motadata.android.rum.internal.utils.buildMdTagsString
 import com.motadata.android.rum.internal.utils.hasUserData
 import com.motadata.android.rum.internal.utils.newRumEventWriteOperation
 import com.motadata.android.rum.internal.vitals.VitalInfo
@@ -343,8 +343,8 @@ internal open class RumViewScope(
                     it.putAll(eventAttributes)
                 }
             ),
-            dd = VitalOperationStepEvent.Dd(
-                session = VitalOperationStepEvent.DdSession(
+            md = VitalOperationStepEvent.Md(
+                session = VitalOperationStepEvent.MdSession(
                     sessionPrecondition = rumContext.sessionStartReason.toVitalOperationStepSessionPrecondition()
                 ),
                 configuration = VitalOperationStepEvent.Configuration(sessionSampleRate = sampleRate)
@@ -411,7 +411,7 @@ internal open class RumViewScope(
             buildVersion = datadogContext.versionCode.toString(),
             buildId = datadogContext.appBuildId,
             service = datadogContext.service,
-            ddtags = buildDDTagsString(datadogContext),
+            mdtags = buildMdTagsString(datadogContext),
             vital = VitalOperationStepEvent.Vital(
                 id = UUID.randomUUID().toString(),
                 name = name,
@@ -805,8 +805,8 @@ internal open class RumViewScope(
                     isLowRam = datadogContext.deviceInfo.isLowRam
                 ),
                 context = ErrorEvent.Context(additionalProperties = errorCustomAttributes),
-                dd = ErrorEvent.Dd(
-                    session = ErrorEvent.DdSession(
+                md = ErrorEvent.Md(
+                    session = ErrorEvent.MdSession(
                         sessionPrecondition = rumContext.sessionStartReason.toErrorSessionPrecondition()
                     ),
                     configuration = ErrorEvent.Configuration(sessionSampleRate = sampleRate)
@@ -814,7 +814,7 @@ internal open class RumViewScope(
                 service = datadogContext.service,
                 version = datadogContext.version,
                 buildVersion = datadogContext.versionCode.toString(),
-                ddtags = buildDDTagsString(datadogContext)
+                mdtags = buildMdTagsString(datadogContext)
             )
         }
             .apply {
@@ -1337,9 +1337,9 @@ internal open class RumViewScope(
                     isLowRam = datadogContext.deviceInfo.isLowRam
                 ),
                 context = ViewEvent.Context(additionalProperties = viewCustomAttributes),
-                dd = ViewEvent.Dd(
+                md = ViewEvent.Md(
                     documentVersion = eventVersion,
-                    session = ViewEvent.DdSession(
+                    session = ViewEvent.MdSession(
                         sessionPrecondition = rumContext.sessionStartReason.toViewSessionPrecondition()
                     ),
                     replayStats = replayStats,
@@ -1354,7 +1354,7 @@ internal open class RumViewScope(
                 version = datadogContext.version,
                 buildVersion = datadogContext.versionCode.toString(),
                 buildId = datadogContext.appBuildId,
-                ddtags = buildDDTagsString(datadogContext)
+                mdtags = buildMdTagsString(datadogContext)
             ).apply {
                 sessionEndedMetricDispatcher.onViewTracked(sessionId, this)
             }
@@ -1519,8 +1519,8 @@ internal open class RumViewScope(
                     isLowRam = datadogContext.deviceInfo.isLowRam
                 ),
                 context = LongTaskEvent.Context(additionalProperties = longTaskCustomAttributes),
-                dd = LongTaskEvent.Dd(
-                    session = LongTaskEvent.DdSession(
+                md = LongTaskEvent.Md(
+                    session = LongTaskEvent.MdSession(
                         sessionPrecondition = rumContext.sessionStartReason.toLongTaskSessionPrecondition()
                     ),
                     configuration = LongTaskEvent.Configuration(sessionSampleRate = sampleRate)
@@ -1529,7 +1529,7 @@ internal open class RumViewScope(
                 version = datadogContext.version,
                 buildVersion = datadogContext.versionCode.toString(),
                 buildId = datadogContext.appBuildId,
-                ddtags = buildDDTagsString(datadogContext)
+                mdtags = buildMdTagsString(datadogContext)
             )
         }
             .apply {

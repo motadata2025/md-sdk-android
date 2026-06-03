@@ -268,7 +268,7 @@ internal class SpanEventSerializerTest {
             .hasField(KEY_TYPE, TYPE_CUSTOM)
             .hasField(KEY_META) {
                 hasField(KEY_DD) {
-                    val expectedSource = span.meta.dd.source
+                    val expectedSource = span.meta.md.source
                     if (expectedSource == null) {
                         doesNotHaveField(KEY_SOURCE)
                     } else {
@@ -591,7 +591,7 @@ internal class SpanEventSerializerTest {
         private const val KEY_CLIENT = "client"
         private const val KEY_METRICS = "metrics"
         private const val KEY_METRICS_TOP_LEVEL = "_top_level"
-        private const val KEY_DD = "_dd"
+        private const val KEY_DD = "_md"
         private const val KEY_SOURCE = "source"
         private const val KEY_SPAN = "span"
         private const val KEY_KIND = "kind"

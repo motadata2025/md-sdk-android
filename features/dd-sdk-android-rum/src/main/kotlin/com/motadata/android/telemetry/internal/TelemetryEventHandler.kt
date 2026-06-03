@@ -218,7 +218,7 @@ internal class TelemetryEventHandler(
             .addDiagnosticsAttributes()
 
         return TelemetryDebugEvent(
-            dd = TelemetryDebugEvent.Dd(),
+            md = TelemetryDebugEvent.Md(),
             date = timestamp,
             source = TelemetryDebugEvent.Source.tryFromSource(
                 datadogContext.source,
@@ -268,7 +268,7 @@ internal class TelemetryEventHandler(
             .addDiagnosticsAttributes()
 
         return TelemetryErrorEvent(
-            dd = TelemetryErrorEvent.Dd(),
+            md = TelemetryErrorEvent.Md(),
             date = timestamp,
             source = TelemetryErrorEvent.Source.tryFromSource(
                 datadogContext.source,
@@ -352,7 +352,7 @@ internal class TelemetryEventHandler(
             ?.timeThresholdInMilliseconds
 
         return TelemetryConfigurationEvent(
-            dd = TelemetryConfigurationEvent.Dd(),
+            md = TelemetryConfigurationEvent.Md(),
             date = timestamp,
             service = TELEMETRY_SERVICE_NAME,
             source = TelemetryConfigurationEvent.Source.tryFromSource(
@@ -463,7 +463,7 @@ internal class TelemetryEventHandler(
         }
 
         return TelemetryUsageEvent(
-            dd = TelemetryUsageEvent.Dd(),
+            md = TelemetryUsageEvent.Md(),
             date = timestamp,
             source = TelemetryUsageEvent.Source.tryFromSource(
                 datadogContext.source,

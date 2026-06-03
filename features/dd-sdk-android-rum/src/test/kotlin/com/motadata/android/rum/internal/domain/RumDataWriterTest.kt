@@ -133,7 +133,7 @@ internal class RumDataWriterTest {
         val hasAccessibility = fakeViewEvent.view.accessibility != null
         val eventMeta = RumEventMeta.View(
             viewId = fakeViewEvent.view.id,
-            documentVersion = fakeViewEvent.dd.documentVersion,
+            documentVersion = fakeViewEvent.md.documentVersion,
             hasAccessibility = hasAccessibility
         )
         val fakeSerializedViewEventMeta = forge.aString()
@@ -163,7 +163,7 @@ internal class RumDataWriterTest {
         val hasAccessibility = fakeViewEvent.view.accessibility != null
         val eventMeta = RumEventMeta.View(
             viewId = fakeViewEvent.view.id,
-            documentVersion = fakeViewEvent.dd.documentVersion,
+            documentVersion = fakeViewEvent.md.documentVersion,
             hasAccessibility = hasAccessibility
         )
         whenever(mockEventMetaSerializer.serialize(eventMeta)) doThrow forge.aThrowable()

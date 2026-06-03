@@ -371,7 +371,7 @@
           "additionalProperties": true,
           "readOnly": true
         },
-        "_dd": {
+        "_md": {
           "type": "object",
           "description": "Internal properties",
           "properties": {

@@ -51,7 +51,7 @@ internal class SpanEventForgeryFactory : ForgeryFactory<SpanEvent> {
             start = startTime,
             meta = SpanEvent.Meta(
                 version = appPackageVersion,
-                dd = SpanEvent.Dd(source = forge.aNullable { anAlphabeticalString() }),
+                md = SpanEvent.Md(source = forge.aNullable { anAlphabeticalString() }),
                 span = SpanEvent.Span(),
                 tracer = SpanEvent.Tracer(tracerVersion),
                 usr = SpanEvent.Usr(

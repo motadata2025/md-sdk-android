@@ -57,11 +57,11 @@ class VitalAppLaunchEventForgeryFactory : ForgeryFactory<VitalAppLaunchEvent> {
                     additionalProperties = forge.exhaustiveAttributes()
                 )
             },
-            dd = VitalAppLaunchEvent.Dd(
-                session = forge.aNullable { VitalAppLaunchEvent.DdSession(getForgery()) },
+            md = VitalAppLaunchEvent.Md(
+                session = forge.aNullable { VitalAppLaunchEvent.MdSession(getForgery()) },
                 browserSdkVersion = forge.aNullable { aStringMatching("\\d+\\.\\d+\\.\\d+") }
             ),
-            ddtags = forge.aNullable { ddTagsString() },
+            mdtags = forge.aNullable { ddTagsString() },
             view = VitalAppLaunchEvent.VitalAppLaunchEventView(
                 id = forge.getForgery<UUID>().toString(),
                 referrer = forge.aNullable { getForgery<URL>().toString() },

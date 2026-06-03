@@ -96,7 +96,7 @@
           "description": "The client application package version",
           "readOnly": true
         },
-        "_dd": {
+        "_md": {
           "type": "object",
           "properties": {
             "source": {
@@ -262,7 +262,7 @@
       },
       "required": [
         "version",
-        "_dd",
+        "_md",
         "span",
         "tracer",
         "usr",

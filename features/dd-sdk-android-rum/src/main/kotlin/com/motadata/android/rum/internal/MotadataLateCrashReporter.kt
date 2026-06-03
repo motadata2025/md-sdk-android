@@ -25,7 +25,7 @@ import com.motadata.android.rum.internal.domain.RumContext
 import com.motadata.android.rum.internal.domain.event.RumEventDeserializer
 import com.motadata.android.rum.internal.domain.scope.toErrorSchemaType
 import com.motadata.android.rum.internal.domain.scope.tryFromSource
-import com.motadata.android.rum.internal.utils.buildDDTagsString
+import com.motadata.android.rum.internal.utils.buildMdTagsString
 import com.motadata.android.rum.model.ErrorEvent
 import com.motadata.android.rum.model.ViewEvent
 import com.google.gson.JsonObject
@@ -257,8 +257,8 @@ internal class MotadataLateCrashReporter(
                 totalRam = deviceInfo.totalRam,
                 isLowRam = deviceInfo.isLowRam
             ),
-            dd = ErrorEvent.Dd(
-                session = ErrorEvent.DdSession(),
+            md = ErrorEvent.Md(
+                session = ErrorEvent.MdSession(),
                 configuration = ErrorEvent.Configuration(sessionSampleRate = viewEvent.sampleRate)
             ),
             context = ErrorEvent.Context(additionalProperties = additionalProperties),
@@ -285,7 +285,7 @@ internal class MotadataLateCrashReporter(
             featureFlags = viewEvent.featureFlags?.let {
                 ErrorEvent.Context(additionalProperties = it.additionalProperties)
             },
-            ddtags = buildDDTagsString(datadogContext)
+            mdtags = buildMdTagsString(datadogContext)
         )
     }
 
@@ -323,8 +323,8 @@ internal class MotadataLateCrashReporter(
                 crash = newCrash,
                 isActive = false
             ),
-            dd = lastViewEvent.dd.copy(
-                documentVersion = lastViewEvent.dd.documentVersion + 1
+            md = lastViewEvent.md.copy(
+                documentVersion = lastViewEvent.md.documentVersion + 1
             )
         )
     }

@@ -50,19 +50,19 @@ internal class VitalEventAssert(
     }
 
     fun hasStartReason(reason: RumSessionScope.StartReason) = apply {
-        assertThat(actual.dd.session?.sessionPrecondition)
+        assertThat(actual.md.session?.sessionPrecondition)
             .overridingErrorMessage(
                 "Expected event to have a session sessionPrecondition of ${reason.name} " +
-                    "but was ${actual.dd.session?.sessionPrecondition}"
+                    "but was ${actual.md.session?.sessionPrecondition}"
             )
             .isEqualTo(reason.toVitalOperationStepSessionPrecondition())
     }
 
     fun hasSampleRate(sampleRate: Float?) = apply {
-        assertThat(actual.dd.configuration?.sessionSampleRate ?: 0)
+        assertThat(actual.md.configuration?.sessionSampleRate ?: 0)
             .overridingErrorMessage(
                 "Expected event to have sample rate: $sampleRate" +
-                    " but instead was: ${actual.dd.configuration?.sessionSampleRate}"
+                    " but instead was: ${actual.md.configuration?.sessionSampleRate}"
             )
             .isEqualTo(sampleRate)
     }
@@ -369,10 +369,10 @@ internal class VitalEventAssert(
     }
 
     fun hasDDTags(ddTags: String) = apply {
-        assertThat(actual.ddtags)
+        assertThat(actual.mdtags)
             .overridingErrorMessage(
                 "Expected RUM event to have ddTags: $ddTags" +
-                    " but instead was: ${actual.ddtags}"
+                    " but instead was: ${actual.mdtags}"
             )
             .isEqualTo(ddTags)
     }

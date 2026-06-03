@@ -141,11 +141,11 @@ class ErrorEventForgeryFactory : ForgeryFactory<ErrorEvent> {
             context = forge.aNullable {
                 ErrorEvent.Context(additionalProperties = forge.exhaustiveAttributes())
             },
-            dd = ErrorEvent.Dd(
-                session = forge.aNullable { ErrorEvent.DdSession(aNullable { getForgery() }) },
+            md = ErrorEvent.Md(
+                session = forge.aNullable { ErrorEvent.MdSession(aNullable { getForgery() }) },
                 browserSdkVersion = forge.aNullable { aStringMatching("\\d+\\.\\d+\\.\\d+") }
             ),
-            ddtags = forge.aNullable { ddTagsString() }
+            mdtags = forge.aNullable { ddTagsString() }
         )
     }
 }

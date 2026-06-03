@@ -56,11 +56,11 @@ class VitalOperationStepEventForgeryFactory : ForgeryFactory<VitalOperationStepE
                     additionalProperties = forge.exhaustiveAttributes()
                 )
             },
-            dd = VitalOperationStepEvent.Dd(
-                session = forge.aNullable { VitalOperationStepEvent.DdSession(getForgery()) },
+            md = VitalOperationStepEvent.Md(
+                session = forge.aNullable { VitalOperationStepEvent.MdSession(getForgery()) },
                 browserSdkVersion = forge.aNullable { aStringMatching("\\d+\\.\\d+\\.\\d+") }
             ),
-            ddtags = forge.aNullable { ddTagsString() },
+            mdtags = forge.aNullable { ddTagsString() },
             view = VitalOperationStepEvent.VitalOperationStepEventView(
                 id = forge.getForgery<UUID>().toString(),
                 referrer = forge.aNullable { getForgery<URL>().toString() },

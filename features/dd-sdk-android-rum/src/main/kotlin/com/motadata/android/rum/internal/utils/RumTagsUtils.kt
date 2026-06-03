@@ -9,7 +9,7 @@ package com.motadata.android.rum.internal.utils
 import com.motadata.android.api.context.MotadataContext
 import com.motadata.android.rum.RumAttributes
 
-internal fun buildDDTagsString(context: MotadataContext): String {
+internal fun buildMdTagsString(context: MotadataContext): String {
     return buildString {
         with(context) {
             append("${RumAttributes.SERVICE_NAME}:$service").append(",")

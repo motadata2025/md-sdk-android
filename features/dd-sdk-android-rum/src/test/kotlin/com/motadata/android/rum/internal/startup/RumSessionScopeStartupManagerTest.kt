@@ -33,7 +33,7 @@ import com.motadata.android.rum.internal.domain.scope.RumVitalAppLaunchEventHelp
 import com.motadata.android.rum.internal.domain.scope.toVitalAppLaunchSchemaType
 import com.motadata.android.rum.internal.domain.scope.toVitalAppLaunchStartupType
 import com.motadata.android.rum.internal.toVitalAppLaunch
-import com.motadata.android.rum.internal.utils.buildDDTagsString
+import com.motadata.android.rum.internal.utils.buildMdTagsString
 import com.motadata.android.rum.model.ViewEvent
 import com.motadata.android.rum.model.VitalAppLaunchEvent
 import com.motadata.android.rum.utils.forge.Configurator
@@ -754,7 +754,7 @@ internal class RumSessionScopeStartupManagerTest {
             hasConnectivityInfo(fakeDatadogContext.networkInfo)
             hasVersion(fakeDatadogContext.version)
             hasServiceName(fakeDatadogContext.service)
-            hasDDTags(buildDDTagsString(fakeDatadogContext))
+            hasDDTags(buildMdTagsString(fakeDatadogContext))
                 .apply {
                     if (fakeDatadogContext.featuresContext.containsKey(Feature.PROFILING_FEATURE_NAME)) {
                         hasProfilingStatus(VitalAppLaunchEvent.ProfilingStatus.RUNNING)
@@ -822,7 +822,7 @@ internal class RumSessionScopeStartupManagerTest {
             hasConnectivityInfo(fakeDatadogContext.networkInfo)
             hasVersion(fakeDatadogContext.version)
             hasServiceName(fakeDatadogContext.service)
-            hasDDTags(buildDDTagsString(fakeDatadogContext))
+            hasDDTags(buildMdTagsString(fakeDatadogContext))
             hasNoProfilingStatus()
             hasNoProfilingErrorReason()
         }

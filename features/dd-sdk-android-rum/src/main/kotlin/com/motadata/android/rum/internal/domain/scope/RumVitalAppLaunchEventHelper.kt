@@ -15,7 +15,7 @@ import com.motadata.android.rum.internal.domain.battery.BatteryInfo
 import com.motadata.android.rum.internal.domain.display.DisplayInfo
 import com.motadata.android.rum.internal.startup.RumStartupScenario
 import com.motadata.android.rum.internal.toVitalAppLaunch
-import com.motadata.android.rum.internal.utils.buildDDTagsString
+import com.motadata.android.rum.internal.utils.buildMdTagsString
 import com.motadata.android.rum.internal.utils.hasUserData
 import com.motadata.android.rum.model.VitalAppLaunchEvent
 import java.util.UUID
@@ -76,8 +76,8 @@ internal class RumVitalAppLaunchEventHelper(
                     it.putAll(eventAttributes)
                 }
             ),
-            dd = VitalAppLaunchEvent.Dd(
-                session = VitalAppLaunchEvent.DdSession(
+            md = VitalAppLaunchEvent.Md(
+                session = VitalAppLaunchEvent.MdSession(
                     sessionPrecondition = rumContext.sessionStartReason.toVitalAppLaunchSessionPrecondition()
                 ),
                 configuration = VitalAppLaunchEvent.Configuration(sessionSampleRate = sampleRate),
@@ -141,7 +141,7 @@ internal class RumVitalAppLaunchEventHelper(
             connectivity = datadogContext.networkInfo.toAppLaunchVitalConnectivity(),
             version = datadogContext.version,
             service = datadogContext.service,
-            ddtags = buildDDTagsString(datadogContext),
+            mdtags = buildMdTagsString(datadogContext),
             vital = VitalAppLaunchEvent.Vital(
                 id = UUID.randomUUID().toString(),
                 name = appLaunchMetric.vitalName(),

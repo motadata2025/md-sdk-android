@@ -146,13 +146,13 @@ class ResourceEventForgeryFactory :
                     additionalProperties = forge.exhaustiveAttributes()
                 )
             },
-            dd = ResourceEvent.Dd(
-                session = forge.aNullable { ResourceEvent.DdSession(aNullable { getForgery() }) },
+            md = ResourceEvent.Md(
+                session = forge.aNullable { ResourceEvent.MdSession(aNullable { getForgery() }) },
                 browserSdkVersion = forge.aNullable { aStringMatching("\\d+\\.\\d+\\.\\d+") },
                 spanId = forge.aNullable { aNumericalString() },
                 traceId = forge.aNullable { aNumericalString() }
             ),
-            ddtags = forge.aNullable { ddTagsString() }
+            mdtags = forge.aNullable { ddTagsString() }
         )
     }
 }

@@ -95,10 +95,10 @@ internal class RumEventSerializerTest {
                 hasField("id", event.view.id)
                 hasField("url", event.view.url)
             }
-            .hasField("_dd") {
+            .hasField("_md") {
                 hasField("format_version", 2L)
-                hasNullableField("span_id", event.dd.spanId)
-                hasNullableField("trace_id", event.dd.traceId)
+                hasNullableField("span_id", event.md.spanId)
+                hasNullableField("trace_id", event.md.traceId)
             }
 
         event.usr?.let { usr ->
@@ -212,7 +212,7 @@ internal class RumEventSerializerTest {
                 hasField("id", event.view.id)
                 hasField("url", event.view.url)
             }
-            .hasField("_dd") {
+            .hasField("_md") {
                 hasField("format_version", 2L)
             }
 
@@ -310,7 +310,7 @@ internal class RumEventSerializerTest {
                     }
                 }
             }
-            .hasField("_dd") {
+            .hasField("_md") {
                 hasField("format_version", 2L)
             }
 
@@ -404,7 +404,7 @@ internal class RumEventSerializerTest {
                 hasField("id", event.view.id)
                 hasField("url", event.view.url)
             }
-            .hasField("_dd") {
+            .hasField("_md") {
                 hasField("format_version", 2L)
             }
 
@@ -491,7 +491,7 @@ internal class RumEventSerializerTest {
                 hasField("id", event.view.id)
                 hasField("url", event.view.url)
             }
-            .hasField("_dd") {
+            .hasField("_md") {
                 hasField("format_version", 2L)
             }
             .hasNullableField("service", event.service)
@@ -590,8 +590,8 @@ internal class RumEventSerializerTest {
                 view.referrer?.let { hasField("referrer", it) }
                 view.name?.let { hasField("name", it) }
             }
-            .hasField("_dd") {
-                event.dd.browserSdkVersion?.let { hasField("browser_sdk_version", it) }
+            .hasField("_md") {
+                event.md.browserSdkVersion?.let { hasField("browser_sdk_version", it) }
             }
             .hasNullableField("service", event.service)
 
@@ -662,8 +662,8 @@ internal class RumEventSerializerTest {
                 hasField("type", event.session.type.name.lowercase(Locale.US))
                 event.session.hasReplay?.let { hasField("has_replay", it) }
             }
-            .hasField("_dd") {
-                event.dd.browserSdkVersion?.let { hasField("browser_sdk_version", it) }
+            .hasField("_md") {
+                event.md.browserSdkVersion?.let { hasField("browser_sdk_version", it) }
             }
             .hasNullableField("service", event.service)
 
@@ -723,7 +723,7 @@ internal class RumEventSerializerTest {
         val jsonObject = JsonParser.parseString(serialized).asJsonObject
         assertThat(jsonObject)
             .hasField("type", "telemetry")
-            .hasField("_dd") {
+            .hasField("_md") {
                 hasField("format_version", 2L)
             }
             .hasField("date", event.date)
@@ -784,7 +784,7 @@ internal class RumEventSerializerTest {
         val jsonObject = JsonParser.parseString(serialized).asJsonObject
         assertThat(jsonObject)
             .hasField("type", "telemetry")
-            .hasField("_dd") {
+            .hasField("_md") {
                 hasField("format_version", 2L)
             }
             .hasField("date", event.date)
@@ -854,7 +854,7 @@ internal class RumEventSerializerTest {
         val jsonObject = JsonParser.parseString(serialized).asJsonObject
         assertThat(jsonObject)
             .hasField("type", "telemetry")
-            .hasField("_dd") {
+            .hasField("_md") {
                 hasField("format_version", 2L)
             }
             .hasField("date", event.date)
@@ -1072,7 +1072,7 @@ internal class RumEventSerializerTest {
         val jsonObject = JsonParser.parseString(serialized).asJsonObject
         assertThat(jsonObject)
             .hasField("type", "telemetry")
-            .hasField("_dd") {
+            .hasField("_md") {
                 hasField("format_version", 2L)
             }
             .hasField("date", event.date)
@@ -1187,7 +1187,7 @@ internal class RumEventSerializerTest {
             .doesNotHaveField("account")
             .doesNotHaveField("os")
             .doesNotHaveField("device")
-            .doesNotHaveField("_dd")
+            .doesNotHaveField("_md")
     }
 
     @Test

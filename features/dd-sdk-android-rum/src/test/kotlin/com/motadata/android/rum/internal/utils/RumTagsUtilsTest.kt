@@ -31,14 +31,14 @@ import org.mockito.quality.Strictness
 internal class RumTagsUtilsTest {
 
     @Test
-    fun `M build DD tags string with variant W buildDDTagsString() {with non-empty variant}`(
+    fun `M build DD tags string with variant W buildMdTagsString() {with non-empty variant}`(
         forge: Forge
     ) {
         // Given
         val context = forge.getForgery<MotadataContext>()
 
         // When
-        val result = buildDDTagsString(context)
+        val result = buildMdTagsString(context)
 
         // Then
         val tagsMap = result.parseToTagsMap()
@@ -54,14 +54,14 @@ internal class RumTagsUtilsTest {
     }
 
     @Test
-    fun `M build DD tags string without variant W buildDDTagsString() {with empty variant}`(
+    fun `M build DD tags string without variant W buildMdTagsString() {with empty variant}`(
         @Forgery fakeContext: MotadataContext
     ) {
         // Given
         val context = fakeContext.copy(variant = "")
 
         // When
-        val result = buildDDTagsString(context)
+        val result = buildMdTagsString(context)
 
         // Then
         val tagsMap = result.parseToTagsMap()

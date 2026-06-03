@@ -29,7 +29,7 @@ import com.motadata.android.rum.internal.metric.networksettled.NetworkSettledMet
 import com.motadata.android.rum.internal.monitor.StorageEvent
 import com.motadata.android.rum.internal.toError
 import com.motadata.android.rum.internal.toResource
-import com.motadata.android.rum.internal.utils.buildDDTagsString
+import com.motadata.android.rum.internal.utils.buildMdTagsString
 import com.motadata.android.rum.internal.utils.hasUserData
 import com.motadata.android.rum.internal.utils.newRumEventWriteOperation
 import com.motadata.android.rum.internal.utils.truncateToUtf8ByteSize
@@ -366,11 +366,11 @@ internal class RumResourceScope(
                     isLowRam = datadogContext.deviceInfo.isLowRam
                 ),
                 context = ResourceEvent.Context(additionalProperties = getCustomAttributes().toMutableMap()),
-                dd = ResourceEvent.Dd(
+                md = ResourceEvent.Md(
                     traceId = traceId,
                     spanId = spanId,
                     rulePsr = rulePsr,
-                    session = ResourceEvent.DdSession(
+                    session = ResourceEvent.MdSession(
                         sessionPrecondition = rumContext.sessionStartReason.toResourceSessionPrecondition()
                     ),
                     configuration = ResourceEvent.Configuration(sessionSampleRate = sampleRate)
@@ -379,7 +379,7 @@ internal class RumResourceScope(
                 version = datadogContext.version,
                 buildVersion = datadogContext.versionCode.toString(),
                 buildId = datadogContext.appBuildId,
-                ddtags = buildDDTagsString(datadogContext)
+                mdtags = buildMdTagsString(datadogContext)
             )
         }
             .onError {
@@ -530,8 +530,8 @@ internal class RumResourceScope(
                     isLowRam = datadogContext.deviceInfo.isLowRam
                 ),
                 context = ErrorEvent.Context(additionalProperties = getCustomAttributes().toMutableMap()),
-                dd = ErrorEvent.Dd(
-                    session = ErrorEvent.DdSession(
+                md = ErrorEvent.Md(
+                    session = ErrorEvent.MdSession(
                         sessionPrecondition = rumContext.sessionStartReason.toErrorSessionPrecondition()
                     ),
                     configuration = ErrorEvent.Configuration(sessionSampleRate = sampleRate)
@@ -539,7 +539,7 @@ internal class RumResourceScope(
                 service = datadogContext.service,
                 version = datadogContext.version,
                 buildVersion = datadogContext.versionCode.toString(),
-                ddtags = buildDDTagsString(datadogContext)
+                mdtags = buildMdTagsString(datadogContext)
             )
         }
             .onError {
