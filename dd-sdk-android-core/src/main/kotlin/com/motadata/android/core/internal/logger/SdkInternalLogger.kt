@@ -283,7 +283,7 @@ internal class SdkInternalLogger(
     }
 
     companion object {
-        internal const val SDK_LOG_TAG = "DD_LOG"
+        internal const val SDK_LOG_TAG = "MD_LOG"
         internal const val DEV_LOG_TAG = "Motadata"
     }
 

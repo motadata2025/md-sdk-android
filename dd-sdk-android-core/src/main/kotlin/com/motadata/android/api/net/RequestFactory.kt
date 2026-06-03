@@ -45,12 +45,12 @@ fun interface RequestFactory {
         /**
          * Motadata API key header.
          */
-        const val HEADER_API_KEY: String = "DD-API-KEY"
+        const val HEADER_API_KEY: String = "MD-API-KEY"
 
         /**
          * Motadata Event Platform Origin header, e.g. android, flutter, etc.
          */
-        const val HEADER_EVP_ORIGIN: String = "DD-EVP-ORIGIN"
+        const val HEADER_EVP_ORIGIN: String = "MD-EVP-ORIGIN"
 
         /**
          * Motadata Event Platform Origin version header, e.g. SDK version.
@@ -60,21 +60,21 @@ fun interface RequestFactory {
         /**
          * Motadata Request ID header, used for debugging purposes.
          */
-        const val HEADER_REQUEST_ID: String = "DD-REQUEST-ID"
+        const val HEADER_REQUEST_ID: String = "MD-REQUEST-ID"
 
         /**
          * Motadata source query parameter name.
          */
-        const val QUERY_PARAM_SOURCE: String = "ddsource"
+        const val QUERY_PARAM_SOURCE: String = "mdsource"
 
         /**
          * Motadata tags query parameter name.
          */
-        const val QUERY_PARAM_TAGS: String = "ddtags"
+        const val QUERY_PARAM_TAGS: String = "mdtags"
 
         /**
          * Motadata Idempotency key header, used to offer more insight into the request retry statistics.
          */
-        const val DD_IDEMPOTENCY_KEY: String = "DD-IDEMPOTENCY-KEY"
+        const val DD_IDEMPOTENCY_KEY: String = "MD-IDEMPOTENCY-KEY"
     }
 }

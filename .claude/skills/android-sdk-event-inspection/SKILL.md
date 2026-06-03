@@ -81,7 +81,7 @@ adb shell am start -n com.motadata.android.sample/.NavActivity
 ### 5. Stream Logcat
 
 ```sh
-adb logcat -s "Motadata" "DD_LOG" "Curl" "*:S"
+adb logcat -s "Motadata" "MD_LOG" "Curl" "*:S"
 ```
 
 ## Log Tags Quick Reference
@@ -89,7 +89,7 @@ adb logcat -s "Motadata" "DD_LOG" "Curl" "*:S"
 | Tag | What it shows |
 |---|---|
 | `Motadata` | User-facing SDK warnings and info (init, feature flags) |
-| `DD_LOG` | Internal debug: queue state, upload decisions, errors |
+| `MD_LOG` | Internal debug: queue state, upload decisions, errors |
 | `Curl` | Full outgoing HTTP requests including JSON body |
 
 ## Event Structure in Curl Logs
