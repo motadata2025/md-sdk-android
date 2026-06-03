@@ -15,7 +15,7 @@ step does = `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`. This file tracks *status onl
 | # | Step | Status | Commit(s) | CI run |
 |---|------|--------|-----------|--------|
 | 1 | Package rename `com.datadog.android` → `com.motadata.android` (dotted + slash + JNI-underscore; 88 dirs) | ✅ | `7feb71787`, `615aa7835` | 26868076588 ✅ |
-| 2 | Class renames `Datadog`→`Motadata` (`DatadogInterceptor`, `DatadogEventListener`, `DatadogSite`, …) — plan §1A | ⬜ | — | — |
+| 2 | Class renames `Datadog`→`Motadata` (`DatadogInterceptor`, `DatadogEventListener`, `DatadogSite`, …) — plan §1A | ✅ | `a30d2fa17` | 26869349974 ✅ |
 | 3 | In-event strings — plan §1B (launch view url/id, `telemetry.service`, flags/meter → `motadata-rum-android`) | ⬜ | — | — |
 | 4 | Thread names `datadog-*` → `motadata-*` — plan §1B.8 / §1E.2-4 | ⬜ | — | — |
 | 5 | Wire names `DD-*`→`MD-*`, `ddsource`/`ddtags`→`mdsource`/`mdtags`, logcat tags — plan §1C | ⬜ | — | — |
@@ -47,6 +47,11 @@ step does = `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`. This file tracks *status onl
   - `group = "datadog"` Gradle task-group labels in `buildSrc` (~10×) — cosmetic, internal-only, not shipped.
   - `MavenConfig.kt` `GROUP_ID = "com.datadoghq"` and AAR/artifact filenames `dd-sdk-android-*` → **step 8**.
 - **Telemetry stays ON** (server ignores it). Ship core + rum + okhttp closure (7 AARs); not session-replay.
+
+### Step-2 detail (for the record)
+- Renamed the 7 §1A public types **and their whole families** (tests/factories/extensions/providers) repo-wide: `Datadog`→`Motadata` (object), `DatadogInterceptor`, `DatadogEventListener`, `DatadogSite`, `DatadogContext`(+`Provider`/`Storage`/`Wrapper`), `DatadogDatabaseErrorHandler`, `DatadogDataConstraints`. 26 files renamed.
+- Bare `Datadog` rename **skips the legal Apache-header lines** (`developed at Datadog`, `Datadog, Inc.`) — those stay (5618 mentions). Verified 0 non-legal bare `Datadog` left.
+- **Deferred `Datadog*` families** (NOT §1A — later/optional, only if shipped): `DatadogCore`, `DatadogExceptionHandler`, `DatadogConfig`, `DatadogContentProvider`, `DatadogFeaturesInitializer`, `DatadogAccountInfoProvider` (core internals); `DatadogSpan*`/`DatadogTracer*`/`DatadogScope`/`DatadogPropagation*`/`DatadogHttpCodec`/`DatadogTraceId*` (trace); `DatadogNdkCrashHandler`/`DatadogLateCrashReporter`/`DatadogLogGenerator`/`DatadogLogHandler`/`DatadogRumMonitor`/`DatadogGesturesTracker` (rum/core internals); integration classes (`DatadogGlideModule`, `DatadogCronetEngine`, `DatadogCoilRequestListener`, `DatadogApolloInterceptor`, `DatadogFrescoCacheListener`, `DatadogTree`, `DatadogFlagsClient`, `DatadogEventBridge`, …). These don't appear in customer-typed API or event payloads; revisit when scrubbing internal-class leakage / when shipping a given integration.
 
 ### Step-1 detail (for the record)
 - Renamed all 3 textual forms; `git mv` of 88 package directories.
