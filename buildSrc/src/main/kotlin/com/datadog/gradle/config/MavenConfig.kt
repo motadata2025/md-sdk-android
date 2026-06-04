@@ -48,6 +48,19 @@ fun Project.publishingConfig(
         }
 
         publishingExtension.apply {
+            // Publish target: GitHub Packages for the fork (consumed by test apps as a
+            // normal Maven dependency). Credentials come from the CI environment
+            // (GITHUB_ACTOR + GITHUB_TOKEN with packages:write).
+            repositories {
+                maven {
+                    name = "GitHubPackages"
+                    setUrl("https://maven.pkg.github.com/motadata2025/md-sdk-android")
+                    credentials {
+                        username = System.getenv("GITHUB_ACTOR") ?: ""
+                        password = System.getenv("GITHUB_TOKEN") ?: ""
+                    }
+                }
+            }
             publications.create<MavenPublication>(MavenConfig.PUBLICATION) {
                 from(components.getByName("release"))
 
