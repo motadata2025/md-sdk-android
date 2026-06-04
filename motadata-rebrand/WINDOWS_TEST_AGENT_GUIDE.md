@@ -41,9 +41,11 @@ The fork is published to **GitHub Packages** of `motadata2025/md-sdk-android` as
 `com.motadata:…:1.0.0`. Consume it like any Maven dependency.
 
 ### 1a. Credentials
-You need a **GitHub Personal Access Token (classic)** with the **`read:packages`** scope,
-belonging to a GitHub user who has access to the `motadata2025/md-sdk-android` repo
-(`motadata2025` is a user account, not an org). Browse the published packages at
+The packages are **public** (the repo `motadata2025/md-sdk-android` is public), so **any GitHub
+account works** — you do NOT need access to that repo. You only need a **GitHub Personal Access
+Token (classic) with the `read:packages` scope** from **your own** GitHub account. (GitHub
+Packages' Maven registry still requires *a* token even for public packages — it just doesn't
+have to be the owner's.) Browse the packages at
 **github.com/motadata2025/md-sdk-android → Packages** to confirm `1.0.0` is there.
 
 Put credentials in the **global** Gradle properties file (NOT in the project, so they aren't
@@ -194,7 +196,7 @@ Report concisely:
 
 | Symptom | Cause / fix |
 |---|---|
-| `Could not GET .../maven-metadata.xml` **401/403** | PAT missing `read:packages`, wrong username, or the user lacks access to `motadata2025/md-sdk-android`. Fix `gpr.user`/`gpr.key`. |
+| `Could not GET .../maven-metadata.xml` **401/403** | PAT missing `read:packages`, or `gpr.user`/`gpr.key` don't match (username must be the account that owns the PAT). The packages are public, so any GitHub account's `read:packages` PAT works. |
 | `Could not find com.motadata:motadata-rum-android:1.0.0` | Repo URL/creds wrong. Confirm the package exists at github.com/motadata2025/md-sdk-android → Packages. |
 | `Unresolved reference: Datadog` (or any `com.datadog.android.*`) | Apply §2 rename rule — `com.datadog.android`→`com.motadata.android`, `Datadog*`→`Motadata*`. |
 | Duplicate class / version conflict with `com.datadoghq…` | A leftover Datadog dependency remains. Remove all `com.datadoghq:dd-sdk-android-*`. |
