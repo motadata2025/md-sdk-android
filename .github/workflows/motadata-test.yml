@@ -1,0 +1,66 @@
+name: Motadata SDK Unit Tests
+
+# Runs debug unit tests for the 7 shipping modules on a GitHub-hosted runner
+# (never on a local laptop). Uses --continue so a single run surfaces ALL
+# failures, and uploads the JUnit XML + HTML reports as an artifact so failures
+# can be inspected without a local build.
+on:
+  workflow_dispatch:
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: motadata-dev
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Gradle (with cache)
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Run unit tests (7 modules, debug)
+        run: |
+          ./gradlew \
+            :dd-sdk-android-core:testDebugUnitTest \
+            :dd-sdk-android-internal:testDebugUnitTest \
+            :features:dd-sdk-android-rum:testDebugUnitTest \
+            :features:dd-sdk-android-trace:testDebugUnitTest \
+            :features:dd-sdk-android-trace-api:testDebugUnitTest \
+            :features:dd-sdk-android-trace-internal:testDebugUnitTest \
+            :integrations:dd-sdk-android-okhttp:testDebugUnitTest \
+            --continue --no-daemon --stacktrace
+
+      - name: Summarize failures
+        if: always()
+        run: |
+          echo "=== failed test classes (from JUnit XML) ==="
+          found=0
+          while IFS= read -r f; do
+            fails=$(grep -oE 'failures="[1-9][0-9]*"|errors="[1-9][0-9]*"' "$f" | head -1)
+            if [ -n "$fails" ]; then
+              echo "FAIL  $f  ($fails)"
+              found=1
+            fi
+          done < <(find . -path '*/test-results/*' -name '*.xml' 2>/dev/null)
+          [ "$found" = "0" ] && echo "(no failing XML found — all green or no results)"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            **/build/test-results/**/*.xml
+            **/build/reports/tests/**
+          if-no-files-found: ignore
