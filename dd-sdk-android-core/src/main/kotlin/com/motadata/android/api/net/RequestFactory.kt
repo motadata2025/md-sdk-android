@@ -55,7 +55,7 @@ fun interface RequestFactory {
         /**
          * Motadata Event Platform Origin version header, e.g. SDK version.
          */
-        const val HEADER_EVP_ORIGIN_VERSION: String = "DD-EVP-ORIGIN-VERSION"
+        const val HEADER_EVP_ORIGIN_VERSION: String = "MD-EVP-ORIGIN-VERSION"
 
         /**
          * Motadata Request ID header, used for debugging purposes.
