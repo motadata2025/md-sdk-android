@@ -102,6 +102,15 @@ Full coordinate list (normally only the two above are needed — the rest resolv
 > Global-search all Gradle files for `com.datadoghq` and `dd-sdk-android` and make sure **none
 > remain** — a leftover Datadog dependency causes duplicate-class / version conflicts.
 
+> **Re-testing a rebuilt `1.0.0`:** during testing the SDK team may republish a fixed build under
+> the **same** version `1.0.0`. Gradle caches by coordinate, so it won't re-download automatically.
+> When told a new `1.0.0` is published, force a refresh:
+> ```
+> gradlew.bat :app:assembleDebug --refresh-dependencies
+> ```
+> (or delete `C:\Users\<user>\.gradle\caches\modules-2\files-2.1\com.motadata\` first). Then
+> rebuild/reinstall so the device runs the updated SDK.
+
 ## A2. Migrate the app's Kotlin/Java code
 
 1. **Replace all imports** `com.datadog.android.` → `com.motadata.android.` (global find/replace
