@@ -107,9 +107,11 @@ Create one and register it in the manifest's `<application android:name="…">`:
 
 ### Kotlin
 ```kotlin
+import android.annotation.SuppressLint
 import android.app.Application
 import com.motadata.android.Motadata
 import com.motadata.android.MotadataSite
+import com.motadata.android._InternalProxy
 import com.motadata.android.core.configuration.Configuration
 import com.motadata.android.privacy.TrackingConsent
 import com.motadata.android.rum.Rum
@@ -118,17 +120,26 @@ import com.motadata.android.rum.tracking.ActivityViewTrackingStrategy
 
 // Case A: this whole class is new. Case B: copy only the onCreate() body into your existing Application.
 class MotadataApplication : Application() {
+
+    // @SuppressLint is needed ONLY for the HTTP cleartext call (step 1b). Remove it for HTTPS.
+    @SuppressLint("DatadogInternalApiUsage")
     override fun onCreate() {
         super.onCreate()
 
-        // 1) Core configuration
-        val configuration = Configuration.Builder(
+        // 1) Core configuration (keep as a builder variable so step 1b can act on it)
+        val configBuilder = Configuration.Builder(
             clientToken = "<MOTADATA_CLIENT_TOKEN>",
             env = "<ENVIRONMENT_NAME>",       // e.g. "prod", "staging"
             variant = "<APP_VARIANT_NAME>"     // e.g. "release", "debug"
         )
             .useSite(MotadataSite.US5)          // ignored when useCustomEndpoint is set, but required
-            .build()
+
+        // 1b) HTTP ENDPOINT ONLY (Branch-1): let the SDK accept a plain http:// endpoint.
+        //     Internal API (note the leading underscore). DELETE this whole line for an https:// endpoint.
+        //     Branch-2 replaces it with a public builder method: configBuilder.allowClearTextHttp()
+        _InternalProxy.allowClearTextHttp(configBuilder)
+
+        val configuration = configBuilder.build()
 
         // 2) Initialize the SDK
         Motadata.initialize(this, configuration, TrackingConsent.GRANTED)
@@ -149,10 +160,12 @@ class MotadataApplication : Application() {
 
 ### Java
 ```java
+import android.annotation.SuppressLint;
 import android.app.Application;
 
 import com.motadata.android.Motadata;
 import com.motadata.android.MotadataSite;
+import com.motadata.android._InternalProxy;
 import com.motadata.android.core.configuration.Configuration;
 import com.motadata.android.privacy.TrackingConsent;
 import com.motadata.android.rum.Rum;
@@ -161,18 +174,27 @@ import com.motadata.android.rum.tracking.ActivityViewTrackingStrategy;
 
 // Case A: this whole class is new. Case B: copy only the onCreate() body into your existing Application.
 public class MotadataApplication extends Application {
+
+    // @SuppressLint is needed ONLY for the HTTP cleartext call (step 1b). Remove it for HTTPS.
+    @SuppressLint("DatadogInternalApiUsage")
     @Override
     public void onCreate() {
         super.onCreate();
 
-        // 1) Core configuration
-        Configuration configuration = new Configuration.Builder(
+        // 1) Core configuration (keep as a builder variable so step 1b can act on it)
+        Configuration.Builder configBuilder = new Configuration.Builder(
                 "<MOTADATA_CLIENT_TOKEN>",
                 "<ENVIRONMENT_NAME>",   // e.g. "prod", "staging"
                 "<APP_VARIANT_NAME>"    // e.g. "release", "debug"
         )
-                .useSite(MotadataSite.US5)   // ignored when useCustomEndpoint is set, but required
-                .build();
+                .useSite(MotadataSite.US5);   // ignored when useCustomEndpoint is set, but required
+
+        // 1b) HTTP ENDPOINT ONLY (Branch-1): let the SDK accept a plain http:// endpoint.
+        //     Internal API (note the leading underscore). DELETE this whole line for an https:// endpoint.
+        //     Branch-2 replaces it with a public builder method: configBuilder.allowClearTextHttp()
+        _InternalProxy.Companion.allowClearTextHttp(configBuilder);
+
+        Configuration configuration = configBuilder.build();
 
         // 2) Initialize the SDK
         Motadata.initialize(this, configuration, TrackingConsent.GRANTED);
@@ -191,10 +213,26 @@ public class MotadataApplication extends Application {
 }
 ```
 
-> **Notes:** With `useCustomEndpoint(...)` set, the `MotadataSite` value is not used for routing but
-> the builder still requires one. Use `http://` only if your endpoint is plain HTTP (matches the
-> manifest cleartext setting in S‑1d); use `https://` otherwise and drop `usesCleartextTraffic`.
-> This already gives you **view, action, long_task, error, and crash** events automatically.
+> **Site value:** with `useCustomEndpoint(...)` set, `MotadataSite` is not used for routing but the
+> builder still requires one.
+>
+> **Events:** this snippet already produces **view, action, long_task, error, and crash** events
+> automatically.
+
+### ⚠️ Cleartext HTTP endpoint — requires TWO things (Branch‑1 only)
+If your Motadata endpoint is plain **`http://`** (not `https://`), you must enable cleartext in
+**both** places — either one alone is not enough:
+1. **OS / manifest** — `android:usesCleartextTraffic="true"` (or a scoped `network-security-config`), from S‑1d.
+2. **SDK** — `_InternalProxy.allowClearTextHttp(configBuilder)` (step 1b above), or the SDK rejects
+   the `http://` endpoint.
+
+`_InternalProxy` is an **internal SDK API** (leading underscore; needs `@SuppressLint("DatadogInternalApiUsage")`).
+It is the **only** way in Branch‑1 `1.0.0`. **Branch‑2 will expose a public
+`Configuration.Builder.allowClearTextHttp()`**, after which step 1b becomes a normal chained call
+and the `_InternalProxy` import + `@SuppressLint` are dropped.
+
+**For an `https://` endpoint:** delete step 1b, drop the `_InternalProxy` import + `@SuppressLint`,
+and omit `usesCleartextTraffic` — none of this is needed.
 
 ---
 
