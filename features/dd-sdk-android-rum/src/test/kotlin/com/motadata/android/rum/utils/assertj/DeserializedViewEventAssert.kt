@@ -21,7 +21,7 @@ internal class DeserializedViewEventAssert(actual: ViewEvent) :
     fun isEqualTo(expected: ViewEvent): DeserializedViewEventAssert {
         assertThat(actual)
             .usingRecursiveComparison()
-            .ignoringFields("context", "usr", "account", "view", "device", "dd.configuration")
+            .ignoringFields("context", "usr", "account", "view", "device", "md.configuration")
             .isEqualTo(expected)
         assertConfigurationEquals(actual.md.configuration, expected.md.configuration)
         assertThat(actual.view)

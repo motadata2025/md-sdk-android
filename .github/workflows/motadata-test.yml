@@ -17,11 +17,15 @@ jobs:
         with:
           ref: motadata-dev
 
-      - name: Set up JDK 21
+      # JDK 17 (not 21): the test utils strip a field's `final` modifier via a
+      # VarHandle on Field.modifiers (com.datadog.tools.unit.RemoveFinalModifier),
+      # which throws UnsupportedOperationException on JDK 21. Upstream targets
+      # JvmTarget.JVM_17, so unit tests run on 17.
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '21'
+          java-version: '17'
 
       - name: Set up Gradle (with cache)
         uses: gradle/actions/setup-gradle@v4
