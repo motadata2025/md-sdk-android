@@ -23,9 +23,9 @@ step does = `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`. This file tracks *status onl
 | 6.5 | Internal class-name debrand (remaining `Datadog*`/`Dd*` internal classes → `Motadata*`/`Md*`) — pure rename, no behavior/API-shape change | ✅ | `61de63f52`,`236f36aeb` | 26879305308 ✅ |
 | 7 | Body envelope `_dd`→`_md`, `ddtags`→`mdtags` via JSON-schema edit + codegen regen — plan §2.6 | ✅ | `4900580cb`,`95f8f68f4` | 26884001463 ✅ |
 | 8 | Maven coords + POM: group `com.motadata`, version `1.0.0`, artifact ids — plan §1D | ✅ | `873882f8a` | 26885382569 ✅ |
-| 9 | API regen + unit tests green — plan Part 6 | 🔄 | `04c91fcb5`(wf),`c536447b0`(api regen) | 9A 26932653185 ✅ · 9B 26932981053 🔄 |
+| 9 | API regen + unit tests green — plan Part 6 | ✅ | `c536447b0`(api),`3eb9662ff`(jdk17+test fixes) | 9A ✅ · 9B 26934870396 ✅ (5469 tests, 0 fail) |
 | 9A | Regenerate api surface (`generateApiSurface`+`apiDump`+`generateCompilerMetadata` ×7) via new `motadata-apidump.yml` dispatch wf; bot pushed regenerated files | ✅ | `c536447b0` | 26932653185 ✅ |
-| 9B | Unit tests (`testDebugUnitTest --continue` ×7) via `motadata-test.yml`; fix to green | 🔄 | `c4bd305c7`(wf) | 26932981053 🔄 |
+| 9B | Unit tests (`testDebugUnitTest --continue` ×7) via `motadata-test.yml` on **JDK 17**; fixed 2 stale assertions | ✅ | `c4bd305c7`,`3eb9662ff` | 26932981053 ❌→ 26934870396 ✅ |
 
 **Then:** test Branch 1 end-to-end (deferred until step 9 done) — Path A (CI sample APK → `adb logcat`, CurlInterceptor dumps request) and/or Path B (CI → GitHub Packages → Windows app). No Maven Central needed for testing.
 
@@ -61,10 +61,28 @@ with `if: always()` → `actions/upload-artifact` of `**/build/test-results/**/*
 - **Gotcha:** `gh workflow run <file>` resolves the workflow by name **only on the repo default branch** (`develop`). Our wf lived only on `motadata-dev` → HTTP 404. Fix: also committed the (dispatch-only, never auto-runs) wf file to `develop` so it registers; dispatch with `--ref motadata-dev` then uses the motadata-dev copy + explicit `ref: motadata-dev` checkout. Same pattern used for `motadata-test.yml`.
 - **Result:** product namespace clean — zero `com.motadata.android` `Dd*`/`_dd`/`datadog` left in api files; rum models now `MdSession`/`MdAction`/`MdActionTarget`/`MdCls`; `DdRumContentProvider`→`MdRumContentProvider`. **Remaining `datadog` in api = deferred separate roots only:** `com/datadog/trace` (1422, vendored OTel tracer internals, in trace-module public surface), `com/datadog/exec` (8), `com/datadog/tools` (2, `@NoOpImplementation` annotation). All agreed-deferred.
 
+### Phase 9B — DONE (for the record)
+- Added `.github/workflows/motadata-test.yml` (`workflow_dispatch`, registered on `develop` like the apidump wf) running `testDebugUnitTest --continue` for the 7 modules + uploads JUnit XML.
+- **Run 1 (26932981053, JDK 21) ❌:** 279 failures, but **274 were a single infra wall** — `com.datadog.tools.unit.RemoveFinalModifier` strips a field's `final` via a `VarHandle` on `Field.modifiers`, which throws `UnsupportedOperationException: set` on JDK 21. **Fix: run the test job on JDK 17** (upstream targets `JvmTarget.JVM_17`; build/apidump stay on 21 — compile-only). This also cleared 2 JDK-map-ordering failures in the deferred `com.datadog.trace` `W3CHttpCodecTest`/`DatadogHttpCodecTest` (baggage tag order; not a rebrand issue).
+- **2 genuine stale-test fixes (the only rebrand-coupled failures):**
+  - `RumRequestFactoryTest.kt:169` expected URL `?ddsource=` → `?mdsource=` (missed in step 5; sibling `&mdtags=` was already correct).
+  - `DeserializedViewEventAssert.kt:24` recursive-compare `ignoringFields(... "dd.configuration")` → `"md.configuration"` (missed in step 7; the field renamed but the ignore-path string didn't, which un-ignored it and exposed a pre-existing Float-vs-Double quirk that `assertConfigurationEquals` already handles).
+- **Run 2 (26934870396, JDK 17) ✅:** **5469 tests, 0 failures, 0 errors, 0 skipped** across 311 classes.
+
 ### Phase 9C — Done criteria
 All 7 modules: `testDebugUnitTest` green + `assembleDebug` green (7 AARs) + `checkApiSurfaceChangesAll` clean (api matches code). Then mark step 9 ✅ → **Branch 1 COMPLETE** → proceed to end-to-end device test (Path A/B), then cut `motadata-dev-with-functional-changes` for Branch 2.
 
-*Decision for next session:* whether to fold the test job permanently into `motadata-build.yml` (every push runs tests) or keep it a separate `workflow_dispatch`. Recommend: separate dispatch during step 9 (faster iteration), fold in once green.
+**✅ MET — BRANCH 1 COMPLETE (2026-06-04):**
+- `testDebugUnitTest` ✅ — run 26934870396, **5469 tests, 0 failures/errors/skipped** (JDK 17).
+- `assembleDebug` ✅ — run **26935349788** on final HEAD `3eb9662ff`, **all 7 AARs** produced.
+- api surface ✅ — regenerated from code in 9A (run 26932653185 → bot commit `c536447b0`); self-consistent so `checkApiSurfaceChangesAll` is clean by construction.
+- **Final state:** branch `motadata-dev` @ `3eb9662ff`, clean, everything committed/pushed. All `datadog`/`dd`/`DD-` scrubbed from product namespace (`com.motadata.android`), event payloads (`_md`/`mdtags`/`mdsource`), wire headers (`MD-*`), Maven coords (`com.motadata:motadata-rum-android:1.0.0`). Only agreed-deferred separate roots remain (`com.datadog.trace`/`tools`/`exec`, the legal Apache header, dormant `.datadoghq.com` site hosts).
+
+*CI note:* unit tests are a separate `workflow_dispatch` (`motadata-test.yml`, JDK 17). **Decision for later:** fold the test job into `motadata-build.yml` (note the JDK split: build=21, test=17) so every push runs tests — or keep separate. Not required for Branch 1.
+
+### NEXT (new session): end-to-end device test, then Branch 2
+1. **Device test** Branch 1 — Path A (CI builds sample APK → install on device → `adb logcat -s Motadata`, CurlInterceptor dumps the request; confirm `mdsource`/`MD-*`/`_md` on the wire, hitting Motadata's custom endpoint) and/or Path B (publish to GitHub Packages → Windows app pulls `com.motadata:motadata-rum-android:1.0.0`).
+2. **Cut Branch 2** `motadata-dev-with-functional-changes` from `motadata-dev` → steps 10–15 (functional additions only).
 
 ## Branch 2 — `motadata-dev-with-functional-changes` (functional additions only, cut after Branch 1)
 
