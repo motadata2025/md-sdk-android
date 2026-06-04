@@ -71,8 +71,6 @@ interface com.motadata.android.api.SdkCore
   fun clearAccountInfo()
 data class com.motadata.android.api.context.AccountInfo
   constructor(String, String? = null, Map<String, Any?> = emptyMap())
-data class com.motadata.android.api.context.MotadataContext
-  constructor(com.motadata.android.MotadataSite, String, String, String, String, Int, String, String, String, TimeInfo, ProcessInfo, NetworkInfo, DeviceInfo, UserInfo, AccountInfo?, com.motadata.android.privacy.TrackingConsent, String?, Map<String, Map<String, Any?>>)
 data class com.motadata.android.api.context.DeviceInfo
   constructor(String, String, String, DeviceType, String, String, String, String, String, Int?, LocaleInfo, Int, Int?, Boolean?)
 enum com.motadata.android.api.context.DeviceType
@@ -85,6 +83,8 @@ enum com.motadata.android.api.context.DeviceType
   - OTHER
 data class com.motadata.android.api.context.LocaleInfo
   constructor(List<String>, String, String)
+data class com.motadata.android.api.context.MotadataContext
+  constructor(com.motadata.android.MotadataSite, String, String, String, String, Int, String, String, String, TimeInfo, ProcessInfo, NetworkInfo, DeviceInfo, UserInfo, AccountInfo?, com.motadata.android.privacy.TrackingConsent, String?, Map<String, Map<String, Any?>>)
 data class com.motadata.android.api.context.NetworkInfo
   constructor(Connectivity = Connectivity.NETWORK_NOT_CONNECTED, kotlin.String? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.String? = null)
   enum Connectivity

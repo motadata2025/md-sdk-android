@@ -1,3 +1,5 @@
+annotation com.datadog.tools.annotation.NoOpImplementation
+  constructor(Boolean = false)
 interface com.motadata.android.internal.attributes.LocalAttribute
   enum Key
     constructor(String)
@@ -275,7 +277,7 @@ fun Thread.State.asString(): String
 fun Array<StackTraceElement>.loggableStackTrace(): String
 fun Throwable.loggableStackTrace(): String
 fun formatIsoUtc(Long): String
-class com.motadata.android.rum.DdRumContentProvider : android.content.ContentProvider
+class com.motadata.android.rum.MdRumContentProvider : android.content.ContentProvider
   override fun onCreate(): Boolean
   override fun query(android.net.Uri, Array<String>?, String?, Array<String>?, String?): android.database.Cursor?
   override fun getType(android.net.Uri): String?
@@ -285,5 +287,3 @@ class com.motadata.android.rum.DdRumContentProvider : android.content.ContentPro
   companion object 
     var processImportance: Int
     var createTimeNs: Long
-annotation com.datadog.tools.annotation.NoOpImplementation
-  constructor(Boolean = false)

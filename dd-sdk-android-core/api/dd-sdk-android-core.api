@@ -170,51 +170,6 @@ public final class com/motadata/android/api/context/AccountInfo {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/motadata/android/api/context/MotadataContext {
-	public fun <init> (Lcom/motadata/android/MotadataSite;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/motadata/android/api/context/TimeInfo;Lcom/motadata/android/api/context/ProcessInfo;Lcom/motadata/android/api/context/NetworkInfo;Lcom/motadata/android/api/context/DeviceInfo;Lcom/motadata/android/api/context/UserInfo;Lcom/motadata/android/api/context/AccountInfo;Lcom/motadata/android/privacy/TrackingConsent;Ljava/lang/String;Ljava/util/Map;)V
-	public final fun component1 ()Lcom/motadata/android/MotadataSite;
-	public final fun component10 ()Lcom/motadata/android/api/context/TimeInfo;
-	public final fun component11 ()Lcom/motadata/android/api/context/ProcessInfo;
-	public final fun component12 ()Lcom/motadata/android/api/context/NetworkInfo;
-	public final fun component13 ()Lcom/motadata/android/api/context/DeviceInfo;
-	public final fun component14 ()Lcom/motadata/android/api/context/UserInfo;
-	public final fun component15 ()Lcom/motadata/android/api/context/AccountInfo;
-	public final fun component16 ()Lcom/motadata/android/privacy/TrackingConsent;
-	public final fun component17 ()Ljava/lang/String;
-	public final fun component18 ()Ljava/util/Map;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()I
-	public final fun component7 ()Ljava/lang/String;
-	public final fun component8 ()Ljava/lang/String;
-	public final fun component9 ()Ljava/lang/String;
-	public final fun copy (Lcom/motadata/android/MotadataSite;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/motadata/android/api/context/TimeInfo;Lcom/motadata/android/api/context/ProcessInfo;Lcom/motadata/android/api/context/NetworkInfo;Lcom/motadata/android/api/context/DeviceInfo;Lcom/motadata/android/api/context/UserInfo;Lcom/motadata/android/api/context/AccountInfo;Lcom/motadata/android/privacy/TrackingConsent;Ljava/lang/String;Ljava/util/Map;)Lcom/motadata/android/api/context/MotadataContext;
-	public static synthetic fun copy$default (Lcom/motadata/android/api/context/MotadataContext;Lcom/motadata/android/MotadataSite;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/motadata/android/api/context/TimeInfo;Lcom/motadata/android/api/context/ProcessInfo;Lcom/motadata/android/api/context/NetworkInfo;Lcom/motadata/android/api/context/DeviceInfo;Lcom/motadata/android/api/context/UserInfo;Lcom/motadata/android/api/context/AccountInfo;Lcom/motadata/android/privacy/TrackingConsent;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lcom/motadata/android/api/context/MotadataContext;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getAccountInfo ()Lcom/motadata/android/api/context/AccountInfo;
-	public final fun getAppBuildId ()Ljava/lang/String;
-	public final fun getClientToken ()Ljava/lang/String;
-	public final fun getDeviceInfo ()Lcom/motadata/android/api/context/DeviceInfo;
-	public final fun getEnv ()Ljava/lang/String;
-	public final fun getFeaturesContext ()Ljava/util/Map;
-	public final fun getNetworkInfo ()Lcom/motadata/android/api/context/NetworkInfo;
-	public final fun getProcessInfo ()Lcom/motadata/android/api/context/ProcessInfo;
-	public final fun getSdkVersion ()Ljava/lang/String;
-	public final fun getService ()Ljava/lang/String;
-	public final fun getSite ()Lcom/motadata/android/MotadataSite;
-	public final fun getSource ()Ljava/lang/String;
-	public final fun getTime ()Lcom/motadata/android/api/context/TimeInfo;
-	public final fun getTrackingConsent ()Lcom/motadata/android/privacy/TrackingConsent;
-	public final fun getUserInfo ()Lcom/motadata/android/api/context/UserInfo;
-	public final fun getVariant ()Ljava/lang/String;
-	public final fun getVersion ()Ljava/lang/String;
-	public final fun getVersionCode ()I
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
 public final class com/motadata/android/api/context/DeviceInfo {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/motadata/android/api/context/DeviceType;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lcom/motadata/android/api/context/LocaleInfo;ILjava/lang/Integer;Ljava/lang/Boolean;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -275,6 +230,51 @@ public final class com/motadata/android/api/context/LocaleInfo {
 	public final fun getCurrentLocale ()Ljava/lang/String;
 	public final fun getLocales ()Ljava/util/List;
 	public final fun getTimeZone ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/motadata/android/api/context/MotadataContext {
+	public fun <init> (Lcom/motadata/android/MotadataSite;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/motadata/android/api/context/TimeInfo;Lcom/motadata/android/api/context/ProcessInfo;Lcom/motadata/android/api/context/NetworkInfo;Lcom/motadata/android/api/context/DeviceInfo;Lcom/motadata/android/api/context/UserInfo;Lcom/motadata/android/api/context/AccountInfo;Lcom/motadata/android/privacy/TrackingConsent;Ljava/lang/String;Ljava/util/Map;)V
+	public final fun component1 ()Lcom/motadata/android/MotadataSite;
+	public final fun component10 ()Lcom/motadata/android/api/context/TimeInfo;
+	public final fun component11 ()Lcom/motadata/android/api/context/ProcessInfo;
+	public final fun component12 ()Lcom/motadata/android/api/context/NetworkInfo;
+	public final fun component13 ()Lcom/motadata/android/api/context/DeviceInfo;
+	public final fun component14 ()Lcom/motadata/android/api/context/UserInfo;
+	public final fun component15 ()Lcom/motadata/android/api/context/AccountInfo;
+	public final fun component16 ()Lcom/motadata/android/privacy/TrackingConsent;
+	public final fun component17 ()Ljava/lang/String;
+	public final fun component18 ()Ljava/util/Map;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()I
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()Ljava/lang/String;
+	public final fun copy (Lcom/motadata/android/MotadataSite;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/motadata/android/api/context/TimeInfo;Lcom/motadata/android/api/context/ProcessInfo;Lcom/motadata/android/api/context/NetworkInfo;Lcom/motadata/android/api/context/DeviceInfo;Lcom/motadata/android/api/context/UserInfo;Lcom/motadata/android/api/context/AccountInfo;Lcom/motadata/android/privacy/TrackingConsent;Ljava/lang/String;Ljava/util/Map;)Lcom/motadata/android/api/context/MotadataContext;
+	public static synthetic fun copy$default (Lcom/motadata/android/api/context/MotadataContext;Lcom/motadata/android/MotadataSite;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/motadata/android/api/context/TimeInfo;Lcom/motadata/android/api/context/ProcessInfo;Lcom/motadata/android/api/context/NetworkInfo;Lcom/motadata/android/api/context/DeviceInfo;Lcom/motadata/android/api/context/UserInfo;Lcom/motadata/android/api/context/AccountInfo;Lcom/motadata/android/privacy/TrackingConsent;Ljava/lang/String;Ljava/util/Map;ILjava/lang/Object;)Lcom/motadata/android/api/context/MotadataContext;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAccountInfo ()Lcom/motadata/android/api/context/AccountInfo;
+	public final fun getAppBuildId ()Ljava/lang/String;
+	public final fun getClientToken ()Ljava/lang/String;
+	public final fun getDeviceInfo ()Lcom/motadata/android/api/context/DeviceInfo;
+	public final fun getEnv ()Ljava/lang/String;
+	public final fun getFeaturesContext ()Ljava/util/Map;
+	public final fun getNetworkInfo ()Lcom/motadata/android/api/context/NetworkInfo;
+	public final fun getProcessInfo ()Lcom/motadata/android/api/context/ProcessInfo;
+	public final fun getSdkVersion ()Ljava/lang/String;
+	public final fun getService ()Ljava/lang/String;
+	public final fun getSite ()Lcom/motadata/android/MotadataSite;
+	public final fun getSource ()Ljava/lang/String;
+	public final fun getTime ()Lcom/motadata/android/api/context/TimeInfo;
+	public final fun getTrackingConsent ()Lcom/motadata/android/privacy/TrackingConsent;
+	public final fun getUserInfo ()Lcom/motadata/android/api/context/UserInfo;
+	public final fun getVariant ()Ljava/lang/String;
+	public final fun getVersion ()Ljava/lang/String;
+	public final fun getVersionCode ()I
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }

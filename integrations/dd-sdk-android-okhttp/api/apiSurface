@@ -17,7 +17,7 @@ class com.motadata.android.okhttp.MotadataEventListener : okhttp3.EventListener
     override fun create(okhttp3.Call): okhttp3.EventListener
 open class com.motadata.android.okhttp.MotadataInterceptor : com.motadata.android.okhttp.trace.TracingInterceptor
   override fun intercept(okhttp3.Interceptor.Chain): okhttp3.Response
-  override fun onRequestIntercepted(com.motadata.android.api.feature.FeatureSdkCore, okhttp3.Request, com.motadata.android.trace.api.span.DatadogSpan?, okhttp3.Response?, Throwable?)
+  override fun onRequestIntercepted(com.motadata.android.api.feature.FeatureSdkCore, okhttp3.Request, com.motadata.android.trace.api.span.MotadataSpan?, okhttp3.Response?, Throwable?)
   override fun canSendSpan(): Boolean
   override fun onSdkInstanceReady(com.motadata.android.core.InternalSdkCore)
   class Builder : BaseBuilder<MotadataInterceptor, Builder>
@@ -41,17 +41,17 @@ class com.motadata.android.okhttp.internal.OkHttpRequestInfoBuilder : com.motada
   override fun removeHeader(String)
   override fun <T> addTag(Class<T>, T?)
   override fun build(): com.motadata.android.api.instrumentation.network.HttpRequestInfo
-DEPRECATED open class com.motadata.android.okhttp.trace.DeterministicTraceSampler : com.motadata.android.core.sampling.DeterministicSampler<com.motadata.android.trace.api.span.DatadogSpan>
+DEPRECATED open class com.motadata.android.okhttp.trace.DeterministicTraceSampler : com.motadata.android.core.sampling.DeterministicSampler<com.motadata.android.trace.api.span.MotadataSpan>
   constructor(() -> Float)
   constructor(Float)
   constructor(Double)
-fun okhttp3.Request.Builder.parentSpan(com.motadata.android.trace.api.span.DatadogSpan): okhttp3.Request.Builder
+fun okhttp3.Request.Builder.parentSpan(com.motadata.android.trace.api.span.MotadataSpan): okhttp3.Request.Builder
 interface com.motadata.android.okhttp.trace.TracedRequestListener
-  fun onRequestIntercepted(okhttp3.Request, com.motadata.android.trace.api.span.DatadogSpan, okhttp3.Response?, Throwable?)
+  fun onRequestIntercepted(okhttp3.Request, com.motadata.android.trace.api.span.MotadataSpan, okhttp3.Response?, Throwable?)
 open class com.motadata.android.okhttp.trace.TracingInterceptor : okhttp3.Interceptor
   override fun intercept(okhttp3.Interceptor.Chain): okhttp3.Response
   protected fun doIntercept(okhttp3.Interceptor.Chain, okhttp3.Request): okhttp3.Response
-  protected open fun onRequestIntercepted(com.motadata.android.api.feature.FeatureSdkCore, okhttp3.Request, com.motadata.android.trace.api.span.DatadogSpan?, okhttp3.Response?, Throwable?)
+  protected open fun onRequestIntercepted(com.motadata.android.api.feature.FeatureSdkCore, okhttp3.Request, com.motadata.android.trace.api.span.MotadataSpan?, okhttp3.Response?, Throwable?)
   class Builder : BaseBuilder<TracingInterceptor, Builder>
     constructor(Map<String, Set<com.motadata.android.trace.TracingHeaderType>>)
     constructor(List<String>)
@@ -62,7 +62,7 @@ open class com.motadata.android.okhttp.trace.TracingInterceptor : okhttp3.Interc
     fun setSdkInstanceName(String): R
     fun setTracedRequestListener(TracedRequestListener): R
     fun setTraceSampleRate(Float): R
-    fun setTraceSampler(com.motadata.android.core.sampling.Sampler<com.motadata.android.trace.api.span.DatadogSpan>): R
+    fun setTraceSampler(com.motadata.android.core.sampling.Sampler<com.motadata.android.trace.api.span.MotadataSpan>): R
     fun setTraceContextInjection(com.motadata.android.trace.TraceContextInjection): R
     DEPRECATED fun setTraceContextInjection(com.motadata.android.okhttp.TraceContextInjection): R
     fun set404ResourcesRedacted(Boolean): R

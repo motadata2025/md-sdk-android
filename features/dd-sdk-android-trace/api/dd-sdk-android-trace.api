@@ -24,12 +24,6 @@ public final class com/motadata/android/trace/ApmNetworkTracingScope : java/lang
 	public static fun values ()[Lcom/motadata/android/trace/ApmNetworkTracingScope;
 }
 
-public final class com/motadata/android/trace/MotadataTracing {
-	public static final field INSTANCE Lcom/motadata/android/trace/MotadataTracing;
-	public static final fun newTracerBuilder (Lcom/motadata/android/api/SdkCore;)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
-	public static synthetic fun newTracerBuilder$default (Lcom/motadata/android/api/SdkCore;ILjava/lang/Object;)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
-}
-
 public class com/motadata/android/trace/DeterministicTraceSampler : com/motadata/android/core/sampling/DeterministicSampler {
 	public fun <init> (D)V
 	public fun <init> (F)V
@@ -39,8 +33,8 @@ public class com/motadata/android/trace/DeterministicTraceSampler : com/motadata
 public abstract interface annotation class com/motadata/android/trace/ExperimentalTraceApi : java/lang/annotation/Annotation {
 }
 
-public final class com/motadata/android/trace/GlobalDatadogTracer {
-	public static final field INSTANCE Lcom/motadata/android/trace/GlobalDatadogTracer;
+public final class com/motadata/android/trace/GlobalMotadataTracer {
+	public static final field INSTANCE Lcom/motadata/android/trace/GlobalMotadataTracer;
 	public final fun clear ()V
 	public static final fun get ()Lcom/motadata/android/trace/api/tracer/MotadataTracer;
 	public final fun getOrNull ()Lcom/motadata/android/trace/api/tracer/MotadataTracer;
@@ -49,6 +43,12 @@ public final class com/motadata/android/trace/GlobalDatadogTracer {
 
 public abstract interface class com/motadata/android/trace/InternalCoreWriterProvider {
 	public abstract fun getCoreTracerWriter ()Lcom/motadata/android/trace/api/span/MotadataSpanWriter;
+}
+
+public final class com/motadata/android/trace/MotadataTracing {
+	public static final field INSTANCE Lcom/motadata/android/trace/MotadataTracing;
+	public static final fun newTracerBuilder (Lcom/motadata/android/api/SdkCore;)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
+	public static synthetic fun newTracerBuilder$default (Lcom/motadata/android/api/SdkCore;ILjava/lang/Object;)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
 }
 
 public abstract interface class com/motadata/android/trace/NetworkTracedRequestListener {
@@ -129,7 +129,7 @@ public final class com/motadata/android/trace/internal/MotadataSpanIdConverter {
 	public final fun toHexStringPadded (J)Ljava/lang/String;
 }
 
-public final class com/motadata/android/trace/internal/DatadogTraceExtKt {
+public final class com/motadata/android/trace/internal/MotadataTraceExtKt {
 	public static final fun fromHex (Lcom/motadata/android/trace/api/trace/MotadataTraceId$Companion;Ljava/lang/String;)Lcom/motadata/android/trace/api/trace/MotadataTraceId;
 }
 
@@ -316,34 +316,6 @@ public final class com/motadata/android/trace/model/SpanEvent$Companion {
 	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/trace/model/SpanEvent;
 }
 
-public final class com/motadata/android/trace/model/SpanEvent$Dd {
-	public static final field Companion Lcom/motadata/android/trace/model/SpanEvent$Dd$Companion;
-	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;Lcom/motadata/android/trace/model/SpanEvent$Application;Lcom/motadata/android/trace/model/SpanEvent$Session;Lcom/motadata/android/trace/model/SpanEvent$View;)V
-	public synthetic fun <init> (Ljava/lang/String;Lcom/motadata/android/trace/model/SpanEvent$Application;Lcom/motadata/android/trace/model/SpanEvent$Session;Lcom/motadata/android/trace/model/SpanEvent$View;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Lcom/motadata/android/trace/model/SpanEvent$Application;
-	public final fun component3 ()Lcom/motadata/android/trace/model/SpanEvent$Session;
-	public final fun component4 ()Lcom/motadata/android/trace/model/SpanEvent$View;
-	public final fun copy (Ljava/lang/String;Lcom/motadata/android/trace/model/SpanEvent$Application;Lcom/motadata/android/trace/model/SpanEvent$Session;Lcom/motadata/android/trace/model/SpanEvent$View;)Lcom/motadata/android/trace/model/SpanEvent$Dd;
-	public static synthetic fun copy$default (Lcom/motadata/android/trace/model/SpanEvent$Dd;Ljava/lang/String;Lcom/motadata/android/trace/model/SpanEvent$Application;Lcom/motadata/android/trace/model/SpanEvent$Session;Lcom/motadata/android/trace/model/SpanEvent$View;ILjava/lang/Object;)Lcom/motadata/android/trace/model/SpanEvent$Dd;
-	public fun equals (Ljava/lang/Object;)Z
-	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/trace/model/SpanEvent$Dd;
-	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/trace/model/SpanEvent$Dd;
-	public final fun getApplication ()Lcom/motadata/android/trace/model/SpanEvent$Application;
-	public final fun getSession ()Lcom/motadata/android/trace/model/SpanEvent$Session;
-	public final fun getSource ()Ljava/lang/String;
-	public final fun getView ()Lcom/motadata/android/trace/model/SpanEvent$View;
-	public fun hashCode ()I
-	public final fun toJson ()Lcom/google/gson/JsonElement;
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/motadata/android/trace/model/SpanEvent$Dd$Companion {
-	public final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/trace/model/SpanEvent$Dd;
-	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/trace/model/SpanEvent$Dd;
-}
-
 public final class com/motadata/android/trace/model/SpanEvent$Device {
 	public static final field Companion Lcom/motadata/android/trace/model/SpanEvent$Device$Companion;
 	public fun <init> ()V
@@ -392,13 +364,41 @@ public final class com/motadata/android/trace/model/SpanEvent$Device$Companion {
 	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/trace/model/SpanEvent$Device;
 }
 
+public final class com/motadata/android/trace/model/SpanEvent$Md {
+	public static final field Companion Lcom/motadata/android/trace/model/SpanEvent$Md$Companion;
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Lcom/motadata/android/trace/model/SpanEvent$Application;Lcom/motadata/android/trace/model/SpanEvent$Session;Lcom/motadata/android/trace/model/SpanEvent$View;)V
+	public synthetic fun <init> (Ljava/lang/String;Lcom/motadata/android/trace/model/SpanEvent$Application;Lcom/motadata/android/trace/model/SpanEvent$Session;Lcom/motadata/android/trace/model/SpanEvent$View;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lcom/motadata/android/trace/model/SpanEvent$Application;
+	public final fun component3 ()Lcom/motadata/android/trace/model/SpanEvent$Session;
+	public final fun component4 ()Lcom/motadata/android/trace/model/SpanEvent$View;
+	public final fun copy (Ljava/lang/String;Lcom/motadata/android/trace/model/SpanEvent$Application;Lcom/motadata/android/trace/model/SpanEvent$Session;Lcom/motadata/android/trace/model/SpanEvent$View;)Lcom/motadata/android/trace/model/SpanEvent$Md;
+	public static synthetic fun copy$default (Lcom/motadata/android/trace/model/SpanEvent$Md;Ljava/lang/String;Lcom/motadata/android/trace/model/SpanEvent$Application;Lcom/motadata/android/trace/model/SpanEvent$Session;Lcom/motadata/android/trace/model/SpanEvent$View;ILjava/lang/Object;)Lcom/motadata/android/trace/model/SpanEvent$Md;
+	public fun equals (Ljava/lang/Object;)Z
+	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/trace/model/SpanEvent$Md;
+	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/trace/model/SpanEvent$Md;
+	public final fun getApplication ()Lcom/motadata/android/trace/model/SpanEvent$Application;
+	public final fun getSession ()Lcom/motadata/android/trace/model/SpanEvent$Session;
+	public final fun getSource ()Ljava/lang/String;
+	public final fun getView ()Lcom/motadata/android/trace/model/SpanEvent$View;
+	public fun hashCode ()I
+	public final fun toJson ()Lcom/google/gson/JsonElement;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/motadata/android/trace/model/SpanEvent$Md$Companion {
+	public final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/trace/model/SpanEvent$Md;
+	public final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/trace/model/SpanEvent$Md;
+}
+
 public final class com/motadata/android/trace/model/SpanEvent$Meta {
 	public static final field Companion Lcom/motadata/android/trace/model/SpanEvent$Meta$Companion;
-	public fun <init> (Ljava/lang/String;Lcom/motadata/android/trace/model/SpanEvent$Dd;Lcom/motadata/android/trace/model/SpanEvent$Span;Lcom/motadata/android/trace/model/SpanEvent$Tracer;Lcom/motadata/android/trace/model/SpanEvent$Usr;Lcom/motadata/android/trace/model/SpanEvent$Account;Lcom/motadata/android/trace/model/SpanEvent$Network;Lcom/motadata/android/trace/model/SpanEvent$Device;Lcom/motadata/android/trace/model/SpanEvent$Os;Ljava/util/Map;)V
-	public synthetic fun <init> (Ljava/lang/String;Lcom/motadata/android/trace/model/SpanEvent$Dd;Lcom/motadata/android/trace/model/SpanEvent$Span;Lcom/motadata/android/trace/model/SpanEvent$Tracer;Lcom/motadata/android/trace/model/SpanEvent$Usr;Lcom/motadata/android/trace/model/SpanEvent$Account;Lcom/motadata/android/trace/model/SpanEvent$Network;Lcom/motadata/android/trace/model/SpanEvent$Device;Lcom/motadata/android/trace/model/SpanEvent$Os;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Lcom/motadata/android/trace/model/SpanEvent$Md;Lcom/motadata/android/trace/model/SpanEvent$Span;Lcom/motadata/android/trace/model/SpanEvent$Tracer;Lcom/motadata/android/trace/model/SpanEvent$Usr;Lcom/motadata/android/trace/model/SpanEvent$Account;Lcom/motadata/android/trace/model/SpanEvent$Network;Lcom/motadata/android/trace/model/SpanEvent$Device;Lcom/motadata/android/trace/model/SpanEvent$Os;Ljava/util/Map;)V
+	public synthetic fun <init> (Ljava/lang/String;Lcom/motadata/android/trace/model/SpanEvent$Md;Lcom/motadata/android/trace/model/SpanEvent$Span;Lcom/motadata/android/trace/model/SpanEvent$Tracer;Lcom/motadata/android/trace/model/SpanEvent$Usr;Lcom/motadata/android/trace/model/SpanEvent$Account;Lcom/motadata/android/trace/model/SpanEvent$Network;Lcom/motadata/android/trace/model/SpanEvent$Device;Lcom/motadata/android/trace/model/SpanEvent$Os;Ljava/util/Map;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component10 ()Ljava/util/Map;
-	public final fun component2 ()Lcom/motadata/android/trace/model/SpanEvent$Dd;
+	public final fun component2 ()Lcom/motadata/android/trace/model/SpanEvent$Md;
 	public final fun component3 ()Lcom/motadata/android/trace/model/SpanEvent$Span;
 	public final fun component4 ()Lcom/motadata/android/trace/model/SpanEvent$Tracer;
 	public final fun component5 ()Lcom/motadata/android/trace/model/SpanEvent$Usr;
@@ -406,15 +406,15 @@ public final class com/motadata/android/trace/model/SpanEvent$Meta {
 	public final fun component7 ()Lcom/motadata/android/trace/model/SpanEvent$Network;
 	public final fun component8 ()Lcom/motadata/android/trace/model/SpanEvent$Device;
 	public final fun component9 ()Lcom/motadata/android/trace/model/SpanEvent$Os;
-	public final fun copy (Ljava/lang/String;Lcom/motadata/android/trace/model/SpanEvent$Dd;Lcom/motadata/android/trace/model/SpanEvent$Span;Lcom/motadata/android/trace/model/SpanEvent$Tracer;Lcom/motadata/android/trace/model/SpanEvent$Usr;Lcom/motadata/android/trace/model/SpanEvent$Account;Lcom/motadata/android/trace/model/SpanEvent$Network;Lcom/motadata/android/trace/model/SpanEvent$Device;Lcom/motadata/android/trace/model/SpanEvent$Os;Ljava/util/Map;)Lcom/motadata/android/trace/model/SpanEvent$Meta;
-	public static synthetic fun copy$default (Lcom/motadata/android/trace/model/SpanEvent$Meta;Ljava/lang/String;Lcom/motadata/android/trace/model/SpanEvent$Dd;Lcom/motadata/android/trace/model/SpanEvent$Span;Lcom/motadata/android/trace/model/SpanEvent$Tracer;Lcom/motadata/android/trace/model/SpanEvent$Usr;Lcom/motadata/android/trace/model/SpanEvent$Account;Lcom/motadata/android/trace/model/SpanEvent$Network;Lcom/motadata/android/trace/model/SpanEvent$Device;Lcom/motadata/android/trace/model/SpanEvent$Os;Ljava/util/Map;ILjava/lang/Object;)Lcom/motadata/android/trace/model/SpanEvent$Meta;
+	public final fun copy (Ljava/lang/String;Lcom/motadata/android/trace/model/SpanEvent$Md;Lcom/motadata/android/trace/model/SpanEvent$Span;Lcom/motadata/android/trace/model/SpanEvent$Tracer;Lcom/motadata/android/trace/model/SpanEvent$Usr;Lcom/motadata/android/trace/model/SpanEvent$Account;Lcom/motadata/android/trace/model/SpanEvent$Network;Lcom/motadata/android/trace/model/SpanEvent$Device;Lcom/motadata/android/trace/model/SpanEvent$Os;Ljava/util/Map;)Lcom/motadata/android/trace/model/SpanEvent$Meta;
+	public static synthetic fun copy$default (Lcom/motadata/android/trace/model/SpanEvent$Meta;Ljava/lang/String;Lcom/motadata/android/trace/model/SpanEvent$Md;Lcom/motadata/android/trace/model/SpanEvent$Span;Lcom/motadata/android/trace/model/SpanEvent$Tracer;Lcom/motadata/android/trace/model/SpanEvent$Usr;Lcom/motadata/android/trace/model/SpanEvent$Account;Lcom/motadata/android/trace/model/SpanEvent$Network;Lcom/motadata/android/trace/model/SpanEvent$Device;Lcom/motadata/android/trace/model/SpanEvent$Os;Ljava/util/Map;ILjava/lang/Object;)Lcom/motadata/android/trace/model/SpanEvent$Meta;
 	public fun equals (Ljava/lang/Object;)Z
 	public static final fun fromJson (Ljava/lang/String;)Lcom/motadata/android/trace/model/SpanEvent$Meta;
 	public static final fun fromJsonObject (Lcom/google/gson/JsonObject;)Lcom/motadata/android/trace/model/SpanEvent$Meta;
 	public final fun getAccount ()Lcom/motadata/android/trace/model/SpanEvent$Account;
 	public final fun getAdditionalProperties ()Ljava/util/Map;
-	public final fun getDd ()Lcom/motadata/android/trace/model/SpanEvent$Dd;
 	public final fun getDevice ()Lcom/motadata/android/trace/model/SpanEvent$Device;
+	public final fun getMd ()Lcom/motadata/android/trace/model/SpanEvent$Md;
 	public final fun getNetwork ()Lcom/motadata/android/trace/model/SpanEvent$Network;
 	public final fun getOs ()Lcom/motadata/android/trace/model/SpanEvent$Os;
 	public final fun getSpan ()Lcom/motadata/android/trace/model/SpanEvent$Span;

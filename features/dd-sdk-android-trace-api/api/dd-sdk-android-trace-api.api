@@ -74,7 +74,7 @@ public abstract interface class com/motadata/android/trace/api/propagation/Motad
 	public abstract fun inject (Lcom/motadata/android/trace/api/span/MotadataSpanContext;Ljava/lang/Object;Lkotlin/jvm/functions/Function3;)V
 }
 
-public final class com/motadata/android/trace/api/propagation/NoOpDatadogPropagation : com/motadata/android/trace/api/propagation/MotadataPropagation {
+public final class com/motadata/android/trace/api/propagation/NoOpMotadataPropagation : com/motadata/android/trace/api/propagation/MotadataPropagation {
 	public fun <init> ()V
 	public fun extract (Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Lcom/motadata/android/trace/api/span/MotadataSpanContext;
 	public fun inject (Lcom/motadata/android/trace/api/span/MotadataSpanContext;Ljava/lang/Object;Lkotlin/jvm/functions/Function3;)V
@@ -191,7 +191,7 @@ public abstract interface class com/motadata/android/trace/api/tracer/MotadataTr
 	public abstract fun withTracingHeadersTypes (Ljava/util/Set;)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;
 }
 
-public final class com/motadata/android/trace/api/tracer/NoOpDatadogTracer : com/motadata/android/trace/api/tracer/MotadataTracer {
+public final class com/motadata/android/trace/api/tracer/NoOpMotadataTracer : com/motadata/android/trace/api/tracer/MotadataTracer {
 	public fun <init> ()V
 	public fun activateSpan (Lcom/motadata/android/trace/api/span/MotadataSpan;)Lcom/motadata/android/trace/api/scope/MotadataScope;
 	public fun activeSpan ()Lcom/motadata/android/trace/api/span/MotadataSpan;
@@ -201,7 +201,7 @@ public final class com/motadata/android/trace/api/tracer/NoOpDatadogTracer : com
 	public fun propagate ()Lcom/motadata/android/trace/api/propagation/MotadataPropagation;
 }
 
-public final class com/motadata/android/trace/api/tracer/NoOpDatadogTracerBuilder : com/motadata/android/trace/api/tracer/MotadataTracerBuilder {
+public final class com/motadata/android/trace/api/tracer/NoOpMotadataTracerBuilder : com/motadata/android/trace/api/tracer/MotadataTracerBuilder {
 	public fun <init> ()V
 	public fun build ()Lcom/motadata/android/trace/api/tracer/MotadataTracer;
 	public fun setBundleWithRumEnabled (Z)Lcom/motadata/android/trace/api/tracer/MotadataTracerBuilder;

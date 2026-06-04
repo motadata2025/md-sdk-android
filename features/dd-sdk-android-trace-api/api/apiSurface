@@ -1,4 +1,4 @@
-object com.motadata.android.trace.api.DatadogTracingConstants
+object com.motadata.android.trace.api.MotadataTracingConstants
   const val DEFAULT_ASYNC_PROPAGATING: Boolean
   object Tags
     const val KEY_HTTP_URL: String
@@ -46,30 +46,30 @@ object com.motadata.android.trace.api.DatadogTracingConstants
     const val UNSET: Byte
     const val HTTP_SERVER_DECORATOR: Byte
     const val DEFAULT: Byte
-interface com.motadata.android.trace.api.propagation.DatadogHttpHeadersPropagation
-  fun handleSampledHeaders(com.motadata.android.api.instrumentation.network.HttpRequestInfoBuilder, com.motadata.android.trace.api.tracer.DatadogTracer, com.motadata.android.trace.api.span.DatadogSpan): com.motadata.android.api.instrumentation.network.HttpRequestInfoBuilder
-  fun handleNotSampledHeaders(com.motadata.android.api.instrumentation.network.HttpRequestInfoBuilder, com.motadata.android.trace.api.tracer.DatadogTracer, com.motadata.android.trace.api.span.DatadogSpan): com.motadata.android.api.instrumentation.network.HttpRequestInfoBuilder
-interface com.motadata.android.trace.api.propagation.DatadogPropagation
-  fun <C> inject(com.motadata.android.trace.api.span.DatadogSpanContext, C, (C) -> Unit)
-  fun <C> extract(C, (C) -> Unit): com.motadata.android.trace.api.span.DatadogSpanContext?
-class com.motadata.android.trace.api.propagation.NoOpDatadogPropagation : DatadogPropagation
-  override fun <C> inject(com.motadata.android.trace.api.span.DatadogSpanContext, C, (C) -> Unit)
-  override fun <C> extract(C, (C) -> Unit): com.motadata.android.trace.api.span.DatadogSpanContext?
-interface com.motadata.android.trace.api.scope.DatadogScope : java.io.Closeable
+interface com.motadata.android.trace.api.propagation.MotadataHttpHeadersPropagation
+  fun handleSampledHeaders(com.motadata.android.api.instrumentation.network.HttpRequestInfoBuilder, com.motadata.android.trace.api.tracer.MotadataTracer, com.motadata.android.trace.api.span.MotadataSpan): com.motadata.android.api.instrumentation.network.HttpRequestInfoBuilder
+  fun handleNotSampledHeaders(com.motadata.android.api.instrumentation.network.HttpRequestInfoBuilder, com.motadata.android.trace.api.tracer.MotadataTracer, com.motadata.android.trace.api.span.MotadataSpan): com.motadata.android.api.instrumentation.network.HttpRequestInfoBuilder
+interface com.motadata.android.trace.api.propagation.MotadataPropagation
+  fun <C> inject(com.motadata.android.trace.api.span.MotadataSpanContext, C, (C) -> Unit)
+  fun <C> extract(C, (C) -> Unit): com.motadata.android.trace.api.span.MotadataSpanContext?
+class com.motadata.android.trace.api.propagation.NoOpMotadataPropagation : MotadataPropagation
+  override fun <C> inject(com.motadata.android.trace.api.span.MotadataSpanContext, C, (C) -> Unit)
+  override fun <C> extract(C, (C) -> Unit): com.motadata.android.trace.api.span.MotadataSpanContext?
+interface com.motadata.android.trace.api.scope.MotadataScope : java.io.Closeable
   override fun close()
-interface com.motadata.android.trace.api.span.DatadogSpan
+interface com.motadata.android.trace.api.span.MotadataSpan
   var isError: Boolean?
   val isRootSpan: Boolean
   val samplingPriority: Int?
-  val traceId: com.motadata.android.trace.api.trace.DatadogTraceId
+  val traceId: com.motadata.android.trace.api.trace.MotadataTraceId
   val parentSpanId: Long?
   var resourceName: String?
   var serviceName: String
   var operationName: String
   val durationNano: Long
   val startTimeNanos: Long
-  val localRootSpan: DatadogSpan?
-  fun context(): DatadogSpanContext
+  val localRootSpan: MotadataSpan?
+  fun context(): MotadataSpanContext
   fun finish()
   fun finish(Long)
   fun drop()
@@ -85,50 +85,50 @@ interface com.motadata.android.trace.api.span.DatadogSpan
   fun logErrorMessage(String)
   fun logMessage(String)
   fun logAttributes(Map<String, Any>)
-interface com.motadata.android.trace.api.span.DatadogSpanBuilder
-  fun start(): DatadogSpan
-  fun withOrigin(String?): DatadogSpanBuilder
-  fun withTag(String, Double?): DatadogSpanBuilder
-  fun withTag(String, Long?): DatadogSpanBuilder
-  fun withTag(String, Any?): DatadogSpanBuilder
-  fun withResourceName(String?): DatadogSpanBuilder
-  fun withParentContext(DatadogSpanContext?): DatadogSpanBuilder
-  fun withParentSpan(DatadogSpan?): DatadogSpanBuilder
-  fun withStartTimestamp(Long): DatadogSpanBuilder
-  fun ignoreActiveSpan(): DatadogSpanBuilder
-  fun withLink(DatadogSpanLink): DatadogSpanBuilder
-interface com.motadata.android.trace.api.span.DatadogSpanContext
-  val traceId: com.motadata.android.trace.api.trace.DatadogTraceId
+interface com.motadata.android.trace.api.span.MotadataSpanBuilder
+  fun start(): MotadataSpan
+  fun withOrigin(String?): MotadataSpanBuilder
+  fun withTag(String, Double?): MotadataSpanBuilder
+  fun withTag(String, Long?): MotadataSpanBuilder
+  fun withTag(String, Any?): MotadataSpanBuilder
+  fun withResourceName(String?): MotadataSpanBuilder
+  fun withParentContext(MotadataSpanContext?): MotadataSpanBuilder
+  fun withParentSpan(MotadataSpan?): MotadataSpanBuilder
+  fun withStartTimestamp(Long): MotadataSpanBuilder
+  fun ignoreActiveSpan(): MotadataSpanBuilder
+  fun withLink(MotadataSpanLink): MotadataSpanBuilder
+interface com.motadata.android.trace.api.span.MotadataSpanContext
+  val traceId: com.motadata.android.trace.api.trace.MotadataTraceId
   val spanId: Long
   val samplingPriority: Int
   val tags: Map<String, Any?>
   fun setSamplingPriority(Int): Boolean
   fun setMetric(CharSequence?, Double)
-interface com.motadata.android.trace.api.span.DatadogSpanLink
+interface com.motadata.android.trace.api.span.MotadataSpanLink
   val spanId: Long
   val sampled: Boolean
-  val traceId: com.motadata.android.trace.api.trace.DatadogTraceId
+  val traceId: com.motadata.android.trace.api.trace.MotadataTraceId
   val traceStrace: String
   val attributes: Map<String, String>?
-interface com.motadata.android.trace.api.span.DatadogSpanWriter
-interface com.motadata.android.trace.api.trace.DatadogTraceId
+interface com.motadata.android.trace.api.span.MotadataSpanWriter
+interface com.motadata.android.trace.api.trace.MotadataTraceId
   fun toHexStringPadded(Int): String
   fun toHexString(): String
   fun toLong(): Long
   companion object 
-interface com.motadata.android.trace.api.tracer.DatadogTracer
-  fun activeSpan(): com.motadata.android.trace.api.span.DatadogSpan?
-  fun propagate(): com.motadata.android.trace.api.propagation.DatadogPropagation
-  fun activateSpan(com.motadata.android.trace.api.span.DatadogSpan): com.motadata.android.trace.api.scope.DatadogScope?
-  fun buildSpan(CharSequence): com.motadata.android.trace.api.span.DatadogSpanBuilder
-  fun buildSpan(String, CharSequence): com.motadata.android.trace.api.span.DatadogSpanBuilder
-  fun addScopeListener(com.motadata.android.trace.api.scope.DatadogScopeListener)
-interface com.motadata.android.trace.api.tracer.DatadogTracerBuilder
-  fun build(): DatadogTracer
-  fun withTracingHeadersTypes(Set<com.motadata.android.trace.TracingHeaderType>): DatadogTracerBuilder
-  fun withServiceName(String): DatadogTracerBuilder
-  fun withSampleRate(Double): DatadogTracerBuilder
-  fun withPartialFlushMinSpans(Int): DatadogTracerBuilder
-  fun withTag(String, String): DatadogTracerBuilder
-  fun setBundleWithRumEnabled(Boolean): DatadogTracerBuilder
-  fun setTraceRateLimit(Int): DatadogTracerBuilder
+interface com.motadata.android.trace.api.tracer.MotadataTracer
+  fun activeSpan(): com.motadata.android.trace.api.span.MotadataSpan?
+  fun propagate(): com.motadata.android.trace.api.propagation.MotadataPropagation
+  fun activateSpan(com.motadata.android.trace.api.span.MotadataSpan): com.motadata.android.trace.api.scope.MotadataScope?
+  fun buildSpan(CharSequence): com.motadata.android.trace.api.span.MotadataSpanBuilder
+  fun buildSpan(String, CharSequence): com.motadata.android.trace.api.span.MotadataSpanBuilder
+  fun addScopeListener(com.motadata.android.trace.api.scope.MotadataScopeListener)
+interface com.motadata.android.trace.api.tracer.MotadataTracerBuilder
+  fun build(): MotadataTracer
+  fun withTracingHeadersTypes(Set<com.motadata.android.trace.TracingHeaderType>): MotadataTracerBuilder
+  fun withServiceName(String): MotadataTracerBuilder
+  fun withSampleRate(Double): MotadataTracerBuilder
+  fun withPartialFlushMinSpans(Int): MotadataTracerBuilder
+  fun withTag(String, String): MotadataTracerBuilder
+  fun setBundleWithRumEnabled(Boolean): MotadataTracerBuilder
+  fun setTraceRateLimit(Int): MotadataTracerBuilder

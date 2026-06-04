@@ -1,10 +1,3 @@
-public final class com/motadata/android/trace/internal/domain/event/BigIntegerUtils {
-	public static final field INSTANCE Lcom/motadata/android/trace/internal/domain/event/BigIntegerUtils;
-	public final fun leastSignificant64BitsAsDecimal (Ljava/math/BigInteger;)Ljava/lang/String;
-	public final fun leastSignificant64BitsAsHex (Ljava/math/BigInteger;)Ljava/lang/String;
-	public final fun mostSignificant64BitsAsHex (Ljava/math/BigInteger;)Ljava/lang/String;
-}
-
 public final class com/datadog/exec/CommonTaskExecutor : java/util/concurrent/AbstractExecutorService {
 	public static final field INSTANCE Lcom/datadog/exec/CommonTaskExecutor;
 	public fun awaitTermination (JLjava/util/concurrent/TimeUnit;)Z
@@ -3270,8 +3263,8 @@ public class com/datadog/trace/core/propagation/ptags/W3CPTagsCodec {
 }
 
 public final class com/datadog/trace/core/scopemanager/ContinuableScopeManager : com/datadog/trace/bootstrap/instrumentation/api/AgentScopeManager {
-	public fun <init> (IZZLcom/motadata/android/api/InternalLogger;)V
 	public fun <init> (IZZLcom/datadog/trace/bootstrap/instrumentation/api/ProfilingContextIntegration;Lcom/datadog/trace/core/monitor/HealthMetrics;Lcom/motadata/android/api/InternalLogger;)V
+	public fun <init> (IZZLcom/motadata/android/api/InternalLogger;)V
 	public fun activate (Lcom/datadog/trace/bootstrap/instrumentation/api/AgentSpan;Lcom/datadog/trace/bootstrap/instrumentation/api/ScopeSource;)Lcom/datadog/trace/bootstrap/instrumentation/api/AgentScope;
 	public fun activate (Lcom/datadog/trace/bootstrap/instrumentation/api/AgentSpan;Lcom/datadog/trace/bootstrap/instrumentation/api/ScopeSource;Z)Lcom/datadog/trace/bootstrap/instrumentation/api/AgentScope;
 	public fun activateNext (Lcom/datadog/trace/bootstrap/instrumentation/api/AgentSpan;)Lcom/datadog/trace/bootstrap/instrumentation/api/AgentScope;
@@ -3622,5 +3615,12 @@ public final class com/datadog/trace/util/TagsHelper {
 	public fun <init> ()V
 	public static fun concatTags ([Ljava/lang/String;)Ljava/lang/String;
 	public static fun sanitize (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class com/motadata/android/trace/internal/domain/event/BigIntegerUtils {
+	public static final field INSTANCE Lcom/motadata/android/trace/internal/domain/event/BigIntegerUtils;
+	public final fun leastSignificant64BitsAsDecimal (Ljava/math/BigInteger;)Ljava/lang/String;
+	public final fun leastSignificant64BitsAsHex (Ljava/math/BigInteger;)Ljava/lang/String;
+	public final fun mostSignificant64BitsAsHex (Ljava/math/BigInteger;)Ljava/lang/String;
 }
 
