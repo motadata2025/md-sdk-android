@@ -1,4 +1,4 @@
-# Migrate the sample app to the Motadata Android RUM SDK (agent setup + build)
+# Migrate the sample app to the Motadata Android RUM SDK (agent setup + build + SOP)
 
 **You are an AI agent on a Windows machine (Android Studio).** This app currently uses the
 **Datadog Android SDK 3.10.0** (`com.datadoghq:dd-sdk-android-*`) and sends RUM data to a
@@ -8,18 +8,18 @@
 
 ## ▶ Division of labor — READ THIS FIRST
 
-**YOUR job (the agent) — Part A below:**
-1. Wire up the GitHub Packages dependency (repo + credentials).
-2. Swap the Datadog dependencies for the Motadata ones.
-3. Migrate the app code (imports + a few class renames) until it **compiles**.
-4. **Build the debug APK** (and install it if a device is connected). Then **STOP and hand off.**
+**YOUR job (the agent):**
+- **Part A** — wire the dependency, swap Datadog→Motadata, migrate the code until it **compiles**,
+  **build the debug APK** (install if a device is connected), then **STOP and report**.
+- **Part C** — **only after the human tells you "everything works as expected,"** write the
+  **client-integration SOP** MD file (Kotlin + Java).
 
-**The HUMAN's job — Part B below (do NOT do these):**
-- Launching/running the app, tapping buttons/navigating to generate RUM events,
-  capturing the outgoing requests, and verifying events reach Motadata.
+**The HUMAN's job — Part B (do NOT do these):**
+- Launch/run the app, tap buttons to generate RUM events, capture the outgoing requests, and
+  verify events reach Motadata.
 
-So: get it to **build and install cleanly**, report status, and tell the human it's ready to run.
-Do not try to drive the UI, capture traffic, or check the backend yourself.
+So: build & install cleanly → report "ready to run" → wait. Do not drive the UI, capture traffic,
+or check the backend yourself. Only after the human confirms success, do Part C.
 
 **Prerequisite the human gives you:** a **GitHub `read:packages` PAT** + the **GitHub username**
 that owns it (needed to download the dependency at build time). You cannot create this — ask the
@@ -53,8 +53,8 @@ behavior — only the package moved to `com.motadata.android`.
 ## A1. Get the SDK as a Gradle dependency (GitHub Packages)
 
 The fork is published to **GitHub Packages** as `com.motadata:…:1.0.0`. The packages are
-**public**, so **any GitHub account's `read:packages` token works** — the human will give you a
-PAT + username (you do NOT need access to the `motadata2025/md-sdk-android` repo).
+**public**, so **any GitHub account's `read:packages` token works** — the human gives you a PAT +
+username (you do NOT need access to the `motadata2025/md-sdk-android` repo).
 
 ### A1a. Credentials
 Put the human-supplied credentials in the **global** Gradle properties file (NOT in the project —
@@ -149,15 +149,14 @@ Report concisely:
 2. ✅/❌ Code compiled — list every unresolved reference you had to map and how.
 3. ✅/❌ `assembleDebug` succeeded; ✅/❌ `installDebug` succeeded (or "no device attached").
 4. The exact files you changed (Gradle files + which source files).
-5. Anything ambiguous you had to guess, and any leftover `datadog`/`dd` reference you could not
-   resolve.
+5. **Keep a precise list of every SDK-integration change you made** — you will need it for Part C.
 6. **"Ready for you to run and capture events"** (or the blocker preventing that).
 
 ---
 
 # PART B — THE HUMAN'S TASKS (run + capture + verify)
 
-> This section is for the person, not the agent. The agent should point the human here.
+> This section is for the person, not the agent. The agent points the human here, then waits.
 
 Once the app is built/installed:
 
@@ -179,7 +178,54 @@ Once the app is built/installed:
 4. **Confirm receipt** — events land in Motadata (dashboard / custom endpoint receiver / DB), same
    as with 3.10.0.
 
-If all of the above match, Branch 1 is verified working.
+If all of the above match, Branch 1 is verified working → tell the agent to proceed to **Part C**.
+
+---
+
+# PART C — WRITE THE CLIENT INTEGRATION SOP (only after the human confirms success)
+
+**Trigger:** the human has said *"everything works as expected."* Until then, do NOT do this.
+
+Create a new file **`MOTADATA_ANDROID_CLIENT_INTEGRATION_SOP.md`** that documents — as a clean,
+reusable **step-by-step SOP** — exactly what a client must add to **their own** app to enable
+Motadata RUM. Base it on the changes you actually made in Part A, but **generalize**: strip this
+app's business logic and secrets, replace concrete values with clearly-named placeholders
+(`<MOTADATA_RUM_APPLICATION_ID>`, `<MOTADATA_CLIENT_TOKEN>`, `http://<your-motadata-host>/…`).
+
+**Hard requirement: every code step must show BOTH Kotlin AND Java** (two fenced blocks, labelled).
+The SDK is Java-interop-friendly; derive the exact Java signatures from the working integration /
+the IDE — do not guess. Keep snippets minimal and correct.
+
+The SOP must contain these sections, in order:
+
+1. **Overview & prerequisites** — minSdk, that it's a RUM SDK feeding a custom Motadata endpoint
+   over HTTP(S), and the artifacts used.
+2. **Step 1 — Add the repository** — the GitHub Packages `maven { … }` block + the
+   `gradle.properties` credential keys (note: public package, any GitHub `read:packages` PAT).
+   *(If the client will instead get it from Maven Central in future, note that as a one-line
+   alternative — but document GitHub Packages as the current method.)*
+3. **Step 2 — Add dependencies** — `motadata-rum-android` (+ `-okhttp` if using OkHttp).
+4. **Step 3 — AndroidManifest** — `INTERNET` permission; and **for an HTTP (cleartext) endpoint**,
+   `android:usesCleartextTraffic="true"` (or a `network-security-config` scoped to the host). Show
+   the manifest XML.
+5. **Step 4 — Initialize the SDK** — build a `Configuration`, call `Motadata.initialize(...)` with
+   the client token + env + tracking consent. **Kotlin + Java.**
+6. **Step 5 — Enable RUM with the custom endpoint** — build a `RumConfiguration` (application id +
+   `useCustomEndpoint("http://<host>/…")` + any sampling), call `Rum.enable(...)`. **Kotlin + Java.**
+7. **Step 6 — Instrument network calls (OkHttp)** — add `MotadataInterceptor` (and, if used,
+   `MotadataEventListener`) to the `OkHttpClient`; mention `setTraceSampleRate` if relevant.
+   **Kotlin + Java.**
+8. **Step 7 — (Optional) extra instrumentation** — set user info (`Motadata.setUserInfo`), add
+   global attributes, manual view/action tracking via `GlobalRumMonitor.get()`, and automatic
+   tracking strategies (activity/fragment view tracking, user-action tracking) if the app used them.
+   **Kotlin + Java** for any you include.
+9. **Step 8 — Verify** — logcat tag `Motadata`; the request shows `mdsource` / `MD-*` / `_md` over
+   the custom host; events appear in Motadata. (Reuse Part B's checklist, condensed.)
+10. **Notes** — behavior-equivalent to Datadog 3.10.0; placeholders to replace; where to get the
+    client token / application id (the client's Motadata org).
+
+Keep it self-contained and copy-pasteable so a client developer (Kotlin **or** Java) can follow it
+end-to-end without this migration context. After writing it, tell the human the SOP file is ready.
 
 ---
 
@@ -193,7 +239,7 @@ If all of the above match, Branch 1 is verified working.
 | `Could not find com.motadata:motadata-rum-android:1.0.0` | Repo URL/creds wrong. Confirm the package at github.com/motadata2025/md-sdk-android → Packages. |
 | `Unresolved reference: Datadog` / `com.datadog.android.*` | Apply §A2 rule — `com.datadog.android`→`com.motadata.android`, `Datadog*`→`Motadata*`. |
 | Duplicate class / conflict with `com.datadoghq…` | A leftover Datadog dependency remains — remove all `com.datadoghq:dd-sdk-android-*`. |
-| `CLEARTEXT communication ... not permitted` (at runtime, human sees this) | Manifest `usesCleartextTraffic`/network-security-config was lost — restore it (§A3). Not an SDK change. |
+| `CLEARTEXT communication ... not permitted` (runtime, human sees this) | Manifest `usesCleartextTraffic`/network-security-config was lost — restore it (§A3). Not an SDK change. |
 
 ## Notes
 
