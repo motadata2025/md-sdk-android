@@ -23,7 +23,9 @@ step does = `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`. This file tracks *status onl
 | 6.5 | Internal class-name debrand (remaining `Datadog*`/`Dd*` internal classes → `Motadata*`/`Md*`) — pure rename, no behavior/API-shape change | ✅ | `61de63f52`,`236f36aeb` | 26879305308 ✅ |
 | 7 | Body envelope `_dd`→`_md`, `ddtags`→`mdtags` via JSON-schema edit + codegen regen — plan §2.6 | ✅ | `4900580cb`,`95f8f68f4` | 26884001463 ✅ |
 | 8 | Maven coords + POM: group `com.motadata`, version `1.0.0`, artifact ids — plan §1D | ✅ | `873882f8a` | 26885382569 ✅ |
-| 9 | `apiDumpAll` + `generateApiSurfaceAll` + fix broken tests → full green — plan Part 6 | ⬜ | — | — |
+| 9 | API regen + unit tests green — plan Part 6 | 🔄 | `04c91fcb5`(wf),`c536447b0`(api regen) | 9A 26932653185 ✅ · 9B 26932981053 🔄 |
+| 9A | Regenerate api surface (`generateApiSurface`+`apiDump`+`generateCompilerMetadata` ×7) via new `motadata-apidump.yml` dispatch wf; bot pushed regenerated files | ✅ | `c536447b0` | 26932653185 ✅ |
+| 9B | Unit tests (`testDebugUnitTest --continue` ×7) via `motadata-test.yml`; fix to green | 🔄 | `c4bd305c7`(wf) | 26932981053 🔄 |
 
 **Then:** test Branch 1 end-to-end (deferred until step 9 done) — Path A (CI sample APK → `adb logcat`, CurlInterceptor dumps request) and/or Path B (CI → GitHub Packages → Windows app). No Maven Central needed for testing.
 
@@ -53,6 +55,11 @@ with `if: always()` → `actions/upload-artifact` of `**/build/test-results/**/*
   3. **String constants** tests assert: telemetry.service/meter `motadata-rum-android`, launch/background view url/id `com/motadata/...`, `MD-*` headers, `mdsource`/`mdtags`, `MD_LOG`, NTP `pool.ntp.org`, storage `motadata-%s`, thread names `motadata-*`, op names `MotadataCore.*`.
   4. **Class/Forge references** to renamed types (should compile, but fixtures may hardcode names).
   5. **Binary fixture** `dd-sdk-android-core/src/test/resources/logs-batch-2.2.0-and-earlier` (backward-compat deserialization) — left untouched in step 1; if a test reads it expecting `com.datadog.android`, decide: keep (it tests OLD-format compat) vs regenerate.
+
+### Phase 9A — DONE (for the record)
+- Authored `.github/workflows/motadata-apidump.yml` (`workflow_dispatch`, `permissions: contents: write`): checks out `motadata-dev`, runs `generateApiSurface`+`apiDump`+`generateCompilerMetadata` for the 7 modules, commits + pushes regenerated api files back. Run 26932653185 ✅ (6m19s) → bot commit `c536447b0` (899↔899, pure renames).
+- **Gotcha:** `gh workflow run <file>` resolves the workflow by name **only on the repo default branch** (`develop`). Our wf lived only on `motadata-dev` → HTTP 404. Fix: also committed the (dispatch-only, never auto-runs) wf file to `develop` so it registers; dispatch with `--ref motadata-dev` then uses the motadata-dev copy + explicit `ref: motadata-dev` checkout. Same pattern used for `motadata-test.yml`.
+- **Result:** product namespace clean — zero `com.motadata.android` `Dd*`/`_dd`/`datadog` left in api files; rum models now `MdSession`/`MdAction`/`MdActionTarget`/`MdCls`; `DdRumContentProvider`→`MdRumContentProvider`. **Remaining `datadog` in api = deferred separate roots only:** `com/datadog/trace` (1422, vendored OTel tracer internals, in trace-module public surface), `com/datadog/exec` (8), `com/datadog/tools` (2, `@NoOpImplementation` annotation). All agreed-deferred.
 
 ### Phase 9C — Done criteria
 All 7 modules: `testDebugUnitTest` green + `assembleDebug` green (7 AARs) + `checkApiSurfaceChangesAll` clean (api matches code). Then mark step 9 ✅ → **Branch 1 COMPLETE** → proceed to end-to-end device test (Path A/B), then cut `motadata-dev-with-functional-changes` for Branch 2.
