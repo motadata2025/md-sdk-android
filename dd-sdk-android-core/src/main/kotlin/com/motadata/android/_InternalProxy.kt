@@ -93,8 +93,9 @@ class _InternalProxy internal constructor(
     }
 
     companion object {
-        // TODO RUM-368 Expose it as public API? Needed for the integration tests at least,
-        //  because OkHttp MockWebServer is HTTP based
+        // Now a public API: Configuration.Builder.allowClearTextHttp(). This bridge is kept
+        // for backward compatibility (flutter/react-native plugins + integration tests that
+        // call it through the proxy, e.g. OkHttp MockWebServer is HTTP based).
         fun allowClearTextHttp(builder: Configuration.Builder): Configuration.Builder {
             return builder.allowClearTextHttp()
         }

@@ -285,7 +285,18 @@ internal constructor(
             return this
         }
 
-        internal fun allowClearTextHttp(): Builder {
+        /**
+         * Allows the SDK to send data over cleartext HTTP (without TLS).
+         *
+         * By default the SDK requires HTTPS for its intake endpoint. Enable this when the
+         * configured endpoint is a plain-HTTP host — for example an on-premise Motadata
+         * collector reached over `http://`. The application must also permit cleartext
+         * traffic to that host (e.g. `android:usesCleartextTraffic="true"` in the manifest,
+         * or a scoped `network-security-config`).
+         *
+         * @return this [Builder]
+         */
+        fun allowClearTextHttp(): Builder {
             coreConfig = coreConfig.copy(
                 needsClearTextHttp = true
             )
