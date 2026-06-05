@@ -39,7 +39,7 @@ Cut from `motadata-dev` @ `a9da12805` (Branch-1 signed-off checkpoint). **Ships 
 
 | # | Step | Plan § | Status | Commit(s) | CI run |
 |---|------|--------|--------|-----------|--------|
-| 10 | **`md-api-key` query param** (auth) — `RumRequestFactory.buildUrl` adds `md-api-key=<clientToken>` (new `RequestFactory.QUERY_PARAM_API_KEY`) | 2.1 | 🔄 | `7617e01d5` | 27008283960 🔄 |
+| 10 | **`md-api-key` query param** (auth) — `RumRequestFactory.buildUrl` adds `md-api-key=<clientToken>` (new `RequestFactory.QUERY_PARAM_API_KEY`) | 2.1 | ✅ | `7617e01d5` (code), `6b75c4d16` (ci) | build 27008283960 ✅ · tests 27010278286 ✅ (JDK17, 0 fail) |
 | 11 | Make `allowClearTextHttp()` **public** (drop `internal`) — replaces the `_InternalProxy` hack | 2.2 | ⬜ | | |
 | 12 | **`view.is_view_completed`** — serialize existing `viewComplete` in `RumViewScope.sendViewUpdate` | 2.3 | ⬜ | | |
 | 13 | **`session.created` + `context._timing`** — capture session-start epoch-ms in `RumSessionScope`/`RumContext`, emit on every event | 2.5 | ⬜ | | |
@@ -52,7 +52,8 @@ Cut from `motadata-dev` @ `a9da12805` (Branch-1 signed-off checkpoint). **Ships 
 - **Why query, not header:** backend `origin/dev` `RUMEventListener.java:218` authenticates on `params.get("md-api-key")` — Vert.x `request().params()` = **query string**, not headers. Missing/invalid → `401 LOGIN_TOKEN_COMPROMISED`. The `MD-API-KEY` *header* (renamed in Branch-1 step 5) is **never read for auth**.
 - **Browser parity confirmed:** upstream DataDog `browser-sdk` `endpointBuilder.ts:96` already puts `dd-api-key=${clientToken}` in the **query** by default; the motadata fork (`motadata-dev` :86) just renamed it `md-api-key`. So browser always did query; Android natively only did the header → this is a genuine **ADD** on Android (hence Branch 2, not a Branch-1 rename).
 - **Change:** `RequestFactory.QUERY_PARAM_API_KEY = "md-api-key"` const (core, next to `QUERY_PARAM_SOURCE`/`_TAGS`) + `put(QUERY_PARAM_API_KEY, context.clientToken)` in `RumRequestFactory.buildUrl` (insertion order: source, api-key, tags). Header still sent (harmless; backend ignores). Test `RumRequestFactoryTest.expectedUrl` updated to match the new query order.
-- **API surface:** new public const → core `apiSurface`/`.api` go stale → regen via `motadata-apidump.yml` dispatch (build wf only does `assembleDebug`, doesn't catch it).
+- **API surface:** new public const → core `apiSurface`/`.api` go stale → regen via `motadata-apidump.yml` dispatch (build wf only does `assembleDebug`, doesn't catch it). **Deferred to Branch-2 finalize** (batched with step 11's public-method change; no CI gate fails meanwhile).
+- **Workflow fix (this step):** `motadata-test.yml` + `motadata-apidump.yml` hardcoded `ref: motadata-dev` → made branch-agnostic via `${{ github.ref_name }}` (commit `6b75c4d16`). Confirmed `workflow_dispatch` runs the **`--ref` branch's** copy (Branch-1 9B ran JDK-17 tests though develop's copy is JDK-21), so no develop-side change needed. Tests dispatched with `--ref motadata-dev-with-functional-changes` correctly checked out this branch.
 
 ---
 
