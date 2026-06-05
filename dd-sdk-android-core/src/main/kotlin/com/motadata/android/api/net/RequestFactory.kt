@@ -73,6 +73,12 @@ fun interface RequestFactory {
         const val QUERY_PARAM_TAGS: String = "mdtags"
 
         /**
+         * Motadata API key query parameter name. The intake authenticates on this query parameter
+         * (the [HEADER_API_KEY] header is still sent, but the server reads the key from the query).
+         */
+        const val QUERY_PARAM_API_KEY: String = "md-api-key"
+
+        /**
          * Motadata Idempotency key header, used to offer more insight into the request retry statistics.
          */
         const val DD_IDEMPOTENCY_KEY: String = "MD-IDEMPOTENCY-KEY"

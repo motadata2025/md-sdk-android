@@ -57,6 +57,7 @@ internal class RumRequestFactory(
     private fun buildUrl(context: MotadataContext, executionContext: RequestExecutionContext): String {
         val queryParams = buildMap {
             put(RequestFactory.QUERY_PARAM_SOURCE, context.source)
+            put(RequestFactory.QUERY_PARAM_API_KEY, context.clientToken)
 
             val tags = buildTags(executionContext)
             if (tags.isNotEmpty()) {

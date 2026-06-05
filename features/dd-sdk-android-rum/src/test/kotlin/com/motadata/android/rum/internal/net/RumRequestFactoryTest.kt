@@ -167,6 +167,7 @@ internal class RumRequestFactoryTest {
 
         return buildString {
             append("$endpointUrl?mdsource=${fakeDatadogContext.source}")
+            append("&md-api-key=${fakeDatadogContext.clientToken}")
             if (queryTags.isNotEmpty()) {
                 append("&mdtags=${queryTags.joinToString(",")}")
             }
