@@ -40,13 +40,19 @@ Cut from `motadata-dev` @ `a9da12805` (Branch-1 signed-off checkpoint). **Ships 
 | # | Step | Plan § | Status | Commit(s) | CI run |
 |---|------|--------|--------|-----------|--------|
 | 10 | **`md-api-key` query param** (auth) — `RumRequestFactory.buildUrl` adds `md-api-key=<clientToken>` (new `RequestFactory.QUERY_PARAM_API_KEY`) | 2.1 | ✅ | `7617e01d5` (code), `6b75c4d16` (ci) | build 27008283960 ✅ · tests 27010278286 ✅ (JDK17, 0 fail) |
-| 11 | Make `allowClearTextHttp()` **public** (drop `internal`) — replaces the `_InternalProxy` hack | 2.2 | ⬜ | | |
+| 11 | Make `allowClearTextHttp()` **public** (drop `internal`) — replaces the `_InternalProxy` hack | 2.2 | ✅ | `b5baaeee4` | build 27012894816 ✅ |
 | 12 | **`view.is_view_completed`** — serialize existing `viewComplete` in `RumViewScope.sendViewUpdate` | 2.3 | ⬜ | | |
 | 13 | **`session.created` + `context._timing`** — capture session-start epoch-ms in `RumSessionScope`/`RumContext`, emit on every event | 2.5 | ⬜ | | |
 | 14 | Keep-tracking delay tune (5min → ~1min) | 2.4 | ⬜ | | |
 | 15 | Add `"Motadata SDK initialized"` log at end of `Motadata.initialize()` | 3.2 | ⬜ | | |
 
 **Then:** api-surface regen (step 11 changes public API; step 10 adds a public core const) → unit tests green (JDK 17) → bump `AndroidConfig.VERSION` to `1.0.1` → publish 7 modules to GitHub Packages → re-capture on device, confirm `?md-api-key=…`, `is_view_completed`, `session.created`, `context._timing`.
+
+### Step-11 detail (for the record)
+- `Configuration.Builder.allowClearTextHttp()` (`Configuration.kt:288`): dropped `internal` → public, added customer-facing KDoc (on-prem `http://` endpoint; app must also permit cleartext via manifest/network-security-config). Resolves the in-code `TODO RUM-368 Expose it as public API?`.
+- `_InternalProxy.allowClearTextHttp(builder)` bridge **kept** (updated comment) — flutter (`DatadogSdkPlugin.kt`), react-native (`DdSdkNativeInitialization.kt`), and integration tests (`reliability/core-it`, `instrumented/integration`) call through it. Now just delegates to the public method.
+- No test change: existing `ConfigurationBuilderTest:453` already calls `.allowClearTextHttp()` (was same-module-accessible as internal; still compiles as public). Visibility-widening can't break callers, so build-green is a sufficient gate (tests batched at finalize).
+- **Last public-API change in Branch 2** → the finalize api-surface regen captures this method + step-10's `QUERY_PARAM_API_KEY` const. After Branch 2, the client SOP's HTTP step becomes a plain `.allowClearTextHttp()` (no `@SuppressLint`/`_InternalProxy`).
 
 ### Step-10 detail (for the record)
 - **Why query, not header:** backend `origin/dev` `RUMEventListener.java:218` authenticates on `params.get("md-api-key")` — Vert.x `request().params()` = **query string**, not headers. Missing/invalid → `401 LOGIN_TOKEN_COMPROMISED`. The `MD-API-KEY` *header* (renamed in Branch-1 step 5) is **never read for auth**.
