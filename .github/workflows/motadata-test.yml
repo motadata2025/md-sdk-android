@@ -15,7 +15,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: motadata-dev
+          # Dispatched ref (e.g. motadata-dev or motadata-dev-with-functional-changes)
+          ref: ${{ github.ref_name }}
 
       # JDK 17 (not 21): the test utils strip a field's `final` modifier via a
       # VarHandle on Field.modifiers (com.datadog.tools.unit.RemoveFinalModifier),

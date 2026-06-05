@@ -19,7 +19,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: motadata-dev
+          # Dispatched ref (e.g. motadata-dev or motadata-dev-with-functional-changes)
+          ref: ${{ github.ref_name }}
           persist-credentials: true
 
       - name: Set up JDK 21
@@ -76,8 +77,8 @@ jobs:
           if git diff --cached --quiet; then
             echo "No API changes to commit."
           else
-            git commit -m "rebrand(9/9): regenerate api surface after renames [skip ci]"
-            git push origin HEAD:motadata-dev
+            git commit -m "chore: regenerate api surface [skip ci]"
+            git push origin "HEAD:${{ github.ref_name }}"
           fi
 
       - name: Upload API files as artifact (fallback)
