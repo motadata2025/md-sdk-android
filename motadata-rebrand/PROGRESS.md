@@ -29,6 +29,31 @@ step does = `MOTADATA_ANDROID_SDK_REBRAND_PLAN.md`. This file tracks *status onl
 
 **Then:** test Branch 1 end-to-end (deferred until step 9 done) — Path A (CI sample APK → `adb logcat`, CurlInterceptor dumps request) and/or Path B (CI → GitHub Packages → Windows app). No Maven Central needed for testing.
 
+**Branch 1 = SIGNED OFF** (v`1.0.0`, published to GitHub Packages, verified on-device incl. the `MD-EVP-ORIGIN-VERSION` header fix).
+
+---
+
+## Branch 2 — `motadata-dev-with-functional-changes` (functional additions only — NO renames)
+
+Cut from `motadata-dev` @ `a9da12805` (Branch-1 signed-off checkpoint). **Ships as `1.0.1`** (DECIDED — a version bump avoids the GitHub-Packages delete-then-republish dance; the `AndroidConfig.VERSION` bump is itself one of the publish-time steps). Same loop as Branch 1: edit → push → `Motadata SDK Build` green → (api regen / test dispatch as needed) → pause for user "go" before next step.
+
+| # | Step | Plan § | Status | Commit(s) | CI run |
+|---|------|--------|--------|-----------|--------|
+| 10 | **`md-api-key` query param** (auth) — `RumRequestFactory.buildUrl` adds `md-api-key=<clientToken>` (new `RequestFactory.QUERY_PARAM_API_KEY`) | 2.1 | 🔄 | `7617e01d5` | 27008283960 🔄 |
+| 11 | Make `allowClearTextHttp()` **public** (drop `internal`) — replaces the `_InternalProxy` hack | 2.2 | ⬜ | | |
+| 12 | **`view.is_view_completed`** — serialize existing `viewComplete` in `RumViewScope.sendViewUpdate` | 2.3 | ⬜ | | |
+| 13 | **`session.created` + `context._timing`** — capture session-start epoch-ms in `RumSessionScope`/`RumContext`, emit on every event | 2.5 | ⬜ | | |
+| 14 | Keep-tracking delay tune (5min → ~1min) | 2.4 | ⬜ | | |
+| 15 | Add `"Motadata SDK initialized"` log at end of `Motadata.initialize()` | 3.2 | ⬜ | | |
+
+**Then:** api-surface regen (step 11 changes public API; step 10 adds a public core const) → unit tests green (JDK 17) → bump `AndroidConfig.VERSION` to `1.0.1` → publish 7 modules to GitHub Packages → re-capture on device, confirm `?md-api-key=…`, `is_view_completed`, `session.created`, `context._timing`.
+
+### Step-10 detail (for the record)
+- **Why query, not header:** backend `origin/dev` `RUMEventListener.java:218` authenticates on `params.get("md-api-key")` — Vert.x `request().params()` = **query string**, not headers. Missing/invalid → `401 LOGIN_TOKEN_COMPROMISED`. The `MD-API-KEY` *header* (renamed in Branch-1 step 5) is **never read for auth**.
+- **Browser parity confirmed:** upstream DataDog `browser-sdk` `endpointBuilder.ts:96` already puts `dd-api-key=${clientToken}` in the **query** by default; the motadata fork (`motadata-dev` :86) just renamed it `md-api-key`. So browser always did query; Android natively only did the header → this is a genuine **ADD** on Android (hence Branch 2, not a Branch-1 rename).
+- **Change:** `RequestFactory.QUERY_PARAM_API_KEY = "md-api-key"` const (core, next to `QUERY_PARAM_SOURCE`/`_TAGS`) + `put(QUERY_PARAM_API_KEY, context.clientToken)` in `RumRequestFactory.buildUrl` (insertion order: source, api-key, tags). Header still sent (harmless; backend ignores). Test `RumRequestFactoryTest.expectedUrl` updated to match the new query order.
+- **API surface:** new public const → core `apiSurface`/`.api` go stale → regen via `motadata-apidump.yml` dispatch (build wf only does `assembleDebug`, doesn't catch it).
+
 ---
 
 ## ▶ STEP 9 — EXECUTION PLAN (start here next session)
