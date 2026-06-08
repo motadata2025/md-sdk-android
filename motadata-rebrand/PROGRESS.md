@@ -41,12 +41,19 @@ Cut from `motadata-dev` @ `a9da12805` (Branch-1 signed-off checkpoint). **Ships 
 |---|------|--------|--------|-----------|--------|
 | 10 | **`md-api-key` query param** (auth) — `RumRequestFactory.buildUrl` adds `md-api-key=<clientToken>` (new `RequestFactory.QUERY_PARAM_API_KEY`) | 2.1 | ✅ | `7617e01d5` (code), `6b75c4d16` (ci) | build 27008283960 ✅ · tests 27010278286 ✅ (JDK17, 0 fail) |
 | 11 | Make `allowClearTextHttp()` **public** (drop `internal`) — replaces the `_InternalProxy` hack | 2.2 | ✅ | `b5baaeee4` | build 27012894816 ✅ |
-| 12 | **`view.is_view_completed`** — serialize existing `viewComplete` in `RumViewScope.sendViewUpdate` | 2.3 | ⬜ | | |
+| 12 | **`view.is_view_completed`** — serialize existing `viewComplete` in `RumViewScope.sendViewUpdate` | 2.3 | ✅ | `d15b204cd` | build 27118443006 ✅ · tests 27119584355 ✅ (JDK17, 0 fail) |
 | 13 | **`session.created` + `context._timing`** — capture session-start epoch-ms in `RumSessionScope`/`RumContext`, emit on every event | 2.5 | ⬜ | | |
 | 14 | Keep-tracking delay tune (5min → ~1min) | 2.4 | ⬜ | | |
 | 15 | Add `"Motadata SDK initialized"` log at end of `Motadata.initialize()` | 3.2 | ⬜ | | |
 
 **Then:** api-surface regen (step 11 changes public API; step 10 adds a public core const) → unit tests green (JDK 17) → bump `AndroidConfig.VERSION` to `1.0.1` → publish 7 modules to GitHub Packages → re-capture on device, confirm `?md-api-key=…`, `is_view_completed`, `session.created`, `context._timing`.
+
+### Step-12 detail (for the record)
+- **Placement = schema field (option a), for exact browser parity.** Browser SDK (`viewCollection.ts:122` + `trackViews.ts:61,332,359`) emits `view.is_view_completed` as a **string** `"no"`→`"yes"` (typed `isViewCompleted: string`, a custom Pratham/Ashish add marked `// NEW: Mark as final`). So Android adds the same field to the **view object**, not the event top level.
+- **Schema:** added optional string `is_view_completed` to `_view-properties-schema.json` under `properties.view.properties` (right after `is_active`) → json2kotlin regenerates `ViewEvent.ViewEventView.isViewCompleted: String?` at build (generated model is build-time only, never committed — per CLAUDE.md).
+- **Serialization:** `RumViewScope.sendViewUpdate` sets `isViewCompleted = if (viewComplete) "yes" else "no"` next to the existing `isActive = !viewComplete` (line ~1261). Reuses the already-computed `viewComplete = isViewComplete()` (true only when view stopped AND all pending resources/actions/long-tasks resolved) — no lifecycle rebuild.
+- **No test changes needed:** optional model field round-trips fine; the builder-style `ViewEventAssert` DSL only checks explicitly-asserted fields. Build (codegen+main) green, then JDK-17 tests 0-fail. (First test run hit a transient Gradle-distribution download timeout on the runner — re-dispatched, green.)
+- Result on the wire: every view event now carries `view.is_view_completed` = `"no"` until the final authoritative update, then `"yes"` — byte-for-byte the browser shape; backend keeps one row per view.
 
 ### Step-11 detail (for the record)
 - `Configuration.Builder.allowClearTextHttp()` (`Configuration.kt:288`): dropped `internal` → public, added customer-facing KDoc (on-prem `http://` endpoint; app must also permit cleartext via manifest/network-security-config). Resolves the in-code `TODO RUM-368 Expose it as public API?`.
