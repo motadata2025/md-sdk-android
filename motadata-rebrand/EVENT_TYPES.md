@@ -187,6 +187,30 @@ These fields are defined in `rum/_common-schema.json` and form the shared shell 
 
 ---
 
+## 3.1 Motadata functional additions (Branch 2, `v1.0.1`+)
+
+These are **Motadata-specific** fields/params added on top of the rebrand. They appear automatically —
+no app code. Present on the **5 backend-consumed event types** (`view`, `action`, `resource`, `error`,
+`long_task`); **not** emitted on `vital` (app_launch) or `telemetry` events.
+
+| Field / param | Where | Type | Unit / format | Meaning | Example |
+|---|---|---|---|---|---|
+| `md-api-key` | request **query** (+ `MD-API-KEY` header) | string | client token | the param the Motadata intake authenticates on | `…?mdsource=android&md-api-key=pub…` |
+| `session.created` | inside `session` object | integer | **epoch milliseconds** (absolute) | wall-clock time the session started | `1780919007516` |
+| `context._timing.navigationStart` | inside `context._timing` | integer | **epoch milliseconds** (absolute) | session start (Option A: equals `session.created`) | `1780919007516` |
+| `context._timing.relativeTime` | inside `context._timing` | integer | **nanoseconds** (duration) | time **after session start** this event occurred = `(event.date − session.created) × 1e6` | `32568000000` (= 32.57 s) |
+| `view.is_view_completed` | inside `view` object (view events only) | string | `"yes"` / `"no"` | `"yes"` on the final/authoritative update for a view, else `"no"` | `"yes"` |
+
+> **`relativeTime` can be negative for the `ApplicationLaunch` view** (one per session): its `date` is
+> backdated to actual app-start, which precedes `session.created`, so `date − created < 0`. This is
+> expected and affects only that single synthetic launch view — every other event is positive.
+>
+> **Backend reads:** `session.created` → stored as `*.created.time.ms`; `relativeTime` → converted
+> `NANOSECONDS → MICROSECONDS` and stored as `*.relative.time.us`. (So the SDK must send `relativeTime`
+> in nanoseconds — it does.)
+
+---
+
 ## 4. `view` event
 
 A `view` event is **updated and re-sent** every time something happens on that view — new action, long task, slow frame, etc. The same `view.id` will be sent dozens of times with monotonically increasing `_dd.document_version`. The **last** one for a given `view.id` is the authoritative summary.
