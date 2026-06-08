@@ -9,7 +9,7 @@ custom endpoint (HTTP or HTTPS). Three steps: **S‑1 Dependencies → S‑2 Ini
 > (`com.motadata.android.*`, `Motadata*`, `MD-*`, `mdsource`/`mdtags`, `"_md"`).
 
 ## Prerequisites
-- An Android app (`minSdk` ≥ 21; SDK targets Java 17 / AGP 8).
+- An Android app (`minSdk` ≥ 23 / Android 6.0; `compileSdk` 36; SDK targets Java 17 / AGP 8).
 - From the client's Motadata org: **RUM application id** and **client token**.
 - A GitHub username + a **PAT with `read:packages`** (the packages are public, but GitHub
   Packages still requires *a* token; any GitHub account's works).
