@@ -173,6 +173,11 @@
           "description": "Whether the View corresponding to this event is considered active",
           "readOnly": true
         },
+        "is_view_completed": {
+          "type": "string",
+          "description": "Whether this is the final, authoritative update for the View (\"yes\") or an in-progress update (\"no\")",
+          "readOnly": true
+        },
         "is_slow_rendered": {
           "type": "boolean",
           "description": "Whether the View had a low average refresh rate",

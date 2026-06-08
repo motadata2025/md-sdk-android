@@ -1259,6 +1259,7 @@ internal open class RumViewScope(
                     frozenFrame = ViewEvent.FrozenFrame(eventFrozenFramesCount),
                     customTimings = timings,
                     isActive = !viewComplete,
+                    isViewCompleted = if (viewComplete) "yes" else "no",
                     cpuTicksCount = eventCpuTicks,
                     cpuTicksPerSecond = if (durationNs >= ONE_SECOND_NS) {
                         eventCpuTicks?.let { (it * ONE_SECOND_NS) / durationNs }
