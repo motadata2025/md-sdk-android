@@ -463,7 +463,11 @@ internal class MotadataTest {
 
         // Then
         assertThat(result).isTrue()
-        verifyNoInteractions(logger.mockInternalLogger)
+        logger.mockInternalLogger.verifyLog(
+            InternalLogger.Level.INFO,
+            InternalLogger.Target.USER,
+            Motadata.MESSAGE_SDK_INITIALIZED
+        )
     }
 
     // endregion
