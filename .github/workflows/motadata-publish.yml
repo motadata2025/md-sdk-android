@@ -22,7 +22,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: motadata-dev
+          # Dispatched ref (motadata-dev = 1.0.0 / Branch 1; motadata-dev-with-functional-changes = 1.0.1 / Branch 2)
+          ref: ${{ github.ref_name }}
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
