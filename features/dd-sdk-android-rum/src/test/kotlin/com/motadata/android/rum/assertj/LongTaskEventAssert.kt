@@ -114,7 +114,9 @@ internal class LongTaskEventAssert(actual: LongTaskEvent) :
     }
 
     fun containsExactlyContextAttributes(expected: Map<String, Any?>) {
-        assertThat(actual.context?.additionalProperties)
+        // _timing is injected by the SDK on every event (context._timing); exclude it so this
+        // assertion still checks only the user-provided context attributes.
+        assertThat(actual.context?.additionalProperties?.filterKeys { it != "_timing" })
             .overridingErrorMessage(
                 "Expected event to have context " +
                     "additional properties $expected " +
