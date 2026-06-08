@@ -42,11 +42,21 @@ Cut from `motadata-dev` @ `a9da12805` (Branch-1 signed-off checkpoint). **Ships 
 | 10 | **`md-api-key` query param** (auth) — `RumRequestFactory.buildUrl` adds `md-api-key=<clientToken>` (new `RequestFactory.QUERY_PARAM_API_KEY`) | 2.1 | ✅ | `7617e01d5` (code), `6b75c4d16` (ci) | build 27008283960 ✅ · tests 27010278286 ✅ (JDK17, 0 fail) |
 | 11 | Make `allowClearTextHttp()` **public** (drop `internal`) — replaces the `_InternalProxy` hack | 2.2 | ✅ | `b5baaeee4` | build 27012894816 ✅ |
 | 12 | **`view.is_view_completed`** — serialize existing `viewComplete` in `RumViewScope.sendViewUpdate` | 2.3 | ✅ | `d15b204cd` | build 27118443006 ✅ · tests 27119584355 ✅ (JDK17, 0 fail) |
-| 13 | **`session.created` + `context._timing`** — capture session-start epoch-ms in `RumSessionScope`/`RumContext`, emit on every event | 2.5 | ⬜ | | |
+| 13 | **`session.created` + `context._timing`** — capture session-start epoch-ms in `RumSessionScope`/`RumContext`, emit on every event | 2.5 | ✅ | `405b361d8` (impl), `209a2f00e` (tests) | build 27123075809 ✅ · tests 27124204130 ✅ (JDK17, 0 fail) |
 | 14 | Keep-tracking delay tune (5min → ~1min) | 2.4 | ⬜ | | |
 | 15 | Add `"Motadata SDK initialized"` log at end of `Motadata.initialize()` | 3.2 | ⬜ | | |
 
 **Then:** api-surface regen (step 11 changes public API; step 10 adds a public core const) → unit tests green (JDK 17) → bump `AndroidConfig.VERSION` to `1.0.1` → publish 7 modules to GitHub Packages → re-capture on device, confirm `?md-api-key=…`, `is_view_completed`, `session.created`, `context._timing`.
+
+### Step-13 detail (for the record)
+- **Fields added to every event** (5 backend-consumed types: view, action, resource, error, long_task):
+  - `session.created` = **epoch ms** when the session started (inside the `session` object).
+  - `context._timing` = `{ navigationStart: <session-start ms>, relativeTime: <NANOSECONDS since session start> }` (inside `context`).
+- **⚠️ Units (backend-driven, corrects the plan):** `RUMEventProcessor.java` reads `session.created` via `getLong` → stored `.ms`; reads `_timing.relativeTime` via `convertTime(NANOSECONDS, MICROSECONDS)` → stored `.us`. So `relativeTime` is **nanoseconds**, NOT the plan's `event.date − navigationStart` ms. `navigationStart` is **not read** by the backend (parity filler) → Option A: `navigationStart == session.created`.
+- **Capture/propagation:** `RumSessionScope.renewSession` stores server-corrected `sessionStartTimestampMs = time.timestamp + serverTimeOffsetMs`; exposed via new `RumContext.sessionStartTimestampMs` (toMap/fromFeatureContext) + helper `RumContext.buildTimingContext(eventMs, sessionStartMs)` (relativeTime = `(eventMs − sessionStartMs) × 1_000_000`).
+- **`created` field:** added optional `created` (integer) to the **shared** `_common-schema.json` session → all 5 `*EventSession` models get it via `allOf` merge (build confirmed). `_timing` needs **no schema** (context is `additionalProperties: true`) — injected into each event's context map; nested map serializes via `JsonSerializer.toJsonElement` (handles `Map`).
+- **7 injection sites:** ViewEvent/ErrorEvent/LongTaskEvent (RumViewScope), ActionEvent (RumActionScope), ResourceEvent + ErrorEvent (RumResourceScope), late-crash ErrorEvent (`MotadataLateCrashReporter` — carries `created` from persisted view, recomputes `_timing` for the error's date). `updateViewEvent` `.copy()` preserves them. Android-specific Vital* events intentionally left (no browser analog, backend doesn't consume).
+- **Tests:** the new `_timing` key broke `containsExactlyContextAttributes` (exact map match) in 5 assert helpers → 144 failures. Fix: exclude the `_timing` key there (asserts only user context). Serializer/deserializer round-trip passed unchanged (created + nested _timing serialize fine). Actual values to be verified on-device at finalize. NOTE: 3 transient runner Gradle-distribution download failures (504 / read-timeout on `gradle-9.4.0-all.zip`) along the way — not code; re-runs cleared them.
 
 ### Step-12 detail (for the record)
 - **Placement = schema field (option a), for exact browser parity.** Browser SDK (`viewCollection.ts:122` + `trackViews.ts:61,332,359`) emits `view.is_view_completed` as a **string** `"no"`→`"yes"` (typed `isViewCompleted: string`, a custom Pratham/Ashish add marked `// NEW: Mark as final`). So Android adds the same field to the **view object**, not the event top level.
