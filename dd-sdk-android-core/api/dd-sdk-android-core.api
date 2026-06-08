@@ -554,6 +554,7 @@ public abstract interface class com/motadata/android/api/net/RequestFactory {
 	public static final field HEADER_EVP_ORIGIN Ljava/lang/String;
 	public static final field HEADER_EVP_ORIGIN_VERSION Ljava/lang/String;
 	public static final field HEADER_REQUEST_ID Ljava/lang/String;
+	public static final field QUERY_PARAM_API_KEY Ljava/lang/String;
 	public static final field QUERY_PARAM_SOURCE Ljava/lang/String;
 	public static final field QUERY_PARAM_TAGS Ljava/lang/String;
 	public abstract fun create (Lcom/motadata/android/api/context/MotadataContext;Lcom/motadata/android/api/net/RequestExecutionContext;Ljava/util/List;[B)Lcom/motadata/android/api/net/Request;
@@ -567,6 +568,7 @@ public final class com/motadata/android/api/net/RequestFactory$Companion {
 	public static final field HEADER_EVP_ORIGIN Ljava/lang/String;
 	public static final field HEADER_EVP_ORIGIN_VERSION Ljava/lang/String;
 	public static final field HEADER_REQUEST_ID Ljava/lang/String;
+	public static final field QUERY_PARAM_API_KEY Ljava/lang/String;
 	public static final field QUERY_PARAM_SOURCE Ljava/lang/String;
 	public static final field QUERY_PARAM_TAGS Ljava/lang/String;
 }
@@ -752,6 +754,7 @@ public final class com/motadata/android/core/configuration/Configuration$Builder
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun allowClearTextHttp ()Lcom/motadata/android/core/configuration/Configuration$Builder;
 	public final fun build ()Lcom/motadata/android/core/configuration/Configuration;
 	public final fun setAdditionalConfiguration (Ljava/util/Map;)Lcom/motadata/android/core/configuration/Configuration$Builder;
 	public final fun setBackpressureStrategy (Lcom/motadata/android/core/configuration/BackPressureStrategy;)Lcom/motadata/android/core/configuration/Configuration$Builder;

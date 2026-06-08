@@ -195,6 +195,7 @@ interface com.motadata.android.api.net.RequestFactory
     const val HEADER_REQUEST_ID: String
     const val QUERY_PARAM_SOURCE: String
     const val QUERY_PARAM_TAGS: String
+    const val QUERY_PARAM_API_KEY: String
     const val DD_IDEMPOTENCY_KEY: String
 interface com.motadata.android.api.storage.DataWriter<T>
   fun write(EventBatchWriter, T, EventType): Boolean
@@ -283,6 +284,7 @@ data class com.motadata.android.core.configuration.Configuration
     fun setBackpressureStrategy(BackPressureStrategy): Builder
     fun setUploadSchedulerStrategy(UploadSchedulerStrategy?): Builder
     fun setVersion(String): Builder
+    fun allowClearTextHttp(): Builder
   companion object 
 class com.motadata.android.core.configuration.HostsSanitizer
   fun sanitizeHosts(List<String>, String): List<String>

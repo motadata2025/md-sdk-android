@@ -400,7 +400,7 @@ data class com.motadata.android.rum.model.ActionEvent
       fun fromJson(kotlin.String): Application
       fun fromJsonObject(com.google.gson.JsonObject): Application
   data class ActionEventSession
-    constructor(kotlin.String, ActionEventSessionType, kotlin.Boolean? = null)
+    constructor(kotlin.String, ActionEventSessionType, kotlin.Boolean? = null, kotlin.Long? = null)
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): ActionEventSession
@@ -701,7 +701,7 @@ data class com.motadata.android.rum.model.ErrorEvent
       fun fromJson(kotlin.String): Application
       fun fromJsonObject(com.google.gson.JsonObject): Application
   data class ErrorEventSession
-    constructor(kotlin.String, ErrorEventSessionType, kotlin.Boolean? = null)
+    constructor(kotlin.String, ErrorEventSessionType, kotlin.Boolean? = null, kotlin.Long? = null)
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): ErrorEventSession
@@ -1082,7 +1082,7 @@ data class com.motadata.android.rum.model.LongTaskEvent
       fun fromJson(kotlin.String): Application
       fun fromJsonObject(com.google.gson.JsonObject): Application
   data class LongTaskEventSession
-    constructor(kotlin.String, LongTaskEventSessionType, kotlin.Boolean? = null)
+    constructor(kotlin.String, LongTaskEventSessionType, kotlin.Boolean? = null, kotlin.Long? = null)
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): LongTaskEventSession
@@ -1350,7 +1350,7 @@ data class com.motadata.android.rum.model.ResourceEvent
       fun fromJson(kotlin.String): Application
       fun fromJsonObject(com.google.gson.JsonObject): Application
   data class ResourceEventSession
-    constructor(kotlin.String, ResourceEventSessionType, kotlin.Boolean? = null)
+    constructor(kotlin.String, ResourceEventSessionType, kotlin.Boolean? = null, kotlin.Long? = null)
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): ResourceEventSession
@@ -1743,13 +1743,13 @@ data class com.motadata.android.rum.model.ViewEvent
       fun fromJson(kotlin.String): Application
       fun fromJsonObject(com.google.gson.JsonObject): Application
   data class ViewEventSession
-    constructor(kotlin.String, ViewEventSessionType, kotlin.Boolean? = null, kotlin.Boolean? = true, kotlin.Boolean? = null)
+    constructor(kotlin.String, ViewEventSessionType, kotlin.Boolean? = null, kotlin.Long? = null, kotlin.Boolean? = true, kotlin.Boolean? = null)
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): ViewEventSession
       fun fromJsonObject(com.google.gson.JsonObject): ViewEventSession
   data class ViewEventView
-    constructor(kotlin.String, kotlin.String? = null, kotlin.String, kotlin.String? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.Long? = null, LoadingType? = null, kotlin.Long, kotlin.Long? = null, kotlin.Long? = null, kotlin.String? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.String? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.String? = null, kotlin.Number? = null, kotlin.Long? = null, kotlin.String? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.Long? = null, CustomTimings? = null, kotlin.Boolean? = null, kotlin.Boolean? = null, Action, Error, Crash? = null, LongTask? = null, FrozenFrame? = null, kotlin.collections.List<SlowFrame>? = null, Resource, Frustration? = null, kotlin.collections.List<InForegroundPeriod>? = null, kotlin.Number? = null, kotlin.Number? = null, kotlin.Number? = null, kotlin.Number? = null, kotlin.Number? = null, kotlin.Number? = null, kotlin.Number? = null, kotlin.Number? = null, FlutterBuildTime? = null, FlutterBuildTime? = null, FlutterBuildTime? = null, Performance? = null, Accessibility? = null)
+    constructor(kotlin.String, kotlin.String? = null, kotlin.String, kotlin.String? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.Long? = null, LoadingType? = null, kotlin.Long, kotlin.Long? = null, kotlin.Long? = null, kotlin.String? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.String? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.String? = null, kotlin.Number? = null, kotlin.Long? = null, kotlin.String? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.Long? = null, kotlin.Long? = null, CustomTimings? = null, kotlin.Boolean? = null, kotlin.String? = null, kotlin.Boolean? = null, Action, Error, Crash? = null, LongTask? = null, FrozenFrame? = null, kotlin.collections.List<SlowFrame>? = null, Resource, Frustration? = null, kotlin.collections.List<InForegroundPeriod>? = null, kotlin.Number? = null, kotlin.Number? = null, kotlin.Number? = null, kotlin.Number? = null, kotlin.Number? = null, kotlin.Number? = null, kotlin.Number? = null, kotlin.Number? = null, FlutterBuildTime? = null, FlutterBuildTime? = null, FlutterBuildTime? = null, Performance? = null, Accessibility? = null)
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): ViewEventView
@@ -2168,7 +2168,7 @@ data class com.motadata.android.rum.model.VitalAppLaunchEvent
       fun fromJson(kotlin.String): Application
       fun fromJsonObject(com.google.gson.JsonObject): Application
   data class VitalAppLaunchEventSession
-    constructor(kotlin.String, VitalAppLaunchEventSessionType, kotlin.Boolean? = null)
+    constructor(kotlin.String, VitalAppLaunchEventSessionType, kotlin.Boolean? = null, kotlin.Long? = null)
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): VitalAppLaunchEventSession
@@ -2421,7 +2421,7 @@ data class com.motadata.android.rum.model.VitalOperationStepEvent
       fun fromJson(kotlin.String): Application
       fun fromJsonObject(com.google.gson.JsonObject): Application
   data class VitalOperationStepEventSession
-    constructor(kotlin.String, VitalOperationStepEventSessionType, kotlin.Boolean? = null)
+    constructor(kotlin.String, VitalOperationStepEventSessionType, kotlin.Boolean? = null, kotlin.Long? = null)
     fun toJson(): com.google.gson.JsonElement
     companion object 
       fun fromJson(kotlin.String): VitalOperationStepEventSession
