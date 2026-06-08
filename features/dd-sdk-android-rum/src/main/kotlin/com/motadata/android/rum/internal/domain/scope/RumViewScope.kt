@@ -777,7 +777,8 @@ internal open class RumViewScope(
                 session = ErrorEvent.ErrorEventSession(
                     id = rumContext.sessionId,
                     type = sessionType,
-                    hasReplay = hasReplay
+                    hasReplay = hasReplay,
+                    created = rumContext.sessionStartTimestampMs
                 ),
                 synthetics = syntheticsAttribute,
                 source = ErrorEvent.ErrorEventSource.tryFromSource(
@@ -804,7 +805,17 @@ internal open class RumViewScope(
                     totalRam = datadogContext.deviceInfo.totalRam,
                     isLowRam = datadogContext.deviceInfo.isLowRam
                 ),
-                context = ErrorEvent.Context(additionalProperties = errorCustomAttributes),
+                context = ErrorEvent.Context(
+                    additionalProperties = errorCustomAttributes.apply {
+                        put(
+                            RumContext.TIMING_CONTEXT_KEY,
+                            RumContext.buildTimingContext(
+                                event.eventTime.timestamp + serverTimeOffsetInMs,
+                                rumContext.sessionStartTimestampMs
+                            )
+                        )
+                    }
+                ),
                 md = ErrorEvent.Md(
                     session = ErrorEvent.MdSession(
                         sessionPrecondition = rumContext.sessionStartReason.toErrorSessionPrecondition()
@@ -1310,7 +1321,8 @@ internal open class RumViewScope(
                     id = rumContext.sessionId,
                     type = sessionType,
                     hasReplay = hasReplay,
-                    isActive = rumContext.isSessionActive
+                    isActive = rumContext.isSessionActive,
+                    created = rumContext.sessionStartTimestampMs
                 ),
                 synthetics = syntheticsAttribute,
                 source = ViewEvent.ViewEventSource.tryFromSource(
@@ -1337,7 +1349,14 @@ internal open class RumViewScope(
                     totalRam = datadogContext.deviceInfo.totalRam,
                     isLowRam = datadogContext.deviceInfo.isLowRam
                 ),
-                context = ViewEvent.Context(additionalProperties = viewCustomAttributes),
+                context = ViewEvent.Context(
+                    additionalProperties = viewCustomAttributes.apply {
+                        put(
+                            RumContext.TIMING_CONTEXT_KEY,
+                            RumContext.buildTimingContext(eventTimestamp, rumContext.sessionStartTimestampMs)
+                        )
+                    }
+                ),
                 md = ViewEvent.Md(
                     documentVersion = eventVersion,
                     session = ViewEvent.MdSession(
@@ -1497,7 +1516,8 @@ internal open class RumViewScope(
                 session = LongTaskEvent.LongTaskEventSession(
                     id = rumContext.sessionId,
                     type = sessionType,
-                    hasReplay = hasReplay
+                    hasReplay = hasReplay,
+                    created = rumContext.sessionStartTimestampMs
                 ),
                 synthetics = syntheticsAttribute,
                 source = LongTaskEvent.LongTaskEventSource.tryFromSource(
@@ -1519,7 +1539,17 @@ internal open class RumViewScope(
                     totalRam = datadogContext.deviceInfo.totalRam,
                     isLowRam = datadogContext.deviceInfo.isLowRam
                 ),
-                context = LongTaskEvent.Context(additionalProperties = longTaskCustomAttributes),
+                context = LongTaskEvent.Context(
+                    additionalProperties = longTaskCustomAttributes.apply {
+                        put(
+                            RumContext.TIMING_CONTEXT_KEY,
+                            RumContext.buildTimingContext(
+                                timestamp - TimeUnit.NANOSECONDS.toMillis(event.durationNs),
+                                rumContext.sessionStartTimestampMs
+                            )
+                        )
+                    }
+                ),
                 md = LongTaskEvent.Md(
                     session = LongTaskEvent.MdSession(
                         sessionPrecondition = rumContext.sessionStartReason.toLongTaskSessionPrecondition()

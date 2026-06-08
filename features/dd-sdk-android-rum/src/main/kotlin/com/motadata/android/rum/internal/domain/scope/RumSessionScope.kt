@@ -70,6 +70,10 @@ internal class RumSessionScope(
     internal var isActive: Boolean = true
     private val sessionStartNs = AtomicLong(sdkCore.timeProvider.getDeviceElapsedTimeNanos())
 
+    // Server-corrected epoch-ms at which the current session started (for session.created /
+    // context._timing). Set on every renewSession; propagated through RumContext.
+    private var sessionStartTimestampMs: Long = 0L
+
     private val lastUserInteractionNs = AtomicLong(0L)
 
     private val noOpWriter = NoOpDataWriter<Any>()
@@ -212,7 +216,8 @@ internal class RumSessionScope(
             sessionId = sessionId,
             sessionState = sessionState,
             sessionStartReason = startReason,
-            isSessionActive = isActive
+            isSessionActive = isActive,
+            sessionStartTimestampMs = sessionStartTimestampMs
         )
     }
 
@@ -286,6 +291,7 @@ internal class RumSessionScope(
         sessionState = if (keepSession) State.TRACKED else State.NOT_TRACKED
         sessionId = newSessionId
         sessionStartNs.set(time.nanoTime)
+        sessionStartTimestampMs = time.timestamp + sdkCore.time.serverTimeOffsetMs
         rumSessionScopeStartupManager = rumSessionScopeStartupManagerFactory()
         childScope?.renewViewScopes(time)
         if (keepSession) {

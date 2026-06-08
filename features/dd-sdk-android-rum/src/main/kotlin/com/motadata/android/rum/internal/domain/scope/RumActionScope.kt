@@ -307,7 +307,8 @@ internal class RumActionScope(
                 session = ActionEvent.ActionEventSession(
                     id = rumContext.sessionId,
                     type = sessionType,
-                    hasReplay = hasReplay
+                    hasReplay = hasReplay,
+                    created = rumContext.sessionStartTimestampMs
                 ),
                 synthetics = syntheticsAttribute,
                 source = ActionEvent.ActionEventSource.tryFromSource(
@@ -349,7 +350,14 @@ internal class RumActionScope(
                     totalRam = datadogContext.deviceInfo.totalRam,
                     isLowRam = datadogContext.deviceInfo.isLowRam
                 ),
-                context = ActionEvent.Context(additionalProperties = getCustomAttributes().toMutableMap()),
+                context = ActionEvent.Context(
+                    additionalProperties = getCustomAttributes().toMutableMap().apply {
+                        put(
+                            RumContext.TIMING_CONTEXT_KEY,
+                            RumContext.buildTimingContext(eventTimestamp, rumContext.sessionStartTimestampMs)
+                        )
+                    }
+                ),
                 md = ActionEvent.Md(
                     session = ActionEvent.MdSession(
                         sessionPrecondition = rumContext.sessionStartReason.toActionSessionPrecondition()

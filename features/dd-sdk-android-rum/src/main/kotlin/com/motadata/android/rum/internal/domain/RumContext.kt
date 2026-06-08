@@ -25,7 +25,10 @@ internal data class RumContext(
     val syntheticsResultId: String? = null,
     val viewTimestamp: Long = 0L,
     val viewTimestampOffset: Long = 0L,
-    val hasReplay: Boolean = false
+    val hasReplay: Boolean = false,
+    // Server-corrected epoch-ms at which the current session started. Used to emit
+    // session.created and context._timing on every event.
+    val sessionStartTimestampMs: Long = 0L
 ) {
 
     fun toMap(): Map<String, Any?> {
@@ -44,7 +47,8 @@ internal data class RumContext(
             SYNTHETICS_RESULT_ID to syntheticsResultId,
             VIEW_TIMESTAMP to viewTimestamp,
             HAS_REPLAY to hasReplay,
-            VIEW_TIMESTAMP_OFFSET to viewTimestampOffset
+            VIEW_TIMESTAMP_OFFSET to viewTimestampOffset,
+            SESSION_START_TIMESTAMP to sessionStartTimestampMs
         )
     }
 
@@ -69,6 +73,24 @@ internal data class RumContext(
         const val HAS_REPLAY = "view_has_replay"
         const val VIEW_TIMESTAMP = "view_timestamp"
         const val VIEW_TIMESTAMP_OFFSET = "view_timestamp_offset"
+        const val SESSION_START_TIMESTAMP = "session_start_timestamp"
+
+        // context._timing keys + nanos-per-ms factor (backend reads relativeTime as nanoseconds).
+        const val TIMING_CONTEXT_KEY = "_timing"
+        const val TIMING_NAVIGATION_START_KEY = "navigationStart"
+        const val TIMING_RELATIVE_TIME_KEY = "relativeTime"
+        private const val NANOS_IN_MILLI = 1_000_000L
+
+        /**
+         * Builds the `_timing` context object emitted on every event (Option A: navigationStart ==
+         * session start). `relativeTime` is in nanoseconds (the unit the intake expects).
+         */
+        fun buildTimingContext(eventTimestampMs: Long, sessionStartTimestampMs: Long): Map<String, Long> {
+            return mapOf(
+                TIMING_NAVIGATION_START_KEY to sessionStartTimestampMs,
+                TIMING_RELATIVE_TIME_KEY to (eventTimestampMs - sessionStartTimestampMs) * NANOS_IN_MILLI
+            )
+        }
 
         fun fromFeatureContext(featureContext: Map<String, Any?>): RumContext {
             val applicationId = featureContext[APPLICATION_ID] as? String
@@ -90,6 +112,7 @@ internal data class RumContext(
             val hasReplay = featureContext[HAS_REPLAY] as? Boolean ?: false
             val viewTimestamp = featureContext[VIEW_TIMESTAMP] as? Long ?: 0L
             val viewTimestampOffset = featureContext[VIEW_TIMESTAMP_OFFSET] as? Long ?: 0L
+            val sessionStartTimestampMs = featureContext[SESSION_START_TIMESTAMP] as? Long ?: 0L
 
             return RumContext(
                 applicationId = applicationId ?: NULL_UUID,
@@ -106,7 +129,8 @@ internal data class RumContext(
                 syntheticsResultId = syntheticsResultId,
                 viewTimestamp = viewTimestamp,
                 viewTimestampOffset = viewTimestampOffset,
-                hasReplay = hasReplay
+                hasReplay = hasReplay,
+                sessionStartTimestampMs = sessionStartTimestampMs
             )
         }
     }

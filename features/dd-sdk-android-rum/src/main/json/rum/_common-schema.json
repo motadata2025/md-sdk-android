@@ -75,6 +75,11 @@
           "type": "boolean",
           "description": "Whether this session has a replay",
           "readOnly": true
+        },
+        "created": {
+          "type": "integer",
+          "description": "Epoch timestamp in milliseconds at which the session was created",
+          "readOnly": true
         }
       },
       "readOnly": true

@@ -194,6 +194,13 @@ internal class MotadataLateCrashReporter(
             ErrorEvent.Connectivity(connectivityStatus, connectivityInterfaces, cellular = cellular)
         }
         val additionalProperties = viewEvent.context?.additionalProperties ?: mutableMapOf()
+        // Recompute context._timing for this error's own date (navigationStart == session.created).
+        viewEvent.session.created?.let { sessionCreated ->
+            additionalProperties[RumContext.TIMING_CONTEXT_KEY] = RumContext.buildTimingContext(
+                timestamp + datadogContext.time.serverTimeOffsetMs,
+                sessionCreated
+            )
+        }
         val additionalUserProperties = viewEvent.usr?.additionalProperties ?: mutableMapOf()
         val user = viewEvent.usr
         val hasUserInfo = user?.id != null || user?.anonymousId != null || user?.name != null ||
@@ -209,7 +216,8 @@ internal class MotadataLateCrashReporter(
             service = viewEvent.service,
             session = ErrorEvent.ErrorEventSession(
                 viewEvent.session.id,
-                ErrorEvent.ErrorEventSessionType.USER
+                ErrorEvent.ErrorEventSessionType.USER,
+                created = viewEvent.session.created
             ),
             source = viewEvent.source?.toJson()?.asString?.let {
                 ErrorEvent.ErrorEventSource.tryFromSource(

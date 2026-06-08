@@ -341,7 +341,8 @@ internal class RumResourceScope(
                 session = ResourceEvent.ResourceEventSession(
                     id = rumContext.sessionId,
                     type = sessionType,
-                    hasReplay = hasReplay
+                    hasReplay = hasReplay,
+                    created = rumContext.sessionStartTimestampMs
                 ),
                 synthetics = syntheticsAttribute,
                 source = ResourceEvent.ResourceEventSource.tryFromSource(
@@ -365,7 +366,14 @@ internal class RumResourceScope(
                     totalRam = datadogContext.deviceInfo.totalRam,
                     isLowRam = datadogContext.deviceInfo.isLowRam
                 ),
-                context = ResourceEvent.Context(additionalProperties = getCustomAttributes().toMutableMap()),
+                context = ResourceEvent.Context(
+                    additionalProperties = getCustomAttributes().toMutableMap().apply {
+                        put(
+                            RumContext.TIMING_CONTEXT_KEY,
+                            RumContext.buildTimingContext(eventTimestamp, rumContext.sessionStartTimestampMs)
+                        )
+                    }
+                ),
                 md = ResourceEvent.Md(
                     traceId = traceId,
                     spanId = spanId,
@@ -507,7 +515,8 @@ internal class RumResourceScope(
                 session = ErrorEvent.ErrorEventSession(
                     id = rumContext.sessionId,
                     type = sessionType,
-                    hasReplay = hasReplay
+                    hasReplay = hasReplay,
+                    created = rumContext.sessionStartTimestampMs
                 ),
                 synthetics = syntheticsAttribute,
                 source = ErrorEvent.ErrorEventSource.tryFromSource(
@@ -529,7 +538,14 @@ internal class RumResourceScope(
                     totalRam = datadogContext.deviceInfo.totalRam,
                     isLowRam = datadogContext.deviceInfo.isLowRam
                 ),
-                context = ErrorEvent.Context(additionalProperties = getCustomAttributes().toMutableMap()),
+                context = ErrorEvent.Context(
+                    additionalProperties = getCustomAttributes().toMutableMap().apply {
+                        put(
+                            RumContext.TIMING_CONTEXT_KEY,
+                            RumContext.buildTimingContext(eventTimestamp, rumContext.sessionStartTimestampMs)
+                        )
+                    }
+                ),
                 md = ErrorEvent.Md(
                     session = ErrorEvent.MdSession(
                         sessionPrecondition = rumContext.sessionStartReason.toErrorSessionPrecondition()
