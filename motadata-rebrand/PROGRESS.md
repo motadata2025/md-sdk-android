@@ -43,10 +43,21 @@ Cut from `motadata-dev` @ `a9da12805` (Branch-1 signed-off checkpoint). **Ships 
 | 11 | Make `allowClearTextHttp()` **public** (drop `internal`) — replaces the `_InternalProxy` hack | 2.2 | ✅ | `b5baaeee4` | build 27012894816 ✅ |
 | 12 | **`view.is_view_completed`** — serialize existing `viewComplete` in `RumViewScope.sendViewUpdate` | 2.3 | ✅ | `d15b204cd` | build 27118443006 ✅ · tests 27119584355 ✅ (JDK17, 0 fail) |
 | 13 | **`session.created` + `context._timing`** — capture session-start epoch-ms in `RumSessionScope`/`RumContext`, emit on every event | 2.5 | ✅ | `405b361d8` (impl), `209a2f00e` (tests) | build 27123075809 ✅ · tests 27124204130 ✅ (JDK17, 0 fail) |
-| 14 | Keep-tracking delay tune (5min → ~1min) | 2.4 | ⬜ | | |
-| 15 | Add `"Motadata SDK initialized"` log at end of `Motadata.initialize()` | 3.2 | ⬜ | | |
+| 14 | Keep-tracking delay tune (5min → ~1min) | 2.4 | ⏭️ N/A | — (no code change) | — |
+| 15 | Add `"Motadata SDK initialized"` log at end of `Motadata.initialize()` | 3.2 | ✅ | `8bdf61937` (impl), `7a988fa06` (test) | build 27128171234 ✅ · tests 27129602386 ✅ (JDK17, 0 fail) |
 
 **Then:** api-surface regen (step 11 changes public API; step 10 adds a public core const) → unit tests green (JDK 17) → bump `AndroidConfig.VERSION` to `1.0.1` → publish 7 modules to GitHub Packages → re-capture on device, confirm `?md-api-key=…`, `is_view_completed`, `session.created`, `context._timing`.
+
+### Step-15 detail (for the record)
+- Added `MESSAGE_SDK_INITIALIZED = "Motadata SDK initialized"` + an `unboundInternalLogger.log(INFO, USER, …)` call at the end of the primary `Motadata.initialize()` (right after `registry.register`, before `return sdkCore`). No success log existed before; the onboarding doc filters Logcat by the `Motadata` tag for it.
+- `Target.USER` → shows in the customer's Logcat; `Level.INFO` ("important expected event"). The 2nd `initialize()` overload delegates to the primary, so one site covers both.
+- Test: `MotadataTest "M return true W isInitialized() { instance is initialized }"` did a post-init `verifyNoInteractions(logger)` → now `verifyLog(INFO, USER, MESSAGE_SDK_INITIALIZED)` (matches the file's existing `verifyLog` pattern). Only failure; build + JDK-17 tests green.
+- Verified along the way (not a leak): `Motadata.kt:447-450` `DD_SOURCE_TAG="_dd.source"` etc. are config-INPUT map keys (read from `additionalConfig` by flutter/RN wrappers), NOT event fields — never on the wire (capture showed zero `_dd`); correctly left.
+
+### Step-14 detail (N/A — for the record)
+- **Decision: N/A on Android, no code change.** The browser's `KEEP_TRACKING_AFTER_VIEW_DELAY` (now `1 * ONE_MINUTE` in browser-sdk `trackViews.ts:96`) is a fixed `setTimeout` after a view ends before it fires the final `isViewCompleted:'yes'` — the browser blind-waits because it **can't count** in-flight async work (late fetch/XHR, CLS/LCP settling post-navigation).
+- **Android has no such constant/timer.** It finalizes views **event-accurately** via exact pending counters (`pendingResource/Action/Error/LongTaskCount` + `activeResourceScopes`): `is_view_completed="yes"` fires the instant `stopped && pending==0 && no active resources`. Navigating A→B stops A (`RumViewScope.onStartView`→`stopScope`) and emits A's `"yes"` immediately if drained (or when the last straggler resolves). The only minute-scale timer nearby is the unrelated **session inactivity (15 min)** — must NOT be touched.
+- **Behavior impact: zero** (skipping = no change → identical to the on-device-verified build). Android's model is strictly more precise than a fixed delay, so there is nothing to gain by adding one.
 
 ### Step-13 detail (for the record)
 - **Fields added to every event** (5 backend-consumed types: view, action, resource, error, long_task):
