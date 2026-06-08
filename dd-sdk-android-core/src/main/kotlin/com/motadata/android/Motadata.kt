@@ -100,6 +100,12 @@ object Motadata {
             }
             registry.register(sdkInstanceName, sdkCore)
 
+            unboundInternalLogger.log(
+                InternalLogger.Level.INFO,
+                InternalLogger.Target.USER,
+                { MESSAGE_SDK_INITIALIZED }
+            )
+
             return sdkCore
         }
     }
@@ -435,6 +441,8 @@ object Motadata {
 
     internal const val MESSAGE_ALREADY_INITIALIZED =
         "The Motadata library has already been initialized."
+
+    internal const val MESSAGE_SDK_INITIALIZED = "Motadata SDK initialized"
 
     internal const val MESSAGE_SDK_NOT_INITIALIZED = "SDK instance with name %s is not found," +
         " returning no-op implementation. Please make sure to call" +
