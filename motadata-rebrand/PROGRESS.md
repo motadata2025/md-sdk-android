@@ -46,7 +46,7 @@ Cut from `motadata-dev` @ `a9da12805` (Branch-1 signed-off checkpoint). **Ships 
 | 14 | Keep-tracking delay tune (5min → ~1min) | 2.4 | ⏭️ N/A | — (no code change) | — |
 | 15 | Add `"Motadata SDK initialized"` log at end of `Motadata.initialize()` | 3.2 | ✅ | `8bdf61937` (impl), `7a988fa06` (test) | build 27128171234 ✅ · tests 27129602386 ✅ (JDK17, 0 fail) |
 
-**Then:** api-surface regen (step 11 changes public API; step 10 adds a public core const) → unit tests green (JDK 17) → bump `AndroidConfig.VERSION` to `1.0.1` → publish 7 modules to GitHub Packages → re-capture on device, confirm `?md-api-key=…`, `is_view_completed`, `session.created`, `context._timing`.
+**FINALIZE — DONE:** ✅ api-surface regen (bot `7b5c1a70e`, run 27130296119 — captures `QUERY_PARAM_API_KEY` const + public `allowClearTextHttp()` + `created`×7 + `isViewCompleted` in generated models) · ✅ version bump → `1.0.1` (`ba15aa1b3`) · ✅ published 7 modules to GitHub Packages as `1.0.1` (run 27131011003; `com.motadata:motadata-rum-android*:1.0.1` live alongside `1.0.0`). Publish workflow made branch-agnostic (`ae21bc49e`). **Remaining: on-device re-capture (user) to confirm `?md-api-key=…`, `view.is_view_completed`, `session.created`, `context._timing` → then Branch-2 sign-off.**
 
 ### Step-15 detail (for the record)
 - Added `MESSAGE_SDK_INITIALIZED = "Motadata SDK initialized"` + an `unboundInternalLogger.log(INFO, USER, …)` call at the end of the primary `Motadata.initialize()` (right after `registry.register`, before `return sdkCore`). No success log existed before; the onboarding doc filters Logcat by the `Motadata` tag for it.
