@@ -58,7 +58,11 @@ allprojects {
 nexusPublishing {
     this.repositories {
         sonatype {
-            stagingProfileId = "378eecbbe2cf9"
+            // stagingProfileId intentionally omitted. The previous hardcoded value was
+            // Datadog's Sonatype staging profile and is invalid for the Motadata
+            // (com.motadata) account. Leaving it unset lets the gradle-nexus plugin
+            // auto-resolve the staging profile from the authenticated Central Portal token
+            // (CENTRAL_PUBLISHER_USERNAME / CENTRAL_PUBLISHER_PASSWORD).
             val sonatypeUsername = System.getenv("CENTRAL_PUBLISHER_USERNAME")
             val sonatypePassword = System.getenv("CENTRAL_PUBLISHER_PASSWORD")
             if (sonatypeUsername != null) username.set(sonatypeUsername)
