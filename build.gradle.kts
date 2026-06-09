@@ -7,6 +7,7 @@
 
 import com.android.build.gradle.LibraryExtension
 import com.datadog.gradle.config.AndroidConfig
+import com.datadog.gradle.config.MavenConfig
 import com.datadog.gradle.config.registerSubModuleAggregationTask
 import org.gradle.api.internal.file.UnionFileTree
 import org.gradle.api.internal.tasks.DefaultTaskDependencyFactory
@@ -34,6 +35,12 @@ plugins {
 }
 
 version = AndroidConfig.VERSION.name
+// Root project group. Required by the gradle-nexus publish-plugin: it auto-resolves the
+// Sonatype/Central staging profile by matching this group against the account's profiles.
+// Without it the group is empty and `initializeSonatypeStagingRepository` fails with
+// "Failed to find staging profile for package group:". Publications set their own groupId
+// in MavenConfig.kt; this is only for staging-profile resolution.
+group = MavenConfig.GROUP_ID
 
 buildscript {
     repositories {
