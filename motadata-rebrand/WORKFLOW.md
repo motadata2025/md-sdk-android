@@ -141,17 +141,18 @@ The test app then consumes it with `--refresh-dependencies` (see the migration S
 
 ---
 
-## 3. The four workflows (reference)
+## 3. The five workflows (reference)
 
 All live in `.github/workflows/`. All are branch-agnostic — they check out `${{ github.ref_name }}`, i.e.
-**whatever branch you dispatch with `--ref`** (publish/test/apidump) or push to (build).
+**whatever branch you dispatch with `--ref`** (publish/publish-central/test/apidump) or push to (build).
 
 | Workflow | Trigger | JDK | What it does |
 |---|---|---|---|
 | `motadata-build.yml` | **push** (both branches) + dispatch | **21** | `assembleDebug` of 7 modules → 7 AARs (compile gate) |
 | `motadata-test.yml` | dispatch | **17** | `testDebugUnitTest --continue` ×7, uploads reports (behavior gate) |
 | `motadata-apidump.yml` | dispatch | **21** | regen api surface, **bot-commits back** (`contents: write`) |
-| `motadata-publish.yml` | dispatch | **21** | publish 7 modules → GitHub Packages (`packages: write`, `-Pdd-skip-signing`) |
+| `motadata-publish.yml` | dispatch | **21** | publish 7 modules → **GitHub Packages** (`packages: write`, `-Pdd-skip-signing` = unsigned) |
+| `motadata-publish-central.yml` | dispatch | **21** | publish 7 modules → **Maven Central** (GPG-signed, staging + close, manual release). See §7 |
 
 **The 7 shipping modules** (the closure published & built):
 `dd-sdk-android-core`, `dd-sdk-android-internal`, `features:dd-sdk-android-rum`,
@@ -229,7 +230,65 @@ only if you must keep the same number (e.g. fixing a bad `1.0.1` before anyone c
 
 ---
 
-## 7. `gh` cheat-sheet
+## 7. Publishing to Maven Central (public releases)
+
+**GitHub Packages (§6) = dev loop** (fast, deletable, needs a PAT to consume).
+**Maven Central = public release** (signed, immutable, consumable with **no token** — `mavenCentral()` is
+default in every Gradle build). Use Central only for **deliberate final releases**, never every iteration
+(Central versions cannot be deleted or reused). Same coordinates + **same version** as GitHub Packages —
+keep them unified: `com.motadata:motadata-rum-android*:1.0.1`.
+
+### How it's wired (already in place — don't re-invent)
+- Plugin: **`io.github.gradle-nexus.publish-plugin`** in root `build.gradle.kts` (`nexusPublishing {}`) →
+  Sonatype **Central Portal** via the OSSRH Staging API (`ossrh-staging-api.central.sonatype.com`).
+- **Signing required**: `MavenConfig.kt` (`useInMemoryPgpKeys`); the Central workflow does **NOT** pass
+  `-Pdd-skip-signing` (Central rejects unsigned artifacts). The POM (name/license/scm/developers) is complete.
+- **Root `group = MavenConfig.GROUP_ID` (`com.motadata`)** in `build.gradle.kts` — REQUIRED. The nexus plugin
+  auto-resolves the staging profile by matching this group; if it's empty,
+  `initializeSonatypeStagingRepository` fails with *"Failed to find staging profile for package group:"*.
+  **Do not remove it.** (The old DataDog `stagingProfileId` was removed so the profile auto-resolves for us.)
+
+### One-time account setup → 4 GitHub repo secrets (full guide: `MAVEN_CENTRAL_SETUP.md`)
+Namespace `com.motadata` is verified on central.sonatype.com (DNS TXT on motadata.com). The account creator
+produces 4 secrets, loaded at **Settings → Secrets and variables → Actions**:
+| Repo secret | Purpose |
+|---|---|
+| `GPG_PRIVATE_KEY` | signing key (full `private-key.asc`, BEGIN→END) — read by `MavenConfig.kt` |
+| `GPG_PASSWORD` | GPG passphrase — read by `MavenConfig.kt` |
+| `CENTRAL_USERNAME` | Central Portal token user — workflow maps it to env `CENTRAL_PUBLISHER_USERNAME` |
+| `CENTRAL_PASSWORD` | Central Portal token pass — workflow maps it to env `CENTRAL_PUBLISHER_PASSWORD` |
+> The build reads `CENTRAL_PUBLISHER_*`; the workflow maps the repo-secret names to those env vars. The GPG
+> **public** key must be on a keyserver (`gpg --send-keys`) so Central can verify signatures.
+
+### Publish procedure
+1. Confirm the version is what you intend to ship publicly (**immutable**). Same number as GitHub Packages.
+2. Dispatch (its `develop` shim makes it resolvable — §4 invariant #2):
+   ```bash
+   gh workflow run motadata-publish-central.yml -R motadata2025/md-sdk-android --ref <branch>
+   ```
+   JDK 21. GPG-signs + uploads the 7 modules to a Sonatype **staging** repo and **closes** it (validates).
+   It does **not** auto-release.
+3. Watch it green: `gh run watch <id> -R motadata2025/md-sdk-android --exit-status`.
+4. **Manual release — the only irreversible step:** central.sonatype.com → **Deployments** → find the
+   `com.motadata … <version>` deployment → **Publish** (or **Drop** to cancel; reversible until Publish).
+5. Syncs to Maven Central, searchable in **~15–30 min**.
+
+### Consuming from Maven Central (app side)
+Swap the GitHub Packages repo block for `mavenCentral()`; **leave the `implementation(...)` lines unchanged**
+(identical coordinates, no PAT):
+```kotlin
+repositories { mavenCentral() }     // delete the maven.pkg.github.com block + its PAT credentials
+implementation("com.motadata:motadata-rum-android:1.0.1")   // unchanged
+```
+
+### First-run gotchas (already hit & fixed — kept here so nobody re-debugs them)
+- *"Failed to find staging profile for package group:"* (empty group) → set root `group = MavenConfig.GROUP_ID`. ✅ fixed.
+- DataDog's hardcoded `stagingProfileId` → removed so it auto-resolves for `com.motadata`. ✅ fixed.
+- *"no public key"* at validation → the GPG public key hadn't propagated; re-run `gpg --send-keys`, wait, re-dispatch.
+
+---
+
+## 8. `gh` cheat-sheet
 
 ```bash
 # trigger a dispatch workflow on a branch
@@ -241,14 +300,18 @@ gh run watch <run-id> -R motadata2025/md-sdk-android --exit-status
 gh run view  <run-id> -R motadata2025/md-sdk-android --log-failed
 gh run rerun <run-id> -R motadata2025/md-sdk-android        # for the gradle-download flake
 
-# list published versions of a package
+# list published versions of a package (GitHub Packages)
 gh api /users/motadata2025/packages/maven/com.motadata.motadata-rum-android/versions -q '.[].name'
+
+# verify a version is live on Maven Central (after Portal "Publish" + sync)
+curl -sI https://repo1.maven.org/maven2/com/motadata/motadata-rum-android/1.0.1/motadata-rum-android-1.0.1.aar | head -1
 ```
 
 ---
 
-## 8. State checkpoints
+## 9. State checkpoints
 
 - Baseline (unchanged 3.10.0) on `motadata-dev`: CI green (run 26818283373) ✅
-- Branch 1 (`motadata-dev`): rebrand complete, published `com.motadata:*:1.0.0` ✅
-- Branch 2 (`motadata-dev-with-functional-changes`): functional additions complete, published `*:1.0.1` ✅
+- Branch 1 (`motadata-dev`): rebrand complete, published `com.motadata:*:1.0.0` (GitHub Packages) ✅
+- Branch 2 (`motadata-dev-with-functional-changes`): functional additions complete, published `*:1.0.1` (GitHub Packages) ✅
+- Maven Central: `com.motadata:*:1.0.1` published from Branch 2 (GPG-signed, via Central Portal) ✅
