@@ -119,7 +119,6 @@ Create one and register it in the manifest's `<application android:name="…">`:
 ```kotlin
 import android.app.Application
 import com.motadata.android.Motadata
-import com.motadata.android.MotadataSite
 import com.motadata.android.core.configuration.Configuration
 import com.motadata.android.privacy.TrackingConsent
 import com.motadata.android.rum.Rum
@@ -138,7 +137,6 @@ class MotadataApplication : Application() {
             env = "<ENVIRONMENT_NAME>",       // e.g. "prod", "staging"
             variant = "<APP_VARIANT_NAME>"     // e.g. "release", "debug"
         )
-            .useSite(MotadataSite.US5)          // ignored when useCustomEndpoint is set, but required
             .allowClearTextHttp()              // HTTP ENDPOINT ONLY — delete this line for https://
             .build()
 
@@ -148,6 +146,7 @@ class MotadataApplication : Application() {
         // 3) RUM configuration → your Motadata custom endpoint
         val rumConfiguration = RumConfiguration.Builder("<MOTADATA_RUM_APPLICATION_ID>")
             .useCustomEndpoint("http://<your-motadata-host>/api/v2/rum/")
+            .setSessionSampleRate(100f)         // % of SESSIONS sent (0–100); 100 = all. Lower to sample.
             .trackUserInteractions()            // taps/clicks → action events
             .trackLongTasks(100L)               // main-thread stalls > 100ms → long_task events
             .useViewTrackingStrategy(ActivityViewTrackingStrategy(false)) // activities → view events
@@ -164,7 +163,6 @@ class MotadataApplication : Application() {
 import android.app.Application;
 
 import com.motadata.android.Motadata;
-import com.motadata.android.MotadataSite;
 import com.motadata.android.core.configuration.Configuration;
 import com.motadata.android.privacy.TrackingConsent;
 import com.motadata.android.rum.Rum;
@@ -184,7 +182,6 @@ public class MotadataApplication extends Application {
                 "<ENVIRONMENT_NAME>",   // e.g. "prod", "staging"
                 "<APP_VARIANT_NAME>"    // e.g. "release", "debug"
         )
-                .useSite(MotadataSite.US5)    // ignored when useCustomEndpoint is set, but required
                 .allowClearTextHttp()         // HTTP ENDPOINT ONLY — delete this line for https://
                 .build();
 
@@ -194,6 +191,7 @@ public class MotadataApplication extends Application {
         // 3) RUM configuration → your Motadata custom endpoint
         RumConfiguration rumConfiguration = new RumConfiguration.Builder("<MOTADATA_RUM_APPLICATION_ID>")
                 .useCustomEndpoint("http://<your-motadata-host>/api/v2/rum/")
+                .setSessionSampleRate(100f)
                 .trackUserInteractions()
                 .trackLongTasks(100L)
                 .useViewTrackingStrategy(new ActivityViewTrackingStrategy(false))
@@ -205,8 +203,11 @@ public class MotadataApplication extends Application {
 }
 ```
 
-> **Site value:** with `useCustomEndpoint(...)` set, `MotadataSite` is not used for routing but the
-> builder still requires one.
+> **No `useSite(...)` needed:** the builder defaults the site to `MotadataSite.US1`, and with
+> `useCustomEndpoint(...)` set the site is never used for routing — so there's no `useSite()` call.
+>
+> **Session sampling:** `.setSessionSampleRate(100f)` sets the percentage of **sessions** sent (0–100).
+> 100 = every session. It's all-or-nothing per session — a sampled-out session sends **no** events.
 >
 > **Events:** this snippet already produces **view, action, long_task, error, and crash** events
 > automatically — each carrying `session.created` + `context._timing`, and view events carrying
