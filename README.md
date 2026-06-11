@@ -1,126 +1,43 @@
-# Motadata SDK for Android and Android TV
+# Motadata RUM SDK for Android
 
-> A client-side Android and Android TV library to interact with Motadata.
+Real User Monitoring (RUM) for Android and Android TV apps. Capture views, user actions,
+network requests, errors, crashes, and performance — and send them to your Motadata platform.
 
-## Getting Started
+## Installation
 
-### Log Collection
-
-See the dedicated [Motadata Android Log Collection documentation][1] to learn how to forward logs from your Android or Android TV application to Motadata.
-
-### Real User Monitoring
-
-See the dedicated [Motadata Android RUM Collection documentation][2] to learn how to send RUM data from your Android or Android TV application to Motadata.
-
-## Log Integrations
-
-### Timber
-
-If your existing codebase is using Timber, you can forward all those logs to  Motadata automatically by using the [dedicated library](integrations/dd-sdk-android-timber/README.md).
-
-## RUM Integrations
-
-### Coil
-
-If you use Coil to load images in your application, see Motadata's [dedicated library](integrations/dd-sdk-android-coil/README.md).
-
-### Fresco
-
-If you use Fresco to load images in your application, see Motadata's [dedicated library](integrations/dd-sdk-android-fresco/README.md).
-
-### Glide
-
-If you use Glide to load images in your application, see Motadata's [dedicated library](integrations/dd-sdk-android-glide/README.md).
-
-### Jetpack Compose
-
-If you use Jetpack Compose in your application, see Motadata's [dedicated library](integrations/dd-sdk-android-compose/README.md).
-
-### SQLDelight
-
-If you use SQLDelight in your application, see Motadata's [dedicated library](integrations/dd-sdk-android-sqldelight/README.md).
-
-### RxJava
-
-If you use RxJava in your application, see Motadata's [dedicated library](integrations/dd-sdk-android-rx/README.md).
-
-### Picasso
-
-If you use Picasso, use it with the `OkHttpClient` that's been instrumented with the Motadata SDK for RUM and APM information about network requests made by Picasso.
+Available on Maven Central:
 
 ```kotlin
-        val picasso = Picasso.Builder(context)
-                .downloader(OkHttp3Downloader(okHttpClient))
-                // …
-                .build()
-        Picasso.setSingletonInstance(picasso)
+dependencies {
+    implementation("com.motadata:motadata-rum-android:1.0.1")
+    // optional — network resource tracking via OkHttp
+    implementation("com.motadata:motadata-rum-android-okhttp:1.0.1")
+}
 ```
 
-### Retrofit
+## Quick start
 
-If you use Retrofit, use it with the `OkHttpClient` that's been instrumented with the Motadata SDK for RUM and APM information about network requests made with Retrofit.
+Initialize the SDK once in your `Application.onCreate()`, then enable RUM with your Motadata endpoint:
 
 ```kotlin
-        val retrofitClient = Retrofit.Builder()
-                .client(okHttpClient)
-                // …
-                .build()
+val configuration = Configuration.Builder(clientToken, env, variant).build()
+Motadata.initialize(this, configuration, TrackingConsent.GRANTED)
+
+val rumConfiguration = RumConfiguration.Builder(applicationId)
+    .useCustomEndpoint("https://<your-motadata-endpoint>/api/v2/rum/")
+    .trackUserInteractions()
+    .trackLongTasks()
+    .useViewTrackingStrategy(ActivityViewTrackingStrategy(false))
+    .build()
+Rum.enable(rumConfiguration)
 ```
 
-### Apollo (GraphQL)
+Get your **RUM application ID** and **client token** from your Motadata organization.
 
-If you use Apollo, use it with the `OkHttpClient` that's been instrumented with the Motadata SDK for RUM and APM information about all the queries performed through Apollo client.
+## Requirements
 
-```kotlin
-        val apolloClient =  ApolloClient.builder()
-                 .okHttpClient(okHttpClient)
-                 .serverUrl(<APOLLO_SERVER_URL>)
-                 .build()
-```
-
-### Kotlin Coroutines
-
-If you use Kotlin Coroutines, see Motadata's [dedicated library with extensions for RUM](integrations/dd-sdk-android-rum-coroutines/README.md) and with [extensions for Trace](integrations/dd-sdk-android-trace-coroutines/README.md)
-
-## Looking up your logs
-
-When you open your console in Motadata, navigate to the [Log Explorer][3]. In the search bar, type `source:android`. This filters your logs to only show the ones coming from Android or Android TV applications.
-
-![Motadata Mobile Logs](docs/images/screenshot_logs.png)
-
-## Looking up your spans
-
-When you open your console in Motadata, navigate to [**APM** > **Services**][4]. In the list of services, you can see all your Android and Android TV applications (by default, the service name matches your application's package name, for example: `com.example.android`). You can access all the traces started from your application.
-
-![Motadata Mobile Logs](docs/images/screenshot_apm.png)
-
-## Looking up your RUM events
-
-When you open your console in Motadata, navigate to the [RUM Explorer][5]. In the side bar, you can select your application and explore Sessions, Views, Actions, Errors, Resources, and Long Tasks.
-
-![Motadata Mobile Logs](docs/images/screenshot_rum.png)
-
-## Troubleshooting
-
-If you encounter any issue when using the Motadata SDK for Android and Android TV, please take a look at 
-the [troubleshooting checklist][6], [common problems](docs/advanced_troubleshooting.md), or at
-the existing [issues](https://github.com/DataDog/dd-sdk-android/issues?q=is%3Aissue).
-
-<div class="alert alert-warning">
-Motadata cannot guarantee the Android and Android TV SDK's performance on Roku devices running with Android OS. If you encounter any issues when using the SDK for these devices, contact <a href="https://docs.datadoghq.com/help/">Motadata Support</a> or open an issue in our GitHub project.
-</div>
-
-## Contributing
-
-Pull requests are welcome. First, open an issue to discuss what you would like to change. For more information, read the [Contributing Guide](CONTRIBUTING.md).
+- Android `minSdk` 23+ (Android 6.0), `compileSdk` 36, Java 17
 
 ## License
 
-[Apache License, v2.0](LICENSE)
-
-[1]: https://docs.datadoghq.com/logs/log_collection/android/?tab=kotlin
-[2]: https://docs.datadoghq.com/real_user_monitoring/android/?tab=kotlin
-[3]: https://app.datadoghq.com/logs
-[4]: https://app.datadoghq.com/apm/services
-[5]: https://app.datadoghq.com/rum/explorer
-[6]: https://docs.datadoghq.com/real_user_monitoring/mobile_and_tv_monitoring/troubleshooting/android/
+Apache License 2.0 — see [LICENSE](LICENSE).

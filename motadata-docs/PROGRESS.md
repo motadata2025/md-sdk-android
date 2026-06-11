@@ -162,7 +162,7 @@ All 7 modules: `testDebugUnitTest` green + `assembleDebug` green (7 AARs) + `che
 ## Notes & decisions (running log)
 
 - **Scope rule:** rename **only** the `com.datadog.android` namespace. Leave `com.datadog.trace` / `.tools` / `.gradle` / `.benchmark` (and `.sample`/`.opentelemetry`/etc.) — those are separate roots, not product-facing in the same way.
-- **`motadata-rebrand/` docs keep the old `com.datadog.*` names on purpose** (they describe the before→after migration). The rename pass reverts any accidental edits to them.
+- **`motadata-docs/` docs keep the old `com.datadog.*` names on purpose** (they describe the before→after migration). The rename pass reverts any accidental edits to them.
 - **Deferred on purpose (do NOT treat as missed):**
   - `group = "datadog"` Gradle task-group labels in `buildSrc` (~10×) — cosmetic, internal-only, not shipped.
   - `MavenConfig.kt` `GROUP_ID = "com.datadoghq"` and AAR/artifact filenames `dd-sdk-android-*` → **step 8**.

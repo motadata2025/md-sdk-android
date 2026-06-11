@@ -5,11 +5,8 @@ custom endpoint (HTTP or HTTPS). Three steps: **S‑1 Dependencies → S‑2 Ini
 (resource tracking, optional)**.
 
 > This is the **canonical client SOP** (current version **`1.0.1`**, distributed via **Maven Central**).
-> It supersedes the branch‑specific SOPs (`…_BRANCH-1`, `…_BRANCH-2`), which remain only as internal history.
 
-> **What `1.0.1` is:** the fully‑rebranded SDK (`com.motadata.android.*`, `Motadata*`, `MD-*`,
-> `mdsource`/`mdtags`, `"_md"`) **plus** Motadata‑specific functional additions. The additions are all
-> **automatic — no extra app code**:
+> **What `1.0.1` includes** (all **automatic — no extra app code**):
 > - **`md-api-key` query param** on every request (the param your Motadata intake authenticates on)
 > - **`view.is_view_completed`** (`"yes"`/`"no"`) on view events
 > - **`session.created`** (epoch‑ms) + **`context._timing { navigationStart (ms), relativeTime (ns) }`** on every event
@@ -73,8 +70,6 @@ dependencies {
 }
 ```
 </details>
-
-> Remove any old `com.datadoghq:dd-sdk-android-*` dependencies — keeping both causes conflicts.
 
 ### 1c. Manifest — `AndroidManifest.xml`
 Add the INTERNET permission. **Only if your Motadata endpoint is plain HTTP**, allow cleartext
@@ -220,8 +215,7 @@ If your Motadata endpoint is plain **`http://`** (not `https://`), you must enab
 2. **SDK** — `.allowClearTextHttp()` in the `Configuration.Builder` chain (S‑2 above), or the SDK
    rejects the `http://` endpoint.
 
-In `1.0.1`, `allowClearTextHttp()` is a **public** builder method — a normal chained call, no internal
-`_InternalProxy` workaround and no `@SuppressLint` needed.
+`allowClearTextHttp()` is a **public** builder method — just a normal chained call.
 
 **For an `https://` endpoint:** delete the `.allowClearTextHttp()` line and omit
 `usesCleartextTraffic` — neither is needed.
@@ -275,13 +269,13 @@ Expected: `com.motadata:motadata-rum-android:1.0.1` (+ `-okhttp` and transitive 
 resolved from Maven Central — **no `maven.pkg.github.com`, no GitHub PAT**.
 
 Runtime checks:
-- Logcat tag is **`Motadata`** (no `Datadog`); shows **`Motadata SDK initialized`** at startup, no
+- Logcat tag is **`Motadata`**; shows **`Motadata SDK initialized`** at startup, no
   SDK/upload errors: `adb logcat -s Motadata`
 - Request hits your **custom Motadata host**; query is `mdsource=android&md-api-key=<clientToken>`
-  (+ `mdtags`), **not** `dd*`
+  (+ `mdtags`)
 - Headers are `MD-API-KEY`, `MD-EVP-ORIGIN`, `MD-EVP-ORIGIN-VERSION` (= `1.0.1`), `MD-REQUEST-ID`,
-  `MD-IDEMPOTENCY-KEY` — **no `DD-*`**
-- Event bodies use `"_md"` (not `"_dd"`); `service` is `motadata-rum-android`
+  `MD-IDEMPOTENCY-KEY`
+- Event bodies use `"_md"`; `service` is `motadata-rum-android`
 - **New fields present:** view events have `view.is_view_completed`; every event has
   `session.created` and `context._timing { navigationStart, relativeTime }`
 - Endpoint returns **200/202** (with a valid registered token) — and events appear in the client's
