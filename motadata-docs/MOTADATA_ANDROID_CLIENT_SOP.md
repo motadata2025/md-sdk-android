@@ -144,6 +144,7 @@ class MotadataApplication : Application() {
             .setSessionSampleRate(100f)         // % of SESSIONS sent (0–100); 100 = all. Lower to sample.
             .trackUserInteractions()            // taps/clicks → action events
             .trackLongTasks(100L)               // main-thread stalls > 100ms → long_task events
+            .trackNonFatalAnrs(true)            // watchdog for main-thread hangs (non-fatal ANRs) → error events
             .useViewTrackingStrategy(ActivityViewTrackingStrategy(false)) // activities → view events
             .build()
 
@@ -189,6 +190,7 @@ public class MotadataApplication extends Application {
                 .setSessionSampleRate(100f)
                 .trackUserInteractions()
                 .trackLongTasks(100L)
+                .trackNonFatalAnrs(true)
                 .useViewTrackingStrategy(new ActivityViewTrackingStrategy(false))
                 .build();
 
